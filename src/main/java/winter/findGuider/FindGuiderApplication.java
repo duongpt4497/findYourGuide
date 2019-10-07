@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"entiy","model","winter.findGuider","winter.findGuider.web.api"})
+@ComponentScan({"entities","services","winter.findGuider","winter.findGuider.web.api"})
 public class FindGuiderApplication {
 
 	public static void main(String[] args) {
