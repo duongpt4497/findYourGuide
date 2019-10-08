@@ -45,19 +45,6 @@ public class AccountModel {
 
     public List<Account> findAllActors() {
         return jdbc.query("select * from actor ", this::mapRow);
-//        return jdbc.queryForList("select * from actor ", Account.class);
-//        return jdbc.queryForObject("select * from actor where actor_id = ?",
-//                new RowMapper<Account>() {
-//            public Account mapRow(ResultSet rs, int rowNum)
-//                    throws SQLException {
-//                return new Account(
-//                        rs.getLong("actor_id"),
-//                        rs.getString("first_name"),
-//                        rs.getString("last_name"),
-//                        rs.getDate("last_update"));
-//            }
-//         ;
-//            }, id);
     }
 
     public Account mapRow(ResultSet rs, int rowNum) throws SQLException {

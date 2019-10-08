@@ -1,6 +1,14 @@
 model\AccountModel$1.class
 entity\dataSource.class
+entity\Account.class
+model\UserRepo.class
+entity\Guider.class
+winter\findGuider\web\api\GuiderController.class
+entity\User.class
 winter\findGuider\web\api\UserController.class
 model\AccountModel.class
-entity\Account.class
+model\UserRepo$1.class
+model\GuiderRepo.class
+entity\TokenProperties.class
 winter\findGuider\FindGuiderApplication.class
+winter\findGuider\web\api\GreetingController.class
