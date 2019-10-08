@@ -25,20 +25,19 @@ public class GuiderServiceImpl implements GuiderService {
     @Override
     public Guider findGuiderWithID(long id) {
         try {
-            String query = "select * from guider_info,guider_post where guider_id = " + id;
+            String query = "select * from guider where guider_id = " + id;
             System.out.println(query);
-            return jdbcTemplate.queryForObject("select * from guider_info where guider_id = ?", new RowMapper<Guider>() {
+            return jdbcTemplate.queryForObject("select * from guider where guider_id = ?", new RowMapper<Guider>() {
                 public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
                     return new Guider(
                             rs.getLong("guider_id"),
-                            rs.getLong("contract_id"),
-                            rs.getLong("account_id"),
                             rs.getString("first_name"),
                             rs.getString("last_name"),
                             rs.getInt("age"),
                             rs.getString("about_me"),
-                            rs.getLong("contribution_point"),
+                            rs.getLong("contribution"),
                             rs.getString("city"),
+                            rs.getBoolean("active"),
                             (String[]) rs.getArray("available_language").getArray()
                     );
                 };

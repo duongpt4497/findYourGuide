@@ -34,8 +34,8 @@ public class ReviewServiceImpl implements ReviewService {
                             rs.getLong("guider_id"),
                             rs.getLong("post_id"),
                             rs.getString("review"),
-                            rs.getLong("rated_star"),
-                            rs.getDate("date")
+                            rs.getLong("rated"),
+                            rs.getDate("post_date")
                     );
                 };
             }, guider_id);
