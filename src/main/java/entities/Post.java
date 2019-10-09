@@ -8,12 +8,12 @@ public class Post {
     private String[] picture_link;
     private int total_hour;
     private String description;
-    private String including_service;
+    private String[] including_service;
     private boolean active;
     private String location;
-    private List<List<Activity>> activities;
+    private List<Activity> activities;
 
-    public Post(String title, String video_link, String[] picture_link, int total_hour, String description, String including_service, boolean active, String location, List<List<Activity>> activities) {
+    public Post(String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location, List<Activity> activities) {
         this.title = title;
         this.video_link = video_link;
         this.picture_link = picture_link;
@@ -30,6 +30,10 @@ public class Post {
         this.picture_link = picture_link;
         this.description = description;
         this.active = active;
+    }
+
+    public Post() {
+
     }
 
     public String getTitle() {
@@ -52,7 +56,7 @@ public class Post {
         return description;
     }
 
-    public String getIncluding_service() {
+    public String[] getIncluding_service() {
         return including_service;
     }
 
@@ -64,7 +68,7 @@ public class Post {
         return location;
     }
 
-    public List<List<Activity>> getActivities() {
+    public List<Activity> getActivities() {
         return activities;
     }
 

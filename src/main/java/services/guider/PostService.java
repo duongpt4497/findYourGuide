@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface PostService {
     List<Post> findAllPost(long guider_id);
+
+    Post findSpecificPost(long post_id);
 }

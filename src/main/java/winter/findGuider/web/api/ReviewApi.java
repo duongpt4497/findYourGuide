@@ -33,4 +33,14 @@ public class ReviewApi {
         return null;
     }
 
+    @GetMapping("/post/{id}"+".json")
+    public List<Review> findReviewByPostId(@PathVariable("id") long id){
+        try{
+
+            return reviewServiceImpl.findReviewsByPostId(id);
+        }catch(Exception e ){
+            System.out.println(e.getMessage() + e.getStackTrace() + e.getCause() + e.getLocalizedMessage() + id);
+        }
+        return null;
+    }
 }

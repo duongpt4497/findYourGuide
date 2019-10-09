@@ -1,5 +1,6 @@
 package services.guider;
 
+import entities.Activity;
 import entities.Post;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class PostServiceImpl  implements PostService {
+public class PostServiceImpl implements PostService {
 
     private Logger logger;
     private JdbcTemplate jdbcTemplate;
@@ -25,7 +26,7 @@ public class PostServiceImpl  implements PostService {
 
     @Override
     public List<Post> findAllPost(long guider_id) {
-        try{
+        try {
             return jdbcTemplate.query("select * from post where guider_id = ?", new RowMapper<Post>() {
                 @Override
                 public Post mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -36,11 +37,45 @@ public class PostServiceImpl  implements PostService {
                     );
 
                 }
-            },guider_id);
-        }
-        catch (Exception e ){
+            }, guider_id);
+        } catch (Exception e) {
             System.out.println(e.getMessage() + e.getStackTrace() + e.getCause());
         }
         return null;
+    }
+
+    @Override
+    public Post findSpecificPost(long post_id) {
+        List<Activity> activities = jdbcTemplate.query("select * from  activity where post_id = ? ", new RowMapper<Activity>() {
+            @Override
+            public Activity mapRow(ResultSet resultSet, int i) throws SQLException {
+                return new Activity(
+                        resultSet.getString("brief"),
+                        resultSet.getString("detail")
+                );
+            }
+        }, post_id);
+        try{
+            return jdbcTemplate.queryForObject("select * from  post as p, locations as l where p.location_id = l.location_id and p.post_id = ?", new RowMapper<Post>() {
+                @Override
+                public Post mapRow(ResultSet resultSet, int i) throws SQLException {
+                    return new Post(
+                            resultSet.getString("title"),
+                            resultSet.getString("video_link") != null ? resultSet.getString("video_link") : "unkonw",
+                            generalService.checkForNull(resultSet.getArray("picture_link")),
+                            resultSet.getInt("total_hour"),
+                            resultSet.getString("description"),
+                            generalService.checkForNull(resultSet.getArray("including_service")),
+                            resultSet.getBoolean("active"),
+                            resultSet.getString("place"),
+                            activities
+                    );
+                }
+            },post_id);
+        }catch(Exception e ){
+            System.out.println("select * from  post as p, locations as l where p.location_id = l.location_id and p.post_id = ");
+            System.out.println(e.getMessage()+ e.getStackTrace() + e.getCause() +e.getLocalizedMessage());
+        }
+        return new Post();
     }
 }

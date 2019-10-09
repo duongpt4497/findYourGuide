@@ -35,4 +35,13 @@ public class GuiderPostApi {
         return null;
     }
 
+    @GetMapping("/post/{id}")
+    public Post dinfSpecificPost(@PathVariable("id") long id){
+        try{
+            return postServiceImpl.findSpecificPost(id);
+        }catch(Exception e ){
+            System.out.println(e.getMessage() + e.getStackTrace());
+        }
+        return null;
+    }
 }

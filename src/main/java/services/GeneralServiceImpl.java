@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -29,5 +30,18 @@ public class GeneralServiceImpl implements GeneralService {
         } catch (SQLException ignore) {
         }
         return intArray;
+    }
+
+    @Override
+    public String[] checkForNull(Array checkArray) {
+        String[] checkedString={"unknown"} ;
+        if (checkArray != null){
+            try {
+                checkedString = (String[]) checkArray.getArray();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return checkedString;
     }
 }

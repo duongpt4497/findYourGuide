@@ -29,6 +29,17 @@ public class GuiderInfoApi {
         return null;
     }
 
+    @GetMapping("/post/{id}")
+    public Guider findGuiderByPostId(@PathVariable("id") long id){
+        try{
+
+            return guiderServiceImpl.findGuiderWithPostId(id);
+        }catch(Exception e ){
+            System.out.println(e.getMessage() + e.getStackTrace() + e.getCause() + e.getLocalizedMessage() + id);
+        }
+        return null;
+    }
+
     /*@GetMapping("/{id}")
     public Guider findGuider2(@PathVariable("id") long id){
         try{
