@@ -2,67 +2,107 @@ package entities;
 
 import lombok.Data;
 
-import java.sql.Array;
-
 @Data
 public class Guider {
-    private long guider_id;
-    //private long contract_id;
-    //private long account_id;
-    private String first_name;
-    private String last_name;
-    private int age;
-    private String about_me;
-    private long contribution_point;
-    private String city;
-    private boolean active;
-    private String[] available_langauge;
 
-    public Guider(long guider_id, String first_name, String last_name, int age, String about_me, long contribution_point, String city, boolean active, String[] available_langauge) {
-        this.guider_id = guider_id;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.age = age;
-        this.about_me = about_me;
-        this.contribution_point = contribution_point;
-        this.city = city;
-        this.active = active;
-        this.available_langauge = available_langauge;
-    }
+	private long guider_id;
 
-    public long getGuider_id() {
-        return guider_id;
-    }
+	// private long contract_id;
 
-    public boolean isActive() {
-        return active;
-    }
+	// private long account_id;
 
-    public String getFirst_name() {
-        return first_name;
-    }
+	private String first_name;
 
-    public String getLast_name() {
-        return last_name;
-    }
+	private String last_name;
 
-    public int getAge() {
-        return age;
-    }
+	private int age;
 
-    public String getAbout_me() {
-        return about_me;
-    }
+	private String about_me;
 
-    public long getContribution_point() {
-        return contribution_point;
-    }
+	private long contribution_point;
 
-    public String getCity() {
-        return city;
-    }
+	private String city;
 
-    public String[] getAvailable_langauge() {
-        return available_langauge;
-    }
+	private boolean active;
+
+//	private String[] available_langauge;
+
+	public Guider() {
+	}
+
+	public Guider(long guider_id, String first_name, String last_name, int age, String about_me,
+			long contribution_point, String city, boolean active) {
+		this.guider_id = guider_id;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.age = age;
+		this.about_me = about_me;
+		this.contribution_point = contribution_point;
+		this.city = city;
+		this.active = active;
+	}
+
+	public long getGuider_id() {
+		return guider_id;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public String getFirst_name() {
+		return first_name;
+	}
+
+	public String getLast_name() {
+		return last_name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public String getAbout_me() {
+		return about_me;
+	}
+
+	public long getContribution_point() {
+		return contribution_point;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setGuider_id(long guider_id) {
+		this.guider_id = guider_id;
+	}
+
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
+	}
+
+	public void setLast_name(String last_name) {
+		this.last_name = last_name;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public void setAbout_me(String about_me) {
+		this.about_me = about_me;
+	}
+
+	public void setContribution_point(long contribution_point) {
+		this.contribution_point = contribution_point;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 }
