@@ -38,7 +38,7 @@ public class GuiderServiceImpl implements GuiderService {
                             rs.getLong("contribution"),
                             rs.getString("city"),
                             rs.getBoolean("active"),
-                            (String[]) rs.getArray("available_language").getArray()
+                            generalService.checkForNull(rs.getArray("available_language"))
                     );
                 };
             }, id);

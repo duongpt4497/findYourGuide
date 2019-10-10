@@ -9,6 +9,7 @@ import services.GeneralServiceImpl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -31,7 +32,7 @@ public class PostServiceImpl implements PostService {
                 @Override
                 public Post mapRow(ResultSet resultSet, int i) throws SQLException {
                     return new Post(resultSet.getString("title"),
-                            (String[]) resultSet.getArray("picture_link").getArray(),
+                            generalService.checkForNull(resultSet.getArray("picture_link")) ,
                             resultSet.getString("description"),
                             resultSet.getBoolean("active")
                     );
@@ -77,5 +78,15 @@ public class PostServiceImpl implements PostService {
             System.out.println(e.getMessage()+ e.getStackTrace() + e.getCause() +e.getLocalizedMessage());
         }
         return new Post();
+    }
+
+    @Override
+    public void updatePost(long post_id, Post post) {
+        String query = "UPDATE post SET  title='"+post.getTitle()+"', picture_link='"+generalService.createSqlArray(Arrays.asList(post.getPicture_link()))+"', video_link ='"
+                +post.getVideo_link()+"',total_hour="+post.getTotal_hour()+",description = '"+post.getDescription()+"',including_service='"+
+                generalService.createSqlArray(Arrays.asList(post.getIncluding_service()))+"',active = "+post.isActive()+" WHERE post_id =1";
+
+
+
     }
 }

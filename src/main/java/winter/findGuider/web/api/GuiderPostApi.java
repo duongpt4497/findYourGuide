@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import services.GeneralServiceImpl;
 import services.guider.GuiderServiceImpl;
 import services.guider.PostServiceImpl;
+import org.springframework.http.*;
 
 import java.util.List;
 
@@ -36,12 +37,29 @@ public class GuiderPostApi {
     }
 
     @GetMapping("/post/{id}")
-    public Post dinfSpecificPost(@PathVariable("id") long id){
+    public ResponseEntity<Post> dinfSpecificPost(@PathVariable("id") long id) {
         try{
-            return postServiceImpl.findSpecificPost(id);
+
+            return new ResponseEntity(postServiceImpl.findSpecificPost(id), HttpStatus.OK);
         }catch(Exception e ){
             System.out.println(e.getMessage() + e.getStackTrace());
         }
         return null;
+    }
+
+    @PostMapping(consumes="application/json",value = "/update/post")
+    @ResponseStatus(HttpStatus.OK)
+    public void postReview(@RequestBody Post post) {
+        System.out.println(post);
+    }
+
+    @PutMapping("/update1/post")
+    public void updatePost(@RequestParam("id") long post_id,@RequestParam("title") String title  ){
+        try{
+            String query = post_id + title;
+            System.out.println(query);
+        }catch(Exception e){
+
+        }
     }
 }
