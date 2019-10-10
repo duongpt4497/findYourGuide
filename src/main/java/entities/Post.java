@@ -11,9 +11,9 @@ public class Post {
     private String[] including_service;
     private boolean active;
     private String location;
-    private List<Activity> activities;
 
-    public Post(String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location, List<Activity> activities) {
+
+    public Post(String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location) {
         this.title = title;
         this.video_link = video_link;
         this.picture_link = picture_link;
@@ -22,7 +22,7 @@ public class Post {
         this.including_service = including_service;
         this.active = active;
         this.location = location;
-        this.activities = activities;
+
     }
 
     public Post(String title,String[] picture_link,String description,boolean active) {
@@ -68,9 +68,7 @@ public class Post {
         return location;
     }
 
-    public List<Activity> getActivities() {
-        return activities;
-    }
+
 
 
 }

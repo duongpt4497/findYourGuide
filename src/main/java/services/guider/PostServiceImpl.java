@@ -46,15 +46,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post findSpecificPost(long post_id) {
-        List<Activity> activities = jdbcTemplate.query("select * from  activity where post_id = ? ", new RowMapper<Activity>() {
-            @Override
-            public Activity mapRow(ResultSet resultSet, int i) throws SQLException {
-                return new Activity(
-                        resultSet.getString("brief"),
-                        resultSet.getString("detail")
-                );
-            }
-        }, post_id);
+
         try{
             return jdbcTemplate.queryForObject("select * from  post as p, locations as l where p.location_id = l.location_id and p.post_id = ?", new RowMapper<Post>() {
                 @Override
@@ -67,8 +59,8 @@ public class PostServiceImpl implements PostService {
                             resultSet.getString("description"),
                             generalService.checkForNull(resultSet.getArray("including_service")),
                             resultSet.getBoolean("active"),
-                            resultSet.getString("place"),
-                            activities
+                            resultSet.getString("place")
+
                     );
                 }
             },post_id);
