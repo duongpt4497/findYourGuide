@@ -14,15 +14,14 @@ public class GeneralServiceImpl implements GeneralService {
 
     private JdbcTemplate jdbcTemplate;
 
-
     @Autowired
-    public GeneralServiceImpl( JdbcTemplate jdbcTemplate){
+    public GeneralServiceImpl(JdbcTemplate jdbcTemplate) {
 
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
-    public java.sql.Array createSqlArray(List<String> list){
+    public java.sql.Array createSqlArray(List<String> list) {
         java.sql.Array intArray = null;
         try {
             intArray = jdbcTemplate.getDataSource().getConnection().createArrayOf("text", list.toArray());
