@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @RestController
-@RequestMapping(path = "/TravelerCreate", produces = "application/json")
+@RequestMapping(path = "/Traveler", produces = "application/json")
 @CrossOrigin(origins = "*")
 public class TravelerController {
     private TravelerService travelerService;
@@ -22,7 +22,7 @@ public class TravelerController {
         this.travelerService = ts;
     }
 
-    @RequestMapping("/{first_name}/{last_name}/{phone}/{email}/{gender}/{day}/{month}/{year}/{street}/{home_number}/{postal_code}/{slogan}/{about_me}/{language}/{country}/{city}")
+    @RequestMapping("/Create/{first_name}/{last_name}/{phone}/{email}/{gender}/{day}/{month}/{year}/{street}/{home_number}/{postal_code}/{slogan}/{about_me}/{language}/{country}/{city}/{avatar_link}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Traveler> createTraveler(@PathVariable("first_name") String first_name, @PathVariable("last_name") String last_name,
                                                    @PathVariable("phone") String phone, @PathVariable("email") String email,
@@ -31,7 +31,8 @@ public class TravelerController {
                                                    @PathVariable("street") String street, @PathVariable("home_number") String home_number,
                                                    @PathVariable("postal_code") String postal_code, @PathVariable("slogan") String slogan,
                                                    @PathVariable("about_me") String about_me, @PathVariable("language") String[] language,
-                                                   @PathVariable("country") String country, @PathVariable("city") String city) {
+                                                   @PathVariable("country") String country, @PathVariable("city") String city,
+                                                   @PathVariable("avatar_link") String avatar_link) {
         Traveler newTraveler = new Traveler();
         newTraveler.setFirst_name(first_name);
         newTraveler.setLast_name(last_name);
@@ -52,6 +53,7 @@ public class TravelerController {
         newTraveler.setLanguage(language);
         newTraveler.setCountry(country);
         newTraveler.setCity(city);
+        newTraveler.setAvatar_link(avatar_link);
         long createdId = travelerService.createTraveler(newTraveler);
         return new ResponseEntity<>(travelerService.findTravelerWithId(createdId), HttpStatus.OK);
     }

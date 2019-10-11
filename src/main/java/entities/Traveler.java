@@ -2,7 +2,6 @@ package entities;
 
 import lombok.Data;
 
-import java.util.Arrays;
 import java.util.Date;
 
 @Data
@@ -38,10 +37,12 @@ public class Traveler {
 
     private String city;
 
+    private String avatar_link;
+
     public Traveler() {
     }
 
-    public Traveler(long traveler_id, String first_name, String last_name, String phone, String email, int gender, Date date_of_birth, String street, String house_number, String postal_code, String slogan, String about_me, String[] language, String country, String city) {
+    public Traveler(long traveler_id, String first_name, String last_name, String phone, String email, int gender, Date date_of_birth, String street, String house_number, String postal_code, String slogan, String about_me, String[] language, String country, String city, String avatar_link) {
         this.traveler_id = traveler_id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -57,6 +58,15 @@ public class Traveler {
         this.language = language;
         this.country = country;
         this.city = city;
+        this.avatar_link = avatar_link;
+    }
+
+    public String getAvatar_link() {
+        return avatar_link;
+    }
+
+    public void setAvatar_link(String avatar_link) {
+        this.avatar_link = avatar_link;
     }
 
     public long getTraveler_id() {
@@ -177,26 +187,5 @@ public class Traveler {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    @Override
-    public String toString() {
-        return "Traveler{" +
-                "traveler_id=" + traveler_id +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", gender=" + gender +
-                ", date_of_birth=" + date_of_birth +
-                ", street='" + street + '\'' +
-                ", house_number='" + house_number + '\'' +
-                ", postal_code='" + postal_code + '\'' +
-                ", slogan='" + slogan + '\'' +
-                ", about_me='" + about_me + '\'' +
-                ", language=" + Arrays.toString(language) +
-                ", country='" + country + '\'' +
-                ", city='" + city + '\'' +
-                '}';
     }
 }
