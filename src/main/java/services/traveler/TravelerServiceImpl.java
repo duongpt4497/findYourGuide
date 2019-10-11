@@ -82,7 +82,20 @@ public class TravelerServiceImpl implements TravelerService {
     }
 
     @Override
-    public long updateTraveler(Traveler travelerNeedUpdate) {
-        return 0;
+    public void updateTraveler(Traveler travelerNeedUpdate) {
+        try {
+            String query = "update traveler set first_name = ?, last_name = ?, phone = ?, email = ?, gender = ?," +
+                    "date_of_birth = ?, street = ?, house_number = ?, postal_code = ?, slogan = ?, about_me = ?," +
+                    "language = ?, country = ?, city = ?, avatar_link = ? where traveler_id = ?";
+            jdbcTemplate.update(query, travelerNeedUpdate.getFirst_name(), travelerNeedUpdate.getLast_name(),
+                    travelerNeedUpdate.getPhone(), travelerNeedUpdate.getEmail(), travelerNeedUpdate.getGender(),
+                    new java.sql.Date(travelerNeedUpdate.getDate_of_birth().getTime()), travelerNeedUpdate.getStreet(),
+                    travelerNeedUpdate.getHouse_number(), travelerNeedUpdate.getPostal_code(), travelerNeedUpdate.getSlogan(),
+                    travelerNeedUpdate.getAbout_me(), generalService.createSqlArray(Arrays.asList(travelerNeedUpdate.getLanguage())),
+                    travelerNeedUpdate.getCountry(), travelerNeedUpdate.getCity(), travelerNeedUpdate.getAvatar_link(),
+                    travelerNeedUpdate.getTraveler_id());
+        } catch (Exception e) {
+            logger.info(e.getMessage());
+        }
     }
 }

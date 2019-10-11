@@ -9,6 +9,7 @@ winter\findGuider\web\api\GuiderPostApi.class
 services\guider\PostServiceImpl.class
 services\GeneralService.class
 winter\findGuider\web\api\TravelerController.class
+services\PasswordEncrypt.class
 services\guider\ReviewServiceImpl.class
 services\guider\ReviewService.class
 services\traveler\TravelerService.class

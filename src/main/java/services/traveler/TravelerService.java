@@ -7,5 +7,5 @@ public interface TravelerService {
 
     public Traveler findTravelerWithId(long id);
 
-    public long updateTraveler(Traveler travelerNeedUpdate);
+    public void updateTraveler(Traveler travelerNeedUpdate);
 }
