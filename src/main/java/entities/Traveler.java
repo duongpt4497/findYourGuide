@@ -2,6 +2,7 @@ package entities;
 
 import lombok.Data;
 
+import java.util.Arrays;
 import java.util.Date;
 
 @Data
@@ -176,5 +177,26 @@ public class Traveler {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    @Override
+    public String toString() {
+        return "Traveler{" +
+                "traveler_id=" + traveler_id +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", gender=" + gender +
+                ", date_of_birth=" + date_of_birth +
+                ", street='" + street + '\'' +
+                ", house_number='" + house_number + '\'' +
+                ", postal_code='" + postal_code + '\'' +
+                ", slogan='" + slogan + '\'' +
+                ", about_me='" + about_me + '\'' +
+                ", language=" + Arrays.toString(language) +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                '}';
     }
 }
