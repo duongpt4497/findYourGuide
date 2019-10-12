@@ -1,11 +1,10 @@
 package winter.findGuider.web.api;
 
-import entities.Guider;
 import entities.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import services.GeneralServiceImpl;
-import services.guider.GuiderServiceImpl;
+import services.guider.ActivityServiceImpl;
 import services.guider.PostServiceImpl;
 import org.springframework.http.*;
 
@@ -18,11 +17,13 @@ public class GuiderPostApi {
 
     private GeneralServiceImpl generalServiceImpl;
     private PostServiceImpl postServiceImpl;
+    private ActivityServiceImpl activityService;
 
     @Autowired
-    public GuiderPostApi (GeneralServiceImpl gs,PostServiceImpl postServiceImpl){
+    public GuiderPostApi (GeneralServiceImpl gs,PostServiceImpl postServiceImpl,ActivityServiceImpl activityService){
         this.generalServiceImpl = gs;
         this.postServiceImpl = postServiceImpl;
+        this.activityService = activityService;
     }
 
     @GetMapping("/{id}")
@@ -49,17 +50,10 @@ public class GuiderPostApi {
 
     @PostMapping(consumes="application/json",value = "/update/post")
     @ResponseStatus(HttpStatus.OK)
-    public void postReview(@RequestBody Post post) {
-        System.out.println(post);
+    public Long updatePost( @RequestBody Post post) {
+        postServiceImpl.updatePost(post.getPost_id(),post);
+        return post.getPost_id();
     }
 
-    @PutMapping("/update1/post")
-    public void updatePost(@RequestParam("id") long post_id,@RequestParam("title") String title  ){
-        try{
-            String query = post_id + title;
-            System.out.println(query);
-        }catch(Exception e){
 
-        }
-    }
 }

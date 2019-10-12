@@ -3,6 +3,7 @@ package entities;
 import java.util.List;
 
 public class Post {
+    private long post_id;
     private String title;
     private String video_link;
     private String[] picture_link;
@@ -11,9 +12,9 @@ public class Post {
     private String[] including_service;
     private boolean active;
     private String location;
-    private List<Activity> activities;
 
-    public Post(String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location, List<Activity> activities) {
+
+    public Post(String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location) {
         this.title = title;
         this.video_link = video_link;
         this.picture_link = picture_link;
@@ -22,10 +23,22 @@ public class Post {
         this.including_service = including_service;
         this.active = active;
         this.location = location;
-        this.activities = activities;
+
     }
 
-    public Post(String title,String[] picture_link,String description,boolean active) {
+    public Post(long post_id, String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location) {
+        this.post_id = post_id;
+        this.title = title;
+        this.video_link = video_link;
+        this.picture_link = picture_link;
+        this.total_hour = total_hour;
+        this.description = description;
+        this.including_service = including_service;
+        this.active = active;
+        this.location = location;
+    }
+
+    public Post(String title, String[] picture_link, String description, boolean active) {
         this.title = title;
         this.picture_link = picture_link;
         this.description = description;
@@ -68,9 +81,8 @@ public class Post {
         return location;
     }
 
-    public List<Activity> getActivities() {
-        return activities;
+
+    public long getPost_id() {
+        return post_id;
     }
-
-
 }
