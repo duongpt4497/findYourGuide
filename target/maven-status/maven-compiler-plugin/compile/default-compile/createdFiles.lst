@@ -1,6 +1,8 @@
 entities\Post.class
+winter\findGuider\web\api\CategoryController.class
 services\guider\GuiderServiceImpl$2.class
 services\guider\ReviewServiceImpl$1.class
+services\Category\CategoryServiceImpl.class
 winter\findGuider\web\api\GuiderInfoApi.class
 services\guider\PostServiceImpl$1.class
 services\GeneralServiceImpl.class
@@ -14,7 +16,9 @@ services\PasswordEncrypt.class
 services\guider\ReviewServiceImpl.class
 services\guider\ReviewService.class
 services\traveler\TravelerService.class
+entities\Category.class
 entities\Guider_Contract.class
+services\Category\CategoryService.class
 services\traveler\TravelerServiceImpl$1.class
 services\guider\GuiderServiceImpl$1.class
 entities\Activity.class
