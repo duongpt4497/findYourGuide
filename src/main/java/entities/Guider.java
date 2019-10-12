@@ -4,34 +4,20 @@ import lombok.Data;
 
 @Data
 public class Guider {
-
 	private long guider_id;
-
-	// private long contract_id;
-
-	// private long account_id;
-
 	private String first_name;
-
 	private String last_name;
-
 	private int age;
-
 	private String about_me;
-
 	private long contribution_point;
-
 	private String city;
-
 	private boolean active;
-
-//	private String[] available_langauge;
+	private String[] language;
 
 	public Guider() {
 	}
 
-	public Guider(long guider_id, String first_name, String last_name, int age, String about_me,
-			long contribution_point, String city, boolean active) {
+	public Guider(long guider_id, String first_name, String last_name, int age, String about_me, long contribution_point, String city, boolean active, String[] language) {
 		this.guider_id = guider_id;
 		this.first_name = first_name;
 		this.last_name = last_name;
@@ -40,6 +26,7 @@ public class Guider {
 		this.contribution_point = contribution_point;
 		this.city = city;
 		this.active = active;
+		this.language = language;
 	}
 
 	public long getGuider_id() {
@@ -104,5 +91,13 @@ public class Guider {
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+
+	public String[] getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String[] language) {
+		this.language = language;
 	}
 }
