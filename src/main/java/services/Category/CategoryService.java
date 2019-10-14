@@ -3,7 +3,6 @@ package services.Category;
 import entities.Category;
 
 import java.util.List;
-import java.util.Map;
 
 public interface CategoryService {
     public void createCategory(Category newCategory);
