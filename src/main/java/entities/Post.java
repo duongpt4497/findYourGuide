@@ -85,4 +85,36 @@ public class Post {
     public long getPost_id() {
         return post_id;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setVideo_link(String video_link) {
+        this.video_link = video_link;
+    }
+
+    public void setPicture_link(String[] picture_link) {
+        this.picture_link = picture_link;
+    }
+
+    public void setTotal_hour(int total_hour) {
+        this.total_hour = total_hour;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setIncluding_service(String[] including_service) {
+        this.including_service = including_service;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 }

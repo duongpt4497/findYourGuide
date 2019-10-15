@@ -4,9 +4,15 @@ import entities.Activity;
 import entities.Post;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import services.GeneralServiceImpl;
 
+import java.sql.Array;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -32,7 +38,7 @@ public class PostServiceImpl implements PostService {
                 @Override
                 public Post mapRow(ResultSet resultSet, int i) throws SQLException {
                     return new Post(resultSet.getString("title"),
-                            generalService.checkForNull(resultSet.getArray("picture_link")) ,
+                            generalService.checkForNull(resultSet.getArray("picture_link")),
                             resultSet.getString("description"),
                             resultSet.getBoolean("active")
                     );
@@ -48,7 +54,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post findSpecificPost(long post_id) {
 
-        try{
+        try {
             return jdbcTemplate.queryForObject("select * from  post as p, locations as l where p.location_id = l.location_id and p.post_id = ?", new RowMapper<Post>() {
                 @Override
                 public Post mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -64,23 +70,50 @@ public class PostServiceImpl implements PostService {
 
                     );
                 }
-            },post_id);
-        }catch(Exception e ){
+            }, post_id);
+        } catch (Exception e) {
             System.out.println("select * from  post as p, locations as l where p.location_id = l.location_id and p.post_id = ");
-            System.out.println(e.getMessage()+ e.getStackTrace() + e.getCause() +e.getLocalizedMessage());
+            System.out.println(e.getMessage() + e.getStackTrace() + e.getCause() + e.getLocalizedMessage());
         }
         return new Post();
     }
 
     @Override
     public void updatePost(long post_id, Post post) {
-        String query = "UPDATE post SET  title='"+post.getTitle()+"', picture_link='"+generalService.createSqlArray(Arrays.asList(post.getPicture_link()))+"', video_link ='"
-                +post.getVideo_link()+"',total_hour="+post.getTotal_hour()+",description = '"+post.getDescription()+"',including_service='"+
-                generalService.createSqlArray(Arrays.asList(post.getIncluding_service()))+"',active = "+post.isActive()+",location_id = "+Integer.parseInt(post.getLocation()) +" WHERE post_id =1";
-        System.out.println("@@@@"+post.getLocation()+"@@@@@");
+        String query = "UPDATE post SET  title='" + post.getTitle() + "', picture_link='" + generalService.createSqlArray(Arrays.asList(post.getPicture_link())) + "', video_link ='"
+                + post.getVideo_link() + "',total_hour=" + post.getTotal_hour() + ",description = '" + post.getDescription() + "',including_service='" +
+                generalService.createSqlArray(Arrays.asList(post.getIncluding_service())) + "',active = " + post.isActive() + ",location_id = " + Integer.parseInt(post.getLocation()) + " WHERE post_id =1";
+        System.out.println("@@@@" + post.getLocation() + "@@@@@");
         //System.out.println(Integer.getInteger(post.getLocation()));
         jdbcTemplate.update(query);
 
 
+    }
+
+    @Override
+    public int insertNewPost(long guider_id, Post post) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        //try{
+            String query = "INSERT INTO public.post(" +
+                    "guider_id, location_id, title, video_link, picture_link, total_hour, description, including_service, active)" +
+                    "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            jdbcTemplate.update(connection -> {
+                PreparedStatement ps = connection
+                        .prepareStatement(query, new String[]{"post_id"});
+                ps.setLong(1, guider_id);
+                ps.setLong(2, Long.parseLong(post.getLocation()));
+                ps.setString(3, post.getTitle());
+                ps.setString(4, post.getVideo_link());
+                ps.setArray(5, generalService.createSqlArray(Arrays.asList(post.getPicture_link())));
+                ps.setInt(6, post.getTotal_hour());
+                ps.setString(7, post.getDescription());
+                ps.setArray(8, generalService.createSqlArray(Arrays.asList(post.getIncluding_service())));
+                ps.setBoolean(9, post.isActive());
+                return ps;
+            }, keyHolder);
+        /*}catch(Exception e){
+
+        }*/
+        return (int) keyHolder.getKey();
     }
 }

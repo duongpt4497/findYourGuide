@@ -55,5 +55,11 @@ public class GuiderPostApi {
         return post.getPost_id();
     }
 
-
+    @PostMapping(consumes="application/json",value = "/add/post")
+    @ResponseStatus(HttpStatus.OK)
+    public int insertNewPost(@RequestParam("guider_id") long guider_id ,@RequestBody Post post) {
+        int post_id = postServiceImpl.insertNewPost(guider_id,post);
+        System.out.println(post_id);
+        return post_id;
+    }
 }
