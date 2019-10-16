@@ -8,10 +8,11 @@ import services.GeneralServiceImpl;
 import services.guider.GuiderServiceImpl;
 import services.guider.ReviewServiceImpl;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/view",produces = "application/json")
+@RequestMapping(path = "/review",produces = "application/json")
 @CrossOrigin(origins = "*")
 public class ReviewApi {
     private GeneralServiceImpl generalServiceImpl;
@@ -22,24 +23,24 @@ public class ReviewApi {
         this.reviewServiceImpl = guS;
     }
 
-    @GetMapping("/{id}"+".json")
-    public List<Review> findReview(@PathVariable("id") long id){
+    @GetMapping("/reviewByGuiderId"+".json")
+    public List<Review> findReviewByGuiderId(@PathParam("guider_id") long guider_id){
         try{
 
-            return reviewServiceImpl.findReviewsById(id);
+            return reviewServiceImpl.findReviewsByGuiderId(guider_id);
         }catch(Exception e ){
-            System.out.println(e.getMessage() + e.getStackTrace() + e.getCause() + e.getLocalizedMessage() + id);
+            System.out.println(e.getMessage() + e.getStackTrace() + e.getCause() + e.getLocalizedMessage() + guider_id);
         }
         return null;
     }
 
-    @GetMapping("/post/{id}"+".json")
-    public List<Review> findReviewByPostId(@PathVariable("id") long id){
+    @GetMapping("/reviewByPostId"+".json")
+    public List<Review> findReviewByPostId(@RequestParam("post_id") long post_id){
         try{
 
-            return reviewServiceImpl.findReviewsByPostId(id);
+            return reviewServiceImpl.findReviewsByPostId(post_id);
         }catch(Exception e ){
-            System.out.println(e.getMessage() + e.getStackTrace() + e.getCause() + e.getLocalizedMessage() + id);
+            System.out.println(e.getMessage() + e.getStackTrace() + e.getCause() + e.getLocalizedMessage() + post_id);
         }
         return null;
     }

@@ -38,7 +38,7 @@ public class GuiderServiceImpl implements GuiderService {
                             rs.getLong("contribution"),
                             rs.getString("city"),
                             rs.getBoolean("active"),
-                            generalService.checkForNull(rs.getArray("available_language"))
+                            generalService.checkForNull(rs.getArray("languages"))
                     );
                 };
             }, id);
@@ -62,7 +62,7 @@ public class GuiderServiceImpl implements GuiderService {
                             rs.getLong("contribution"),
                             rs.getString("city"),
                             rs.getBoolean("active"),
-                            generalService.checkForNull(rs.getArray("available_language"))
+                            generalService.checkForNull(rs.getArray("languages"))
                     );
                 };
             }, id);

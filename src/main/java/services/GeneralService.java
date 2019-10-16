@@ -10,4 +10,6 @@ public interface GeneralService {
 
     java.sql.Array createSqlArray(List<String> list);
     String[] checkForNull(Array checkArray);
+    void convertBase64toImageAndChangeName(String base64);
+
 }

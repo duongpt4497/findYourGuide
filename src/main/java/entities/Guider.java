@@ -16,9 +16,9 @@ public class Guider {
     private long contribution_point;
     private String city;
     private boolean active;
-    private String[] available_langauge;
+    private String[] languages;
 
-    public Guider(long guider_id, String first_name, String last_name, int age, String about_me, long contribution_point, String city, boolean active, String[] available_langauge) {
+    public Guider(long guider_id, String first_name, String last_name, int age, String about_me, long contribution_point, String city, boolean active, String[] languages) {
         this.guider_id = guider_id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -27,7 +27,7 @@ public class Guider {
         this.contribution_point = contribution_point;
         this.city = city;
         this.active = active;
-        this.available_langauge = available_langauge;
+        this.languages = languages;
     }
 
     public long getGuider_id() {
@@ -62,7 +62,7 @@ public class Guider {
         return city;
     }
 
-    public String[] getAvailable_langauge() {
-        return available_langauge;
+    public String[] getLanguages() {
+        return languages;
     }
 }

@@ -12,9 +12,13 @@ public class Post {
     private String[] including_service;
     private boolean active;
     private String location;
+    private long price;
+    private long rated;
+    private String reasons;
 
 
-    public Post(String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location) {
+    public Post(String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location, long price, long rated, String reasons) {
+
         this.title = title;
         this.video_link = video_link;
         this.picture_link = picture_link;
@@ -23,10 +27,12 @@ public class Post {
         this.including_service = including_service;
         this.active = active;
         this.location = location;
-
+        this.price = price;
+        this.rated = rated;
+        this.reasons = reasons;
     }
 
-    public Post(long post_id, String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location) {
+    public Post(long post_id, String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location, long price, long rated, String reasons) {
         this.post_id = post_id;
         this.title = title;
         this.video_link = video_link;
@@ -36,9 +42,13 @@ public class Post {
         this.including_service = including_service;
         this.active = active;
         this.location = location;
+        this.price = price;
+        this.rated = rated;
+        this.reasons = reasons;
     }
 
-    public Post(String title, String[] picture_link, String description, boolean active) {
+    public Post(long post_id,String title, String[] picture_link, String description, boolean active) {
+        this.post_id  = post_id;
         this.title = title;
         this.picture_link = picture_link;
         this.description = description;
@@ -116,5 +126,29 @@ public class Post {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public long getPrice() {
+        return price;
+    }
+
+    public void setPrice(long price) {
+        this.price = price;
+    }
+
+    public long getRated() {
+        return rated;
+    }
+
+    public void setRated(long rated) {
+        this.rated = rated;
+    }
+
+    public String getReasons() {
+        return reasons;
+    }
+
+    public void setReasons(String reasons) {
+        this.reasons = reasons;
     }
 }

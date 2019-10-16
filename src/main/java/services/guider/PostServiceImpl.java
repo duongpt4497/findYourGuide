@@ -37,7 +37,9 @@ public class PostServiceImpl implements PostService {
             return jdbcTemplate.query("select * from post where guider_id = ?", new RowMapper<Post>() {
                 @Override
                 public Post mapRow(ResultSet resultSet, int i) throws SQLException {
-                    return new Post(resultSet.getString("title"),
+                    return new Post(
+                            resultSet.getLong("post_id"),
+                            resultSet.getString("title"),
                             generalService.checkForNull(resultSet.getArray("picture_link")),
                             resultSet.getString("description"),
                             resultSet.getBoolean("active")
@@ -59,6 +61,7 @@ public class PostServiceImpl implements PostService {
                 @Override
                 public Post mapRow(ResultSet resultSet, int i) throws SQLException {
                     return new Post(
+                            resultSet.getLong("post_id"),
                             resultSet.getString("title"),
                             resultSet.getString("video_link") != null ? resultSet.getString("video_link") : "unkonw",
                             generalService.checkForNull(resultSet.getArray("picture_link")),
@@ -66,7 +69,10 @@ public class PostServiceImpl implements PostService {
                             resultSet.getString("description"),
                             generalService.checkForNull(resultSet.getArray("including_service")),
                             resultSet.getBoolean("active"),
-                            resultSet.getString("place")
+                            resultSet.getString("place"),
+                            resultSet.getLong("price"),
+                            resultSet.getLong("rated"),
+                            resultSet.getString("reasons")
 
                     );
                 }
@@ -82,7 +88,8 @@ public class PostServiceImpl implements PostService {
     public void updatePost(long post_id, Post post) {
         String query = "UPDATE post SET  title='" + post.getTitle() + "', picture_link='" + generalService.createSqlArray(Arrays.asList(post.getPicture_link())) + "', video_link ='"
                 + post.getVideo_link() + "',total_hour=" + post.getTotal_hour() + ",description = '" + post.getDescription() + "',including_service='" +
-                generalService.createSqlArray(Arrays.asList(post.getIncluding_service())) + "',active = " + post.isActive() + ",location_id = " + Integer.parseInt(post.getLocation()) + " WHERE post_id =1";
+                generalService.createSqlArray(Arrays.asList(post.getIncluding_service())) + "',active = " + post.isActive() + ",location_id = " + Integer.parseInt(post.getLocation())
+                + ",rated =" +post.getRated()+",price =" +post.getPrice()+",reasons =" +post.getReasons()+" WHERE post_id =1";
         System.out.println("@@@@" + post.getLocation() + "@@@@@");
         //System.out.println(Integer.getInteger(post.getLocation()));
         jdbcTemplate.update(query);
@@ -95,8 +102,8 @@ public class PostServiceImpl implements PostService {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         //try{
             String query = "INSERT INTO public.post(" +
-                    "guider_id, location_id, title, video_link, picture_link, total_hour, description, including_service, active)" +
-                    "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    "guider_id, location_id, title, video_link, picture_link, total_hour, description, including_service, active,price,rated,reasons)" +
+                    "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
             jdbcTemplate.update(connection -> {
                 PreparedStatement ps = connection
                         .prepareStatement(query, new String[]{"post_id"});
@@ -109,6 +116,9 @@ public class PostServiceImpl implements PostService {
                 ps.setString(7, post.getDescription());
                 ps.setArray(8, generalService.createSqlArray(Arrays.asList(post.getIncluding_service())));
                 ps.setBoolean(9, post.isActive());
+                ps.setLong(10,post.getPrice());
+                ps.setLong(11,post.getRated());
+                ps.setString(12,post.getReasons());
                 return ps;
             }, keyHolder);
         /*}catch(Exception e){

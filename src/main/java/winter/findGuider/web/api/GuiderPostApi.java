@@ -26,19 +26,19 @@ public class GuiderPostApi {
         this.activityService = activityService;
     }
 
-    @GetMapping("/{id}")
-    public List<Post> findGuider(@PathVariable("id") long id){
+    @GetMapping("/postOfOneGuider")
+    public List<Post> findAllPostOfOneGuider(@RequestParam("guider_id") long guider_id){
         try{
 
-            return postServiceImpl.findAllPost(id);
+            return postServiceImpl.findAllPost(guider_id);
         }catch(Exception e ){
-            System.out.println(e.getMessage() + e.getStackTrace() + e.getCause() + e.getLocalizedMessage() + id);
+            System.out.println(e.getMessage() + e.getStackTrace() + e.getCause() + e.getLocalizedMessage() + guider_id);
         }
         return null;
     }
 
-    @GetMapping("/post/{id}")
-    public ResponseEntity<Post> dinfSpecificPost(@PathVariable("id") long id) {
+    @GetMapping("/")
+    public ResponseEntity<Post> findSpecificPost(@RequestParam("post_id") long id) {
         try{
 
             return new ResponseEntity(postServiceImpl.findSpecificPost(id), HttpStatus.OK);

@@ -1,10 +1,14 @@
 package services;
 
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,5 +47,23 @@ public class GeneralServiceImpl implements GeneralService {
             }
         }
         return checkedString;
+    }
+
+    @Override
+    public void convertBase64toImageAndChangeName(String base64) {
+        byte[] data = Base64.decodeBase64(base64);
+
+        try {
+            FileOutputStream imageOutFile = new FileOutputStream(
+                    "/Users/jeeva/Pictures/wallpapers/water-drop-after-convert.jpg");
+
+            imageOutFile.write(data);
+
+            imageOutFile.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }

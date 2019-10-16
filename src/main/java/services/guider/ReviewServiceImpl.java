@@ -23,7 +23,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<Review> findReviewsById(long guider_id) {
+    public List<Review> findReviewsByGuiderId(long guider_id) {
         try {
             String query = "select * from review where guider_id = " + guider_id;
             System.out.println(query);

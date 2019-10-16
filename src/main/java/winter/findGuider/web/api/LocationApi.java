@@ -23,7 +23,7 @@ public class LocationApi {
     }
 
     @GetMapping("/findAll")
-    public ResponseEntity<Location> dinfSpecificPost() {
+    public ResponseEntity<Location> findSpecificPost() {
         try{
 
             return new ResponseEntity(locationService.showAllLocation(), HttpStatus.OK);
