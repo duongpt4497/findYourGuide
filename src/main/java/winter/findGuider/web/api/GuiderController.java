@@ -1,40 +1,94 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package winter.findGuider.web.api;
 
-import entity.Account;
-import java.util.List;
-import model.AccountModel;
-import model.GuiderRepo;
+import entities.Guider;
+import entities.Guider_Contract;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import services.guider.GuiderService;
 
-/**
- *
- * @author dgdbp
- */
 @RestController
-@RequestMapping(path="/guider", produces="application/json")
-@CrossOrigin(origins="*")
+@RequestMapping(path = "/Guider", produces = "application/json")
+@CrossOrigin(origins = "*")
 public class GuiderController {
-    private GuiderRepo accRepo;
-    
+
+    private GuiderService guiderService;
+
     @Autowired
-    public GuiderController(GuiderRepo am) {
-        accRepo = am;
+    public GuiderController(GuiderService gs) {
+        this.guiderService = gs;
     }
-    @GetMapping("/all")
-    public ResponseEntity<List<Account>> accByAll() {
-     
-        return new ResponseEntity(accRepo.getAllGuiders(), HttpStatus.OK);
+
+//    @RequestMapping("/Create/{first_name}/{last_name}/{age}/{about_me}/{city}/{language}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public ResponseEntity<Guider> createGuider(@PathVariable("first_name") String first_name,
+//                                               @PathVariable("last_name") String last_name,
+//                                               @PathVariable("age") int age,
+//                                               @PathVariable("about_me") String about_me,
+//                                               @PathVariable("city") String city,
+//                                               @PathVariable("language") String[] language) {
+//        Guider newGuider = new Guider();
+//        long insertedId;
+//        try {
+//            newGuider.setFirst_name(first_name);
+//            newGuider.setLast_name(last_name);
+//            newGuider.setAge(age);
+//            newGuider.setAbout_me(about_me);
+//            newGuider.setCity(city);
+//            newGuider.setLanguage(language);
+//            insertedId = guiderService.createGuider(newGuider);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+//        }
+//        return new ResponseEntity<>(guiderService.findGuiderWithID(insertedId), HttpStatus.OK);
+//    }
+
+    @RequestMapping("/Create")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Guider> createGuider(@RequestBody Guider newGuider, @RequestBody Guider_Contract newGuiderContract) {
+        long insertedId;
+        try {
+            insertedId = guiderService.createGuider(newGuider);
+            guiderService.createGuiderContract(insertedId, newGuiderContract);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(guiderService.findGuiderWithID(insertedId), HttpStatus.OK);
+    }
+
+    @RequestMapping("/Edit")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Guider> editGuider(@RequestBody Guider guiderNeedUpdate) {
+        try {
+            guiderService.updateGuiderWithId(guiderNeedUpdate);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(guiderService.findGuiderWithID(guiderNeedUpdate.getGuider_id()), HttpStatus.OK);
+    }
+
+    @RequestMapping("/Activate/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Guider> activateGuider(@PathVariable("id") long id) {
+        long activatedId;
+        try {
+            activatedId = guiderService.activateGuider(id);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(guiderService.findGuiderWithID(activatedId), HttpStatus.OK);
+    }
+
+    @RequestMapping("/Deactivate/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Guider> deactivateGuider(@PathVariable("id") long id) {
+        long deactivatedId;
+        try {
+            deactivatedId = guiderService.deactivateGuider(id);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(guiderService.findGuiderWithID(deactivatedId), HttpStatus.OK);
     }
 }
