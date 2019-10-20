@@ -101,27 +101,28 @@ public class PostServiceImpl implements PostService {
     public int insertNewPost(long guider_id, Post post) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         //try{
-        String query = "INSERT INTO public.post(" +
-                "guider_id, location_id, title, video_link, picture_link, total_hour, description, including_service, active,price,rated,reasons)" +
-                "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
-        jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection
-                    .prepareStatement(query, new String[]{"post_id"});
-            ps.setLong(1, guider_id);
-            ps.setLong(2, Long.parseLong(post.getLocation()));
-            ps.setString(3, post.getTitle());
-            ps.setString(4, post.getVideo_link());
-            ps.setArray(5, generalService.createSqlArray(Arrays.asList(post.getPicture_link())));
-            ps.setInt(6, post.getTotal_hour());
-            ps.setString(7, post.getDescription());
-            ps.setArray(8, generalService.createSqlArray(Arrays.asList(post.getIncluding_service())));
-            ps.setBoolean(9, post.isActive());
-            ps.setLong(10,post.getPrice());
-            ps.setLong(11,post.getRated());
-            ps.setString(12,post.getReasons());
-            return ps;
-        }, keyHolder);
+            String query = "INSERT INTO public.post(" +
+                    "guider_id, location_id, title, video_link, picture_link, total_hour, description, including_service, active,price,rated,reasons)" +
+                    "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
+            jdbcTemplate.update(connection -> {
+                PreparedStatement ps = connection
+                        .prepareStatement(query, new String[]{"post_id"});
+                ps.setLong(1, guider_id);
+                ps.setLong(2, Long.parseLong(post.getLocation()));
+                ps.setString(3, post.getTitle());
+                ps.setString(4, post.getVideo_link());
+                ps.setArray(5, generalService.createSqlArray(Arrays.asList(post.getPicture_link())));
+                ps.setInt(6, post.getTotal_hour());
+                ps.setString(7, post.getDescription());
+                ps.setArray(8, generalService.createSqlArray(Arrays.asList(post.getIncluding_service())));
+                ps.setBoolean(9, post.isActive());
+                ps.setLong(10,post.getPrice());
+                ps.setLong(11,post.getRated());
+                ps.setString(12,post.getReasons());
+                return ps;
+            }, keyHolder);
         /*}catch(Exception e){
+
         }*/
         return (int) keyHolder.getKey();
     }

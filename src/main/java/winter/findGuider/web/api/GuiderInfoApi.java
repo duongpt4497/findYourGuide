@@ -7,7 +7,7 @@ import services.GeneralServiceImpl;
 import services.guider.GuiderServiceImpl;
 
 @RestController
-@RequestMapping(path = "/find",produces = "application/json")
+@RequestMapping(path = "/guider",produces = "application/json")
 @CrossOrigin(origins = "*")
 public class GuiderInfoApi {
     private GeneralServiceImpl generalServiceImpl;
@@ -25,6 +25,17 @@ public class GuiderInfoApi {
             return guiderServiceImpl.findGuiderWithID(id);
         }catch(Exception e ){
             System.out.println(e.getMessage() + e.getStackTrace() + e.getCause() + e.getLocalizedMessage() + id);
+        }
+        return null;
+    }
+
+    @GetMapping("/guiderByPostId")
+    public Guider findGuiderByPostId(@RequestParam("post_id") long post_id){
+        try{
+
+            return guiderServiceImpl.findGuiderWithPostId(post_id);
+        }catch(Exception e ){
+            System.out.println(e.getMessage() + e.getStackTrace() + e.getCause() + e.getLocalizedMessage() + post_id);
         }
         return null;
     }
