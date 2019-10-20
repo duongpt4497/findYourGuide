@@ -34,10 +34,42 @@ public class GuiderServiceImpl implements GuiderService {
             String query = "select * from guider where guider_id = ?";
             result = jdbcTemplate.queryForObject(query, new RowMapper<Guider>() {
                 public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return new Guider(rs.getLong("guider_id"), rs.getString("first_name"), rs.getString("last_name"),
-                            rs.getInt("age"), rs.getString("about_me"), rs.getLong("contribution"),
-                            rs.getString("city"), rs.getBoolean("active"), generalService.checkForNull(rs.getArray("language")));
-                }
+                    return new Guider(
+                            rs.getLong("guider_id"),
+                            rs.getString("first_name"),
+                            rs.getString("last_name"),
+                            rs.getInt("age"),
+                            rs.getString("about_me"),
+                            rs.getLong("contribution"),
+                            rs.getString("city"),
+                            rs.getBoolean("active"),
+                            generalService.checkForNull(rs.getArray("languages"))
+                    );
+                };
+            }, id);
+        } catch (Exception e) {
+            logger.info(e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public Guider findGuiderWithPostId(long id) {
+        try {
+            return jdbcTemplate.queryForObject("select g.* from guider as g, post as p where g.guider_id = p.guider_id and p.post_id = ? GROUP BY g.guider_id", new RowMapper<Guider>() {
+                public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    return new Guider(
+                            rs.getLong("guider_id"),
+                            rs.getString("first_name"),
+                            rs.getString("last_name"),
+                            rs.getInt("age"),
+                            rs.getString("about_me"),
+                            rs.getLong("contribution"),
+                            rs.getString("city"),
+                            rs.getBoolean("active"),
+                            generalService.checkForNull(rs.getArray("languages"))
+                    );
+                };
             }, id);
         } catch (Exception e) {
             logger.info(e.getMessage());

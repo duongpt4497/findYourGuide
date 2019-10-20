@@ -5,6 +5,8 @@ import entities.Guider_Contract;
 
 public interface GuiderService {
 	public Guider findGuiderWithID(long id);
+	
+	public Guider findGuiderWithPostId(long id);
 
 	public Guider_Contract findGuiderContract(long id);
 
