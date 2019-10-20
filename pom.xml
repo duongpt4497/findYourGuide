@@ -11,6 +11,12 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
+    <groupId>winter</groupId>
+    <artifactId>findGuider</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>findGuider</name>
+    <description>Web application to find local guide</description>
+
     <dependencies>
         <!-- spring rest -->
         <dependency>
