@@ -8,8 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import services.Paypal.PaypalPaymentIntent;
-import services.Paypal.PaypalPaymentMethod;
 import services.Paypal.PaypalService;
 
 @RestController
@@ -17,8 +15,9 @@ import services.Paypal.PaypalService;
 @CrossOrigin(origins = "*")
 public class PaypalController {
 
-    public static final String URL_PAYPAL_SUCCESS = "/Create/Success";
-    public static final String URL_PAYPAL_CANCEL = "/Create/Cancel";
+    private static final String URL_PAYPAL_SUCCESS = "/Pay/Success";
+    private static final String URL_PAYPAL_CANCEL = "/Pay/Cancel";
+    private static final String URL_ROOT = "http://localhost:8080/Payment";
 
     private PaypalService paypalService;
     private Logger log = LoggerFactory.getLogger(getClass());
@@ -28,48 +27,51 @@ public class PaypalController {
         this.paypalService = ps;
     }
 
-    @RequestMapping("/Create/{price}")
+    @RequestMapping("/Pay/{order_id}")
     @ResponseStatus(HttpStatus.OK)
-    public String payment(@PathVariable("price") double price) {
-        String cancelUrl = "http://localhost:8080/Payment" + URL_PAYPAL_CANCEL;
-        String successUrl = "http://localhost:8080/Payment" + URL_PAYPAL_SUCCESS;
+    public String payment(@PathVariable("order_id") int order_id) {
+        String cancelUrl = URL_ROOT + URL_PAYPAL_CANCEL;
+        String successUrl = URL_ROOT + URL_PAYPAL_SUCCESS + "?order_id=" + order_id;
         try {
-            Payment payment = paypalService.createPayment(
-                    price,
-                    "USD",
-                    PaypalPaymentMethod.paypal,
-                    PaypalPaymentIntent.sale,
-                    "payment description",
-                    cancelUrl,
-                    successUrl);
+            double price = paypalService.getTransactionPrice(order_id);
+            String description = paypalService.getTransactionDescription(order_id);
+            Payment payment = paypalService.createPayment(price, "USD", description, cancelUrl, successUrl);
             for (Links links : payment.getLinks()) {
                 if (links.getRel().equals("approval_url")) {
+                    // if transfer to paypal succeed
                     return links.getHref();
                 }
             }
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());
         }
-        return "redirect:/";
+        // if transfer to paypal fail
+        return "return to post page";
     }
 
     @RequestMapping(URL_PAYPAL_CANCEL)
     @ResponseStatus(HttpStatus.OK)
     public String cancelPay() {
-        return "cancel";
+        return "return to post page";
     }
 
     @RequestMapping(URL_PAYPAL_SUCCESS)
     @ResponseStatus(HttpStatus.OK)
-    public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId) {
+    public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId,
+                             @RequestParam("order_id") long order_id) {
+        String description = paypalService.getTransactionDescription(order_id);
         try {
             Payment payment = paypalService.executePayment(paymentId, payerId);
             if (payment.getState().equals("approved")) {
-                return "success";
+                // payment succeed
+                long transaction_id = paypalService.createTransactionRecord(paymentId, payerId, description, true);
+                return "url to success page" + "?transactionId=" + transaction_id;
             }
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());
         }
-        return "redirect:/";
+        // payment fail
+        paypalService.createTransactionRecord(paymentId, payerId, description, false);
+        return "url to fail page";
     }
 }
