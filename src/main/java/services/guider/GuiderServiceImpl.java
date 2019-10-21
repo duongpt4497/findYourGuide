@@ -29,28 +29,28 @@ public class GuiderServiceImpl implements GuiderService {
 
     @Override
     public Guider findGuiderWithID(long id) {
-//        Guider result = new Guider();
-//        try {
-//            String query = "select * from guider where guider_id = ?";
-//            result = jdbcTemplate.queryForObject(query, new RowMapper<Guider>() {
-//                public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
-//                    return new Guider(
-//                            rs.getLong("guider_id"),
-//                            rs.getString("first_name"),
-//                            rs.getString("last_name"),
-//                            rs.getInt("age"),
-//                            rs.getString("about_me"),
-//                            rs.getLong("contribution"),
-//                            rs.getString("city"),
-//                            rs.getBoolean("active"),
-//                            generalService.checkForNull(rs.getArray("languages"))
-//                    );
-//                };
-//            }, id);
-//        } catch (Exception e) {
-//            logger.info(e.getMessage());
-//        }
-        return null;
+        Guider result = new Guider();
+        try {
+            String query = "select * from guider where guider_id = ?";
+            result = jdbcTemplate.queryForObject(query, new RowMapper<Guider>() {
+                public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    return new Guider(
+                            rs.getLong("guider_id"),
+                            rs.getString("first_name"),
+                            rs.getString("last_name"),
+                            rs.getInt("age"),
+                            rs.getString("about_me"),
+                            rs.getLong("contribution"),
+                            rs.getString("city"),
+                            rs.getBoolean("active"),
+                            generalService.checkForNull(rs.getArray("languages"))
+                    );
+                };
+            }, id);
+        } catch (Exception e) {
+            logger.info(e.getMessage());
+        }
+        return result;
     }
 
     @Override
@@ -115,7 +115,7 @@ public class GuiderServiceImpl implements GuiderService {
                 ps.setLong(5, 0);
                 ps.setString(6, newGuider.getCity());
                 ps.setBoolean(7, true);
-//                ps.setArray(8, generalService.createSqlArray(Arrays.asList(newGuider.getLanguage())));
+                ps.setArray(8, generalService.createSqlArray(Arrays.asList(newGuider.getLanguages())));
                 return ps;
             }, keyHolder);
         } catch (Exception e) {
@@ -141,14 +141,14 @@ public class GuiderServiceImpl implements GuiderService {
 
     @Override
     public long updateGuiderWithId(Guider guiderNeedUpdate) {
-//        try {
-//            String query = "update guider set first_name = ?, last_name = ?, age = ?, about_me = ?, city = ?, language = ? where guider_id = ?";
-//            jdbcTemplate.update(query, guiderNeedUpdate.getFirst_name(), guiderNeedUpdate.getLast_name(),
-//                    guiderNeedUpdate.getAge(), guiderNeedUpdate.getAbout_me(), guiderNeedUpdate.getCity(),
-//                    guiderNeedUpdate.getGuider_id(), generalService.createSqlArray(Arrays.asList(guiderNeedUpdate.getLanguage())));
-//        } catch (Exception e) {
-//            logger.info(e.getMessage());
-//        }
+        try {
+            String query = "update guider set first_name = ?, last_name = ?, age = ?, about_me = ?, city = ?, language = ? where guider_id = ?";
+            jdbcTemplate.update(query, guiderNeedUpdate.getFirst_name(), guiderNeedUpdate.getLast_name(),
+                    guiderNeedUpdate.getAge(), guiderNeedUpdate.getAbout_me(), guiderNeedUpdate.getCity(),
+                    guiderNeedUpdate.getGuider_id(), generalService.createSqlArray(Arrays.asList(guiderNeedUpdate.getLanguages())));
+        } catch (Exception e) {
+            logger.info(e.getMessage());
+        }
         return guiderNeedUpdate.getGuider_id();
     }
 
