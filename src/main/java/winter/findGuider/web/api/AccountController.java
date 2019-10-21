@@ -1,0 +1,74 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package winter.findGuider.web.api;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import services.UserService;
+import entity.Account;
+import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import repository.UserRepo;
+import services.AuthProvider;
+
+/**
+ *
+ * @author dgdbp
+ */
+@RestController
+@RequestMapping(path = "/account")
+@CrossOrigin(origins = "*")
+public class AccountController {
+
+    private UserService userService;
+    private UserRepo repo;
+    private AuthProvider auth;
+    @Autowired
+    public AccountController(UserRepo repo,UserService userService, AuthProvider auth){
+        this.userService = userService;
+        this.repo = repo;
+        this.auth = auth;
+    }
+
+    @PostMapping(path="registrator", consumes="application/json")
+    public ResponseEntity registerUserAccount( @RequestBody Account acc, HttpServletRequest request) {
+        
+        Account registered = null;
+        acc.setToken("");
+        acc.setExpired(new Date());
+        try {
+            System.out.println(acc.getPassword()+"/"+acc.getUserName()+"/"+acc.getRole());
+            registered = userService.registerNewUserAccount(acc);
+            
+            repo.addAccount(registered);
+            System.out.println(acc.getExpired());
+        } catch (Exception e) {
+            return new ResponseEntity<>( "regist fail", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        // rest of the implementation
+        return new ResponseEntity<>( registered.getToken(), HttpStatus.OK);
+    }
+    
+  
+    
+    @GetMapping()
+    public ResponseEntity blahblah( ) {
+      
+        return new ResponseEntity<>( "leuleu!!", HttpStatus.OK);
+    }
+ 
+
+}
