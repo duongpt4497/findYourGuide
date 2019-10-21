@@ -8,7 +8,6 @@ services\guider\ActivityService.class
 services\guider\ActivityServiceImpl$1.class
 winter\findGuider\web\api\TravelerController.class
 services\guider\ActivityServiceImpl.class
-services\PasswordEncrypt.class
 services\guider\ReviewServiceImpl.class
 services\Paypal\PaypalService.class
 services\Paypal\PaypalConfig.class
@@ -26,13 +25,11 @@ services\guider\PostServiceImpl$2.class
 entities\Order.class
 services\traveler\TravelerServiceImpl.class
 services\guider\GuiderService.class
-winter\findGuider\web\api\GreetingController.class
 entities\Post.class
 services\Paypal\PaypalPaymentMethod.class
 services\guider\ReviewServiceImpl$1.class
 services\Paypal\PaypalPaymentIntent.class
 winter\findGuider\web\api\GuiderInfoApi.class
-entity\Guider.class
 services\GeneralServiceImpl.class
 winter\findGuider\web\api\GuiderController.class
 winter\findGuider\web\api\ReviewApi.class
@@ -40,7 +37,6 @@ winter\findGuider\web\api\GuiderPostApi.class
 services\guider\PostServiceImpl.class
 services\guider\LocationServiceImpl.class
 services\GeneralService.class
-entity\TokenProperties.class
 services\guider\ReviewService.class
 winter\findGuider\web\api\LocationApi.class
 services\guider\GuiderServiceImpl$3.class
@@ -51,9 +47,7 @@ entities\Guider_Contract.class
 services\Category\CategoryService.class
 services\traveler\TravelerServiceImpl$1.class
 services\guider\PostService.class
-entity\User.class
 entities\Guider.class
-winter\findGuider\web\api\UserController.class
 entities\Traveler.class
 services\guider\GuiderServiceImpl.class
 services\ordertrip\OrderTripServiceImpl$1.class
