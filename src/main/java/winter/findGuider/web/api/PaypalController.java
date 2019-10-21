@@ -65,7 +65,7 @@ public class PaypalController {
             if (payment.getState().equals("approved")) {
                 // payment succeed
                 long transaction_id = paypalService.createTransactionRecord(paymentId, payerId, description, true);
-                return "url to success page" + "?transactionId=" + transaction_id;
+                return "url to success page" + " transactionId=" + transaction_id;
             }
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());
