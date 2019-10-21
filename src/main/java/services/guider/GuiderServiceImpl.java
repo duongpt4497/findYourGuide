@@ -50,7 +50,7 @@ public class GuiderServiceImpl implements GuiderService {
         } catch (Exception e) {
             logger.info(e.getMessage());
         }
-        return null;
+        return result;
     }
 
     @Override
@@ -74,7 +74,7 @@ public class GuiderServiceImpl implements GuiderService {
         } catch (Exception e) {
             logger.info(e.getMessage());
         }
-        return result;
+        return null;
     }
 
     @Override
@@ -115,7 +115,7 @@ public class GuiderServiceImpl implements GuiderService {
                 ps.setLong(5, 0);
                 ps.setString(6, newGuider.getCity());
                 ps.setBoolean(7, true);
-                ps.setArray(8, generalService.createSqlArray(Arrays.asList(newGuider.getLanguage())));
+                ps.setArray(8, generalService.createSqlArray(Arrays.asList(newGuider.getLanguages())));
                 return ps;
             }, keyHolder);
         } catch (Exception e) {
@@ -145,7 +145,7 @@ public class GuiderServiceImpl implements GuiderService {
             String query = "update guider set first_name = ?, last_name = ?, age = ?, about_me = ?, city = ?, language = ? where guider_id = ?";
             jdbcTemplate.update(query, guiderNeedUpdate.getFirst_name(), guiderNeedUpdate.getLast_name(),
                     guiderNeedUpdate.getAge(), guiderNeedUpdate.getAbout_me(), guiderNeedUpdate.getCity(),
-                    guiderNeedUpdate.getGuider_id(), generalService.createSqlArray(Arrays.asList(guiderNeedUpdate.getLanguage())));
+                    guiderNeedUpdate.getGuider_id(), generalService.createSqlArray(Arrays.asList(guiderNeedUpdate.getLanguages())));
         } catch (Exception e) {
             logger.info(e.getMessage());
         }

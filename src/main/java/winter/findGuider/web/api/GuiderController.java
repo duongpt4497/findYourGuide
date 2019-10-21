@@ -20,30 +20,6 @@ public class GuiderController {
         this.guiderService = gs;
     }
 
-//    @RequestMapping("/Create/{first_name}/{last_name}/{age}/{about_me}/{city}/{language}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public ResponseEntity<Guider> createGuider(@PathVariable("first_name") String first_name,
-//                                               @PathVariable("last_name") String last_name,
-//                                               @PathVariable("age") int age,
-//                                               @PathVariable("about_me") String about_me,
-//                                               @PathVariable("city") String city,
-//                                               @PathVariable("language") String[] language) {
-//        Guider newGuider = new Guider();
-//        long insertedId;
-//        try {
-//            newGuider.setFirst_name(first_name);
-//            newGuider.setLast_name(last_name);
-//            newGuider.setAge(age);
-//            newGuider.setAbout_me(about_me);
-//            newGuider.setCity(city);
-//            newGuider.setLanguage(language);
-//            insertedId = guiderService.createGuider(newGuider);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(guiderService.findGuiderWithID(insertedId), HttpStatus.OK);
-//    }
-
     @RequestMapping("/Create")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Guider> createGuider(@RequestBody Guider newGuider, @RequestBody Guider_Contract newGuiderContract) {
