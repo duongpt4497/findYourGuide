@@ -40,7 +40,7 @@ public class TokenHelper {
     @Value("${jwt.secret}")
     private String secretKey;
 
-    @Value("${jwt.expire:3600000}")
+//    @Value("${jwt.expire:3600000}")
     private long validityInMilliseconds = 3600000; // 1h
 
     @Autowired
@@ -58,7 +58,7 @@ public class TokenHelper {
         
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
-
+        System.out.println(username+"|"+now+"|"+validity);
         //Builds the JWT and serializes it to a compact, URL-safe string
         return Jwts.builder()
                 .setClaims(claims)

@@ -51,8 +51,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
         try {
-            System.out.println(authResult.getCredentials().toString());
-            String token = TokenHelper.createToken(authResult.getCredentials().toString());
+            System.out.println(authResult.getPrincipal().toString());
+            String token = TokenHelper.createToken(authResult.getPrincipal().toString());
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write(token);
             response.getWriter().flush();
