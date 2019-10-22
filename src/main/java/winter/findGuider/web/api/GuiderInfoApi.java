@@ -21,8 +21,7 @@ public class GuiderInfoApi {
     @GetMapping("/{id}")
     public Guider findGuider(@PathVariable("id") long id){
         try{
-
-            return guiderServiceImpl.findGuiderWithID(id);
+           return guiderServiceImpl.findGuiderWithID(id);
         }catch(Exception e ){
             System.out.println(e.getMessage() + e.getStackTrace() + e.getCause() + e.getLocalizedMessage() + id);
         }
