@@ -37,6 +37,17 @@ public class GuiderPostApi {
         return null;
     }
 
+    @GetMapping("/allPostOfOneCategory")
+    public List<Post> findAllPostOfOneCategory(@RequestParam("category_id") long category_id){
+        try{
+
+            return postServiceImpl.findAllPost(category_id);
+        }catch(Exception e ){
+            System.out.println(e.getMessage() + e.getStackTrace() + e.getCause() + e.getLocalizedMessage() + category_id);
+        }
+        return null;
+    }
+
     @GetMapping("/")
     public ResponseEntity<Post> findSpecificPost(@RequestParam("post_id") long id) {
         try{
@@ -47,6 +58,8 @@ public class GuiderPostApi {
         }
         return null;
     }
+
+
 
     @PostMapping(consumes="application/json",value = "/update/post")
     @ResponseStatus(HttpStatus.OK)
