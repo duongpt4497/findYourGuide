@@ -25,7 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
         try {
             String query = "select * from category";
             System.out.println(query);
-            return jdbcTemplate.query("select * from review where guider_id = ?", new RowMapper<Category>() {
+            return jdbcTemplate.query("select * from category", new RowMapper<Category>() {
                 public Category mapRow(ResultSet rs, int rowNum) throws SQLException {
                     return new Category(
                             rs.getInt("category_id"),
