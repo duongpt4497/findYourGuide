@@ -2,6 +2,7 @@ package winter.findGuider.web.api;
 
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
+import com.paypal.api.payments.Refund;
 import com.paypal.base.rest.PayPalRESTException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,16 +63,34 @@ public class PaypalController {
         String description = paypalService.getTransactionDescription(order_id);
         try {
             Payment payment = paypalService.executePayment(paymentId, payerId);
+            String transaction_id = payment.getTransactions().get(0).getRelatedResources().get(0).getSale().getId();
             if (payment.getState().equals("approved")) {
                 // payment succeed
-                long transaction_id = paypalService.createTransactionRecord(paymentId, payerId, description, true);
-                return "url to success page" + " transactionId=" + transaction_id;
+                paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, true, order_id);
+                return "url to success page";
+            } else {
+                paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, false, order_id);
             }
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());
         }
         // payment fail
-        paypalService.createTransactionRecord(paymentId, payerId, description, false);
         return "url to fail page";
+    }
+
+    @RequestMapping("/Refund/{transaction_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public String refund(@PathVariable("transaction_id") String transaction_id) {
+        String error = "blank";
+        String id = "";
+        try {
+            Refund refund = paypalService.refundPayment(transaction_id);
+            if (refund.getState().equals("completed")) {
+                return "url to success page?error=" + error + "&id=" + id;
+            }
+        } catch (PayPalRESTException e) {
+            error = e.getDetails().getMessage();
+        }
+        return "url to fail page?error=" + error;
     }
 }

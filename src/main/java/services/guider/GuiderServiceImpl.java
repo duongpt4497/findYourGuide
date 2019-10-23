@@ -126,17 +126,17 @@ public class GuiderServiceImpl implements GuiderService {
 
     @Override
     public void createGuiderContract(long guider_id, Guider_Contract newGuiderContract) {
-//        try {
-//            String query = "insert into guider_contract (guider_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,account_active_date)" +
-//                    "values (?,?,?,?,?,?,?,?,?,?,?)";
-//            jdbcTemplate.update(query, guider_id, newGuiderContract.getName(), newGuiderContract.getNationality(),
-//                    new java.sql.Date(newGuiderContract.getDate_of_birth().getTime()), newGuiderContract.getGender(),
-//                    newGuiderContract.getHometown(), newGuiderContract.getAddress(), newGuiderContract.getIdentity_card_number(),
-//                    new java.sql.Date(newGuiderContract.getCard_issued_date().getTime()), newGuiderContract.getCard_issued_province(),
-//                    java.sql.Date.valueOf(LocalDate.now()));
-//        } catch (Exception e) {
-//            logger.info(e.getMessage());
-//        }
+        try {
+            String query = "insert into guider_contract (guider_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,account_active_date)" +
+                    "values (?,?,?,?,?,?,?,?,?,?,?)";
+            jdbcTemplate.update(query, guider_id, newGuiderContract.getName(), newGuiderContract.getNationality(),
+                    new java.sql.Date(newGuiderContract.getDate_of_birth().getTime()), newGuiderContract.getGender(),
+                    newGuiderContract.getHometown(), newGuiderContract.getAddress(), newGuiderContract.getIdentity_card_number(),
+                    new java.sql.Date(newGuiderContract.getCard_issued_date().getTime()), newGuiderContract.getCard_issued_province(),
+                    java.sql.Date.valueOf(LocalDate.now()));
+        } catch (Exception e) {
+            logger.info(e.getMessage());
+        }
     }
 
     @Override

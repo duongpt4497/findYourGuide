@@ -8,11 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -34,20 +31,20 @@ public class PaypalServiceImpl implements PaypalService {
 
     @Override
     public Payment createPayment(Double total, String currency, String description, String cancelUrl, String successUrl) throws PayPalRESTException {
+        // Create amount
         Amount amount = new Amount();
         amount.setCurrency(currency);
         amount.setTotal(String.format("%.2f", total));
-
+        //Create transaction
         Transaction transaction = new Transaction();
         transaction.setDescription(description);
         transaction.setAmount(amount);
-
         List<Transaction> transactions = new ArrayList<>();
         transactions.add(transaction);
-
+        // Create payer
         Payer payer = new Payer();
         payer.setPaymentMethod(PaypalPaymentMethod.paypal.toString());
-
+        // Create payment
         Payment payment = new Payment();
         payment.setIntent(PaypalPaymentIntent.sale.toString());
         payment.setPayer(payer);
@@ -70,32 +67,21 @@ public class PaypalServiceImpl implements PaypalService {
     }
 
     @Override
-    public long createTransactionRecord(String payment_id, String payer_id, String description, boolean success) {
-        KeyHolder keyHolder = new GeneratedKeyHolder();
+    public void createTransactionRecord(String transaction_id, String payment_id, String payer_id, String description, boolean success, long order_id) {
         try {
-            String insertQuery = "insert into transaction (payment_id, payer_id, description, date_of_transaction, success) " +
-                    "values (?,?,?,?,?)";
-
-            jdbcTemplate.update(connection -> {
-                PreparedStatement ps = connection
-                        .prepareStatement(insertQuery, new String[]{"transaction_id"});
-                ps.setString(1, payment_id);
-                ps.setString(2, payer_id);
-                ps.setString(3, description);
-                ps.setTimestamp(4, new java.sql.Timestamp(System.currentTimeMillis()));
-                ps.setBoolean(5, success);
-                return ps;
-            }, keyHolder);
+            String insertQuery = "insert into transaction (transaction_id, payment_id, payer_id, description, date_of_transaction, success, order_id) " +
+                    "values (?,?,?,?,?,?,?)";
+            jdbcTemplate.update(insertQuery, transaction_id, payment_id, payer_id, description,
+                    new java.sql.Timestamp(System.currentTimeMillis()), success, order_id);
         } catch (Exception e) {
             logger.info(e.getMessage());
         }
-        return (long) keyHolder.getKey();
     }
 
     @Override
     public double getTransactionPrice(long order_id) {
         String query = "select fee_paid from ordertrip where order_id = ?";
-        double fee = jdbcTemplate.queryForObject(query, new Object[] {order_id}, double.class);
+        double fee = jdbcTemplate.queryForObject(query, new Object[]{order_id}, double.class);
         return fee;
     }
 
@@ -103,16 +89,16 @@ public class PaypalServiceImpl implements PaypalService {
     public String getTransactionDescription(long order_id) {
         String description = "";
         try {
-            String query = "SELECT traveler.first_name as tra_first_name, traveler.last_name as tra_last_name, \n" +
-                    "guider.first_name as gu_first_name, guider.last_name as gu_last_name, \n" +
+            String query = "SELECT traveler.first_name as tra_first_name, traveler.last_name as tra_last_name, " +
+                    "guider.first_name as gu_first_name, guider.last_name as gu_last_name, " +
                     "title, begin_date, adult_quantity as adult, " +
                     "children_quantity as children, fee_paid " +
-                    "FROM public.ordertrip " +
-                    "join public.post " +
+                    "FROM ordertrip " +
+                    "join post " +
                     "on ordertrip.post_id = post.post_id " +
-                    "join public.guider " +
+                    "join guider " +
                     "on post.guider_id = guider.guider_id " +
-                    "join public.traveler " +
+                    "join traveler " +
                     "on ordertrip.traveler_id = traveler.traveler_id " +
                     "where order_id = ?";
             description = jdbcTemplate.queryForObject(query, new RowMapper<String>() {
@@ -130,5 +116,23 @@ public class PaypalServiceImpl implements PaypalService {
             logger.info(e.getMessage());
         }
         return description;
+    }
+
+    @Override
+    public Refund refundPayment(String transaction_id) throws PayPalRESTException {
+        String query = "SELECT fee_paid " +
+                "FROM ordertrip, transaction " +
+                "where transaction_id = ? and ordertrip.order_id = transaction.order_id";
+        double fee = jdbcTemplate.queryForObject(query, new Object[]{transaction_id}, double.class);
+        // Create new refund
+        Refund refund = new Refund();
+        // Create amount
+        Amount amount = new Amount();
+        amount.setTotal(String.format("%.2f", fee));
+        amount.setCurrency("USD");
+        refund.setAmount(amount);
+        Sale sale = new Sale();
+        sale.setId(transaction_id);
+        return sale.refund(apiContext, refund);
     }
 }
