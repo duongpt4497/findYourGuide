@@ -79,7 +79,7 @@ public class PostServiceImpl implements PostService {
     public Post findSpecificPost(long post_id) {
 
         try {
-            return jdbcTemplate.queryForObject("select * from  post as p, locations as l where p.location_id = l.location_id and p.post_id = ?", new RowMapper<Post>() {
+            return jdbcTemplate.queryForObject("select * from  post as p, locations as l,category as c where c.category_id = p.category_id and p.location_id = l.location_id and p.post_id = ?", new RowMapper<Post>() {
                 @Override
                 public Post mapRow(ResultSet resultSet, int i) throws SQLException {
                     return new Post(
@@ -94,7 +94,8 @@ public class PostServiceImpl implements PostService {
                             resultSet.getString("place"),
                             resultSet.getLong("price"),
                             resultSet.getLong("rated"),
-                            resultSet.getString("reasons")
+                            resultSet.getString("reasons"),
+                            resultSet.getString("name")
 
                     );
                 }
@@ -108,9 +109,11 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void updatePost(long post_id, Post post) {
-        String query = "UPDATE post SET  title='" + post.getTitle() + "', picture_link='" + generalService.createSqlArray(Arrays.asList(post.getPicture_link())) + "', video_link ='"
+        String query = "UPDATE post SET  title='" + post.getTitle() + "', picture_link='" + generalService.createSqlArray(generalService.convertBase64toImageAndChangeName(post.getPicture_link()))
+                + "', video_link ='"
                 + post.getVideo_link() + "',total_hour=" + post.getTotal_hour() + ",description = '" + post.getDescription() + "',including_service='" +
                 generalService.createSqlArray(Arrays.asList(post.getIncluding_service())) + "',active = " + post.isActive() + ",location_id = " + Integer.parseInt(post.getLocation())
+                +  ",category_id = " + Integer.parseInt(post.getCategory())
                 + ",rated =" +post.getRated()+",price =" +post.getPrice()+",reasons =" +post.getReasons()+" WHERE post_id =1";
         System.out.println("@@@@" + post.getLocation() + "@@@@@");
         //System.out.println(Integer.getInteger(post.getLocation()));
@@ -124,23 +127,24 @@ public class PostServiceImpl implements PostService {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         //try{
             String query = "INSERT INTO public.post(" +
-                    "guider_id, location_id, title, video_link, picture_link, total_hour, description, including_service, active,price,rated,reasons)" +
-                    "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
+                    "guider_id, location_id,category_id, title, video_link, picture_link, total_hour, description, including_service, active,price,rated,reasons)" +
+                    "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?)";
             jdbcTemplate.update(connection -> {
                 PreparedStatement ps = connection
                         .prepareStatement(query, new String[]{"post_id"});
                 ps.setLong(1, guider_id);
                 ps.setLong(2, Long.parseLong(post.getLocation()));
-                ps.setString(3, post.getTitle());
-                ps.setString(4, post.getVideo_link());
-                ps.setArray(5, generalService.createSqlArray(Arrays.asList(post.getPicture_link())));
-                ps.setInt(6, post.getTotal_hour());
-                ps.setString(7, post.getDescription());
-                ps.setArray(8, generalService.createSqlArray(Arrays.asList(post.getIncluding_service())));
-                ps.setBoolean(9, post.isActive());
-                ps.setLong(10,post.getPrice());
-                ps.setLong(11,post.getRated());
-                ps.setString(12,post.getReasons());
+                ps.setLong(3,Long.parseLong(post.getCategory()));
+                ps.setString(4, post.getTitle());
+                ps.setString(5, post.getVideo_link());
+                ps.setArray(6, generalService.createSqlArray(generalService.convertBase64toImageAndChangeName(post.getPicture_link())));
+                ps.setInt(7, post.getTotal_hour());
+                ps.setString(8, post.getDescription());
+                ps.setArray(9, generalService.createSqlArray(Arrays.asList(post.getIncluding_service())));
+                ps.setBoolean(10, post.isActive());
+                ps.setLong(11,post.getPrice());
+                ps.setLong(12,post.getRated());
+                ps.setString(13,post.getReasons());
                 return ps;
             }, keyHolder);
         /*}catch(Exception e){
