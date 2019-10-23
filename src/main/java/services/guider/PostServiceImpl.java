@@ -54,6 +54,28 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<Post> findAllPostByCategoryId(long category_id) {
+        try {
+            return jdbcTemplate.query("select * from post where category_id = ?", new RowMapper<Post>() {
+                @Override
+                public Post mapRow(ResultSet resultSet, int i) throws SQLException {
+                    return new Post(
+                            resultSet.getLong("post_id"),
+                            resultSet.getString("title"),
+                            generalService.checkForNull(resultSet.getArray("picture_link")),
+                            resultSet.getString("description"),
+                            resultSet.getBoolean("active")
+                    );
+
+                }
+            }, category_id);
+        } catch (Exception e) {
+            System.out.println(e.getMessage() + e.getStackTrace() + e.getCause());
+        }
+        return null;
+    }
+
+    @Override
     public Post findSpecificPost(long post_id) {
 
         try {

@@ -23,8 +23,8 @@ public class ReviewApi {
         this.reviewServiceImpl = guS;
     }
 
-    @GetMapping("/reviewByGuiderId"+".json")
-    public List<Review> findReviewByGuiderId(@PathParam("guider_id") long guider_id){
+    @GetMapping("/reviewByGuiderId")
+    public List<Review> findReviewByGuiderId(@RequestParam("guider_id") long guider_id){
         try{
 
             return reviewServiceImpl.findReviewsByGuiderId(guider_id);
@@ -34,7 +34,7 @@ public class ReviewApi {
         return null;
     }
 
-    @GetMapping("/reviewByPostId"+".json")
+    @GetMapping("/reviewByPostId")
     public List<Review> findReviewByPostId(@RequestParam("post_id") long post_id){
         try{
 
