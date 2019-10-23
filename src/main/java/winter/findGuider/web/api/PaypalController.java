@@ -81,16 +81,17 @@ public class PaypalController {
     @RequestMapping("/Refund/{transaction_id}")
     @ResponseStatus(HttpStatus.OK)
     public String refund(@PathVariable("transaction_id") String transaction_id) {
-        String error = "blank";
-        String id = "";
+        String message = "success";
         try {
             Refund refund = paypalService.refundPayment(transaction_id);
             if (refund.getState().equals("completed")) {
-                return "url to success page?error=" + error + "&id=" + id;
+                paypalService.createRefundRecord(transaction_id, message);
+                return "url to success page?message=" + message;
             }
         } catch (PayPalRESTException e) {
-            error = e.getDetails().getMessage();
+            message = e.getDetails().getMessage();
+            paypalService.createRefundRecord(transaction_id, message);
         }
-        return "url to fail page?error=" + error;
+        return "url to fail page?message=" + message;
     }
 }

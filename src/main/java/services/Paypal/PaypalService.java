@@ -17,4 +17,6 @@ public interface PaypalService {
     public String getTransactionDescription(long order_id);
 
     public Refund refundPayment(String transaction_id) throws PayPalRESTException;
+
+    public void createRefundRecord(String transaction_id, String message);
 }

@@ -135,4 +135,14 @@ public class PaypalServiceImpl implements PaypalService {
         sale.setId(transaction_id);
         return sale.refund(apiContext, refund);
     }
+
+    @Override
+    public void createRefundRecord(String transaction_id, String message) {
+        try {
+            String query = "insert into refund (transaction_id, date_of_refund, message) values (?,?,?)";
+            jdbcTemplate.update(query, transaction_id, new java.sql.Timestamp(System.currentTimeMillis()), message);
+        } catch (Exception e) {
+            logger.info(e.getMessage());
+        }
+    }
 }
