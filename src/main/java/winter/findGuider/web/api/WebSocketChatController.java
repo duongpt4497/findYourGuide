@@ -43,8 +43,9 @@ public class WebSocketChatController {
 
         ha.setLeaveMutable(true);*/
 //logger.info(headerAccessor.getFirstNativeHeader(chatMessage.getReceiver()));
+        logger.info(chatMessage.getReceiver() +"@@");
        this.simpMessagingTemplate.convertAndSendToUser(chatMessage.getReceiver(),"/queue/reply", chatMessage);
-
+        this.simpMessagingTemplate.convertAndSendToUser(chatMessage.getUser(),"/queue/reply", chatMessage);
     }
 
     @MessageMapping("/chat.addUser")
