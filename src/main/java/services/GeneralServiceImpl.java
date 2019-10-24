@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -62,16 +65,11 @@ public class GeneralServiceImpl implements GeneralService {
         for (String base64 : base64List) {
             System.out.println("haha");
             long now = System.currentTimeMillis();
-            byte[] data = Base64.decodeBase64(base64);
+            byte[] data = Base64.decodeBase64(base64.split(",")[1]);
             Long uniqueIds = generateLongId();
             try {
-                String url = "./src/main/resources/images/" + uniqueIds.toString() + ".bmp";
-                OutputStream stream = new FileOutputStream(
-                        url);
-                imageUrls.add(url);
-                stream.write(data);
-                System.out.println(url);
-
+                Path destinationFile = Paths.get("./src/main/resources/images/", uniqueIds.toString()+".jpg");
+                Files.write(destinationFile, data);
             } catch (Exception e) {
                 System.out.println(e.getMessage() + e.getCause());
             }
