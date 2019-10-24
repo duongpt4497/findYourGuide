@@ -58,20 +58,22 @@ public class GeneralServiceImpl implements GeneralService {
     public List<String> convertBase64toImageAndChangeName(String[] base64array) {
         List<String> base64List = Arrays.asList(base64array);
         List<String> imageUrls = null;
+        System.out.println("haha");
         for (String base64 : base64List) {
+            System.out.println("haha");
             long now = System.currentTimeMillis();
             byte[] data = Base64.decodeBase64(base64);
             Long uniqueIds = generateLongId();
             try {
-                String url = "./src/resources/images/" + uniqueIds.toString() + ".jpg";
-                FileOutputStream imageOutFile = new FileOutputStream(
+                String url = "./src/main/resources/images/" + uniqueIds.toString() + ".bmp";
+                OutputStream stream = new FileOutputStream(
                         url);
                 imageUrls.add(url);
-                imageOutFile.write(data);
+                stream.write(data);
+                System.out.println(url);
 
-                imageOutFile.close();
             } catch (Exception e) {
-
+                System.out.println(e.getMessage() + e.getCause());
             }
 
         }
