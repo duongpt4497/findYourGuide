@@ -2,14 +2,16 @@ package services.ordertrip;
 
 import entities.Order;
 
-import java.util.List;
-
 public interface OrderTripService {
-    public long createOrder(Order newOrder);
+    public int createOrder(Order newOrder);
 
-    public Order findOrder(long order_id);
+    public Order findOrder(int order_id);
 
-    public long editOrder(Order orderNeedUpdate);
+    public int editOrder(Order orderNeedUpdate);
 
-    public long cancelOrder(long id);
+    public int cancelOrder(int id);
+
+    public void getOrderGuiderId_Price_EndDate(Order newOrder);
+
+    public int checkAvailabilityOfOrder(Order newOrder);
 }

@@ -18,8 +18,7 @@ import java.util.List;
 
 @Repository
 public class PaypalServiceImpl implements PaypalService {
-
-    private static final Logger logger = LoggerFactory.getLogger(PaypalServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private JdbcTemplate jdbcTemplate;
     private APIContext apiContext;
 
@@ -74,14 +73,19 @@ public class PaypalServiceImpl implements PaypalService {
             jdbcTemplate.update(insertQuery, transaction_id, payment_id, payer_id, description,
                     new java.sql.Timestamp(System.currentTimeMillis()), success, order_id);
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 
     @Override
     public double getTransactionPrice(long order_id) {
-        String query = "select fee_paid from ordertrip where order_id = ?";
-        double fee = jdbcTemplate.queryForObject(query, new Object[]{order_id}, double.class);
+        double fee = 0;
+        try {
+            String query = "select fee_paid from ordertrip where order_id = ?";
+            fee = jdbcTemplate.queryForObject(query, new Object[]{order_id}, double.class);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
         return fee;
     }
 
@@ -113,7 +117,7 @@ public class PaypalServiceImpl implements PaypalService {
                 }
             }, order_id);
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         }
         return description;
     }
@@ -142,7 +146,7 @@ public class PaypalServiceImpl implements PaypalService {
             String query = "insert into refund (transaction_id, date_of_refund, message) values (?,?,?)";
             jdbcTemplate.update(query, transaction_id, new java.sql.Timestamp(System.currentTimeMillis()), message);
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 }

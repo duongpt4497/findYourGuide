@@ -11,6 +11,7 @@ services\guider\ActivityServiceImpl.class
 services\PasswordEncrypt.class
 services\guider\ReviewServiceImpl.class
 services\Paypal\PaypalService.class
+services\ordertrip\OrderTripServiceImpl$2.class
 services\Paypal\PaypalConfig.class
 entities\Category.class
 entities\TransactionRecord.class

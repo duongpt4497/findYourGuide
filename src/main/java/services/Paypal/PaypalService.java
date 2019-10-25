@@ -3,7 +3,6 @@ package services.Paypal;
 import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.Refund;
 import com.paypal.base.rest.PayPalRESTException;
-import entities.TransactionRecord;
 
 public interface PaypalService {
     public Payment createPayment(Double total, String currency, String description, String cancelUrl, String successUrl) throws PayPalRESTException;

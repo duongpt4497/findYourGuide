@@ -88,8 +88,8 @@ public class PaypalController {
                 paypalService.createRefundRecord(transaction_id, message);
                 return "url to success page?message=" + message;
             }
-        } catch (PayPalRESTException e) {
-            message = e.getDetails().getMessage();
+        } catch (PayPalRESTException paypalException) {
+            message = paypalException.getDetails().getMessage();
             paypalService.createRefundRecord(transaction_id, message);
         }
         return "url to fail page?message=" + message;

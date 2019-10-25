@@ -1,26 +1,32 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Data
 public class Order {
-    private long order_id;
-    private long traveler_id;
-    private long guider_id;
-    private long post_id;
-    private Date begin_date;
-    private Date finish_date;
+    private int order_id;
+    private int traveler_id;
+    private int guider_id;
+    private int post_id;
+
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    private Timestamp begin_date;
+
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    private Timestamp finish_date;
+
     private int adult_quantity;
     private int children_quantity;
-    private long fee_paid;
+    private double fee_paid;
     private boolean canceled;
 
     public Order() {
     }
 
-    public Order(long order_id, long traveler_id, long guider_id, long post_id, Date begin_date, Date finish_date, int adult_quantity, int children_quantity, long fee_paid, boolean canceled) {
+    public Order(int order_id, int traveler_id, int guider_id, int post_id, Timestamp begin_date, Timestamp finish_date, int adult_quantity, int children_quantity, double fee_paid, boolean canceled) {
         this.order_id = order_id;
         this.traveler_id = traveler_id;
         this.guider_id = guider_id;
@@ -33,51 +39,51 @@ public class Order {
         this.canceled = canceled;
     }
 
-    public long getOrder_id() {
+    public int getOrder_id() {
         return order_id;
     }
 
-    public void setOrder_id(long order_id) {
+    public void setOrder_id(int order_id) {
         this.order_id = order_id;
     }
 
-    public long getTraveler_id() {
+    public int getTraveler_id() {
         return traveler_id;
     }
 
-    public void setTraveler_id(long traveler_id) {
+    public void setTraveler_id(int traveler_id) {
         this.traveler_id = traveler_id;
     }
 
-    public long getGuider_id() {
+    public int getGuider_id() {
         return guider_id;
     }
 
-    public void setGuider_id(long guider_id) {
+    public void setGuider_id(int guider_id) {
         this.guider_id = guider_id;
     }
 
-    public long getPost_id() {
+    public int getPost_id() {
         return post_id;
     }
 
-    public void setPost_id(long post_id) {
+    public void setPost_id(int post_id) {
         this.post_id = post_id;
     }
 
-    public Date getBegin_date() {
+    public Timestamp getBegin_date() {
         return begin_date;
     }
 
-    public void setBegin_date(Date begin_date) {
+    public void setBegin_date(Timestamp begin_date) {
         this.begin_date = begin_date;
     }
 
-    public Date getFinish_date() {
+    public Timestamp getFinish_date() {
         return finish_date;
     }
 
-    public void setFinish_date(Date finish_date) {
+    public void setFinish_date(Timestamp finish_date) {
         this.finish_date = finish_date;
     }
 
@@ -97,11 +103,11 @@ public class Order {
         this.children_quantity = children_quantity;
     }
 
-    public long getFee_paid() {
+    public double getFee_paid() {
         return fee_paid;
     }
 
-    public void setFee_paid(long fee_paid) {
+    public void setFee_paid(double fee_paid) {
         this.fee_paid = fee_paid;
     }
 
