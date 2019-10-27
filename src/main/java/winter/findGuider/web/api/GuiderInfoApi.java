@@ -21,7 +21,6 @@ public class GuiderInfoApi {
     @GetMapping("/{id}")
     public Guider findGuider(@PathVariable("id") long id){
         try{
-
             return guiderServiceImpl.findGuiderWithID(id);
         }catch(Exception e ){
             System.out.println(e.getMessage() + e.getStackTrace() + e.getCause() + e.getLocalizedMessage() + id);
@@ -32,7 +31,6 @@ public class GuiderInfoApi {
     @GetMapping("/guiderByPostId")
     public Guider findGuiderByPostId(@RequestParam("post_id") long post_id){
         try{
-
             return guiderServiceImpl.findGuiderWithPostId(post_id);
         }catch(Exception e ){
             System.out.println(e.getMessage() + e.getStackTrace() + e.getCause() + e.getLocalizedMessage() + post_id);
@@ -40,14 +38,5 @@ public class GuiderInfoApi {
         return null;
     }
 
-    /*@GetMapping("/{id}")
-    public Guider findGuider2(@PathVariable("id") long id){
-        try{
 
-            return guiderServiceImpl.findGuiderWithID(id);
-        }catch(Exception e ){
-            System.out.println(e.getMessage() + e.getStackTrace() + e.getCause() + e.getLocalizedMessage() + id);
-        }
-        return null;
-    }*/
 }

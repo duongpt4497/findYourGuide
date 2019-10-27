@@ -61,10 +61,7 @@ public class GeneralServiceImpl implements GeneralService {
     public List<String> convertBase64toImageAndChangeName(String[] base64array) {
         List<String> base64List = Arrays.asList(base64array);
         List<String> imageUrls = null;
-        System.out.println("haha");
         for (String base64 : base64List) {
-            System.out.println("haha");
-            long now = System.currentTimeMillis();
             byte[] data = Base64.decodeBase64(base64.split(",")[1]);
             Long uniqueIds = generateLongId();
             try {
@@ -100,5 +97,15 @@ public class GeneralServiceImpl implements GeneralService {
             timestamp = System.currentTimeMillis();
         }
         return timestamp;
+    }
+
+    @Override
+    public Map<String,Integer> countSizeForPaging(int pageNo, int size) {
+        int startElement = pageNo*size-size;
+        int lastElement = pageNo*size;
+        Map<String,Integer> pagingCount = new HashMap<>();
+        pagingCount.put("startElement",startElement);
+        pagingCount.put("lastElement",lastElement);
+        return pagingCount;
     }
 }
