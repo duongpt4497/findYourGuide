@@ -144,18 +144,21 @@ public class OrderTripServiceImpl implements OrderTripService {
 
         // Get guider schedule
         List<Order> guiderSchedule = this.getGuiderSchedule(guider_id, date);
-
-        // Get occupy hours
-        ArrayList<String> occupyHour = this.getOccupyHours(guiderSchedule, date);
-        // Clear out occupy hours from available hours
-        availableHours.removeAll(occupyHour);
+        if (!guiderSchedule.isEmpty()) {
+            // Get occupy hours
+            ArrayList<String> occupyHour = this.getOccupyHours(guiderSchedule, date);
+            // Clear out occupy hours from available hours
+            availableHours.removeAll(occupyHour);
+        }
 
         // Get unacceptable hours
         List<Order> guiderScheduleNextDay = this.getGuiderSchedule(guider_id, date.plusDays(1));
         ArrayList<String> nextDayOccupyHour = this.getOccupyHours(guiderScheduleNextDay, date.plusDays(1));
         ArrayList<String> unacceptableHours = this.getUnacceptableHours(post_id, availableHours, nextDayOccupyHour, date);
-        // Clear out unacceptable hours
-        availableHours.removeAll(unacceptableHours);
+        if (!unacceptableHours.isEmpty()) {
+            // Clear out unacceptable hours
+            availableHours.removeAll(unacceptableHours);
+        }
         return availableHours;
     }
 
