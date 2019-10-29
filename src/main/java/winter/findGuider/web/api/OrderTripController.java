@@ -18,24 +18,6 @@ public class OrderTripController {
         this.orderTripService = os;
     }
 
-    @RequestMapping("/Create")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Order> createOrder(@RequestBody Order newOrder) {
-        try {
-            orderTripService.getOrderGuiderId_Price_EndDate(newOrder);
-            // Check for availability of order
-            int count = orderTripService.checkAvailabilityOfOrder(newOrder);
-            if (count != 0) {
-                return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
-            }
-            // Create order
-            int insertedId = orderTripService.createOrder(newOrder);
-            return new ResponseEntity<>(orderTripService.findOrder(insertedId), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
-    }
-
     @RequestMapping("/GetAvailableHours")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<ArrayList<String>> getAvailableBookingHour(@RequestBody Order newOrder) {

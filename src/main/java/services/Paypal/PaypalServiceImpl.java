@@ -3,6 +3,7 @@ package services.Paypal;
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
+import entities.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,11 +79,12 @@ public class PaypalServiceImpl implements PaypalService {
     }
 
     @Override
-    public double getTransactionPrice(long order_id) {
+    public double getTransactionFee(Order order) {
         double fee = 0;
         try {
-            String query = "select fee_paid from ordertrip where order_id = ?";
-            fee = jdbcTemplate.queryForObject(query, new Object[]{order_id}, double.class);
+            String query = "select price from post where post_id = ?";
+            double price = jdbcTemplate.queryForObject(query, new Object[]{order.getPost_id()}, double.class);
+            fee = price * order.getAdult_quantity() + (price / 2) * order.getChildren_quantity();
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
@@ -90,32 +92,27 @@ public class PaypalServiceImpl implements PaypalService {
     }
 
     @Override
-    public String getTransactionDescription(long order_id) {
+    public String getTransactionDescription(Order order) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM dd, yyyy");
         String description = "";
         try {
-            String query = "SELECT traveler.first_name as tra_first_name, traveler.last_name as tra_last_name, " +
-                    "guider.first_name as gu_first_name, guider.last_name as gu_last_name, " +
-                    "title, begin_date, adult_quantity as adult, " +
-                    "children_quantity as children, fee_paid " +
-                    "FROM ordertrip " +
-                    "join post " +
-                    "on ordertrip.post_id = post.post_id " +
-                    "join guider " +
-                    "on post.guider_id = guider.guider_id " +
-                    "join traveler " +
-                    "on ordertrip.traveler_id = traveler.traveler_id " +
-                    "where order_id = ?";
+            String query = "SELECT title, traveler.first_name as traFname, traveler.last_name as traLname, " +
+                    "guider.first_name as guFname, guider.last_name as guLname " +
+                    "FROM post " +
+                    "join guider on post.guider_id = guider.guider_id " +
+                    "join traveler on traveler_id = ? " +
+                    "where post_id = ?";
             description = jdbcTemplate.queryForObject(query, new RowMapper<String>() {
                 @Override
                 public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    SimpleDateFormat format = new SimpleDateFormat("MMM dd, yyyy");
-                    return rs.getString("title") + " on " + format.format(rs.getTimestamp("begin_date"))
-                            + " of " + rs.getString("tra_first_name") + " " + rs.getString("tra_last_name")
-                            + " with " + rs.getString("gu_first_name") + " " + rs.getString("gu_last_name")
-                            + ". Include adult: " + rs.getInt("adult") + ", children: " + rs.getInt("children")
-                            + ". Fee: " + rs.getDouble("fee_paid");
+                    return rs.getString("title") + " on "
+                            + format.format(order.getBegin_date())
+                            + " of " + rs.getString("traFname") + " " + rs.getString("traLname")
+                            + " with " + rs.getString("guFname") + " " + rs.getString("guLname")
+                            + ". Include adult: " + order.getAdult_quantity() + ", children: " + order.getChildren_quantity()
+                            + ". Fee: " + order.getFee_paid();
                 }
-            }, order_id);
+            }, order.getTraveler_id(), order.getPost_id());
         } catch (Exception e) {
             logger.error(e.getMessage());
         }

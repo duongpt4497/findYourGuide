@@ -34,8 +34,8 @@ public class OrderTripServiceImpl implements OrderTripService {
     public int createOrder(Order newOrder) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         try {
-            String insertQuery = "insert into ordertrip (traveler_id,guider_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,canceled)" +
-                    "values (?,?,?,?,?,?,?,?,?)";
+            String insertQuery = "insert into ordertrip (traveler_id,guider_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,canceled,transaction_id)" +
+                    "values (?,?,?,?,?,?,?,?,?,?)";
             double totalHour = this.getTourTotalHour(newOrder.getPost_id());
             long bufferHour = (long) java.lang.Math.ceil(totalHour / 100 * Integer.parseInt(bufferPercent));
             jdbcTemplate.update(connection -> {
@@ -50,6 +50,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                 ps.setInt(7, newOrder.getChildren_quantity());
                 ps.setDouble(8, newOrder.getFee_paid());
                 ps.setBoolean(9, false);
+                ps.setString(10, newOrder.getTransaction_id());
                 return ps;
             }, keyHolder);
         } catch (Exception e) {
@@ -71,7 +72,8 @@ public class OrderTripServiceImpl implements OrderTripService {
                             rs.getTimestamp("begin_date").toLocalDateTime(),
                             rs.getTimestamp("finish_date").toLocalDateTime(),
                             rs.getInt("adult_quantity"), rs.getInt("children_quantity"),
-                            rs.getLong("fee_paid"), rs.getBoolean("canceled"));
+                            rs.getLong("fee_paid"), rs.getBoolean("canceled"),
+                            rs.getString("transaction_id"));
                 }
             }, order_id);
         } catch (Exception e) {
@@ -97,18 +99,15 @@ public class OrderTripServiceImpl implements OrderTripService {
     }
 
     @Override
-    public void getOrderGuiderId_Price_EndDate(Order newOrder) {
+    public void getOrderGuiderId_FinishDate(Order newOrder) {
         try {
-            String query = "SELECT guider_id, total_hour, price FROM post where post_id = ?";
+            String query = "SELECT guider_id, total_hour FROM post where post_id = ?";
             jdbcTemplate.queryForObject(query, new RowMapper<Order>() {
                 @Override
                 public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
                     newOrder.setGuider_id(rs.getInt("guider_id"));
                     Timestamp finishDate = Timestamp.valueOf(newOrder.getBegin_date().plusHours(rs.getLong("total_hour")));
                     newOrder.setFinish_date(finishDate.toLocalDateTime());
-                    double price = rs.getDouble("price");
-                    double fee = price * newOrder.getAdult_quantity() + (price / 2) * newOrder.getChildren_quantity();
-                    newOrder.setFee_paid(fee);
                     return newOrder;
                 }
             }, newOrder.getPost_id());

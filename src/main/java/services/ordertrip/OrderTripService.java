@@ -14,7 +14,7 @@ public interface OrderTripService {
 
     public int cancelOrder(int id);
 
-    public void getOrderGuiderId_Price_EndDate(Order newOrder);
+    public void getOrderGuiderId_FinishDate(Order newOrder);
 
     public int checkAvailabilityOfOrder(Order newOrder);
 
