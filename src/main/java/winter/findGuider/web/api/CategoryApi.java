@@ -1,6 +1,6 @@
 package winter.findGuider.web.api;
 
-import entities.Location;
+import entities.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,26 +8,26 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import services.guider.LocationServiceImpl;
+import services.guider.CategoryServiceImpl;
 
 @RestController
-@RequestMapping(path = "/location", produces = "application/json")
+@RequestMapping(path = "/category", produces = "application/json")
 @CrossOrigin(origins = "*")
-public class LocationApi {
+public class CategoryApi {
 
-    private LocationServiceImpl locationService;
+    private CategoryServiceImpl categoryService;
 
     @Autowired
-    public LocationApi(LocationServiceImpl locationService) {
-        this.locationService = locationService;
+    public CategoryApi(CategoryServiceImpl categoryService) {
+        this.categoryService = categoryService;
     }
 
     @GetMapping("/findAll")
-    public ResponseEntity<Location> findAllLocation() {
-        try{
+    public ResponseEntity<Category> findAllCategory() {
+        try {
 
-            return new ResponseEntity(locationService.showAllLocation(), HttpStatus.OK);
-        }catch(Exception e ){
+            return new ResponseEntity(categoryService.findAllCategory(), HttpStatus.OK);
+        } catch (Exception e) {
             System.out.println(e.getMessage() + e.getStackTrace());
         }
         return null;

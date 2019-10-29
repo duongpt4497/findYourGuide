@@ -9,5 +9,7 @@ public interface GeneralService {
 
     String[] checkForNull(Array checkArray);
 
-    void convertBase64toImageAndChangeName(String base64);
+    List<String> convertBase64toImageAndChangeName(String[] base64array);
+    Long generateLongId();
+    long tilNextMillis(long lastTimestamp);
 }

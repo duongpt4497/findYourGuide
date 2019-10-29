@@ -12,12 +12,13 @@ public class Post {
     private String[] including_service;
     private boolean active;
     private String location;
+    private String category;
     private long price;
     private long rated;
     private String reasons;
 
 
-    public Post(String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location, long price, long rated, String reasons) {
+    public Post(String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location, long price, long rated, String reasons,String category) {
 
         this.title = title;
         this.video_link = video_link;
@@ -30,9 +31,10 @@ public class Post {
         this.price = price;
         this.rated = rated;
         this.reasons = reasons;
+        this.category = category;
     }
 
-    public Post(long post_id, String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location, long price, long rated, String reasons) {
+    public Post(long post_id, String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location, long price, long rated, String reasons,String category) {
         this.post_id = post_id;
         this.title = title;
         this.video_link = video_link;
@@ -45,6 +47,7 @@ public class Post {
         this.price = price;
         this.rated = rated;
         this.reasons = reasons;
+        this.category = category;
     }
 
     public Post(long post_id,String title, String[] picture_link, String description, boolean active) {
@@ -150,5 +153,13 @@ public class Post {
 
     public void setReasons(String reasons) {
         this.reasons = reasons;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

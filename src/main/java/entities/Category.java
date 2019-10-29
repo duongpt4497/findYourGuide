@@ -1,33 +1,27 @@
 package entities;
 
-import lombok.Data;
-
-@Data
 public class Category {
-    private long category_id;
-    private String name;
+    int category_id;
+    String category;
 
-    public Category() {
-    }
-
-    public Category(long category_id, String name) {
+    public Category(int category_id, String category) {
         this.category_id = category_id;
-        this.name = name;
+        this.category = category;
     }
 
-    public long getCategory_id() {
+    public int getCategory_id() {
         return category_id;
     }
 
-    public void setCategory_id(long category_id) {
+    public void setCategory_id(int category_id) {
         this.category_id = category_id;
     }
 
-    public String getName() {
-        return name;
+    public String getCategory() {
+        return category;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
