@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 public class Order {
@@ -12,11 +14,11 @@ public class Order {
     private int guider_id;
     private int post_id;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
-    private Timestamp begin_date;
+    @JsonFormat(pattern = "MM/dd/yyyy HH:mm")
+    private LocalDateTime begin_date;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
-    private Timestamp finish_date;
+    @JsonFormat(pattern = "MM/dd/yyyy HH:mm")
+    private LocalDateTime finish_date;
 
     private int adult_quantity;
     private int children_quantity;
@@ -26,7 +28,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(int order_id, int traveler_id, int guider_id, int post_id, Timestamp begin_date, Timestamp finish_date, int adult_quantity, int children_quantity, double fee_paid, boolean canceled) {
+    public Order(int order_id, int traveler_id, int guider_id, int post_id, LocalDateTime begin_date, LocalDateTime finish_date, int adult_quantity, int children_quantity, double fee_paid, boolean canceled) {
         this.order_id = order_id;
         this.traveler_id = traveler_id;
         this.guider_id = guider_id;
@@ -71,19 +73,19 @@ public class Order {
         this.post_id = post_id;
     }
 
-    public Timestamp getBegin_date() {
+    public LocalDateTime getBegin_date() {
         return begin_date;
     }
 
-    public void setBegin_date(Timestamp begin_date) {
+    public void setBegin_date(LocalDateTime begin_date) {
         this.begin_date = begin_date;
     }
 
-    public Timestamp getFinish_date() {
+    public LocalDateTime getFinish_date() {
         return finish_date;
     }
 
-    public void setFinish_date(Timestamp finish_date) {
+    public void setFinish_date(LocalDateTime finish_date) {
         this.finish_date = finish_date;
     }
 

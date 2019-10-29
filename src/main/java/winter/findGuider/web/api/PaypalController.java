@@ -4,6 +4,7 @@ import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.Refund;
 import com.paypal.base.rest.PayPalRESTException;
+import entities.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +29,14 @@ public class PaypalController {
         this.paypalService = ps;
     }
 
-    @RequestMapping("/Pay/{order_id}")
+    @RequestMapping("/Pay")
     @ResponseStatus(HttpStatus.OK)
-    public String payment(@PathVariable("order_id") int order_id) {
+    public String payment(@RequestBody Order order) {
         String cancelUrl = URL_ROOT + URL_PAYPAL_CANCEL;
-        String successUrl = URL_ROOT + URL_PAYPAL_SUCCESS + "?order_id=" + order_id;
+        String successUrl = URL_ROOT + URL_PAYPAL_SUCCESS + "?order_id=" + order.getOrder_id();
         try {
-            double price = paypalService.getTransactionPrice(order_id);
-            String description = paypalService.getTransactionDescription(order_id);
+            double price = paypalService.getTransactionPrice(order.getOrder_id());
+            String description = paypalService.getTransactionDescription(order.getOrder_id());
             Payment payment = paypalService.createPayment(price, "USD", description, cancelUrl, successUrl);
             for (Links links : payment.getLinks()) {
                 if (links.getRel().equals("approval_url")) {
@@ -78,9 +79,9 @@ public class PaypalController {
         return "url to fail page";
     }
 
-    @RequestMapping("/Refund/{transaction_id}")
+    @RequestMapping("/Refund")
     @ResponseStatus(HttpStatus.OK)
-    public String refund(@PathVariable("transaction_id") String transaction_id) {
+    public String refund(@RequestBody String transaction_id) {
         String message = "success";
         try {
             Refund refund = paypalService.refundPayment(transaction_id);
