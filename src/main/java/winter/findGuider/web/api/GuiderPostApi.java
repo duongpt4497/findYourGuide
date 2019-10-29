@@ -4,8 +4,8 @@ import entities.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import services.GeneralServiceImpl;
-import services.guider.ActivityServiceImpl;
-import services.guider.PostServiceImpl;
+import services.Activity.ActivityServiceImpl;
+import services.Post.PostServiceImpl;
 import org.springframework.http.*;
 
 import java.util.List;

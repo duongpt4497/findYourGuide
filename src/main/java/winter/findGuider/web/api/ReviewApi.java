@@ -1,14 +1,11 @@
 package winter.findGuider.web.api;
 
-import entities.Guider;
 import entities.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import services.GeneralServiceImpl;
-import services.guider.GuiderServiceImpl;
-import services.guider.ReviewServiceImpl;
+import services.Review.ReviewServiceImpl;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController

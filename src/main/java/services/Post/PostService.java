@@ -1,4 +1,4 @@
-package services.guider;
+package services.Post;
 
 import entities.Post;
 
