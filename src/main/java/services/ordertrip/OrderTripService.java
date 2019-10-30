@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public interface OrderTripService {
-    public int createOrder(Order newOrder);
+    public void createOrder(Order newOrder);
 
     public Order findOrder(int order_id);
 

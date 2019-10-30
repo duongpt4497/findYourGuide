@@ -6,11 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -31,33 +28,19 @@ public class OrderTripServiceImpl implements OrderTripService {
     }
 
     @Override
-    public int createOrder(Order newOrder) {
-        KeyHolder keyHolder = new GeneratedKeyHolder();
+    public void createOrder(Order newOrder) {
         try {
             String insertQuery = "insert into ordertrip (traveler_id,guider_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,canceled,transaction_id,status)" +
                     "values (?,?,?,?,?,?,?,?,?,?,?)";
             double totalHour = this.getTourTotalHour(newOrder.getPost_id());
             long bufferHour = (long) java.lang.Math.ceil(totalHour / 100 * Integer.parseInt(bufferPercent));
-            jdbcTemplate.update(connection -> {
-                PreparedStatement ps = connection
-                        .prepareStatement(insertQuery, new String[]{"order_id"});
-                ps.setLong(1, newOrder.getTraveler_id());
-                ps.setLong(2, newOrder.getGuider_id());
-                ps.setLong(3, newOrder.getPost_id());
-                ps.setTimestamp(4, Timestamp.valueOf(newOrder.getBegin_date()));
-                ps.setTimestamp(5, Timestamp.valueOf(newOrder.getFinish_date().plusHours(bufferHour).minusMinutes(30)));
-                ps.setInt(6, newOrder.getAdult_quantity());
-                ps.setInt(7, newOrder.getChildren_quantity());
-                ps.setDouble(8, newOrder.getFee_paid());
-                ps.setBoolean(9, false);
-                ps.setString(10, newOrder.getTransaction_id());
-                ps.setBoolean(11, true);
-                return ps;
-            }, keyHolder);
+            jdbcTemplate.update(insertQuery, newOrder.getTraveler_id(), newOrder.getGuider_id(), newOrder.getPost_id(),
+                    Timestamp.valueOf(newOrder.getBegin_date()), Timestamp.valueOf(newOrder.getFinish_date().plusHours(bufferHour).minusMinutes(30)),
+                    newOrder.getAdult_quantity(), newOrder.getChildren_quantity(), newOrder.getFee_paid(),
+                    false, newOrder.getTransaction_id(), true);
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
-        return (int) keyHolder.getKey();
     }
 
     @Override
