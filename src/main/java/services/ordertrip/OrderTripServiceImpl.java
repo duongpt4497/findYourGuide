@@ -34,8 +34,8 @@ public class OrderTripServiceImpl implements OrderTripService {
     public int createOrder(Order newOrder) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         try {
-            String insertQuery = "insert into ordertrip (traveler_id,guider_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,canceled,transaction_id)" +
-                    "values (?,?,?,?,?,?,?,?,?,?)";
+            String insertQuery = "insert into ordertrip (traveler_id,guider_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,canceled,transaction_id,status)" +
+                    "values (?,?,?,?,?,?,?,?,?,?,?)";
             double totalHour = this.getTourTotalHour(newOrder.getPost_id());
             long bufferHour = (long) java.lang.Math.ceil(totalHour / 100 * Integer.parseInt(bufferPercent));
             jdbcTemplate.update(connection -> {
@@ -51,6 +51,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                 ps.setDouble(8, newOrder.getFee_paid());
                 ps.setBoolean(9, false);
                 ps.setString(10, newOrder.getTransaction_id());
+                ps.setBoolean(11, true);
                 return ps;
             }, keyHolder);
         } catch (Exception e) {
@@ -73,7 +74,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                             rs.getTimestamp("finish_date").toLocalDateTime(),
                             rs.getInt("adult_quantity"), rs.getInt("children_quantity"),
                             rs.getLong("fee_paid"), rs.getBoolean("canceled"),
-                            rs.getString("transaction_id"));
+                            rs.getString("transaction_id"), rs.getBoolean("status"));
                 }
             }, order_id);
         } catch (Exception e) {

@@ -73,7 +73,7 @@ public class PaypalController {
         // TODO Mock data
         Order order = new Order();
         order.setTraveler_id(1);
-        order.setPost_id(101);
+        order.setPost_id(1);
         order.setAdult_quantity(2);
         order.setChildren_quantity(1);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
@@ -90,7 +90,7 @@ public class PaypalController {
                 paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, true, order.getPost_id());
                 // Create order
                 int insertedId = orderTripService.createOrder(order);
-                return "url to success page" + "?order_id=" + insertedId;
+                return "url to success page";
             }
             paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, false, order.getPost_id());
         } catch (PayPalRESTException e) {
