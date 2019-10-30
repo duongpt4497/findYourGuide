@@ -14,7 +14,6 @@ import services.Paypal.PaypalService;
 import services.ordertrip.OrderTripService;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @RestController
 @RequestMapping(path = "/Payment", produces = "application/json")
@@ -23,8 +22,8 @@ public class PaypalController {
 
     private static final String URL_PAYPAL_SUCCESS = "/Pay/Success";
     private static final String URL_PAYPAL_CANCEL = "/Pay/Cancel";
-    private static final String URL_ROOT = "http://localhost:8080/Payment";
-
+    private static final String URL_ROOT = "http://localhost:8080";
+    private static final String CHATBOX_PATH = "/chatbox/";
     private PaypalService paypalService;
     private OrderTripService orderTripService;
     private Logger log = LoggerFactory.getLogger(getClass());
@@ -38,15 +37,18 @@ public class PaypalController {
     @RequestMapping("/Pay")
     @ResponseStatus(HttpStatus.OK)
     public String payment(@RequestBody Order order) {
-        String cancelUrl = URL_ROOT + URL_PAYPAL_CANCEL;
-        String successUrl = URL_ROOT + URL_PAYPAL_SUCCESS;
+        String cancelUrl = URL_ROOT + "/Payment" + URL_PAYPAL_CANCEL + "?post_id=" + order.getPost_id();
+        String successUrl = URL_ROOT + "/Payment" + URL_PAYPAL_SUCCESS + "?traveler_id=" + order.getTraveler_id()
+                + "&post_id=" + order.getPost_id() + "&adult=" + order.getAdult_quantity()
+                + "&children=" + order.getChildren_quantity() + "&begin_date=" + order.getBegin_date();
         try {
             orderTripService.getOrderGuiderId_FinishDate(order);
             order.setFee_paid(paypalService.getTransactionFee(order));
+            successUrl += "&fee=" + order.getFee_paid();
             // Check for availability of order
             int count = orderTripService.checkAvailabilityOfOrder(order);
             if (count != 0) {
-                return "return to chat page url?message=booking time not available";
+                return URL_ROOT + CHATBOX_PATH + order.getPost_id() + "?message=booking_time_not_available";
             }
             String description = paypalService.getTransactionDescription(order);
             Payment payment = paypalService.createPayment(order.getFee_paid(), "USD", description, cancelUrl, successUrl);
@@ -58,27 +60,28 @@ public class PaypalController {
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());
         }
-        return "return to chat page url?message=paypal server error";
+        return URL_ROOT + CHATBOX_PATH + order.getPost_id() + "?message=paypal_server_error";
     }
 
     @RequestMapping(URL_PAYPAL_CANCEL)
     @ResponseStatus(HttpStatus.OK)
-    public String cancelPay() {
-        return "return to chat page url";
+    public String cancelPay(@RequestParam("post_id") int post_id) {
+        return URL_ROOT + CHATBOX_PATH + post_id;
     }
 
     @RequestMapping(URL_PAYPAL_SUCCESS)
     @ResponseStatus(HttpStatus.OK)
-    public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId) {
-        // TODO Mock data
+    public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId,
+                             @RequestParam("traveler_id") int traveler_id, @RequestParam("post_id") int post_id,
+                             @RequestParam("adult") int adult_quantity, @RequestParam("children") int children_quantity,
+                             @RequestParam("begin_date") String begin_date, @RequestParam("fee") double fee_paid) {
         Order order = new Order();
-        order.setTraveler_id(1);
-        order.setPost_id(1);
-        order.setAdult_quantity(2);
-        order.setChildren_quantity(1);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
-        order.setBegin_date(LocalDateTime.parse("10/02/2019 09:00", formatter));
-        order.setFee_paid(125.00);
+        order.setTraveler_id(traveler_id);
+        order.setPost_id(post_id);
+        order.setAdult_quantity(adult_quantity);
+        order.setChildren_quantity(children_quantity);
+        order.setBegin_date(LocalDateTime.parse(begin_date));
+        order.setFee_paid(fee_paid);
         orderTripService.getOrderGuiderId_FinishDate(order);
 
         String description = paypalService.getTransactionDescription(order);
@@ -90,13 +93,13 @@ public class PaypalController {
                 paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, true, order.getPost_id());
                 // Create order
                 int insertedId = orderTripService.createOrder(order);
-                return "url to success page";
+                return URL_ROOT + CHATBOX_PATH + order.getPost_id() + "?message=booking_success";
             }
             paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, false, order.getPost_id());
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());
         }
-        return "url to fail page";
+        return URL_ROOT + CHATBOX_PATH + order.getPost_id() + "?message=booking_fail";
     }
 
     @RequestMapping("/Refund")
