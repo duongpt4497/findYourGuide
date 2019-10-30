@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping(path = "/Payment", produces = "application/json")
 @CrossOrigin(origins = "*")
-public class PaypalController {
+public class PaypalApi {
 
     private static final String URL_PAYPAL_SUCCESS = "/Pay/Success";
     private static final String URL_PAYPAL_CANCEL = "/Pay/Cancel";
@@ -34,7 +34,7 @@ public class PaypalController {
     private Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    public PaypalController(PaypalService ps, OrderTripService ots) {
+    public PaypalApi(PaypalService ps, OrderTripService ots) {
         this.paypalService = ps;
         this.orderTripService = ots;
     }

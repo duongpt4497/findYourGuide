@@ -11,10 +11,10 @@ import java.util.ArrayList;
 @RestController
 @RequestMapping(path = "/Order", produces = "application/json")
 @CrossOrigin(origins = "*")
-public class OrderTripController {
+public class OrderTripApi {
     private OrderTripService orderTripService;
 
-    public OrderTripController(OrderTripService os) {
+    public OrderTripApi(OrderTripService os) {
         this.orderTripService = os;
     }
 
