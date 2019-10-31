@@ -1,4 +1,4 @@
-package services.guider;
+package services.Category;
 
 import entities.Category;
 import org.springframework.jdbc.core.JdbcTemplate;

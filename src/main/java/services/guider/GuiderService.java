@@ -1,14 +1,22 @@
 package services.guider;
 
-
-
 import entities.Guider;
-
-import java.sql.Array;
-import java.util.List;
+import entities.Guider_Contract;
 
 public interface GuiderService {
-    public Guider findGuiderWithID(long id);
-    public Guider findGuiderWithPostId(long id);
-    //public void updateGUiderPost(long post_id, String video_link, List<String> photo, String[] activities, String about_post);
+	public Guider findGuiderWithID(long id);
+	
+	public Guider findGuiderWithPostId(long id);
+
+	public Guider_Contract findGuiderContract(long id);
+
+	public long createGuider(Guider newGuider);
+
+	public void createGuiderContract(long guider_id, Guider_Contract newGuiderContract);
+
+	public long updateGuiderWithId(Guider guiderNeedUpdate);
+
+	public long activateGuider(long id);
+
+	public long deactivateGuider(long id);
 }

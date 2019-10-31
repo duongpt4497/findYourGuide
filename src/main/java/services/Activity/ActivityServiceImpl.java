@@ -1,4 +1,4 @@
-package services.guider;
+package services.Activity;
 
 import entities.Activity;
 import org.springframework.jdbc.core.JdbcTemplate;

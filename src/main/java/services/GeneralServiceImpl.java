@@ -27,7 +27,6 @@ public class GeneralServiceImpl implements GeneralService {
     private static volatile long sequence = 0L;
     private JdbcTemplate jdbcTemplate;
 
-
     @Autowired
     public GeneralServiceImpl(JdbcTemplate jdbcTemplate) {
 
@@ -60,13 +59,15 @@ public class GeneralServiceImpl implements GeneralService {
     @Override
     public List<String> convertBase64toImageAndChangeName(String[] base64array) {
         List<String> base64List = Arrays.asList(base64array);
-        List<String> imageUrls = null;
-        for (String base64 : base64List) {
+
+        List<String> imageUrls = new ArrayList<>();
+                for (String base64 : base64List) {
             byte[] data = Base64.decodeBase64(base64.split(",")[1]);
             Long uniqueIds = generateLongId();
             try {
                 Path destinationFile = Paths.get("./src/main/resources/images/", uniqueIds.toString()+".jpg");
                 Files.write(destinationFile, data);
+                imageUrls.add("./src/main/resources/images/"+ uniqueIds.toString()+".jpg");
             } catch (Exception e) {
                 System.out.println(e.getMessage() + e.getCause());
             }
