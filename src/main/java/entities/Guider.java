@@ -31,6 +31,11 @@ public class Guider {
         this.languages = languages;
     }
 
+    public Guider(long guider_id,long contribution_point){
+        this.guider_id = guider_id;
+        this.contribution_point = contribution_point;
+    }
+
     public long getGuider_id() {
         return guider_id;
     }
