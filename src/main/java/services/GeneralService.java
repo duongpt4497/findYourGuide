@@ -2,6 +2,7 @@ package services;
 
 import java.sql.Array;
 import java.util.List;
+import java.util.Map;
 
 public interface GeneralService {
 
@@ -12,4 +13,5 @@ public interface GeneralService {
     List<String> convertBase64toImageAndChangeName(String[] base64array);
     Long generateLongId();
     long tilNextMillis(long lastTimestamp);
+    Map<String,Integer> countSizeForPaging(int pageNo, int size);
 }

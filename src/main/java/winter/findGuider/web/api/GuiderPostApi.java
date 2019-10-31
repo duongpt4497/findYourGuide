@@ -8,7 +8,10 @@ import services.Activity.ActivityServiceImpl;
 import services.Post.PostServiceImpl;
 import org.springframework.http.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/guiderpost",produces = "application/json")
@@ -27,10 +30,19 @@ public class GuiderPostApi {
     }
 
     @GetMapping("/postOfOneGuider")
-    public List<Post> findAllPostOfOneGuider(@RequestParam("guider_id") long guider_id){
+    public List<Post> findAllPostOfOneGuider(@RequestParam("guider_id") long guider_id,@RequestParam("pageCursor") int pgCursor,@RequestParam("size") int pageSize){
         try{
+            List<Post>  post= postServiceImpl.findAllPost(guider_id);
+            int count = post.size();
 
-            return postServiceImpl.findAllPost(guider_id);
+            Map<String,Integer> pagingCount = generalServiceImpl.countSizeForPaging(pgCursor,pageSize);
+            if(count < pagingCount.get("lastElement")){
+                post = post.subList(pagingCount.get("startElement"),count);
+            }else{
+                post = post.subList(pagingCount.get("startElement"),pagingCount.get("lastElement"));
+            }
+
+            return post;
         }catch(Exception e ){
             System.out.println(e.getMessage() + e.getStackTrace() + e.getCause() + e.getLocalizedMessage() + guider_id);
         }
@@ -38,10 +50,20 @@ public class GuiderPostApi {
     }
 
     @GetMapping("/allPostOfOneCategory")
-    public List<Post> findAllPostOfOneCategory(@RequestParam("category_id") long category_id){
+    public List<Post> findAllPostOfOneCategory(@RequestParam("category_id") long category_id,@RequestParam("pageCursor") int pgCursor,@RequestParam("size") int pageSize){
         try{
 
-            return postServiceImpl.findAllPost(category_id);
+            List<Post>  post=postServiceImpl.findAllPost(category_id);
+            int count = post.size();
+
+            Map<String,Integer> pagingCount = generalServiceImpl.countSizeForPaging(pgCursor,pageSize);
+            if(count < pagingCount.get("lastElement")){
+                post = post.subList(pagingCount.get("startElement"),count);
+            }else{
+                post = post.subList(pagingCount.get("startElement"),pagingCount.get("lastElement"));
+            }
+
+            return post;
         }catch(Exception e ){
             System.out.println(e.getMessage() + e.getStackTrace() + e.getCause() + e.getLocalizedMessage() + category_id);
         }
