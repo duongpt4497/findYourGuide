@@ -59,7 +59,7 @@ public class GeneralServiceImpl implements GeneralService {
     @Override
     public List<String> convertBase64toImageAndChangeName(String[] base64array) {
         List<String> base64List = Arrays.asList(base64array);
-        List<String> imageUrls = null;
+        List<String> imageUrls = new ArrayList<>();
         System.out.println("haha");
         for (String base64 : base64List) {
             System.out.println("haha");
@@ -69,6 +69,7 @@ public class GeneralServiceImpl implements GeneralService {
             try {
                 Path destinationFile = Paths.get("./src/main/resources/images/", uniqueIds.toString()+".jpg");
                 Files.write(destinationFile, data);
+                imageUrls.add("./src/main/resources/images/"+ uniqueIds.toString()+".jpg");
             } catch (Exception e) {
                 System.out.println(e.getMessage() + e.getCause());
             }
