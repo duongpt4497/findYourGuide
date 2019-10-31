@@ -29,4 +29,16 @@ public class OrderTripApi {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+
+    @RequestMapping("/GetClosestFinishDate")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> getClosestFinishDate(@RequestBody Order newOrder) {
+        try {
+            String finishDate = orderTripService.getClosestTourFinishDate(newOrder.getBegin_date().toLocalDate(),
+                    newOrder.getGuider_id());
+            return new ResponseEntity<>(finishDate, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 }
