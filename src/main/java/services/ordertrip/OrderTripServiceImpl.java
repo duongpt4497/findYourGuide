@@ -105,12 +105,13 @@ public class OrderTripServiceImpl implements OrderTripService {
         try {
             String query = "SELECT count (order_id) FROM ordertrip " +
                     "where (guider_id = ?) " +
+                    "and (status = ?) " +
                     "and (begin_date between ? and ?) " +
                     "or (finish_date between ? and ?)";
             int guider_id = newOrder.getGuider_id();
             Timestamp acceptableBeginDate = Timestamp.valueOf(newOrder.getBegin_date());
             Timestamp acceptableFinishDate = Timestamp.valueOf(newOrder.getFinish_date());
-            count = jdbcTemplate.queryForObject(query, new Object[]{guider_id, acceptableBeginDate,
+            count = jdbcTemplate.queryForObject(query, new Object[]{guider_id, ONGOING, acceptableBeginDate,
                     acceptableFinishDate, acceptableBeginDate, acceptableFinishDate}, int.class);
         } catch (Exception e) {
             logger.error(e.getMessage());
@@ -142,6 +143,25 @@ public class OrderTripServiceImpl implements OrderTripService {
             availableHours.removeAll(unacceptableHours);
         }
         return availableHours;
+    }
+
+    @Override
+    public String getClosestTourFinishDate(LocalDate date, int guider_id) {
+        String closestFinishDate = "";
+        try {
+            String query = "SELECT finish_date FROM ordertrip " +
+                    "where guider_id = ? " +
+                    "and finish_date < ? " +
+                    "and status = ? " +
+                    "order by finish_date desc " +
+                    "fetch first 1 rows only";
+            closestFinishDate = jdbcTemplate.queryForObject(query, new Object[]{guider_id, date, ONGOING}, String.class);
+            closestFinishDate = new SimpleDateFormat("MM/dd/yyyy HH:mm").format(
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(closestFinishDate));
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+        return closestFinishDate;
     }
 
     private double getTourTotalHour(int post_id) {

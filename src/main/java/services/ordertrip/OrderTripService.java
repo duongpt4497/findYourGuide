@@ -19,4 +19,6 @@ public interface OrderTripService {
     public int checkAvailabilityOfOrder(Order newOrder);
 
     public ArrayList<String> getGuiderAvailableHours(LocalDate date, int post_id, int guider_id);
+
+    public String getClosestTourFinishDate(LocalDate date, int guider_id);
 }
