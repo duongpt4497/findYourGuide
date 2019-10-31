@@ -8,6 +8,7 @@ import entities.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +27,11 @@ public class PaypalApi {
 
     private static final String URL_PAYPAL_SUCCESS = "/Pay/Success";
     private static final String URL_PAYPAL_CANCEL = "/Pay/Cancel";
-    private static final String URL_ROOT_SERVER = "http://localhost:8080";
-    private static final String URL_ROOT_CLIENT = "http://localhost:3000";
     private static final String CHATBOX_PATH = "/chatbox/";
+    @Value("${order.server.root.url}")
+    private String URL_ROOT_SERVER;
+    @Value("${order.client.root.url}")
+    private String URL_ROOT_CLIENT;
     private PaypalService paypalService;
     private OrderTripService orderTripService;
     private Logger log = LoggerFactory.getLogger(getClass());
@@ -42,7 +45,6 @@ public class PaypalApi {
     @RequestMapping("/Pay")
     @ResponseStatus(HttpStatus.OK)
     public String payment(@RequestBody Order order) {
-        HttpHeaders httpHeaders = new HttpHeaders();
         String cancelUrl = URL_ROOT_SERVER + "/Payment" + URL_PAYPAL_CANCEL + "?post_id=" + order.getPost_id();
         String successUrl = URL_ROOT_SERVER + "/Payment" + URL_PAYPAL_SUCCESS + "?traveler_id=" + order.getTraveler_id()
                 + "&post_id=" + order.getPost_id() + "&adult=" + order.getAdult_quantity()
