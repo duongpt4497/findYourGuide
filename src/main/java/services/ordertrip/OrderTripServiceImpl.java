@@ -3,7 +3,6 @@ package services.ordertrip;
 import entities.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -18,15 +17,10 @@ import java.util.*;
 
 @Repository
 public class OrderTripServiceImpl implements OrderTripService {
-    private static final String UNCONFIRMED = "UNCONFIRMED";
-    private static final String ONGOING = "ONGOING";
-    private static final String FINISHED = "FINISHED";
-    private static final String CANCELLED = "CANCELLED";
-
-    private static final String HOUR_TAIL_0 = ":00";
-    private static final String HOUR_TAIL_30 = ":30";
-    private static final String HOUR_POSITION_BEFORE = "before";
-    private static final String HOUR_POSITION_AFTER = "after";
+    private static final String UNCONFIRMED = "unconfirmed";
+    private static final String ONGOING = "ongoing";
+    private static final String FINISHED = "finished";
+    private static final String CANCELLED = "cancelled";
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private JdbcTemplate jdbcTemplate;
@@ -34,7 +28,6 @@ public class OrderTripServiceImpl implements OrderTripService {
     @Value("${order.buffer}")
     private String bufferPercent;
 
-    @Autowired
     public OrderTripServiceImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -56,7 +49,7 @@ public class OrderTripServiceImpl implements OrderTripService {
     }
 
     @Override
-    public Order findOrderById(int order_id) {
+    public Order findOrder(int order_id) {
         Order searchOrder = new Order();
         try {
             String query = "select * from ordertrip where order_id = ?";
@@ -79,69 +72,13 @@ public class OrderTripServiceImpl implements OrderTripService {
     }
 
     @Override
-    public List<Order> findOrderByStatus(int guider_id, String status) {
-        List<Order> result = new ArrayList<>();
-        try {
-            String query = "SELECT * " +
-                    "FROM ordertrip where guider_id = ? and status = ? " +
-                    "order by finish_date desc";
-            result = jdbcTemplate.query(query, new RowMapper<Order>() {
-                @Override
-                public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return new Order(rs.getInt("order_id"), rs.getInt("traveler_id"),
-                            rs.getInt("guider_id"), rs.getInt("post_id"),
-                            rs.getTimestamp("begin_date").toLocalDateTime(),
-                            rs.getTimestamp("finish_date").toLocalDateTime(),
-                            rs.getInt("adult_quantity"), rs.getInt("children_quantity"),
-                            rs.getLong("fee_paid"), rs.getString("transaction_id"),
-                            rs.getString("status"));
-                }
-            }, guider_id, status);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-        }
-        return result;
+    public int editOrder(Order orderNeedUpdate) {
+        return 0;
     }
 
     @Override
-    public boolean acceptOrder(int order_id) {
-        try {
-            String query = "update ordertrip set status = ? where order_id = ?";
-            jdbcTemplate.update(query, ONGOING, order_id);
-            return true;
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return false;
-        }
-    }
-
-    @Override
-    public boolean cancelOrder(int order_id) {
-        try {
-            String check = "select count(order_id) from ordertrip where order_id = ? and status = ? or status = ?";
-            int count = jdbcTemplate.queryForObject(check, new Object[]{order_id, UNCONFIRMED, ONGOING}, int.class);
-            if (count == 0) {
-                return false;
-            }
-            String query = "update ordertrip set status = ? where order_id = ?";
-            jdbcTemplate.update(query, CANCELLED, order_id);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public boolean finishOrder(int order_id) {
-        try {
-            String query = "update ordertrip set status = ? where order_id = ?";
-            jdbcTemplate.update(query, FINISHED, order_id);
-            return true;
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return false;
-        }
+    public int cancelOrder(int id) {
+        return 0;
     }
 
     @Override
@@ -249,10 +186,10 @@ public class OrderTripServiceImpl implements OrderTripService {
     }
 
     private void createHourArray(ArrayList<String> array, int startHour, int endHour) {
-        String[] hourTails = {HOUR_TAIL_0, HOUR_TAIL_30};
+        String[] hourTails = {"00", "30"};
         for (int i = startHour; i < endHour; i++) {
             for (int j = 0; j < 2; j++) {
-                String availableTime = i + hourTails[j];
+                String availableTime = i + ":" + hourTails[j];
                 if (i < 10) {
                     availableTime = "0" + availableTime;
                 }
@@ -298,14 +235,14 @@ public class OrderTripServiceImpl implements OrderTripService {
             if (order.getBegin_date().getDayOfMonth() < date.getDayOfMonth()) {
                 this.createHourArray(occupyHour, 0, finishHour + 1);
                 if (finishMinute == 0) {
-                    this.removeHour(occupyHour, finishHour, HOUR_POSITION_AFTER);
+                    this.removeHour(occupyHour, finishHour, "right");
                 }
             } else if (order.getFinish_date().getDayOfMonth() > date.getDayOfMonth()) {
                 boolean frontExist = this.checkDuplicateHours(occupyHour, beginHour);
                 this.createHourArray(occupyHour, beginHour, 24);
                 if (!frontExist) {
                     if (beginMinute != 0) {
-                        this.removeHour(occupyHour, beginHour, HOUR_POSITION_BEFORE);
+                        this.removeHour(occupyHour, beginHour, "left");
                     }
                 }
             } else {
@@ -313,14 +250,14 @@ public class OrderTripServiceImpl implements OrderTripService {
                 this.createHourArray(occupyHour, beginHour, finishHour + 1);
                 if (beginMinute != 0 && finishMinute == 0) {
                     if (!frontExist) {
-                        this.removeHour(occupyHour, beginHour, HOUR_POSITION_BEFORE);
+                        this.removeHour(occupyHour, beginHour, "left");
                     }
-                    this.removeHour(occupyHour, finishHour, HOUR_POSITION_AFTER);
+                    this.removeHour(occupyHour, finishHour, "right");
                 } else if (beginMinute == 0 && finishMinute == 0) {
-                    this.removeHour(occupyHour, finishHour, HOUR_POSITION_AFTER);
+                    this.removeHour(occupyHour, finishHour, "right");
                 } else if (beginMinute != 0 && finishMinute != 0) {
                     if (!frontExist) {
-                        this.removeHour(occupyHour, beginHour, HOUR_POSITION_BEFORE);
+                        this.removeHour(occupyHour, beginHour, "left");
                     }
                 }
             }
@@ -363,19 +300,19 @@ public class OrderTripServiceImpl implements OrderTripService {
 
     private void removeHour(ArrayList<String> array, int hour, String type) {
         if (hour < 10) {
-            array.remove("0" + hour + (type.equals(HOUR_POSITION_BEFORE) ? HOUR_TAIL_0 : HOUR_TAIL_30));
+            array.remove("0" + hour + (type.equals("left") ? ":00" : ":30"));
         } else {
-            array.remove(hour + (type.equals(HOUR_POSITION_BEFORE) ? HOUR_TAIL_0 : HOUR_TAIL_30));
+            array.remove(hour + (type.equals("left") ? ":00" : ":30"));
         }
     }
 
     private boolean checkDuplicateHours(ArrayList<String> occupyHour, int hour) {
         if (hour < 10) {
-            if (occupyHour.contains("0" + hour + HOUR_TAIL_0) || occupyHour.contains("0" + hour + HOUR_TAIL_30)) {
+            if (occupyHour.contains("0" + hour + ":00") || occupyHour.contains("0" + hour + ":30")) {
                 return true;
             }
         } else {
-            if (occupyHour.contains(hour + HOUR_TAIL_0) || occupyHour.contains(hour + HOUR_TAIL_30)) {
+            if (occupyHour.contains(hour + ":00") || occupyHour.contains(hour + ":30")) {
                 return true;
             }
         }

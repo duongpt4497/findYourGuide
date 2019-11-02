@@ -18,36 +18,26 @@ public class TravelerApi {
         this.travelerService = ts;
     }
 
-    @RequestMapping("/Get")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Traveler> getTravelerWithId(@RequestBody Traveler traveler) {
-        try {
-            return new ResponseEntity<>(travelerService.findTravelerWithId(traveler.getTraveler_id()), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
-    }
-
     @RequestMapping("/Create")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Traveler> createTraveler(@RequestBody Traveler newTraveler) {
         long createdId;
         try {
             createdId = travelerService.createTraveler(newTraveler);
-            return new ResponseEntity<>(travelerService.findTravelerWithId(createdId), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<>(travelerService.findTravelerWithId(createdId), HttpStatus.OK);
     }
 
-    @RequestMapping("/Update")
+    @RequestMapping("/Edit")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Traveler> updateTraveler(@RequestBody Traveler travelerNeedUpdate) {
+    public ResponseEntity<Traveler> editTraveler(@RequestBody Traveler travelerNeedUpdate) {
         try {
             travelerService.updateTraveler(travelerNeedUpdate);
-            return new ResponseEntity<>(travelerService.findTravelerWithId(travelerNeedUpdate.getTraveler_id()), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<>(travelerService.findTravelerWithId(travelerNeedUpdate.getTraveler_id()), HttpStatus.OK);
     }
 }
