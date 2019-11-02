@@ -90,12 +90,12 @@ public class PaypalController {
             String transaction_id = payment.getTransactions().get(0).getRelatedResources().get(0).getSale().getId();
             order.setTransaction_id(transaction_id);
             if (payment.getState().equals("approved")) {
-                paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, true, order.getPost_id());
+                paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, true);
                 // Create order
                 int insertedId = orderTripService.createOrder(order);
                 return URL_ROOT + CHATBOX_PATH + order.getPost_id() + "?message=booking_success";
             }
-            paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, false, order.getPost_id());
+            paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, false);
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());
         }

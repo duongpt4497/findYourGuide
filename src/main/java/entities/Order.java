@@ -3,9 +3,7 @@ package entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 public class Order {
@@ -25,12 +23,12 @@ public class Order {
     private double fee_paid;
     private boolean canceled;
     private String transaction_id;
-    private boolean status;
+    private String status;
 
     public Order() {
     }
 
-    public Order(int order_id, int traveler_id, int guider_id, int post_id, LocalDateTime begin_date, LocalDateTime finish_date, int adult_quantity, int children_quantity, double fee_paid, boolean canceled, String transaction_id, boolean status) {
+    public Order(int order_id, int traveler_id, int guider_id, int post_id, LocalDateTime begin_date, LocalDateTime finish_date, int adult_quantity, int children_quantity, double fee_paid, boolean canceled, String transaction_id, String status) {
         this.order_id = order_id;
         this.traveler_id = traveler_id;
         this.guider_id = guider_id;
@@ -133,11 +131,11 @@ public class Order {
         this.transaction_id = transaction_id;
     }
 
-    public boolean isStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }
