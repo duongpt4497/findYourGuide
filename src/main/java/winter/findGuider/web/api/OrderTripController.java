@@ -20,7 +20,7 @@ public class OrderTripController {
     private OrderTripService orderTripService;
     private PaypalService paypalService;
 
-    public OrderTripApi(OrderTripService os, PaypalService ps) {
+    public OrderTripController(OrderTripService os, PaypalService ps) {
         this.orderTripService = os;
         this.paypalService = ps;
     }

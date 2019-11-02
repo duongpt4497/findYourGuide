@@ -93,8 +93,8 @@ public class OrderTripServiceImpl implements OrderTripService {
                             rs.getTimestamp("begin_date").toLocalDateTime(),
                             rs.getTimestamp("finish_date").toLocalDateTime(),
                             rs.getInt("adult_quantity"), rs.getInt("children_quantity"),
-                            rs.getLong("fee_paid"), rs.getBoolean("canceled"),
-                            rs.getString("transaction_id"), rs.getString("status"));
+                            rs.getLong("fee_paid"), rs.getString("transaction_id"),
+                            rs.getString("status"));
                 }
             }, guider_id, status);
         } catch (Exception e) {
