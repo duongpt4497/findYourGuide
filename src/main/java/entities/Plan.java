@@ -24,6 +24,12 @@ public class Plan {
         this.post_id = post_id;
         this.order_id = order_id;
     }
+    
+    public Plan(String meeting_point, String detail, int post_id) {
+        this.meeting_point = meeting_point;
+        this.detail = detail;
+        this.post_id = post_id;
+    }
 
     public int getPlan_id() {
         return plan_id;
