@@ -155,9 +155,16 @@ public class OrderTripServiceImpl implements OrderTripService {
                     "and status = ? " +
                     "order by finish_date desc " +
                     "limit 1";
-            closestFinishDate = jdbcTemplate.queryForObject(query, new Object[]{guider_id, date, ONGOING}, String.class);
-            if (closestFinishDate == null) {
+            List<String> result = jdbcTemplate.query(query, new RowMapper<String>() {
+                @Override
+                public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    return rs.getString(1);
+                }
+            }, guider_id, date, ONGOING);
+            if (result == null || result.isEmpty()) {
                 return "User dont have any schedule";
+            } else {
+                closestFinishDate = result.get(0);
             }
             closestFinishDate = new SimpleDateFormat("MM/dd/yyyy HH:mm").format(
                     new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(closestFinishDate));
