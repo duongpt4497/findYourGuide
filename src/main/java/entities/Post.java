@@ -1,15 +1,11 @@
 package entities;
 
 import java.util.List;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import lombok.Data;
-@Data
+
 public class Post {
     private long post_id;
     private String title;
     private String video_link;
-    @NotNull
     private String[] picture_link;
     private int total_hour;
     private String description;

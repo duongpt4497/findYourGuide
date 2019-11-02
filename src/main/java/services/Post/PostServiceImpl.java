@@ -53,7 +53,7 @@ public class PostServiceImpl implements PostService {
     public List<Post> findAllPostByCategoryId(long category_id) {
         try {
             return jdbcTemplate.query("select * from post where category_id = ?", new RowMapper<Post>() {
-                @Override   
+                @Override
                 public Post mapRow(ResultSet resultSet, int i) throws SQLException {
                     return new Post(
                             resultSet.getLong("post_id"),
@@ -120,7 +120,6 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public int insertNewPost(long guider_id, Post post) {
-        
         KeyHolder keyHolder = new GeneratedKeyHolder();
         //try{
             String query = "INSERT INTO public.post(" +

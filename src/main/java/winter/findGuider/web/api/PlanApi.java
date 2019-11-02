@@ -18,31 +18,27 @@ public class PlanApi {
         this.planService = ps;
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<Integer> createPlan(@RequestBody Plan plan) {
+    @GetMapping("/create/{meeting_point}/{detail}/{post_id}/{order_id}")
+    public ResponseEntity<Plan> createPlan(@PathVariable("meeting_point") String meeting_point,
+                                           @PathVariable("detail") String detail,
+                                           @PathVariable("post_id") int post_id,
+                                           @PathVariable("order_id") int order_id) {
         try {
-            
+            Plan newPlan = new Plan(meeting_point, detail, post_id, order_id);
 
-            int createdId = planService.createPlan(plan);
-            return new ResponseEntity<>(createdId, HttpStatus.OK);
+            int createdId = planService.createPlan(newPlan);
+            return new ResponseEntity<>(planService.searchPlanByPlanId(createdId), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
-    @GetMapping("/update")
-    public ResponseEntity<Plan> updatePlan(@RequestBody Plan plan) {
+    @GetMapping("/update/{post_id}/{meeting_point}/{detail}")
+    public ResponseEntity<Plan> updatePlan(@PathVariable("post_id") int post_id,
+                                           @PathVariable("meeting_point") String meeting_point,
+                                           @PathVariable("detail") String detail) {
         try {
-            planService.updatePlan(plan.getPost_id(), plan.getMeeting_point(), plan.getDetail());
-            return new ResponseEntity<>(planService.searchPlanByPostId(plan.getPost_id()), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
-    }
-    
-    @GetMapping("/{post_id}")
-    public ResponseEntity<Plan> findPlan(@PathVariable("post_id") int post_id) {
-        try {
+            planService.updatePlan(post_id, meeting_point, detail);
             return new ResponseEntity<>(planService.searchPlanByPostId(post_id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
