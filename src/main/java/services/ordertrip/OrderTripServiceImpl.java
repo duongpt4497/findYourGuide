@@ -6,11 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -20,6 +17,11 @@ import java.util.*;
 
 @Repository
 public class OrderTripServiceImpl implements OrderTripService {
+    private static final String UNCONFIRMED = "unconfirmed";
+    private static final String ONGOING = "ongoing";
+    private static final String FINISHED = "finished";
+    private static final String CANCELLED = "cancelled";
+
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private JdbcTemplate jdbcTemplate;
 
@@ -31,33 +33,19 @@ public class OrderTripServiceImpl implements OrderTripService {
     }
 
     @Override
-    public int createOrder(Order newOrder) {
-        KeyHolder keyHolder = new GeneratedKeyHolder();
+    public void createOrder(Order newOrder) {
         try {
-            String insertQuery = "insert into ordertrip (traveler_id,guider_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,canceled,transaction_id,status)" +
-                    "values (?,?,?,?,?,?,?,?,?,?,?)";
+            String insertQuery = "insert into ordertrip (traveler_id,guider_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
+                    "values (?,?,?,?,?,?,?,?,?,?)";
             double totalHour = this.getTourTotalHour(newOrder.getPost_id());
             long bufferHour = (long) java.lang.Math.ceil(totalHour / 100 * Integer.parseInt(bufferPercent));
-            jdbcTemplate.update(connection -> {
-                PreparedStatement ps = connection
-                        .prepareStatement(insertQuery, new String[]{"order_id"});
-                ps.setLong(1, newOrder.getTraveler_id());
-                ps.setLong(2, newOrder.getGuider_id());
-                ps.setLong(3, newOrder.getPost_id());
-                ps.setTimestamp(4, Timestamp.valueOf(newOrder.getBegin_date()));
-                ps.setTimestamp(5, Timestamp.valueOf(newOrder.getFinish_date().plusHours(bufferHour).minusMinutes(30)));
-                ps.setInt(6, newOrder.getAdult_quantity());
-                ps.setInt(7, newOrder.getChildren_quantity());
-                ps.setDouble(8, newOrder.getFee_paid());
-                ps.setBoolean(9, false);
-                ps.setString(10, newOrder.getTransaction_id());
-                ps.setBoolean(11, true);
-                return ps;
-            }, keyHolder);
+            jdbcTemplate.update(insertQuery, newOrder.getTraveler_id(), newOrder.getGuider_id(), newOrder.getPost_id(),
+                    Timestamp.valueOf(newOrder.getBegin_date()), Timestamp.valueOf(newOrder.getFinish_date().plusHours(bufferHour).minusMinutes(30)),
+                    newOrder.getAdult_quantity(), newOrder.getChildren_quantity(), newOrder.getFee_paid(),
+                    newOrder.getTransaction_id(), UNCONFIRMED);
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
-        return (int) keyHolder.getKey();
     }
 
     @Override
@@ -73,8 +61,8 @@ public class OrderTripServiceImpl implements OrderTripService {
                             rs.getTimestamp("begin_date").toLocalDateTime(),
                             rs.getTimestamp("finish_date").toLocalDateTime(),
                             rs.getInt("adult_quantity"), rs.getInt("children_quantity"),
-                            rs.getLong("fee_paid"), rs.getBoolean("canceled"),
-                            rs.getString("transaction_id"), rs.getBoolean("status"));
+                            rs.getLong("fee_paid"), rs.getString("transaction_id"),
+                            rs.getString("status"));
                 }
             }, order_id);
         } catch (Exception e) {
@@ -90,13 +78,7 @@ public class OrderTripServiceImpl implements OrderTripService {
 
     @Override
     public int cancelOrder(int id) {
-        try {
-            String query = "update ordertrip set canceled = true where order_id = ?";
-            jdbcTemplate.update(query, id);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-        }
-        return id;
+        return 0;
     }
 
     @Override
@@ -123,12 +105,13 @@ public class OrderTripServiceImpl implements OrderTripService {
         try {
             String query = "SELECT count (order_id) FROM ordertrip " +
                     "where (guider_id = ?) " +
+                    "and (status = ?) " +
                     "and (begin_date between ? and ?) " +
                     "or (finish_date between ? and ?)";
             int guider_id = newOrder.getGuider_id();
             Timestamp acceptableBeginDate = Timestamp.valueOf(newOrder.getBegin_date());
             Timestamp acceptableFinishDate = Timestamp.valueOf(newOrder.getFinish_date());
-            count = jdbcTemplate.queryForObject(query, new Object[]{guider_id, acceptableBeginDate,
+            count = jdbcTemplate.queryForObject(query, new Object[]{guider_id, ONGOING, acceptableBeginDate,
                     acceptableFinishDate, acceptableBeginDate, acceptableFinishDate}, int.class);
         } catch (Exception e) {
             logger.error(e.getMessage());
@@ -162,6 +145,35 @@ public class OrderTripServiceImpl implements OrderTripService {
         return availableHours;
     }
 
+    @Override
+    public String getClosestTourFinishDate(LocalDate date, int guider_id) {
+        String closestFinishDate = "";
+        try {
+            String query = "SELECT finish_date FROM ordertrip " +
+                    "where guider_id = ? " +
+                    "and finish_date < ? " +
+                    "and status = ? " +
+                    "order by finish_date desc " +
+                    "limit 1";
+            List<String> result = jdbcTemplate.query(query, new RowMapper<String>() {
+                @Override
+                public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    return rs.getString(1);
+                }
+            }, guider_id, date, ONGOING);
+            if (result == null || result.isEmpty()) {
+                return "User dont have any schedule";
+            } else {
+                closestFinishDate = result.get(0);
+            }
+            closestFinishDate = new SimpleDateFormat("MM/dd/yyyy HH:mm").format(
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(closestFinishDate));
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+        return closestFinishDate;
+    }
+
     private double getTourTotalHour(int post_id) {
         double total_hour = 0;
         try {
@@ -192,6 +204,7 @@ public class OrderTripServiceImpl implements OrderTripService {
         List<Order> guiderSchedule = new ArrayList<>();
         String query = "SELECT begin_date, finish_date FROM ordertrip " +
                 "where guider_id = ? " +
+                "and status = ? " +
                 "and Date(begin_date) = ? " +
                 "or Date(finish_date) = ? " +
                 "order by begin_date";
@@ -204,7 +217,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                     temp.setFinish_date(rs.getTimestamp("finish_date").toLocalDateTime());
                     return temp;
                 }
-            }, guider_id, date, date);
+            }, guider_id, ONGOING, date, date);
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
