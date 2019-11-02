@@ -105,12 +105,12 @@ public class PaypalApi {
             String transaction_id = payment.getTransactions().get(0).getRelatedResources().get(0).getSale().getId();
             order.setTransaction_id(transaction_id);
             if (payment.getState().equals("approved")) {
-                paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, true);
+                paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, true, order.getPost_id());
                 orderTripService.createOrder(order);
                 URI result = new URI(URL_ROOT_CLIENT + CHATBOX_PATH + order.getPost_id() + "/booking_success");
                 httpHeaders.setLocation(result);
             } else {
-                paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, false);
+                paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, false, order.getPost_id());
                 URI result = new URI(URL_ROOT_CLIENT + CHATBOX_PATH + order.getPost_id() + "/booking_fail");
                 httpHeaders.setLocation(result);
             }
