@@ -13,7 +13,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Array;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -28,7 +27,6 @@ public class GeneralServiceImpl implements GeneralService {
     private static volatile long sequence = 0L;
     private JdbcTemplate jdbcTemplate;
 
-
     @Autowired
     public GeneralServiceImpl(JdbcTemplate jdbcTemplate) {
 
@@ -39,11 +37,8 @@ public class GeneralServiceImpl implements GeneralService {
     public java.sql.Array createSqlArray(List<String> list) {
         java.sql.Array intArray = null;
         try {
-            Connection conn = jdbcTemplate.getDataSource().getConnection();
-            System.out.println("Schema:  " +conn.getSchema());
-            intArray = conn.createArrayOf("text", list.toArray());
-        } catch (Exception ignore) {
-            System.out.println("Array:  " + ignore);
+            intArray = jdbcTemplate.getDataSource().getConnection().createArrayOf("text", list.toArray());
+        } catch (SQLException ignore) {
         }
         return intArray;
     }
@@ -65,9 +60,9 @@ public class GeneralServiceImpl implements GeneralService {
     public List<String> convertBase64toImageAndChangeName(String[] base64array) {
         List<String> base64List = Arrays.asList(base64array);
         List<String> imageUrls = new ArrayList<>();
-
+        System.out.println("haha");
         for (String base64 : base64List) {
-
+            System.out.println("haha");
             long now = System.currentTimeMillis();
             byte[] data = Base64.decodeBase64(base64.split(",")[1]);
             Long uniqueIds = generateLongId();
@@ -76,14 +71,9 @@ public class GeneralServiceImpl implements GeneralService {
                 Files.write(destinationFile, data);
                 imageUrls.add("./src/main/resources/images/"+ uniqueIds.toString()+".jpg");
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.out.println(e.getMessage() + e.getCause());
             }
 
-        }
-        System.out.println(imageUrls.size());
-        for (String hihi : imageUrls){
-            System.out.println(" @@ " + hihi);
-                    
         }
         return imageUrls;
 
