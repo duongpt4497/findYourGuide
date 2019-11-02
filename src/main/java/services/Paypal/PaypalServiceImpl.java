@@ -67,12 +67,12 @@ public class PaypalServiceImpl implements PaypalService {
     }
 
     @Override
-    public void createTransactionRecord(String transaction_id, String payment_id, String payer_id, String description, boolean success) {
+    public void createTransactionRecord(String transaction_id, String payment_id, String payer_id, String description, boolean success, long order_id) {
         try {
-            String insertQuery = "insert into transaction (transaction_id, payment_id, payer_id, description, date_of_transaction, success) " +
-                    "values (?,?,?,?,?,?)";
+            String insertQuery = "insert into transaction (transaction_id, payment_id, payer_id, description, date_of_transaction, success, order_id) " +
+                    "values (?,?,?,?,?,?,?)";
             jdbcTemplate.update(insertQuery, transaction_id, payment_id, payer_id, description,
-                    new java.sql.Timestamp(System.currentTimeMillis()), success);
+                    new java.sql.Timestamp(System.currentTimeMillis()), success, order_id);
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
