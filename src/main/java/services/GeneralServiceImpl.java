@@ -60,7 +60,10 @@ public class GeneralServiceImpl implements GeneralService {
     public List<String> convertBase64toImageAndChangeName(String[] base64array) {
         List<String> base64List = Arrays.asList(base64array);
         List<String> imageUrls = new ArrayList<>();
+<<<<<<< HEAD
         System.out.println("haha");
+=======
+>>>>>>> parent of 61f7b79... add security
         for (String base64 : base64List) {
             System.out.println("haha");
             long now = System.currentTimeMillis();

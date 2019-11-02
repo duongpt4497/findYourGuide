@@ -10,11 +10,11 @@ import services.traveler.TravelerService;
 @RestController
 @RequestMapping(path = "/Traveler", produces = "application/json")
 @CrossOrigin(origins = "*")
-public class TravelerApi {
+public class TravelerController {
     private TravelerService travelerService;
 
     @Autowired
-    public TravelerApi(TravelerService ts) {
+    public TravelerController(TravelerService ts) {
         this.travelerService = ts;
     }
 
