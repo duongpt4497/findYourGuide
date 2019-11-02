@@ -48,7 +48,7 @@ public class GuiderPostApi {
         return null;
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<Post> findSpecificPost(@RequestParam("post_id") long id) {
         try{
 
@@ -71,6 +71,7 @@ public class GuiderPostApi {
     @PostMapping(consumes="application/json",value = "/add/post")
     @ResponseStatus(HttpStatus.OK)
     public int insertNewPost(@RequestParam("guider_id") long guider_id ,@RequestBody Post post) {
+        System.out.println(post.getReasons());
         int post_id = postServiceImpl.insertNewPost(guider_id,post);
         System.out.println(post_id);
         return post_id;

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface OrderTripService {
-    public int createOrder(Order newOrder);
+    public void createOrder(Order newOrder);
 
     public Order findOrderById(int order_id);
 
@@ -24,4 +24,6 @@ public interface OrderTripService {
     public int checkAvailabilityOfOrder(Order newOrder);
 
     public ArrayList<String> getGuiderAvailableHours(LocalDate date, int post_id, int guider_id);
+
+    public String getClosestTourFinishDate(LocalDate date, int guider_id);
 }

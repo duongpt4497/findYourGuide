@@ -21,14 +21,14 @@ public class Order {
     private int adult_quantity;
     private int children_quantity;
     private double fee_paid;
-    private boolean canceled;
     private String transaction_id;
     private String status;
 
     public Order() {
     }
 
-    public Order(int order_id, int traveler_id, int guider_id, int post_id, LocalDateTime begin_date, LocalDateTime finish_date, int adult_quantity, int children_quantity, double fee_paid, boolean canceled, String transaction_id, String status) {
+
+    public Order(int order_id, int traveler_id, int guider_id, int post_id, LocalDateTime begin_date, LocalDateTime finish_date, int adult_quantity, int children_quantity, double fee_paid, String transaction_id, String status) {
         this.order_id = order_id;
         this.traveler_id = traveler_id;
         this.guider_id = guider_id;
@@ -38,7 +38,6 @@ public class Order {
         this.adult_quantity = adult_quantity;
         this.children_quantity = children_quantity;
         this.fee_paid = fee_paid;
-        this.canceled = canceled;
         this.transaction_id = transaction_id;
         this.status = status;
     }
@@ -113,14 +112,6 @@ public class Order {
 
     public void setFee_paid(double fee_paid) {
         this.fee_paid = fee_paid;
-    }
-
-    public boolean isCanceled() {
-        return canceled;
-    }
-
-    public void setCanceled(boolean canceled) {
-        this.canceled = canceled;
     }
 
     public String getTransaction_id() {
