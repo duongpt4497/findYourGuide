@@ -65,6 +65,7 @@ public class GeneralServiceImpl implements GeneralService {
     public List<String> convertBase64toImageAndChangeName(String[] base64array) {
         List<String> base64List = Arrays.asList(base64array);
         List<String> imageUrls = new ArrayList<>();
+
         for (String base64 : base64List) {
 
             long now = System.currentTimeMillis();
