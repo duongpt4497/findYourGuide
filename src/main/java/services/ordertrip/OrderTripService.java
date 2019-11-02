@@ -4,15 +4,20 @@ import entities.Order;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface OrderTripService {
     public void createOrder(Order newOrder);
 
-    public Order findOrder(int order_id);
+    public Order findOrderById(int order_id);
 
-    public int editOrder(Order orderNeedUpdate);
+    public List<Order> findOrderByStatus(int guider_id, String status);
 
-    public int cancelOrder(int id);
+    public boolean acceptOrder(int order_id);
+
+    public boolean cancelOrder(int order_id);
+
+    public boolean finishOrder(int order_id);
 
     public void getOrderGuiderId_FinishDate(Order newOrder);
 
