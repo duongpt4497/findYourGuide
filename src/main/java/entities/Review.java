@@ -21,7 +21,10 @@ public class Review  {
         this.rated_star = rated_star;
         this.date = date;
     }
-
+public Review(long guider_id,long rated_star){
+        this.guider_id = guider_id;
+        this.rated_star = rated_star;
+}
     public long getPost_id() {
         return post_id;
     }

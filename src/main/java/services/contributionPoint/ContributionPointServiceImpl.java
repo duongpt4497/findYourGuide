@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
-public class ContributionPointServiceImpl implements ContributionPointService {
+public class ContributionPointServiceImpl {
     @Value("${percentage.on.totalmoney}")
     private String TotalMoney;
 
@@ -30,10 +30,13 @@ public class ContributionPointServiceImpl implements ContributionPointService {
     @Value("${percentage.on.ratedStar}")
     private String OnRatedStar;
 
+    @Value("${point.being.minus.onInactivateMonth}")
+    private String OnInActivateMonth;
 
     private int percentageOnTotalMoney;
     private int percentageOnTravellerReturn;
     private int percentageOnRatedStar;
+    private int pointBeingMinusOnInactivateMonth;
 
     private JdbcTemplate jdbcTemplate;
     private static final Logger log = LoggerFactory.getLogger(ContributionPointServiceImpl.class);
@@ -44,51 +47,71 @@ public class ContributionPointServiceImpl implements ContributionPointService {
     }
 
 
-    @Override
-    public long getAmountReturnOfATraveller(long guider_id, long traveller_id) {
-        long amountReturnOfATraveller = jdbcTemplate.queryForObject("SELECT count(*) FROM ordertrip WHERE guider_id = ? and traveler_id = ?", Long.class, guider_id, traveller_id);
-        return amountReturnOfATraveller;
-    }
-
-
-    @Override
-    public long calculatePointAfterEachOrder(Order order) {
+    @Scheduled(cron = "0 59 23 1/1 * ? *")
+    public void updatePointAtTheEndOfTheDay(){
         percentageOnTotalMoney = Integer.parseInt(TotalMoney);
         percentageOnTravellerReturn = Integer.parseInt(OnTravellerReturn);
+        percentageOnRatedStar = Integer.parseInt(OnRatedStar);
+        Date date = new Date();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int month = localDate.getMonthValue();
+        int year = localDate.getYear();
+        int day = localDate.getDayOfMonth();
 
-        long amountReturnOfATraveller = getAmountReturnOfATraveller(order.getGuider_id(), order.getTraveler_id());
-        long getTotalMoneyOfOrder = order.getFee_paid();
-        long totalTripsInOneMonth = 0;
-        long contributionPoint = 0;
+        List<Order> orders = jdbcTemplate.query("select * from ordertrip where date_part('month',finish_date) = ? and " +
+                "date_part('year',finish_date)= ? and date_part('day',finish_date)= ?", new RowMapper<Order>() {
+            @Override
+            public Order mapRow(ResultSet resultSet, int i) throws SQLException {
+                return new Order(
+                        resultSet.getLong("guider_id"),
+                        resultSet.getLong("traveler_id"),
+                        resultSet.getLong("fee_paid")
 
-        contributionPoint = amountReturnOfATraveller * percentageOnTravellerReturn + getTotalMoneyOfOrder * percentageOnTotalMoney;
-        if (totalTripsInOneMonth == 20) {
-            contributionPoint += 2;
+                );
+            }
+        },month,year,day);
+
+        for ( Order order: orders){
+            long guider_id = order.getGuider_id();
+            long fee_paid = order.getFee_paid();
+            long traveler_id = order.getTraveler_id();
+            long amountReturnOfATraveller = jdbcTemplate.queryForObject("SELECT count(*) FROM ordertrip WHERE guider_id = ? and traveler_id = ?", Long.class, guider_id, traveler_id);
+            long contributionPoint = amountReturnOfATraveller * percentageOnTravellerReturn + fee_paid * percentageOnTotalMoney;
+            long oldContribution = jdbcTemplate.queryForObject("select contribution from guider where guider_id = ? ", Long.class, guider_id);
+            long updatedContribution = oldContribution + contributionPoint;
+            jdbcTemplate.update("update guider set contribution=  ? where guider_id = ?", updatedContribution, guider_id);
         }
-        return contributionPoint;
-    }
 
-    @Override
-    public long calculatePointAfterEachReview(Review review) {
-        long ratedStar = review.getRated_star();
-        long contributionPoint = 0;
-        if (ratedStar <= 3) {
-            contributionPoint += (ratedStar - 4) * percentageOnRatedStar;
-        } else {
-            contributionPoint += ratedStar * percentageOnRatedStar;
+        List<Review> reviews = jdbcTemplate.query("select * from review where date_part('month',post_date) = ? and " +
+                "date_part('year',post_date)= ? and date_part('day',post_date)= ?", new RowMapper<Review>() {
+            @Override
+            public Review mapRow(ResultSet resultSet, int i) throws SQLException {
+                return new Review(
+                        resultSet.getLong("guider_id"),
+                        resultSet.getLong("rated")
+
+                );
+            }
+        },month,year,day);
+
+        for ( Review review:reviews){
+            long guider_id = review.getGuider_id();
+            long ratedStar = review.getRated_star();
+            long contributionPoint = 0;
+            if (ratedStar <= 3) {
+                contributionPoint += (ratedStar - 4) * percentageOnRatedStar;
+            } else {
+                contributionPoint += ratedStar * percentageOnRatedStar;
+            }
+            long oldContribution = jdbcTemplate.queryForObject("select contribution from guider where guider_id = ? ", Long.class, guider_id);
+            long updatedContribution = oldContribution + contributionPoint;
+            jdbcTemplate.update("update guider set contribution=  ? where guider_id = ?", updatedContribution, guider_id);
         }
-        return contributionPoint;
-    }
-
-    @Override
-    public void updateContributionPoint(long guider_id, long contributionPoint) {
-        long oldContribution = jdbcTemplate.queryForObject("select contribution from guider where guider_id = ? ", Long.class, guider_id);
-        long updatedContribution = oldContribution + contributionPoint;
-        jdbcTemplate.update("update guider set contribution=  ? where guider_id = ?", updatedContribution, guider_id);
     }
 
     @Scheduled(cron = "0 0 0 1 1/1 ? *")
-    public void reportCurrentTime() {
+    public void updatePointAtTheEndOfTheMonth() {
+        pointBeingMinusOnInactivateMonth = Integer.parseInt(OnInActivateMonth);
         Date date = new Date();
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int month = localDate.getMonthValue();
@@ -120,8 +143,9 @@ public class ContributionPointServiceImpl implements ContributionPointService {
                 },lastMonth,year);
 
         for (Guider guider : guiderBeingMinusPoint){
-            guider.setContribution_point(guider.getContribution_point()-) =
+            guider.setContribution_point(guider.getContribution_point()-pointBeingMinusOnInactivateMonth);
+            jdbcTemplate.update("update guider set contribution = ? where guider_id = ?",guider.getContribution_point(),guider.getGuider_id());
         }
-        log.info("The time is now {}", dateFormat.format(new Date()));
+        //log.info("The time is now {}", dateFormat.format(new Date()));
     }
 }
