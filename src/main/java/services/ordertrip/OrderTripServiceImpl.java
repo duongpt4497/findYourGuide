@@ -107,6 +107,11 @@ public class OrderTripServiceImpl implements OrderTripService {
     @Override
     public boolean acceptOrder(int order_id) {
         try {
+            String check = "select count(order_id) from ordertrip where order_id = ? and status = ?";
+            int count = jdbcTemplate.queryForObject(check, new Object[]{order_id, UNCONFIRMED}, int.class);
+            if (count == 0) {
+                return false;
+            }
             String query = "update ordertrip set status = ? where order_id = ?";
             jdbcTemplate.update(query, ONGOING, order_id);
             return true;
@@ -136,6 +141,11 @@ public class OrderTripServiceImpl implements OrderTripService {
     @Override
     public boolean finishOrder(int order_id) {
         try {
+            String check = "select count(order_id) from ordertrip where order_id = ? and status = ?";
+            int count = jdbcTemplate.queryForObject(check, new Object[]{order_id, ONGOING}, int.class);
+            if (count == 0) {
+                return false;
+            }
             String query = "update ordertrip set status = ? where order_id = ?";
             jdbcTemplate.update(query, FINISHED, order_id);
             return true;
