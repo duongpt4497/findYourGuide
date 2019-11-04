@@ -18,11 +18,11 @@ public class TravelerController {
         this.travelerService = ts;
     }
 
-    @RequestMapping("/Get")
+    @RequestMapping("/GetTraveler")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Traveler> getTravelerWithId(@RequestBody Traveler traveler) {
+    public ResponseEntity<Traveler> getTravelerWithId(@RequestParam int traveler_id) {
         try {
-            return new ResponseEntity<>(travelerService.findTravelerWithId(traveler.getTraveler_id()), HttpStatus.OK);
+            return new ResponseEntity<>(travelerService.findTravelerWithId(traveler_id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
