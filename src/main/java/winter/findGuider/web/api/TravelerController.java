@@ -22,7 +22,11 @@ public class TravelerController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Traveler> getTravelerWithId(@RequestParam int traveler_id) {
         try {
-            return new ResponseEntity<>(travelerService.findTravelerWithId(traveler_id), HttpStatus.OK);
+            Traveler searchTraveler = travelerService.findTravelerWithId(traveler_id);
+            if (searchTraveler == null) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(searchTraveler, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }

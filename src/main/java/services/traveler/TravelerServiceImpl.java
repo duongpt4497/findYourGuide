@@ -1,6 +1,8 @@
 package services.traveler;
 
 import entities.Traveler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -11,12 +13,13 @@ import services.GeneralService;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.logging.Logger;
+import java.util.List;
 
 @Repository
 public class TravelerServiceImpl implements TravelerService {
-    private Logger logger;
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private JdbcTemplate jdbcTemplate;
     private GeneralService generalService;
 
@@ -60,10 +63,10 @@ public class TravelerServiceImpl implements TravelerService {
 
     @Override
     public Traveler findTravelerWithId(long id) {
-        Traveler searchTraveler = new Traveler();
+        List<Traveler> searchTraveler = new ArrayList<>();
         try {
             String query = "select * from traveler where traveler_id = ?";
-            searchTraveler = jdbcTemplate.queryForObject(query, new RowMapper<Traveler>() {
+            searchTraveler = jdbcTemplate.query(query, new RowMapper<Traveler>() {
                 @Override
                 public Traveler mapRow(ResultSet rs, int rowNum) throws SQLException {
                     return new Traveler(rs.getLong("traveler_id"), rs.getString("first_name"),
@@ -78,7 +81,10 @@ public class TravelerServiceImpl implements TravelerService {
         } catch (Exception e) {
             logger.info(e.getMessage());
         }
-        return searchTraveler;
+        if (searchTraveler.isEmpty()) {
+            return null;
+        }
+        return searchTraveler.get(0);
     }
 
     @Override
