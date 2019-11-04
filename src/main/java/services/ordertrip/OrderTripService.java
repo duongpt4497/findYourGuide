@@ -3,6 +3,7 @@ package services.ordertrip;
 import entities.Order;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,4 +27,6 @@ public interface OrderTripService {
     public ArrayList<String> getGuiderAvailableHours(LocalDate date, int post_id, int guider_id);
 
     public String getClosestTourFinishDate(LocalDate date, int guider_id);
+
+    public boolean checkOrderCanRefund(Order cancelOrder, LocalDateTime rightNow);
 }

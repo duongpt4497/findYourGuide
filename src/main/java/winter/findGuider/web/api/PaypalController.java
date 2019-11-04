@@ -119,21 +119,4 @@ public class PaypalController {
         }
         return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
     }
-
-    @RequestMapping("/Refund")
-    @ResponseStatus(HttpStatus.OK)
-    public String refund(@RequestBody String transaction_id) {
-        String message = "success";
-        try {
-            Refund refund = paypalService.refundPayment(transaction_id);
-            if (refund.getState().equals("completed")) {
-                paypalService.createRefundRecord(transaction_id, message);
-                return "url to success page/" + message;
-            }
-        } catch (PayPalRESTException paypalException) {
-            message = paypalException.getDetails().getMessage();
-            paypalService.createRefundRecord(transaction_id, message);
-        }
-        return "url to fail page/" + message;
-    }
 }

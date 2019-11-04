@@ -50,33 +50,35 @@ public class OrderTripController {
     @RequestMapping("/CancelOrderAsTraveler")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> cancelOrderAsTraveler(@RequestBody Order order) {
+        LocalDateTime rightNow = LocalDateTime.now();
+        Order cancelOrder = new Order();
         try {
-            if (order.getBegin_date().getYear() == LocalDateTime.now().getYear()
-                    && order.getBegin_date().getMonth().equals(LocalDateTime.now().getMonth())) {
-                int timespan = order.getFinish_date().getDayOfMonth() - LocalDateTime.now().getDayOfMonth();
-                boolean cancelSuccess;
-                if (timespan <= 2) {
-                    cancelSuccess = orderTripService.cancelOrder(order.getOrder_id());
+            cancelOrder = orderTripService.findOrderById(order.getOrder_id());
+            // check if refund is needed
+            boolean isRefund = orderTripService.checkOrderCanRefund(cancelOrder, rightNow);
+            // start cancel order
+            boolean cancelSuccess;
+            if (isRefund) {
+                Refund refund = paypalService.refundPayment(cancelOrder.getTransaction_id());
+                if (refund.getState().equals("completed")) {
+                    paypalService.createRefundRecord(cancelOrder.getTransaction_id(), "success");
+                    cancelSuccess = orderTripService.cancelOrder(cancelOrder.getOrder_id());
                     if (!cancelSuccess) {
                         return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
                     }
                 } else {
-                    Refund refund = paypalService.refundPayment(order.getTransaction_id());
-                    if (refund.getState().equals("completed")) {
-                        paypalService.createRefundRecord(order.getTransaction_id(), "success");
-                        cancelSuccess = orderTripService.cancelOrder(order.getOrder_id());
-                        if (!cancelSuccess) {
-                            return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
-                        }
-                    } else {
-                        return new ResponseEntity<>("Refund fail", HttpStatus.OK);
-                    }
+                    return new ResponseEntity<>("Refund fail", HttpStatus.OK);
+                }
+            } else {
+                cancelSuccess = orderTripService.cancelOrder(cancelOrder.getOrder_id());
+                if (!cancelSuccess) {
+                    return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
                 }
             }
             return new ResponseEntity<>("Cancel Success", HttpStatus.OK);
         } catch (PayPalRESTException e) {
             String message = e.getDetails().getMessage();
-            paypalService.createRefundRecord(order.getTransaction_id(), message);
+            paypalService.createRefundRecord(cancelOrder.getTransaction_id(), message);
             return new ResponseEntity<>(message, HttpStatus.OK);
         }
     }

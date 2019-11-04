@@ -121,9 +121,7 @@ public class PaypalServiceImpl implements PaypalService {
 
     @Override
     public Refund refundPayment(String transaction_id) throws PayPalRESTException {
-        String query = "SELECT fee_paid " +
-                "FROM ordertrip, transaction " +
-                "where transaction_id = ? and ordertrip.order_id = transaction.order_id";
+        String query = "SELECT fee_paid FROM ordertrip where transaction_id = ?";
         double fee = jdbcTemplate.queryForObject(query, new Object[]{transaction_id}, double.class);
         // Create new refund
         Refund refund = new Refund();

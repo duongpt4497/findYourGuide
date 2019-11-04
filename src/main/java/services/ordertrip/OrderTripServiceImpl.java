@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Repository
@@ -235,6 +236,35 @@ public class OrderTripServiceImpl implements OrderTripService {
             logger.error(e.getMessage());
         }
         return closestFinishDate;
+    }
+
+    @Override
+    public boolean checkOrderCanRefund(Order cancelOrder, LocalDateTime rightNow) {
+        int dayCheck = cancelOrder.getBegin_date().toLocalDate().minusDays(2).compareTo(rightNow.toLocalDate());
+        // check day
+        if (dayCheck == 0) {
+            // check hour
+            int beginHour = cancelOrder.getBegin_date().getHour();
+            int hourCheck = Integer.compare(rightNow.getHour(), beginHour);
+            if (hourCheck == -1) {
+                return true;
+            } else if (hourCheck == 1) {
+                return false;
+            } else {
+                // check minute
+                int beginMinute = cancelOrder.getBegin_date().getMinute();
+                int minuteCheck = Integer.compare(rightNow.getMinute(), beginMinute);
+                if (minuteCheck == -1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        } else if (dayCheck == -1) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private double getTourTotalHour(int post_id) {
