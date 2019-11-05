@@ -82,4 +82,19 @@ public class OrderTripController {
             return new ResponseEntity<>(message, HttpStatus.OK);
         }
     }
+
+    @RequestMapping("/AcceptOrder")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Boolean> acceptOrder(@RequestBody Order order) {
+        try {
+            // Check for availability of order
+            int count = orderTripService.checkAvailabilityOfOrder(order);
+            if (count != 0) {
+                return new ResponseEntity<>(false, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(orderTripService.acceptOrder(order.getOrder_id()), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 }
