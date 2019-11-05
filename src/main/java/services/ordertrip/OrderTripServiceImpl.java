@@ -80,12 +80,17 @@ public class OrderTripServiceImpl implements OrderTripService {
     }
 
     @Override
-    public List<Order> findOrderByStatus(int guider_id, String status) {
+    public List<Order> findOrderByStatusAsGuider(String role, int id, String status) {
         List<Order> result = new ArrayList<>();
         try {
-            String query = "SELECT * " +
-                    "FROM ordertrip where guider_id = ? and status = ? " +
-                    "order by finish_date desc";
+            String query = "";
+            if (role.equalsIgnoreCase("guider")) {
+                query = "SELECT * FROM ordertrip where guider_id = ? and status = ? " +
+                        "order by finish_date desc";
+            } else {
+                query = "SELECT * FROM ordertrip where traveler_id = ? and status = ? " +
+                        "order by finish_date desc";
+            }
             result = jdbcTemplate.query(query, new RowMapper<Order>() {
                 @Override
                 public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -97,7 +102,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                             rs.getLong("fee_paid"), rs.getString("transaction_id"),
                             rs.getString("status"));
                 }
-            }, guider_id, status);
+            }, id, status);
         } catch (Exception e) {
             logger.error(e.getMessage());
         }

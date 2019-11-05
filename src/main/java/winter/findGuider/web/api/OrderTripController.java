@@ -39,9 +39,9 @@ public class OrderTripController {
 
     @RequestMapping("/GetOrderByStatus")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<Order>> getOrderByStatus(@RequestBody Order order) {
+    public ResponseEntity<List<Order>> getOrderByStatus(@RequestParam String role, @RequestParam int id, @RequestParam String status) {
         try {
-            return new ResponseEntity<>(orderTripService.findOrderByStatus(order.getGuider_id(), order.getStatus()), HttpStatus.OK);
+            return new ResponseEntity<>(orderTripService.findOrderByStatusAsGuider(role, id, status), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }

@@ -12,7 +12,7 @@ public interface OrderTripService {
 
     public Order findOrderById(int order_id);
 
-    public List<Order> findOrderByStatus(int guider_id, String status);
+    public List<Order> findOrderByStatusAsGuider(String role, int id, String status);
 
     public boolean acceptOrder(int order_id);
 
