@@ -34,11 +34,10 @@ public class TravelerController {
 
     @RequestMapping("/Create")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Traveler> createTraveler(@RequestBody Traveler newTraveler) {
-        long createdId;
+    public ResponseEntity<Boolean> createTraveler(@RequestBody Traveler newTraveler) {
         try {
-            createdId = travelerService.createTraveler(newTraveler);
-            return new ResponseEntity<>(travelerService.findTravelerWithId(createdId), HttpStatus.OK);
+            boolean success = travelerService.createTraveler(newTraveler);
+            return new ResponseEntity<>(success, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }

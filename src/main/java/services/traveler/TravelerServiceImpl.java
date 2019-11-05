@@ -5,12 +5,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import services.GeneralService;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,36 +26,23 @@ public class TravelerServiceImpl implements TravelerService {
     }
 
     @Override
-    public long createTraveler(Traveler newTraveler) {
-        KeyHolder keyHolder = new GeneratedKeyHolder();
+    public boolean createTraveler(Traveler newTraveler) {
+        boolean success;
         try {
-            String insertQuery = "insert into traveler (first_name, last_name, gender, date_of_birth, phone, email, street, " +
-                    "house_number, slogan, postal_code, about_me, language, country, city, avatar_link) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String insertQuery = "insert into traveler (traveler_id, first_name, last_name, gender, date_of_birth, phone, email, street, " +
+                    "house_number, slogan, postal_code, about_me, language, country, city, avatar_link) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-            jdbcTemplate.update(connection -> {
-                PreparedStatement ps = connection
-                        .prepareStatement(insertQuery, new String[]{"traveler_id"});
-                ps.setString(1, newTraveler.getFirst_name());
-                ps.setString(2, newTraveler.getLast_name());
-                ps.setInt(3, newTraveler.getGender());
-                ps.setDate(4, new java.sql.Date(newTraveler.getDate_of_birth().getTime()));
-                ps.setString(5, newTraveler.getPhone());
-                ps.setString(6, newTraveler.getEmail());
-                ps.setString(7, newTraveler.getStreet());
-                ps.setString(8, newTraveler.getHouse_number());
-                ps.setString(9, newTraveler.getSlogan());
-                ps.setString(10, newTraveler.getPostal_code());
-                ps.setString(11, newTraveler.getAbout_me());
-                ps.setArray(12, generalService.createSqlArray(Arrays.asList(newTraveler.getLanguage())));
-                ps.setString(13, newTraveler.getCountry());
-                ps.setString(14, newTraveler.getCity());
-                ps.setString(15, newTraveler.getAvatar_link());
-                return ps;
-            }, keyHolder);
+            jdbcTemplate.update(insertQuery, newTraveler.getTraveler_id(), newTraveler.getFirst_name(), newTraveler.getLast_name(),
+                    newTraveler.getGender(), new java.sql.Date(newTraveler.getDate_of_birth().getTime()), newTraveler.getPhone(),
+                    newTraveler.getEmail(), newTraveler.getStreet(), newTraveler.getHouse_number(), newTraveler.getSlogan(),
+                    newTraveler.getPostal_code(), newTraveler.getAbout_me(), generalService.createSqlArray(Arrays.asList(newTraveler.getLanguage())),
+                    newTraveler.getCountry(), newTraveler.getCity(), newTraveler.getAvatar_link());
+            success = true;
         } catch (Exception e) {
             logger.info(e.getMessage());
+            success = false;
         }
-        return (long) keyHolder.getKey();
+        return success;
     }
 
     @Override
