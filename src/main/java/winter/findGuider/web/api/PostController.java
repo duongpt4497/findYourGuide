@@ -13,14 +13,14 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/guiderpost",produces = "application/json")
 @CrossOrigin(origins = "*")
-public class GuiderPostApi {
+public class PostController {
 
     private GeneralServiceImpl generalServiceImpl;
     private PostServiceImpl postServiceImpl;
     private ActivityServiceImpl activityService;
 
     @Autowired
-    public GuiderPostApi (GeneralServiceImpl gs,PostServiceImpl postServiceImpl,ActivityServiceImpl activityService){
+    public PostController(GeneralServiceImpl gs, PostServiceImpl postServiceImpl, ActivityServiceImpl activityService){
         this.generalServiceImpl = gs;
         this.postServiceImpl = postServiceImpl;
         this.activityService = activityService;

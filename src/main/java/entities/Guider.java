@@ -6,29 +6,34 @@ import lombok.Data;
 public class Guider {
     private long guider_id;
     //private long contract_id;
-    //private long account_id;
     private String first_name;
     private String last_name;
     private int age;
     private String about_me;
-    private long contribution_point;
+    private long contribution;
     private String city;
-    private boolean active;
     private String[] languages;
+    private boolean active;
+    private long rated;
+    private String avatar;
+    private String passion;
 
     public Guider() {
     }
 
-    public Guider(long guider_id, String first_name, String last_name, int age, String about_me, long contribution_point, String city, boolean active, String[] languages) {
+    public Guider(long guider_id, String first_name, String last_name, int age, String about_me, long contribution, String city, String[] languages, boolean active, long rated, String avatar, String passion) {
         this.guider_id = guider_id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.age = age;
         this.about_me = about_me;
-        this.contribution_point = contribution_point;
+        this.contribution = contribution;
         this.city = city;
-        this.active = active;
         this.languages = languages;
+        this.active = active;
+        this.rated = rated;
+        this.avatar = avatar;
+        this.passion = passion;
     }
 
     public long getGuider_id() {
@@ -71,12 +76,12 @@ public class Guider {
         this.about_me = about_me;
     }
 
-    public long getContribution_point() {
-        return contribution_point;
+    public long getContribution() {
+        return contribution;
     }
 
-    public void setContribution_point(long contribution_point) {
-        this.contribution_point = contribution_point;
+    public void setContribution(long contribution) {
+        this.contribution = contribution;
     }
 
     public String getCity() {
@@ -87,6 +92,14 @@ public class Guider {
         this.city = city;
     }
 
+    public String[] getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(String[] languages) {
+        this.languages = languages;
+    }
+
     public boolean isActive() {
         return active;
     }
@@ -95,11 +108,27 @@ public class Guider {
         this.active = active;
     }
 
-    public String[] getLanguages() {
-        return languages;
+    public long getRated() {
+        return rated;
     }
 
-    public void setLanguages(String[] languages) {
-        this.languages = languages;
+    public void setRated(long rated) {
+        this.rated = rated;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getPassion() {
+        return passion;
+    }
+
+    public void setPassion(String passion) {
+        this.passion = passion;
     }
 }
