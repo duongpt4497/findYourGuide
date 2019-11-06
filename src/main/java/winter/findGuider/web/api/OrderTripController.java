@@ -3,6 +3,7 @@ package winter.findGuider.web.api;
 import com.paypal.api.payments.Refund;
 import com.paypal.base.rest.PayPalRESTException;
 import entities.Order;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ public class OrderTripController {
     private OrderTripService orderTripService;
     private PaypalService paypalService;
 
+    @Autowired
     public OrderTripController(OrderTripService os, PaypalService ps) {
         this.orderTripService = os;
         this.paypalService = ps;
