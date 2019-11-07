@@ -50,7 +50,7 @@ public class WebSocketConfig extends  AbstractWebSocketMessageBrokerConfigurer  
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.setApplicationDestinationPrefixes("/app");
-        registry.enableStompBrokerRelay("/queue/","/topic/").setRelayHost("localhost").setRelayPort(61613).setClientLogin("guest").setClientPasscode("guest");
+        registry.enableSimpleBroker("/queue","/topic","/user");
         registry.setUserDestinationPrefix("/user");
 
     }

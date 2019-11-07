@@ -1,7 +1,14 @@
 package entities;
 
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import java.util.Date;
 
+
+@Document(collection = "messageCollection")
 public class ChatMessage {
     /*private int message_id;
     private int traveler_id;
@@ -60,9 +67,19 @@ public class ChatMessage {
 
 
         //private MessageType type;
+        @Id
+        private String id ;
+
+
         private String content;
+
+
         private String user;
+
+
         private String receiver;
+
+        private String dateReceived;
 
        /* public enum MessageType {
             CHAT, JOIN, LEAVE
@@ -75,6 +92,22 @@ public class ChatMessage {
         public void setType(MessageType type) {
             this.type = type;
         }*/
+
+    public String getDateReceived() {
+        return dateReceived;
+    }
+
+    public void setDateReceived(String dateReceived) {
+        this.dateReceived = dateReceived;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getReceiver() {
         return receiver;
