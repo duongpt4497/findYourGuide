@@ -79,7 +79,7 @@ public class ChatMessage {
 
         private String receiver;
 
-        private String dateReceived;
+        private Date dateReceived;
 
        /* public enum MessageType {
             CHAT, JOIN, LEAVE
@@ -93,11 +93,11 @@ public class ChatMessage {
             this.type = type;
         }*/
 
-    public String getDateReceived() {
+    public Date getDateReceived() {
         return dateReceived;
     }
 
-    public void setDateReceived(String dateReceived) {
+    public void setDateReceived(Date dateReceived) {
         this.dateReceived = dateReceived;
     }
 

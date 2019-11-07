@@ -12,7 +12,6 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import services.chatMessage.ChatMessageRepositoryImpl;
-import services.guider.ChatMessageRepository;
 
 import java.security.Principal;
 
