@@ -15,6 +15,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
 import java.util.*;
 
 @Repository
@@ -87,9 +88,11 @@ public class OrderTripServiceImpl implements OrderTripService {
             if (role.equalsIgnoreCase("guider")) {
                 query = "SELECT * FROM ordertrip where guider_id = ? and status = ? " +
                         "order by finish_date desc";
-            } else {
+            } else if (role.equalsIgnoreCase("traveler")){
                 query = "SELECT * FROM ordertrip where traveler_id = ? and status = ? " +
                         "order by finish_date desc";
+            } else {
+                throw new Exception("wrong role");
             }
             result = jdbcTemplate.query(query, new RowMapper<Order>() {
                 @Override
