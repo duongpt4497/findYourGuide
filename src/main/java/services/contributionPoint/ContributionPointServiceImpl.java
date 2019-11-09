@@ -24,6 +24,7 @@ import java.util.Map;
 @Repository
 public class ContributionPointServiceImpl implements ContributionPointService{
 
+
     @Value("${correlation.price}")
     private String corMoney;
 
@@ -48,10 +49,6 @@ public class ContributionPointServiceImpl implements ContributionPointService{
     @Value("${percent.bonus.perMonth.5}")
     private String bonus5;
 
-    private int percentageOnTotalMoney;
-    private int percentageOnTravellerReturn;
-    private int percentageOnRatedStar;
-
     private JdbcTemplate jdbcTemplate;
     private static final Logger log = LoggerFactory.getLogger(ContributionPointServiceImpl.class);
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM-dd-yyyy    HH:mm:ss");
@@ -59,6 +56,7 @@ public class ContributionPointServiceImpl implements ContributionPointService{
     public ContributionPointServiceImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+
 
     //params: fee_paid in order, rated in review, no of turn count in order
     public long calculateContributionPerTour(float fee, float rated, int count) {
@@ -160,14 +158,17 @@ public class ContributionPointServiceImpl implements ContributionPointService{
 
             update.add("update guider set contribution = contribution + "
                     + (long)Math.floor(bonus) + " where guider_id = " + m.get("guider_id"));
-        }
-        for (Map m : negativeGuider) {
 
+        }
+   
+        for (Map m : negativeGuider) {
             update.add("update guider set contribution = contribution - "
                     + minus + " where guider_id = " + m.get("guider_id"));
         }
         log.warn(update.toString());
         //jdbcTemplate.batchUpdate(update.toArray(new String[0])[10]);
+
+
     }
 
 //                    Date date = new Date();

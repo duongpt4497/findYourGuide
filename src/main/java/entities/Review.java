@@ -14,8 +14,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class Review {
+
     private long order_id;
-    private long traveler_id ;
+    private long traveler_id;
     private long guider_id;
     private long post_id;
     private float rated;
@@ -34,8 +35,6 @@ public class Review {
         this.post_date = post_date;
         this.review = review;
     }
-    
-    
 
     public long getOrder_id() {
         return order_id;
@@ -49,6 +48,17 @@ public class Review {
         return traveler_id;
     }
 
+
+    public Review(long guider_id, long rated_star) {
+        this.guider_id = guider_id;
+        this.rated = rated_star;
+    }
+
+    public long getPost_id() {
+        return post_id;
+
+    }
+
     public void setTraveler_id(long traveler_id) {
         this.traveler_id = traveler_id;
     }
@@ -59,10 +69,6 @@ public class Review {
 
     public void setGuider_id(long guider_id) {
         this.guider_id = guider_id;
-    }
-
-    public long getPost_id() {
-        return post_id;
     }
 
     public void setPost_id(long post_id) {
@@ -92,6 +98,5 @@ public class Review {
     public void setReview(String review) {
         this.review = review;
     }
-    
-    
+
 }

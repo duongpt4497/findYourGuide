@@ -50,6 +50,12 @@ public class Order {
         return rated;
     }
 
+    public Order(long guider_id,long traveler_id,long fee_paid){
+        this.guider_id = guider_id;
+        this.fee_paid = fee_paid;
+        this.traveler_id = traveler_id;
+    }
+
     public long getOrder_id() {
         return order_id;
     }
