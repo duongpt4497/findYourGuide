@@ -24,7 +24,7 @@ public class ContributionPointApi {
     @PostMapping("/update/{order_id}")
     public void updateContributionPointWithOrderId(@PathVariable("order_id") long order_id) {
         Order order = orderTripService.findOrder(order_id);
-        long point = contributionPointService.calculatePointAfterEachOrder(order);
+//        long point = contributionPointService.calculatePointAfterEachOrder(order);
 
     }
 

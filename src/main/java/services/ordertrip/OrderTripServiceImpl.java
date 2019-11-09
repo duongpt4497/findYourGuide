@@ -38,7 +38,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                 ps.setDate(5, new java.sql.Date(newOrder.getFinish_date().getTime()));
                 ps.setInt(6, newOrder.getAdult_quantity());
                 ps.setInt(7, newOrder.getChildren_quantity());
-                ps.setLong(8, newOrder.getFee_paid());
+                ps.setFloat(8, newOrder.getFee_paid());
                 ps.setBoolean(9, false);
                 return ps;
             }, keyHolder);
@@ -60,7 +60,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                             rs.getLong("guider_id"), rs.getLong("post_id"),
                             rs.getDate("begin_date"), rs.getDate("finish_date"),
                             rs.getInt("adult_quantity"), rs.getInt("children_quantity"),
-                            rs.getLong("fee_paid"), rs.getBoolean("canceled"));
+                            rs.getFloat("fee_paid"), rs.getBoolean("canceled"));
                 }
             }, order_id);
         } catch (Exception e) {

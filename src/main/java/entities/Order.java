@@ -14,13 +14,14 @@ public class Order {
     private Date finish_date;
     private int adult_quantity;
     private int children_quantity;
-    private long fee_paid;
+    private float fee_paid;
     private boolean canceled;
+    private float rated;
 
     public Order() {
     }
 
-    public Order(long order_id, long traveler_id, long guider_id, long post_id, Date begin_date, Date finish_date, int adult_quantity, int children_quantity, long fee_paid, boolean canceled) {
+    public Order(long order_id, long traveler_id, long guider_id, long post_id, Date begin_date, Date finish_date, int adult_quantity, int children_quantity, float fee_paid, boolean canceled) {
         this.order_id = order_id;
         this.traveler_id = traveler_id;
         this.guider_id = guider_id;
@@ -31,6 +32,22 @@ public class Order {
         this.children_quantity = children_quantity;
         this.fee_paid = fee_paid;
         this.canceled = canceled;
+    }
+    
+    public Order(long order_id, long traveler_id, long guider_id, float fee_paid, float rated) {
+        this.order_id = order_id;
+        this.traveler_id = traveler_id;
+        this.guider_id = guider_id;
+        this.fee_paid = fee_paid;
+        this.rated = rated;
+    }
+    
+    public void setRated(float rated) {
+        this.rated = rated;
+    }
+    
+    public float getRated() {
+        return rated;
     }
 
     public long getOrder_id() {
@@ -97,11 +114,11 @@ public class Order {
         this.children_quantity = children_quantity;
     }
 
-    public long getFee_paid() {
+    public float getFee_paid() {
         return fee_paid;
     }
 
-    public void setFee_paid(long fee_paid) {
+    public void setFee_paid(float fee_paid) {
         this.fee_paid = fee_paid;
     }
 

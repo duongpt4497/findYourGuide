@@ -1,0 +1,624 @@
+2019-Nov-05 12:20:43 ERROR [main] c.z.h.p.HikariPool - HikariPool-1 - Exception during pool initialization.
+org.postgresql.util.PSQLException: FATAL: password authentication failed for user "postgres"
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:520)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:141)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:192)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:49)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:195)
+	at org.postgresql.Driver.makeConnection(Driver.java:458)
+	at org.postgresql.Driver.connect(Driver.java:260)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:136)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:369)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:198)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:467)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:541)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:157)
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:115)
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:78)
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:370)
+	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:451)
+	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:461)
+	at services.contributionPoint.ContributionPointServiceImpl.updateContributionbyDay(ContributionPointServiceImpl.java:111)
+	at services.contributionPoint.ContributionPointServiceImpl$$FastClassBySpringCGLIB$$35d30e73.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
+	at services.contributionPoint.ContributionPointServiceImpl$$EnhancerBySpringCGLIB$$f5530f61.updateContributionbyDay(<generated>)
+	at winter.findGuider.FindGuiderApplication.main(FindGuiderApplication.java:27)
+2019-Nov-05 12:25:21 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:30:51 WARN  [main] s.c.ContributionPointServiceImpl - select count(traveler_id) from ordertrip where guider_id = ? and traveler_id= ? group by traveler_id, guider_id; 
+2019-Nov-05 12:32:37 ERROR [main] o.a.c.u.LifecycleBase - Failed to start component [Connector[HTTP/1.1-8080]]
+org.apache.catalina.LifecycleException: Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1008)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:227)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.addPreviouslyRemovedConnectors(TomcatWebServer.java:263)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:195)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.startWebServer(ServletWebServerApplicationContext.java:297)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.finishRefresh(ServletWebServerApplicationContext.java:163)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:552)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:141)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:744)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:391)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:312)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1215)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1204)
+	at winter.findGuider.FindGuiderApplication.main(FindGuiderApplication.java:25)
+Caused by: java.net.BindException: Address already in use: bind
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:230)
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:213)
+	at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1124)
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:1210)
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:585)
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1005)
+	... 14 common frames omitted
+2019-Nov-05 12:32:37 ERROR [main] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The Tomcat connector configured to listen on port 8080 failed to start. The port may already be in use or the connector may be misconfigured.
+
+Action:
+
+Verify the connector's configuration, identify and stop any process that's listening on port 8080, or configure this application to listen on another port.
+
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:32:50 WARN  [main] s.c.ContributionPointServiceImpl - [update guider set contribution = contribution + 0 where guider_id = 1, update guider set contribution = contribution + 0 where guider_id = 2, update guider set contribution = contribution + 0 where guider_id = 3, update guider set contribution = contribution + 0 where guider_id = 4, update guider set contribution = contribution + 0 where guider_id = 5, update guider set contribution = contribution + 0 where guider_id = 6, update guider set contribution = contribution + 0 where guider_id = 7, update guider set contribution = contribution + 0 where guider_id = 8, update guider set contribution = contribution + 0 where guider_id = 9, update guider set contribution = contribution + 0 where guider_id = 10, update guider set contribution = contribution + 0 where guider_id = 11, update guider set contribution = contribution + 0 where guider_id = 12, update guider set contribution = contribution + 0 where guider_id = 13, update guider set contribution = contribution + 0 where guider_id = 14, update guider set contribution = contribution + 0 where guider_id = 15, update guider set contribution = contribution + 0 where guider_id = 16, update guider set contribution = contribution + 0 where guider_id = 17, update guider set contribution = contribution + 0 where guider_id = 18, update guider set contribution = contribution + 0 where guider_id = 19, update guider set contribution = contribution + 0 where guider_id = 20, update guider set contribution = contribution + 0 where guider_id = 21, update guider set contribution = contribution + 0 where guider_id = 22, update guider set contribution = contribution + 0 where guider_id = 23, update guider set contribution = contribution + 0 where guider_id = 24, update guider set contribution = contribution + 0 where guider_id = 25, update guider set contribution = contribution + 0 where guider_id = 26, update guider set contribution = contribution + 0 where guider_id = 27, update guider set contribution = contribution + 0 where guider_id = 28, update guider set contribution = contribution + 0 where guider_id = 29, update guider set contribution = contribution + 0 where guider_id = 30]
+2019-Nov-05 12:32:50 WARN  [main] w.f.FindGuiderApplication - Started
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:34:36 WARN  [main] s.c.ContributionPointServiceImpl - [update guider set contribution = contribution + 3169442540 where guider_id = 1, update guider set contribution = contribution + 4553018620 where guider_id = 2, update guider set contribution = contribution + 9456177780 where guider_id = 3, update guider set contribution = contribution + 963274280 where guider_id = 4, update guider set contribution = contribution + 6278152080 where guider_id = 5, update guider set contribution = contribution + 9669083820 where guider_id = 6, update guider set contribution = contribution + 3907073680 where guider_id = 7, update guider set contribution = contribution + 5777208380 where guider_id = 8, update guider set contribution = contribution + 7087293400 where guider_id = 9, update guider set contribution = contribution + 2393983100 where guider_id = 10, update guider set contribution = contribution + 2605862520 where guider_id = 11, update guider set contribution = contribution + 6855484660 where guider_id = 12, update guider set contribution = contribution + 8784392820 where guider_id = 13, update guider set contribution = contribution + 6537502380 where guider_id = 14, update guider set contribution = contribution + 8581391760 where guider_id = 15, update guider set contribution = contribution + 3241550800 where guider_id = 16, update guider set contribution = contribution + 354601780 where guider_id = 17, update guider set contribution = contribution + 4288008820 where guider_id = 18, update guider set contribution = contribution + 982098120 where guider_id = 19, update guider set contribution = contribution + 4270459660 where guider_id = 20, update guider set contribution = contribution + 3333226620 where guider_id = 21, update guider set contribution = contribution + 5676293820 where guider_id = 22, update guider set contribution = contribution + 5198018500 where guider_id = 23, update guider set contribution = contribution + 7529714220 where guider_id = 24, update guider set contribution = contribution + 68183890 where guider_id = 25, update guider set contribution = contribution + 2862111000 where guider_id = 26, update guider set contribution = contribution + 9713980860 where guider_id = 27, update guider set contribution = contribution + 3424645400 where guider_id = 28, update guider set contribution = contribution + 3504990680 where guider_id = 29, update guider set contribution = contribution + 7441571060 where guider_id = 30]
+2019-Nov-05 12:34:36 WARN  [main] w.f.FindGuiderApplication - Started
+2019-Nov-05 12:39:11 ERROR [main] o.a.c.u.LifecycleBase - Failed to start component [Connector[HTTP/1.1-8080]]
+org.apache.catalina.LifecycleException: Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1008)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:227)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.addPreviouslyRemovedConnectors(TomcatWebServer.java:263)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:195)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.startWebServer(ServletWebServerApplicationContext.java:297)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.finishRefresh(ServletWebServerApplicationContext.java:163)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:552)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:141)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:744)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:391)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:312)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1215)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1204)
+	at winter.findGuider.FindGuiderApplication.main(FindGuiderApplication.java:25)
+Caused by: java.net.BindException: Address already in use: bind
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:230)
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:213)
+	at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1124)
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:1210)
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:585)
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1005)
+	... 14 common frames omitted
+2019-Nov-05 12:39:11 ERROR [main] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The Tomcat connector configured to listen on port 8080 failed to start. The port may already be in use or the connector may be misconfigured.
+
+Action:
+
+Verify the connector's configuration, identify and stop any process that's listening on port 8080, or configure this application to listen on another port.
+
+2019-Nov-05 12:39:22 ERROR [main] o.a.c.u.LifecycleBase - Failed to start component [Connector[HTTP/1.1-8080]]
+org.apache.catalina.LifecycleException: Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1008)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:227)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.addPreviouslyRemovedConnectors(TomcatWebServer.java:263)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:195)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.startWebServer(ServletWebServerApplicationContext.java:297)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.finishRefresh(ServletWebServerApplicationContext.java:163)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:552)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:141)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:744)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:391)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:312)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1215)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1204)
+	at winter.findGuider.FindGuiderApplication.main(FindGuiderApplication.java:25)
+Caused by: java.net.BindException: Address already in use: bind
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:230)
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:213)
+	at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1124)
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:1210)
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:585)
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1005)
+	... 14 common frames omitted
+2019-Nov-05 12:39:22 ERROR [main] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The Tomcat connector configured to listen on port 8080 failed to start. The port may already be in use or the connector may be misconfigured.
+
+Action:
+
+Verify the connector's configuration, identify and stop any process that's listening on port 8080, or configure this application to listen on another port.
+
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:39:40 WARN  [main] s.c.ContributionPointServiceImpl - [Ljava.lang.String;@629adce
+2019-Nov-05 12:39:40 WARN  [main] w.f.FindGuiderApplication - Started
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 12:40:15 WARN  [main] s.c.ContributionPointServiceImpl - update guider set contribution = contribution + 2605862520 where guider_id = 11
+2019-Nov-05 12:40:15 WARN  [main] w.f.FindGuiderApplication - Started
+2019-Nov-05 16:16:31 WARN  [main] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'contributionPointApi' defined in file [E:\counter\contribute\target\classes\winter\findGuider\web\api\ContributionPointApi.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'services.contributionPoint.ContributionPointService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2019-Nov-05 16:16:31 ERROR [main] o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of constructor in winter.findGuider.web.api.ContributionPointApi required a bean of type 'services.contributionPoint.ContributionPointService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'services.contributionPoint.ContributionPointService' in your configuration.
+
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:19:29 WARN  [main] s.c.ContributionPointServiceImpl - update guider set contribution = contribution + 2605862020 where guider_id = 11
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:20:22 WARN  [main] s.c.ContributionPointServiceImpl - update guider set contribution = contribution + 2605862020 where guider_id = 11
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:21:39 WARN  [main] s.c.ContributionPointServiceImpl - update guider set contribution = contribution + 2605862020 where guider_id = 11
+2019-Nov-05 16:22:19 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:19 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:22:19 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:19 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:19 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:22:20 WARN  [main] s.c.ContributionPointServiceImpl - update guider set contribution = contribution + 2605862020 where guider_id = 11
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:10 WARN  [main] s.c.ContributionPointServiceImpl - update guider set contribution = contribution + 2605862020 where guider_id = 11
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:23:53 WARN  [main] s.c.ContributionPointServiceImpl - update guider set contribution = contribution + 2605862020 where guider_id = 11
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - update guider set contribution = contribution + 2605862020 where guider_id = 11
+2019-Nov-05 16:24:29 WARN  [main] s.c.ContributionPointServiceImpl - [update guider set contribution = contribution + 7.52971402E8 where guider_id = 2, update guider set contribution = contribution + 2.8621103E8 where guider_id = 15, update guider set contribution = contribution + 5.2662006E8 where guider_id = 9, update guider set contribution = contribution + 9.45617707E8 where guider_id = 7, update guider set contribution = contribution - 5000 where guider_id = 4, update guider set contribution = contribution - 5000 where guider_id = 3, update guider set contribution = contribution - 5000 where guider_id = 5, update guider set contribution = contribution - 5000 where guider_id = 6, update guider set contribution = contribution - 5000 where guider_id = 8]
+2019-Nov-05 16:24:29 WARN  [main] w.f.FindGuiderApplication - Started
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - update guider set contribution = contribution + 2605862020 where guider_id = 11
+2019-Nov-05 16:26:56 WARN  [main] s.c.ContributionPointServiceImpl - [update guider set contribution = contribution + 7.52971402E8 where guider_id = 2, update guider set contribution = contribution + 2.8621103E8 where guider_id = 15, update guider set contribution = contribution + 5.2662006E8 where guider_id = 9, update guider set contribution = contribution + 9.45617707E8 where guider_id = 7, update guider set contribution = contribution - 5000 where guider_id = 4, update guider set contribution = contribution - 5000 where guider_id = 3, update guider set contribution = contribution - 5000 where guider_id = 5, update guider set contribution = contribution - 5000 where guider_id = 6, update guider set contribution = contribution - 5000 where guider_id = 8]
+2019-Nov-05 16:26:56 WARN  [main] w.f.FindGuiderApplication - Started
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :3
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :2
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - count result :1
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - update guider set contribution = contribution + 2605862020 where guider_id = 11
+2019-Nov-05 16:31:47 WARN  [main] s.c.ContributionPointServiceImpl - [update guider set contribution = contribution + 752971402 where guider_id = 2, update guider set contribution = contribution + 286211030 where guider_id = 15, update guider set contribution = contribution + 526620060 where guider_id = 9, update guider set contribution = contribution + 945617707 where guider_id = 7, update guider set contribution = contribution - 5000 where guider_id = 4, update guider set contribution = contribution - 5000 where guider_id = 3, update guider set contribution = contribution - 5000 where guider_id = 5, update guider set contribution = contribution - 5000 where guider_id = 6, update guider set contribution = contribution - 5000 where guider_id = 8]
+2019-Nov-05 16:31:47 WARN  [main] w.f.FindGuiderApplication - Started

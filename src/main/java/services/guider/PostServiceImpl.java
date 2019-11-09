@@ -1,6 +1,6 @@
 package services.guider;
 
-import entities.Activity;
+
 import entities.Post;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

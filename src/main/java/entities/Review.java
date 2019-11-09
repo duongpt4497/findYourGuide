@@ -1,48 +1,97 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package entities;
 
-import lombok.Data;
-
 import java.util.Date;
+import org.springframework.stereotype.Component;
 
-@Data
-public class Review  {
-    private long review_id;
-    private long post_id;
+/**
+ *
+ * @author dgdbp
+ */
+@Component
+public class Review {
+    private long order_id;
+    private long traveler_id ;
     private long guider_id;
+    private long post_id;
+    private float rated;
+    private Date post_date;
     private String review;
-    private long rated_star;
-    private Date date;
 
-    public Review(long review_id, long guider_id,long post_id, String review, long rated_star, Date date) {
-        this.review_id = review_id;
+    public Review() {
+    }
+
+    public Review(long order_id, long traveler_id, long guider_id, long post_id, float rated, Date post_date, String review) {
+        this.order_id = order_id;
+        this.traveler_id = traveler_id;
         this.guider_id = guider_id;
         this.post_id = post_id;
+        this.rated = rated;
+        this.post_date = post_date;
         this.review = review;
-        this.rated_star = rated_star;
-        this.date = date;
+    }
+    
+    
+
+    public long getOrder_id() {
+        return order_id;
     }
 
-    public long getPost_id() {
-        return post_id;
+    public void setOrder_id(long order_id) {
+        this.order_id = order_id;
     }
 
-    public long getReview_id() {
-        return review_id;
+    public long getTraveler_id() {
+        return traveler_id;
+    }
+
+    public void setTraveler_id(long traveler_id) {
+        this.traveler_id = traveler_id;
     }
 
     public long getGuider_id() {
         return guider_id;
     }
 
+    public void setGuider_id(long guider_id) {
+        this.guider_id = guider_id;
+    }
+
+    public long getPost_id() {
+        return post_id;
+    }
+
+    public void setPost_id(long post_id) {
+        this.post_id = post_id;
+    }
+
+    public float getRated() {
+        return rated;
+    }
+
+    public void setRated(float rated) {
+        this.rated = rated;
+    }
+
+    public Date getPost_date() {
+        return post_date;
+    }
+
+    public void setPost_date(Date post_date) {
+        this.post_date = post_date;
+    }
+
     public String getReview() {
         return review;
     }
 
-    public long getRated_star() {
-        return rated_star;
+    public void setReview(String review) {
+        this.review = review;
     }
-
-    public Date getDate() {
-        return date;
-    }
+    
+    
 }

@@ -4,7 +4,6 @@ import entities.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import services.GeneralServiceImpl;
-import services.guider.ActivityServiceImpl;
 import services.guider.PostServiceImpl;
 import org.springframework.http.*;
 
@@ -17,13 +16,13 @@ public class GuiderPostApi {
 
     private GeneralServiceImpl generalServiceImpl;
     private PostServiceImpl postServiceImpl;
-    private ActivityServiceImpl activityService;
+
 
     @Autowired
-    public GuiderPostApi (GeneralServiceImpl gs,PostServiceImpl postServiceImpl,ActivityServiceImpl activityService){
+    public GuiderPostApi (GeneralServiceImpl gs,PostServiceImpl postServiceImpl){
         this.generalServiceImpl = gs;
         this.postServiceImpl = postServiceImpl;
-        this.activityService = activityService;
+    
     }
 
     @GetMapping("/postOfOneGuider")
