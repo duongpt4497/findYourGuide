@@ -21,7 +21,6 @@ public class PlanApi {
     @PostMapping("/create")
     public ResponseEntity<Integer> createPlan(@RequestBody Plan plan) {
         try {
-            
 
             int createdId = planService.createPlan(plan);
             return new ResponseEntity<>(createdId, HttpStatus.OK);

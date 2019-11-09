@@ -60,8 +60,6 @@ public class PlanServiceImpl implements PlanService {
                             rs.getInt("order_id")
                     );
                 }
-
-                ;
             }, plan_id);
         } catch (Exception e) {
             logger.info(e.getMessage());
@@ -83,8 +81,6 @@ public class PlanServiceImpl implements PlanService {
                             rs.getInt("order_id")
                     );
                 }
-
-                ;
             }, post_id);
         } catch (Exception e) {
             logger.info(e.getMessage());
