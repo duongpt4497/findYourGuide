@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import services.Activity.ActivityServiceImpl;
 import services.GeneralServiceImpl;
 import services.Post.PostServiceImpl;
 
@@ -18,58 +17,61 @@ public class PostController {
 
     private GeneralServiceImpl generalServiceImpl;
     private PostServiceImpl postServiceImpl;
-    private ActivityServiceImpl activityService;
 
     @Autowired
-    public PostController(GeneralServiceImpl gs, PostServiceImpl postServiceImpl, ActivityServiceImpl activityService) {
+    public PostController(GeneralServiceImpl gs, PostServiceImpl postServiceImpl) {
         this.generalServiceImpl = gs;
         this.postServiceImpl = postServiceImpl;
-        this.activityService = activityService;
     }
 
-    @GetMapping("/postOfOneGuider")
-    public List<Post> findAllPostOfOneGuider(@RequestParam("guider_id") long guider_id) {
+    @RequestMapping("/postOfOneGuider")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Post>> findAllPostOfOneGuider(@RequestParam("guider_id") long guider_id) {
         try {
-            return postServiceImpl.findAllPost(guider_id);
+            return new ResponseEntity<>(postServiceImpl.findAllPost(guider_id), HttpStatus.OK);
         } catch (Exception e) {
-            System.out.println(e.getMessage() + e.getStackTrace() + e.getCause() + e.getLocalizedMessage() + guider_id);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-        return null;
     }
 
-    @GetMapping("/allPostOfOneCategory")
-    public List<Post> findAllPostOfOneCategory(@RequestParam("category_id") long category_id) {
+    @RequestMapping("/allPostOfOneCategory")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Post>> findAllPostOfOneCategory(@RequestParam("category_id") long category_id) {
         try {
-            return postServiceImpl.findAllPost(category_id);
+            return new ResponseEntity<>(postServiceImpl.findAllPost(category_id), HttpStatus.OK);
         } catch (Exception e) {
-            System.out.println(e.getMessage() + e.getStackTrace() + e.getCause() + e.getLocalizedMessage() + category_id);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-        return null;
     }
 
-    @GetMapping("/findSpecificPost")
+    @RequestMapping("/findSpecificPost")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Post> findSpecificPost(@RequestParam("post_id") long id) {
         try {
             return new ResponseEntity(postServiceImpl.findSpecificPost(id), HttpStatus.OK);
         } catch (Exception e) {
-            System.out.println(e.getMessage() + e.getStackTrace());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-        return null;
     }
 
-    @PostMapping(consumes = "application/json", value = "/update/post")
+    @RequestMapping(consumes = "application/json", value = "/update/post")
     @ResponseStatus(HttpStatus.OK)
-    public Long updatePost(@RequestBody Post post) {
-        postServiceImpl.updatePost(post.getPost_id(), post);
-        return post.getPost_id();
+    public ResponseEntity<Long> updatePost(@RequestBody Post post) {
+        try {
+            postServiceImpl.updatePost(post.getPost_id(), post);
+            return new ResponseEntity(post.getPost_id(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
-    @PostMapping(consumes = "application/json", value = "/add/post")
+    @RequestMapping(consumes = "application/json", value = "/add/post")
     @ResponseStatus(HttpStatus.OK)
-    public int insertNewPost(@RequestParam("guider_id") long guider_id, @RequestBody Post post) {
-        System.out.println(post.getReasons());
-        int post_id = postServiceImpl.insertNewPost(guider_id, post);
-        System.out.println(post_id);
-        return post_id;
+    public ResponseEntity<Integer> insertNewPost(@RequestParam("guider_id") long guider_id, @RequestBody Post post) {
+        try {
+            return new ResponseEntity(postServiceImpl.insertNewPost(guider_id, post), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 }
