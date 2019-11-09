@@ -23,7 +23,7 @@ public class Order {
     private double fee_paid;
     private String transaction_id;
     private String status;
-
+    private float rated;
     public Order() {
     }
 
@@ -40,6 +40,27 @@ public class Order {
         this.fee_paid = fee_paid;
         this.transaction_id = transaction_id;
         this.status = status;
+    }
+    public Order(int order_id, int traveler_id, int guider_id, float fee_paid, float rated) {
+        this.order_id = order_id;
+        this.traveler_id = traveler_id;
+        this.guider_id = guider_id;
+        this.fee_paid = fee_paid;
+        this.rated = rated;
+    }
+    
+    public void setRated(float rated) {
+        this.rated = rated;
+    }
+    
+    public float getRated() {
+        return rated;
+    }
+
+    public Order(int guider_id,int traveler_id,double fee_paid){
+        this.guider_id = guider_id;
+        this.fee_paid = fee_paid;
+        this.traveler_id = traveler_id;
     }
 
     public int getOrder_id() {
