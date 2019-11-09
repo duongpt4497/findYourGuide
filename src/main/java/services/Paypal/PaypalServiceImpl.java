@@ -74,7 +74,7 @@ public class PaypalServiceImpl implements PaypalService {
             jdbcTemplate.update(insertQuery, transaction_id, payment_id, payer_id, description,
                     new java.sql.Timestamp(System.currentTimeMillis()), success);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
         }
     }
 
@@ -86,7 +86,7 @@ public class PaypalServiceImpl implements PaypalService {
             double price = jdbcTemplate.queryForObject(query, new Object[]{order.getPost_id()}, double.class);
             fee = price * order.getAdult_quantity() + (price / 2) * order.getChildren_quantity();
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return fee;
     }
@@ -114,7 +114,7 @@ public class PaypalServiceImpl implements PaypalService {
                 }
             }, order.getTraveler_id(), order.getPost_id());
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return description;
     }
@@ -141,7 +141,7 @@ public class PaypalServiceImpl implements PaypalService {
             String query = "insert into refund (transaction_id, date_of_refund, message) values (?,?,?)";
             jdbcTemplate.update(query, transaction_id, new java.sql.Timestamp(System.currentTimeMillis()), message);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
         }
     }
 }

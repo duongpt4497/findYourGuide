@@ -67,7 +67,7 @@ public class FeedbackServiceImpl implements FeedbackService {
             this.emailSender.send(mail);
             return true;
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
             return false;
         }
     }
@@ -79,7 +79,7 @@ public class FeedbackServiceImpl implements FeedbackService {
             jdbcTemplate.update(query, newFeedback.getAccount_id(), Timestamp.valueOf(LocalDateTime.now()), newFeedback.getMessage());
             return true;
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
             return false;
         }
     }
@@ -99,7 +99,7 @@ public class FeedbackServiceImpl implements FeedbackService {
                 return result.get(0);
             }
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
             return null;
         }
     }

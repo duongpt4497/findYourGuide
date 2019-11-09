@@ -2,7 +2,6 @@ package winter.findGuider.web.api;
 
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
-import com.paypal.api.payments.Refund;
 import com.paypal.base.rest.PayPalRESTException;
 import entities.Order;
 import org.slf4j.Logger;
@@ -34,7 +33,7 @@ public class PaypalController {
     private String URL_ROOT_CLIENT;
     private PaypalService paypalService;
     private OrderTripService orderTripService;
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     public PaypalController(PaypalService ps, OrderTripService ots) {
@@ -66,7 +65,7 @@ public class PaypalController {
                 }
             }
         } catch (PayPalRESTException e) {
-            log.error(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return URL_ROOT_CLIENT + CHATBOX_PATH + order.getPost_id() + "/paypal_server_error";
     }
@@ -79,7 +78,7 @@ public class PaypalController {
             URI result = new URI(URL_ROOT_CLIENT + CHATBOX_PATH + post_id);
             httpHeaders.setLocation(result);
         } catch (Exception e) {
-            log.error(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
     }
@@ -115,7 +114,7 @@ public class PaypalController {
                 httpHeaders.setLocation(result);
             }
         } catch (PayPalRESTException | URISyntaxException e) {
-            log.error(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
     }

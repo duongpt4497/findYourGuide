@@ -39,7 +39,7 @@ public class TravelerServiceImpl implements TravelerService {
                     newTraveler.getCountry(), newTraveler.getCity(), newTraveler.getAvatar_link());
             success = true;
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            logger.warn(e.getMessage());
             success = false;
         }
         return success;
@@ -63,7 +63,7 @@ public class TravelerServiceImpl implements TravelerService {
                 }
             }, id);
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            logger.warn(e.getMessage());
         }
         if (searchTraveler.isEmpty()) {
             return null;
@@ -85,7 +85,7 @@ public class TravelerServiceImpl implements TravelerService {
                     travelerNeedUpdate.getCountry(), travelerNeedUpdate.getCity(), travelerNeedUpdate.getAvatar_link(),
                     travelerNeedUpdate.getTraveler_id());
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            logger.warn(e.getMessage());
         }
     }
 }

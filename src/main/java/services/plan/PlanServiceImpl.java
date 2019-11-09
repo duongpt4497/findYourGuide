@@ -41,7 +41,7 @@ public class PlanServiceImpl implements PlanService {
                 return ps;
             }, keyHolder);
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return (int) keyHolder.getKey();
     }
@@ -62,7 +62,7 @@ public class PlanServiceImpl implements PlanService {
                 }
             }, plan_id);
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return null;
     }
@@ -83,7 +83,7 @@ public class PlanServiceImpl implements PlanService {
                 }
             }, post_id);
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return null;
     }
@@ -94,7 +94,7 @@ public class PlanServiceImpl implements PlanService {
             String query = "update plan set meeting_point = ?, detail = ? where post_id = ?";
             jdbcTemplate.update(query, meeting_point, detail, post_id);
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            logger.warn(e.getMessage());
         }
     }
 }

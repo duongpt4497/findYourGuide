@@ -35,7 +35,7 @@ public class ReviewServiceImpl implements ReviewService {
                 }
             }, guider_id);
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return null;
     }
@@ -52,7 +52,7 @@ public class ReviewServiceImpl implements ReviewService {
                 }
             }, post_id);
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return null;
     }
