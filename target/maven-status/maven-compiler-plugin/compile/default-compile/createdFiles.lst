@@ -48,7 +48,6 @@ services\Post\PostServiceImpl$1.class
 services\Post\PostServiceImpl.class
 services\Activity\ActivityServiceImpl.class
 services\Review\ReviewService.class
-winter\findGuider\web\api\GuiderPostApi.class
 services\security\TokenBaseAuthentication.class
 services\GeneralService.class
 services\ordertrip\OrderTripServiceImpl$5.class
