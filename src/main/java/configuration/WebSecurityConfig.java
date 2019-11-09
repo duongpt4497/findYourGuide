@@ -5,34 +5,29 @@
  */
 package configuration;
 
-import services.security.*;
-import javax.sql.DataSource;
+import entities.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-
-import entities.Principal;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import services.security.*;
+
 import java.util.Arrays;
-import org.springframework.core.annotation.Order;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
- *
  * @author dgdbp
  */
 @Configuration
@@ -41,13 +36,13 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
+    @Autowired
+    TokenHelper tokenHelper;
     private PrincipalService userDetail;
     @Autowired
     private AuthProvider authProvide;
     @Autowired
     private PrincipalService principalService;
-    @Autowired
-    TokenHelper tokenHelper;
     @Autowired
     private Principal principal;
 
@@ -76,15 +71,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         System.out.println("to cors");
-       CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
+        CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","OPTION"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "OPTION"));
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
-        return source; 
+        return source;
     }
-    
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         System.out.println("to http configure");
@@ -99,11 +94,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/account/**").permitAll()
                 .antMatchers("/category/**").permitAll()
                 .antMatchers("/Payment/Pay/**").permitAll()
+                .antMatchers("/guiderpost/**").permitAll()
                 .anyRequest().authenticated().and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/account/logout")).and()
                 .addFilter(getAuthenticationFilter())
                 .addFilterBefore(new TokenAuthenFilter(tokenHelper, principalService), BasicAuthenticationFilter.class)
-                ;
+        ;
 
         http.csrf().disable();
 

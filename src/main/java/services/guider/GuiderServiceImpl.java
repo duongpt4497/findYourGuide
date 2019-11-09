@@ -2,6 +2,8 @@ package services.guider;
 
 import entities.Guider;
 import entities.Guider_Contract;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -14,11 +16,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.logging.Logger;
 
 @Repository
 public class GuiderServiceImpl implements GuiderService {
-    private Logger logger;
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private JdbcTemplate jdbcTemplate;
     private GeneralServiceImpl generalService;
 
@@ -34,18 +35,13 @@ public class GuiderServiceImpl implements GuiderService {
             String query = "select * from guider where guider_id = ?";
             result = jdbcTemplate.queryForObject(query, new RowMapper<Guider>() {
                 public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return new Guider(
-                            rs.getLong("guider_id"),
-                            rs.getString("first_name"),
-                            rs.getString("last_name"),
-                            rs.getInt("age"),
-                            rs.getString("about_me"),
-                            rs.getLong("contribution"),
-                            rs.getString("city"),
-                            rs.getBoolean("active"),
-                            generalService.checkForNull(rs.getArray("languages"))
-                    );
-                };
+                    return new Guider(rs.getLong("guider_id"), rs.getString("first_name"),
+                            rs.getString("last_name"), rs.getInt("age"), rs.getString("about_me"),
+                            rs.getLong("contribution"), rs.getString("city"),
+                            generalService.checkForNull(rs.getArray("languages")),
+                            rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avatar"),
+                            rs.getString("passion"));
+                }
             }, id);
         } catch (Exception e) {
             logger.info(e.getMessage());
@@ -56,20 +52,16 @@ public class GuiderServiceImpl implements GuiderService {
     @Override
     public Guider findGuiderWithPostId(long id) {
         try {
-            return jdbcTemplate.queryForObject("select g.* from guider as g, post as p where g.guider_id = p.guider_id and p.post_id = ? GROUP BY g.guider_id", new RowMapper<Guider>() {
+            String query = "select g.* from guider as g, post as p where g.guider_id = p.guider_id and p.post_id = ?";
+            return jdbcTemplate.queryForObject(query, new RowMapper<Guider>() {
                 public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return new Guider(
-                            rs.getLong("guider_id"),
-                            rs.getString("first_name"),
-                            rs.getString("last_name"),
-                            rs.getInt("age"),
-                            rs.getString("about_me"),
-                            rs.getLong("contribution"),
-                            rs.getString("city"),
-                            rs.getBoolean("active"),
-                            generalService.checkForNull(rs.getArray("languages"))
-                    );
-                };
+                    return new Guider(rs.getLong("guider_id"), rs.getString("first_name"),
+                            rs.getString("last_name"), rs.getInt("age"), rs.getString("about_me"),
+                            rs.getLong("contribution"), rs.getString("city"),
+                            generalService.checkForNull(rs.getArray("languages")),
+                            rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avatar"),
+                            rs.getString("passion"));
+                }
             }, id);
         } catch (Exception e) {
             logger.info(e.getMessage());
