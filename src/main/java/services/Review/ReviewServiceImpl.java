@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -61,10 +63,12 @@ public class ReviewServiceImpl implements ReviewService {
         try {
             String query = "insert into review (order_id, traveler_id, guider_id, post_id, rated, post_date, review)" +
                     "values (?,?,?,?,?,?,?)";
-
+            jdbcTemplate.update(query, newReview.getOrder_id(), newReview.getTraveler_id(), newReview.getGuider_id(),
+                    newReview.getPost_id(), newReview.getRated(), Timestamp.valueOf(LocalDateTime.now()), newReview.getReview());
+            return true;
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            return false;
         }
-        return true;
     }
 }

@@ -107,8 +107,10 @@ public class PaypalServiceImpl implements PaypalService {
                 public String mapRow(ResultSet rs, int rowNum) throws SQLException {
                     return rs.getString("title") + " on "
                             + format.format(order.getBegin_date())
-                            + " of " + rs.getString("traFname") + " " + rs.getString("traLname")
-                            + " with " + rs.getString("guFname") + " " + rs.getString("guLname")
+                            + " of " + (rs.getString("traFname") == null ? "" : rs.getString("traFname"))
+                            + " " + (rs.getString("traLname") == null ? "" : rs.getString("traLname"))
+                            + " with " + (rs.getString("guFname") == null ? "" : rs.getString("guFname"))
+                            + " " + (rs.getString("guLname") == null ? "" : rs.getString("guLname"))
                             + ". Include adult: " + order.getAdult_quantity() + ", children: " + order.getChildren_quantity()
                             + ". Fee: " + order.getFee_paid();
                 }
