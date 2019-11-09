@@ -1,6 +1,5 @@
 package services.Review;
 
-
 import entities.Review;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,8 +25,8 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public List<Review> findReviewsByGuiderId(long guider_id) {
         try {
-            String query = "select * from review where guider_id = " + guider_id;
-            return jdbcTemplate.query("select * from review where guider_id = ?", new RowMapper<Review>() {
+            String query = "select * from review where guider_id = ?";
+            return jdbcTemplate.query(query, new RowMapper<Review>() {
                 public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
                     return new Review(rs.getLong("order_id"), rs.getLong("traveler_id"),
                             rs.getLong("guider_id"), rs.getLong("post_id"), rs.getLong("rated"),
@@ -43,8 +42,8 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public List<Review> findReviewsByPostId(long post_id) {
         try {
-            String query = "select * from review where guider_id = " + post_id;
-            return jdbcTemplate.query("select * from review where post_id = ?", new RowMapper<Review>() {
+            String query = "select * from review where post_id = ?";
+            return jdbcTemplate.query(query, new RowMapper<Review>() {
                 public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
                     return new Review(rs.getLong("order_id"), rs.getLong("traveler_id"),
                             rs.getLong("guider_id"), rs.getLong("post_id"), rs.getLong("rated"),
@@ -55,5 +54,17 @@ public class ReviewServiceImpl implements ReviewService {
             logger.warn(e.getMessage());
         }
         return null;
+    }
+
+    @Override
+    public boolean createReview(Review newReview) {
+        try {
+            String query = "insert into review (order_id, traveler_id, guider_id, post_id, rated, post_date, review)" +
+                    "values (?,?,?,?,?,?,?)";
+
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+        }
+        return true;
     }
 }

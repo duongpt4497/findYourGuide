@@ -1,0 +1,12 @@
+2019-Nov-09 18:39:15 WARN  [http-nio-8080-exec-2] s.s.TokenAuthenFilter - AuthToken: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKYWNreSIsImlhdCI6MTU3MzI3MjU0NCwiZXhwIjoxNTczMjc5NzQ0fQ.KcdC5K4OH1UJ2PxPjYMpWsKq-52PK6_0Fn6WAZUFYSk
+2019-Nov-09 18:39:15 WARN  [http-nio-8080-exec-2] s.s.TokenAuthenFilter - UserName: null
+2019-Nov-09 18:39:15 WARN  [http-nio-8080-exec-2] s.s.TokenAuthenFilter - Something is wrong with Token.
+2019-Nov-09 18:39:25 WARN  [http-nio-8080-exec-3] s.s.TokenAuthenFilter - AuthToken: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKYWNreSIsImlhdCI6MTU3MzI5MjM1NSwiZXhwIjoxNTczMjk5NTU1fQ.R-LaIa6J53M6GuOWvTyv6Evw2Y7hfvWJq8sGkW8r4TE
+2019-Nov-09 18:39:25 WARN  [http-nio-8080-exec-3] s.s.TokenAuthenFilter - UserName: Jacky
+2019-Nov-09 18:39:25 WARN  [http-nio-8080-exec-3] s.s.TokenAuthenFilter - AuthToken: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKYWNreSIsImlhdCI6MTU3MzI5MjM1NSwiZXhwIjoxNTczMjk5NTU1fQ.R-LaIa6J53M6GuOWvTyv6Evw2Y7hfvWJq8sGkW8r4TE
+2019-Nov-09 18:39:25 WARN  [http-nio-8080-exec-3] s.s.TokenAuthenFilter - UserName: Jacky
+2019-Nov-09 18:39:25 WARN  [http-nio-8080-exec-3] s.p.PlanServiceImpl - Incorrect result size: expected 1, actual 0
+2019-Nov-09 18:39:46 WARN  [http-nio-8080-exec-4] s.s.TokenAuthenFilter - AuthToken: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKYWNreSIsImlhdCI6MTU3MzI5MjM1NSwiZXhwIjoxNTczMjk5NTU1fQ.R-LaIa6J53M6GuOWvTyv6Evw2Y7hfvWJq8sGkW8r4TE
+2019-Nov-09 18:39:46 WARN  [http-nio-8080-exec-4] s.s.TokenAuthenFilter - UserName: Jacky
+2019-Nov-09 18:39:46 WARN  [http-nio-8080-exec-4] s.s.TokenAuthenFilter - AuthToken: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKYWNreSIsImlhdCI6MTU3MzI5MjM1NSwiZXhwIjoxNTczMjk5NTU1fQ.R-LaIa6J53M6GuOWvTyv6Evw2Y7hfvWJq8sGkW8r4TE
+2019-Nov-09 18:39:46 WARN  [http-nio-8080-exec-4] s.s.TokenAuthenFilter - UserName: Jacky

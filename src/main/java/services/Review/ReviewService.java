@@ -6,5 +6,8 @@ import java.util.List;
 
 public interface ReviewService {
     List<Review> findReviewsByGuiderId(long guider_id);
+
     List<Review> findReviewsByPostId(long post_id);
+
+    public boolean createReview(Review newReview);
 }

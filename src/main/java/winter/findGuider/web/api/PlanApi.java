@@ -18,10 +18,10 @@ public class PlanApi {
         this.planService = ps;
     }
 
-    @PostMapping("/create")
+    @RequestMapping("/create")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Integer> createPlan(@RequestBody Plan plan) {
         try {
-
             int createdId = planService.createPlan(plan);
             return new ResponseEntity<>(createdId, HttpStatus.OK);
         } catch (Exception e) {
@@ -29,7 +29,8 @@ public class PlanApi {
         }
     }
 
-    @GetMapping("/update")
+    @RequestMapping("/update")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Plan> updatePlan(@RequestBody Plan plan) {
         try {
             planService.updatePlan(plan.getPost_id(), plan.getMeeting_point(), plan.getDetail());
@@ -39,7 +40,8 @@ public class PlanApi {
         }
     }
     
-    @GetMapping("/{post_id}")
+    @RequestMapping("/{post_id}")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Plan> findPlan(@PathVariable("post_id") int post_id) {
         try {
             return new ResponseEntity<>(planService.searchPlanByPostId(post_id), HttpStatus.OK);
