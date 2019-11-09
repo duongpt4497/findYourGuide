@@ -242,7 +242,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                 public String mapRow(ResultSet rs, int rowNum) throws SQLException {
                     return rs.getString(1);
                 }
-            }, guider_id, date, ONGOING);
+            }, guider_id, date, FINISHED);
             if (result == null || result.isEmpty()) {
                 return "User dont have any schedule";
             } else {
