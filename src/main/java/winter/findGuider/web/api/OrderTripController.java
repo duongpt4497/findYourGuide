@@ -63,11 +63,11 @@ public class OrderTripController {
 
     @RequestMapping("/CancelOrderAsTraveler")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> cancelOrderAsTraveler(@RequestBody Order order) {
+    public ResponseEntity<String> cancelOrderAsTraveler(@RequestParam int order_id) {
         LocalDateTime rightNow = LocalDateTime.now();
         Order cancelOrder = new Order();
         try {
-            cancelOrder = orderTripService.findOrderById(order.getOrder_id());
+            cancelOrder = orderTripService.findOrderById(order_id);
             // check if refund is needed
             boolean isRefund = orderTripService.checkOrderReach48Hours(cancelOrder, rightNow);
             // start cancel order
@@ -99,11 +99,11 @@ public class OrderTripController {
 
     @RequestMapping("/CancelOrderAsGuider")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> cancelOrderAsGuider(@RequestBody Order order) {
+    public ResponseEntity<String> cancelOrderAsGuider(@RequestParam int order_id) {
         LocalDateTime rightNow = LocalDateTime.now();
         Order cancelOrder = new Order();
         try {
-            cancelOrder = orderTripService.findOrderById(order.getOrder_id());
+            cancelOrder = orderTripService.findOrderById(order_id);
 
             // check if penalty is needed
             boolean isPenalty = orderTripService.checkOrderReach48Hours(cancelOrder, rightNow);
