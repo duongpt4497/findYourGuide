@@ -97,16 +97,16 @@ public class OrderTripController {
         }
     }
 
-    @RequestMapping("/AcceptOrder")
+    @RequestMapping("/AcceptOrder/{order_id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> acceptOrder(@RequestBody Order order) {
+    public ResponseEntity<Boolean> acceptOrder(@RequestParam int orderId) {
         try {
             // Check for availability of order
-            int count = orderTripService.checkAvailabilityOfOrder(order);
+            int count = orderTripService.checkOrderExist(orderId);
             if (count != 0) {
                 return new ResponseEntity<>(false, HttpStatus.OK);
             }
-            return new ResponseEntity<>(orderTripService.acceptOrder(order.getOrder_id()), HttpStatus.OK);
+            return new ResponseEntity<>(orderTripService.acceptOrder(orderId), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
