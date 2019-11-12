@@ -86,8 +86,11 @@ public class OrderTripServiceImpl implements OrderTripService {
         try {
             String query = "";
             if (role.equalsIgnoreCase("guider")) {
-                query = "SELECT * FROM ordertrip where guider_id = ? and status = ? " +
-                        "order by finish_date desc";
+                query = "SELECT o.*, p.title, t.first_name, t.last_name FROM ordertrip as o "
+                        + " inner join traveler as t inner join post as p"
+                        + " where o.traveler_id = t.traveler_id and p.post_id = o.post_id "
+                        + " and guider_id = ? and status = ? " +
+                        " order by begin_date desc ";
             } else if (role.equalsIgnoreCase("traveler")){
                 query = "SELECT * FROM ordertrip where traveler_id = ? and status = ? " +
                         "order by finish_date desc";
@@ -179,6 +182,24 @@ public class OrderTripServiceImpl implements OrderTripService {
         } catch (Exception e) {
             logger.warn(e.getMessage());
         }
+    }
+    
+    public int checkOrderExist(int id) {
+        int count = 0;
+        try {
+            String query = "SELECT count (order_id) FROM ordertrip " +
+                    "where (guider_id = ?) ";
+            count = jdbcTemplate.queryForObject(query,new RowMapper<Integer>() {
+                @Override
+                public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    return rs.getInt("count");
+
+                }
+            }, id);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+        return count;
     }
 
     @Override
