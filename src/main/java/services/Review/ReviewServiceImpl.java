@@ -100,9 +100,9 @@ public class ReviewServiceImpl implements ReviewService {
                 }
             }, order_id);
             if (checklist.get(0) == 0) {
-                return true;
-            } else {
                 return false;
+            } else {
+                return true;
             }
         } catch (Exception e) {
             logger.warn(e.getMessage());
