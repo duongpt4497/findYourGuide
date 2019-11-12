@@ -28,5 +28,5 @@ public interface OrderTripService {
 
     public String getClosestTourFinishDate(LocalDate date, int guider_id);
 
-    public boolean checkOrderCanRefund(Order cancelOrder, LocalDateTime rightNow);
+    public boolean checkOrderReach48Hours(Order cancelOrder, LocalDateTime rightNow);
 }

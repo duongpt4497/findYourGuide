@@ -20,10 +20,10 @@ import java.util.*;
 
 @Repository
 public class OrderTripServiceImpl implements OrderTripService {
-    private static final String UNCONFIRMED = "UNCONFIRMED";
-    private static final String ONGOING = "ONGOING";
-    private static final String FINISHED = "FINISHED";
-    private static final String CANCELLED = "CANCELLED";
+    public static final String UNCONFIRMED = "UNCONFIRMED";
+    public static final String ONGOING = "ONGOING";
+    public static final String FINISHED = "FINISHED";
+    public static final String CANCELLED = "CANCELLED";
 
     private static final String HOUR_TAIL_0 = ":00";
     private static final String HOUR_TAIL_30 = ":30";
@@ -257,7 +257,7 @@ public class OrderTripServiceImpl implements OrderTripService {
     }
 
     @Override
-    public boolean checkOrderCanRefund(Order cancelOrder, LocalDateTime rightNow) {
+    public boolean checkOrderReach48Hours(Order cancelOrder, LocalDateTime rightNow) {
         int dayCheck = cancelOrder.getBegin_date().toLocalDate().minusDays(2).compareTo(rightNow.toLocalDate());
         // check day
         if (dayCheck == 0) {

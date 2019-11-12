@@ -10,4 +10,6 @@ public interface ReviewService {
     List<Review> findReviewsByPostId(long post_id);
 
     public boolean createReview(Review newReview);
+
+    public boolean checkReviewable(long post_id, long traveler_id);
 }

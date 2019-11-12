@@ -71,4 +71,30 @@ public class ReviewServiceImpl implements ReviewService {
             return false;
         }
     }
+
+    @Override
+    public boolean checkReviewable(long post_id, long traveler_id) {
+        try {
+            String query = "select order_id from ordertrip where traveler_id = ? " +
+                    "and status = 'ONGOING' or status = 'FINISHED' " +
+                    "except select order_id from review";
+            List<Integer> checklist = jdbcTemplate.query(query, new RowMapper<Integer>() {
+                @Override
+                public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    return rs.getInt("order_id");
+                }
+            }, traveler_id);
+            if (checklist == null || checklist.isEmpty()) {
+                return false;
+            }
+            if (checklist.contains(post_id)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            return false;
+        }
+    }
 }
