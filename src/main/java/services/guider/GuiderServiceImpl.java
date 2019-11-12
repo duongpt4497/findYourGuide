@@ -44,7 +44,7 @@ public class GuiderServiceImpl implements GuiderService {
                 }
             }, id);
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return result;
     }
@@ -64,7 +64,7 @@ public class GuiderServiceImpl implements GuiderService {
                 }
             }, id);
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return null;
     }
@@ -86,7 +86,7 @@ public class GuiderServiceImpl implements GuiderService {
                 }
             }, id);
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return result;
     }
@@ -111,7 +111,7 @@ public class GuiderServiceImpl implements GuiderService {
                 return ps;
             }, keyHolder);
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return (long) keyHolder.getKey();
     }
@@ -127,7 +127,7 @@ public class GuiderServiceImpl implements GuiderService {
                     new java.sql.Date(newGuiderContract.getCard_issued_date().getTime()), newGuiderContract.getCard_issued_province(),
                     java.sql.Date.valueOf(LocalDate.now()));
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            logger.warn(e.getMessage());
         }
     }
 
@@ -139,7 +139,7 @@ public class GuiderServiceImpl implements GuiderService {
                     guiderNeedUpdate.getAge(), guiderNeedUpdate.getAbout_me(), guiderNeedUpdate.getCity(),
                     guiderNeedUpdate.getGuider_id(), generalService.createSqlArray(Arrays.asList(guiderNeedUpdate.getLanguages())));
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return guiderNeedUpdate.getGuider_id();
     }
@@ -150,7 +150,7 @@ public class GuiderServiceImpl implements GuiderService {
             String query = "update guider set active = true where guider_id = ? and active = false";
             jdbcTemplate.update(query, id);
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return id;
     }
@@ -161,7 +161,7 @@ public class GuiderServiceImpl implements GuiderService {
             String query = "update guider set active = false where guider_id = ? and active = true";
             jdbcTemplate.update(query, id);
         } catch (Exception e) {
-            logger.info(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return id;
     }

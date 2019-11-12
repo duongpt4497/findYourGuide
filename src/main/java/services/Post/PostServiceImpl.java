@@ -45,7 +45,7 @@ public class PostServiceImpl implements PostService {
                 }
             }, guider_id);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return null;
     }
@@ -67,7 +67,7 @@ public class PostServiceImpl implements PostService {
                 }
             }, category_id);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return null;
     }
@@ -97,7 +97,7 @@ public class PostServiceImpl implements PostService {
                 }
             }, post_id);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return new Post();
     }
@@ -113,7 +113,7 @@ public class PostServiceImpl implements PostService {
                     + ",rated =" + post.getRated() + ",price =" + post.getPrice() + ",reasons =" + post.getReasons() + " WHERE post_id =1";
             jdbcTemplate.update(query);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
         }
     }
 
@@ -143,7 +143,7 @@ public class PostServiceImpl implements PostService {
                 return ps;
             }, keyHolder);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return (int) keyHolder.getKey();
     }

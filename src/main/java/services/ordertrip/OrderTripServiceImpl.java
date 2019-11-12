@@ -53,7 +53,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                     newOrder.getAdult_quantity(), newOrder.getChildren_quantity(), newOrder.getFee_paid(),
                     newOrder.getTransaction_id(), UNCONFIRMED);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
         }
     }
 
@@ -75,7 +75,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                 }
             }, order_id);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return searchOrder;
     }
@@ -110,7 +110,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                 }
             }, id, status);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return result;
     }
@@ -127,7 +127,7 @@ public class OrderTripServiceImpl implements OrderTripService {
             jdbcTemplate.update(query, ONGOING, order_id);
             return true;
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
             return false;
         }
     }
@@ -143,7 +143,7 @@ public class OrderTripServiceImpl implements OrderTripService {
             String query = "update ordertrip set status = ? where order_id = ?";
             jdbcTemplate.update(query, CANCELLED, order_id);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
             return false;
         }
         return true;
@@ -161,7 +161,7 @@ public class OrderTripServiceImpl implements OrderTripService {
             jdbcTemplate.update(query, FINISHED, order_id);
             return true;
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
             return false;
         }
     }
@@ -180,7 +180,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                 }
             }, newOrder.getPost_id());
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
         }
     }
     
@@ -217,7 +217,7 @@ public class OrderTripServiceImpl implements OrderTripService {
             count = jdbcTemplate.queryForObject(query, new Object[]{guider_id, ONGOING, acceptableBeginDate,
                     acceptableFinishDate, acceptableBeginDate, acceptableFinishDate}, int.class);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return count;
     }
@@ -263,7 +263,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                 public String mapRow(ResultSet rs, int rowNum) throws SQLException {
                     return rs.getString(1);
                 }
-            }, guider_id, date, ONGOING);
+            }, guider_id, date, FINISHED);
             if (result == null || result.isEmpty()) {
                 return "User dont have any schedule";
             } else {
@@ -272,7 +272,7 @@ public class OrderTripServiceImpl implements OrderTripService {
             closestFinishDate = new SimpleDateFormat("MM/dd/yyyy HH:mm").format(
                     new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(closestFinishDate));
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return closestFinishDate;
     }
@@ -312,7 +312,7 @@ public class OrderTripServiceImpl implements OrderTripService {
             String query = "SELECT total_hour FROM post where post_id = ?";
             total_hour = (double) jdbcTemplate.queryForObject(query, new Object[]{post_id}, int.class);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return total_hour;
     }
@@ -351,7 +351,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                 }
             }, guider_id, ONGOING, date, date);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.warn(e.getMessage());
         }
         return guiderSchedule;
     }
@@ -424,7 +424,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                     }
                 }
             } catch (Exception e) {
-                logger.error(e.getMessage());
+                logger.warn(e.getMessage());
             }
         }
         return unacceptableHours;
