@@ -10,11 +10,11 @@ import services.plan.PlanService;
 @RestController
 @RequestMapping(path = "/plan", produces = "application/json")
 @CrossOrigin(origins = "*")
-public class PlanApi {
+public class PlanController {
     private PlanService planService;
 
     @Autowired
-    public PlanApi(PlanService ps) {
+    public PlanController(PlanService ps) {
         this.planService = ps;
     }
 

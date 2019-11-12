@@ -15,7 +15,6 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import java.util.*;
 
 @Repository
@@ -91,7 +90,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                         + " where o.traveler_id = t.traveler_id and p.post_id = o.post_id "
                         + " and guider_id = ? and status = ? " +
                         " order by begin_date desc ";
-            } else if (role.equalsIgnoreCase("traveler")){
+            } else if (role.equalsIgnoreCase("traveler")) {
                 query = "SELECT * FROM ordertrip where traveler_id = ? and status = ? " +
                         "order by finish_date desc";
             } else {
@@ -183,13 +182,14 @@ public class OrderTripServiceImpl implements OrderTripService {
             logger.warn(e.getMessage());
         }
     }
-    
+
+    @Override
     public int checkOrderExist(int id) {
         int count = 0;
         try {
             String query = "SELECT count (order_id) FROM ordertrip " +
                     "where (guider_id = ?) ";
-            count = jdbcTemplate.queryForObject(query,new RowMapper<Integer>() {
+            count = jdbcTemplate.queryForObject(query, new RowMapper<Integer>() {
                 @Override
                 public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
                     return rs.getInt("count");

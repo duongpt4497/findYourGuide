@@ -9,12 +9,12 @@ import services.guider.GuiderServiceImpl;
 @RestController
 @RequestMapping(path = "/guider", produces = "application/json")
 @CrossOrigin(origins = "*")
-public class GuiderInfoApi {
+public class GuiderInfoController {
     private GeneralServiceImpl generalServiceImpl;
     private GuiderServiceImpl guiderServiceImpl;
 
     @Autowired
-    public GuiderInfoApi(GeneralServiceImpl gs, GuiderServiceImpl guS) {
+    public GuiderInfoController(GeneralServiceImpl gs, GuiderServiceImpl guS) {
         this.generalServiceImpl = gs;
         this.guiderServiceImpl = guS;
     }
