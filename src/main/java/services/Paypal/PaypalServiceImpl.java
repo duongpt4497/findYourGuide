@@ -105,14 +105,16 @@ public class PaypalServiceImpl implements PaypalService {
             description = jdbcTemplate.queryForObject(query, new RowMapper<String>() {
                 @Override
                 public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return rs.getString("title") + " on "
-                            + format.format(order.getBegin_date())
-                            + " of " + (rs.getString("traFname") == null ? "" : rs.getString("traFname"))
-                            + " " + (rs.getString("traLname") == null ? "" : rs.getString("traLname"))
-                            + " with " + (rs.getString("guFname") == null ? "" : rs.getString("guFname"))
-                            + " " + (rs.getString("guLname") == null ? "" : rs.getString("guLname"))
-                            + ". Include adult: " + order.getAdult_quantity() + ", children: " + order.getChildren_quantity()
+                    String ds = rs.getString("title") + " on " + format.format(order.getBegin_date());
+                    if (rs.getString("traFname") != null && (rs.getString("traLname") != null)) {
+                        ds += " of " + rs.getString("traFname") + " " + rs.getString("traLname");
+                    }
+                    if (rs.getString("guFname") != null && rs.getString("guLname") != null) {
+                        ds += " with " + rs.getString("guFname") + " " + rs.getString("guLname");
+                    }
+                    ds += ". Include adult: " + order.getAdult_quantity() + ", children: " + order.getChildren_quantity()
                             + ". Fee: " + order.getFee_paid();
+                    return ds;
                 }
             }, order.getTraveler_id(), order.getPost_id());
         } catch (Exception e) {
