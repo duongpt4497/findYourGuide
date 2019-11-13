@@ -58,7 +58,7 @@ public class ReviewController {
             if (isExist) {
                 return new ResponseEntity<>(reviewService.findReviewByOrderId(order_id), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(null, HttpStatus.OK);
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             }
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
