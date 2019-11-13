@@ -265,7 +265,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                 }
             }, guider_id, date, FINISHED);
             if (result == null || result.isEmpty()) {
-                return "User dont have any schedule";
+                return "";
             } else {
                 closestFinishDate = result.get(0);
             }
