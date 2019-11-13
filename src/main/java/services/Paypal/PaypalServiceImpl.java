@@ -94,7 +94,10 @@ public class PaypalServiceImpl implements PaypalService {
     @Override
     public String getTransactionDescription(Order order) {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM dd, yyyy");
-        String description = "";
+        List<String> description = new ArrayList<>();
+        String ds = "On " + format.format(order.getBegin_date()) + "\n";
+        ds += ". Include adult: " + order.getAdult_quantity() + ", children: " + order.getChildren_quantity()
+                + ". Fee: " + order.getFee_paid() + ".";
         try {
             String query = "SELECT title, traveler.first_name as traFname, traveler.last_name as traLname, " +
                     "guider.first_name as guFname, guider.last_name as guLname " +
@@ -102,25 +105,29 @@ public class PaypalServiceImpl implements PaypalService {
                     "join guider on post.guider_id = guider.guider_id " +
                     "join traveler on traveler_id = ? " +
                     "where post_id = ?";
-            description = jdbcTemplate.queryForObject(query, new RowMapper<String>() {
+            description = jdbcTemplate.query(query, new RowMapper<String>() {
                 @Override
                 public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    String ds = rs.getString("title") + " on " + format.format(order.getBegin_date());
+                    String info = "";
+                    if (rs.getString("title") != null) {
+                        info += " On tour " + rs.getString("title");
+                    }
                     if (rs.getString("traFname") != null && (rs.getString("traLname") != null)) {
-                        ds += " of " + rs.getString("traFname") + " " + rs.getString("traLname");
+                        info += " of " + rs.getString("traFname") + " " + rs.getString("traLname");
                     }
                     if (rs.getString("guFname") != null && rs.getString("guLname") != null) {
-                        ds += " with " + rs.getString("guFname") + " " + rs.getString("guLname");
+                        info += " and " + rs.getString("guFname") + " " + rs.getString("guLname");
                     }
-                    ds += ". Include adult: " + order.getAdult_quantity() + ", children: " + order.getChildren_quantity()
-                            + ". Fee: " + order.getFee_paid();
-                    return ds;
+                    return info;
                 }
             }, order.getTraveler_id(), order.getPost_id());
+            if (description != null && !description.isEmpty()) {
+                ds += description.get(0);
+            }
         } catch (Exception e) {
             logger.warn(e.getMessage());
         }
-        return description;
+        return ds;
     }
 
     @Override
