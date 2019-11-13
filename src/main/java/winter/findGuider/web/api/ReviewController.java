@@ -52,7 +52,7 @@ public class ReviewController {
 
     @RequestMapping("/checkExist")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<Review>> checkReviewExist(@RequestParam long order_id) {
+    public ResponseEntity<List<Review>> checkReviewExist(@RequestParam("order_id") long order_id) {
         try {
             boolean isExist = reviewService.checkReviewExist(order_id);
             if (isExist) {

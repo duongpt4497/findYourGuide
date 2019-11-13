@@ -41,7 +41,8 @@ public class OrderTripController {
 
     @RequestMapping("/GetOrderByStatus")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<Order>> getOrderByStatus(@RequestParam("role") String role, @RequestParam("id") int id, @RequestParam("status") String status) {
+    public ResponseEntity<List<Order>> getOrderByStatus(@RequestParam("role") String role, @RequestParam("id") int id,
+                                                        @RequestParam("status") String status) {
         try {
             return new ResponseEntity<>(orderTripService.findOrderByStatusAsGuider(role, id, status), HttpStatus.OK);
         } catch (Exception e) {
@@ -63,7 +64,7 @@ public class OrderTripController {
 
     @RequestMapping("/CancelOrderAsTraveler")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> cancelOrderAsTraveler(@RequestParam int order_id) {
+    public ResponseEntity<String> cancelOrderAsTraveler(@RequestParam("order_id") int order_id) {
         LocalDateTime rightNow = LocalDateTime.now();
         Order cancelOrder = new Order();
         try {
@@ -99,7 +100,7 @@ public class OrderTripController {
 
     @RequestMapping("/CancelOrderAsGuider")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> cancelOrderAsGuider(@RequestParam int order_id) {
+    public ResponseEntity<String> cancelOrderAsGuider(@RequestParam("order_id") int order_id) {
         LocalDateTime rightNow = LocalDateTime.now();
         Order cancelOrder = new Order();
         try {
