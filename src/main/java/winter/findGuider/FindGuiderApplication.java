@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
-@ComponentScan({"entities",  "services", "winter.findGuider", "winter.findGuider.web.api", "configuration"})
+@ComponentScan({"entities",  "services", "winter.findGuider", "winter.findGuider.web.api", "configuration","listener","config"})
 public class FindGuiderApplication {
 
     public static void main(String[] args) {
