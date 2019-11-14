@@ -2,6 +2,7 @@ package winter.findGuider.web.api;
 
 import entities.Guider;
 import entities.Guider_Contract;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,5 +67,16 @@ public class GuiderController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(guiderService.findGuiderWithID(deactivatedId), HttpStatus.OK);
+    }
+    
+    @GetMapping("/Search/{key}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Guider>> searchGuider(@PathVariable("key") String key) {
+        try {
+            return new ResponseEntity<>(guiderService.searchGuider(key), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        
     }
 }

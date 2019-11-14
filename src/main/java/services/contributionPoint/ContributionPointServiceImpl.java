@@ -67,7 +67,7 @@ public class ContributionPointServiceImpl implements ContributionPointService{
     //query all order finished in the second day before
     //calculate contribute increasing
     //update contribute to guider
-    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(cron = "0 1 0 * * *")
     public void updateContributionbyDay() {
         List<Order> lo = new ArrayList<>();
         String query = "select o1.order_id, o1.traveler_id, o1.guider_id, o1.fee_paid, r2.rated from ordertrip as o1 "

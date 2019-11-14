@@ -2,6 +2,7 @@ package services.guider;
 
 import entities.Guider;
 import entities.Guider_Contract;
+import java.util.List;
 
 public interface GuiderService {
 	public Guider findGuiderWithID(long id);
@@ -19,4 +20,6 @@ public interface GuiderService {
 	public long activateGuider(long id);
 
 	public long deactivateGuider(long id);
+        
+        public List<Guider> searchGuider(String key);
 }
