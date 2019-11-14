@@ -31,11 +31,10 @@ public interface OrderTripService {
 
     public String getClosestTourFinishDate(LocalDate date, int guider_id);
 
-
-    public boolean checkOrderCanRefund(Order cancelOrder, LocalDateTime rightNow);
-    
     public List<Order> getOrderByWeek(int id, Date start, Date end);
 
     public boolean checkOrderReach48Hours(Order cancelOrder, LocalDateTime rightNow);
+
+    public String getExpectedEndTourTime(int post_id, LocalDateTime begin_date);
 
 }

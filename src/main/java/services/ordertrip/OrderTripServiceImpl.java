@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
+import services.Paypal.PaypalService;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,19 +18,15 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
-import org.springframework.scheduling.annotation.Scheduled;
-import services.Paypal.PaypalService;
 
 @Repository
 public class OrderTripServiceImpl implements OrderTripService {
-
-
     private static final String UNCONFIRMED = "UNCONFIRMED";
     private static final String ONGOING = "ONGOING";
     private static final String FINISHED = "FINISHED";
     private static final String CANCELLED = "CANCELLED";
-
 
     private static final String HOUR_TAIL_0 = ":00";
     private static final String HOUR_TAIL_30 = ":30";
@@ -235,7 +233,7 @@ public class OrderTripServiceImpl implements OrderTripService {
             Timestamp acceptableBeginDate = Timestamp.valueOf(newOrder.getBegin_date());
             Timestamp acceptableFinishDate = Timestamp.valueOf(newOrder.getFinish_date());
             count = jdbcTemplate.queryForObject(query, new Object[]{guider_id, ONGOING, acceptableBeginDate,
-                acceptableFinishDate, acceptableBeginDate, acceptableFinishDate}, int.class);
+                    acceptableFinishDate, acceptableBeginDate, acceptableFinishDate}, int.class);
         } catch (Exception e) {
             logger.warn(e.getMessage());
         }
@@ -324,6 +322,15 @@ public class OrderTripServiceImpl implements OrderTripService {
         } else {
             return true;
         }
+    }
+
+    @Override
+    public String getExpectedEndTourTime(int post_id, LocalDateTime begin_date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
+        double totalHour = this.getTourTotalHour(post_id);
+        long bufferHour = (long) java.lang.Math.ceil(totalHour / 100 * Integer.parseInt(bufferPercent));
+        LocalDateTime end_date = begin_date.plusHours(bufferHour).minusMinutes(30);
+        return end_date.format(formatter);
     }
 
     private double getTourTotalHour(int post_id) {
@@ -419,7 +426,7 @@ public class OrderTripServiceImpl implements OrderTripService {
     }
 
     private ArrayList<String> getUnacceptableHours(int post_id, ArrayList<String> availableHours,
-            ArrayList<String> nextDayOccupyHour, LocalDate date) {
+                                                   ArrayList<String> nextDayOccupyHour, LocalDate date) {
         ArrayList<String> unacceptableHours = new ArrayList<>();
         double totalHour = this.getTourTotalHour(post_id);
         long bufferHour = (long) java.lang.Math.ceil(totalHour / 100 * Integer.parseInt(bufferPercent));
@@ -513,19 +520,14 @@ public class OrderTripServiceImpl implements OrderTripService {
                 + " < extract(epoch from TIMESTAMP '1970-1-1 05:00:00')::integer "
                 + " and status = 'UNCONFIRMED'  ; ";
         lo = jdbcTemplate.queryForList(query);
-        
+
         List<String> update = new ArrayList<>();
-         for (Map m : lo) {
-             payment.refundPayment(m.get("transaction_id").toString());
+        for (Map m : lo) {
+            payment.refundPayment(m.get("transaction_id").toString());
             update.add("update guider set status = 'CANCELLED' where order_id = " + m.get("order_id"));
         }
         logger.warn(update.toString());
         //jdbcTemplate.batchUpdate(update.toArray(new String[0])[10]);
 
-    }
-
-    @Override
-    public boolean checkOrderCanRefund(Order cancelOrder, LocalDateTime rightNow) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
