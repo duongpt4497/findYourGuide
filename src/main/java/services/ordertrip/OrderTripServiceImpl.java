@@ -209,8 +209,8 @@ public class OrderTripServiceImpl implements OrderTripService {
             String query = "SELECT count (order_id) FROM ordertrip " +
                     "where (guider_id = ?) " +
                     "and (status = ?) " +
-                    "and (begin_date between ? and ?) " +
-                    "or (finish_date between ? and ?)";
+                    "and ((begin_date between ? and ?) " +
+                    "or (finish_date between ? and ?))";
             int guider_id = newOrder.getGuider_id();
             Timestamp acceptableBeginDate = Timestamp.valueOf(newOrder.getBegin_date());
             Timestamp acceptableFinishDate = Timestamp.valueOf(newOrder.getFinish_date());
