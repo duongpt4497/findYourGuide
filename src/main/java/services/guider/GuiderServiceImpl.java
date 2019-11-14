@@ -15,7 +15,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Repository
 public class GuiderServiceImpl implements GuiderService {
@@ -59,7 +61,7 @@ public class GuiderServiceImpl implements GuiderService {
                             rs.getString("last_name"), rs.getInt("age"), rs.getString("about_me"),
                             rs.getLong("contribution"), rs.getString("city"),
                             generalService.checkForNull(rs.getArray("languages")),
-                            rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avatar"),
+                            rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avartar"),
                             rs.getString("passion"));
                 }
             }, id);
@@ -164,5 +166,28 @@ public class GuiderServiceImpl implements GuiderService {
             logger.warn(e.getMessage());
         }
         return id;
+    }
+    
+    public List<Guider> searchGuider(String key) {
+        List<Guider>  result = new ArrayList<>();
+        try {
+            String query = "select g.* from guider as g "
+                    + " inner join account as a on g.guider_id = a.account_id "
+                    + " where g.first_name like '%"+key+"%' "
+                    + " or g.last_name like '%"+key+"%'  or a.user_name like '%"+key+"%' ; ";
+            result = jdbcTemplate.query(query, new RowMapper<Guider>() {
+                public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    return new Guider(rs.getLong("guider_id"), rs.getString("first_name"),
+                            rs.getString("last_name"), rs.getInt("age"), rs.getString("about_me"),
+                            rs.getLong("contribution"), rs.getString("city"),
+                            generalService.checkForNull(rs.getArray("languages")),
+                            rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avartar"),
+                            rs.getString("passion"));
+                }
+            });
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+        }
+        return result;
     }
 }

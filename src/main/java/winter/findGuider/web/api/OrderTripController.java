@@ -12,12 +12,15 @@ import services.ordertrip.OrderTripService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping(path = "/Order", produces = "application/json")
 @CrossOrigin(origins = "*")
 public class OrderTripController {
+
     private OrderTripService orderTripService;
     private PaypalService paypalService;
 
@@ -99,7 +102,7 @@ public class OrderTripController {
 
     @RequestMapping("/AcceptOrder/{order_id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> acceptOrder(@RequestParam int orderId) {
+    public ResponseEntity<Boolean> acceptOrder(@PathVariable("order_id") int orderId) {
         try {
             // Check for availability of order
             int count = orderTripService.checkOrderExist(orderId);
@@ -111,4 +114,29 @@ public class OrderTripController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+
+    @PostMapping("/getOrderByWeek/{guider_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Order>> getOrderByWeek(@PathVariable("guider_id") int id, @RequestBody Date order) {
+        try {
+
+            Calendar cal = Calendar.getInstance();
+
+            cal.setTime(order);
+
+            cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
+            Date start = cal.getTime();
+            System.out.println("Start of this week:       " + start);
+
+            cal.add(Calendar.WEEK_OF_YEAR, 1);
+            Date end =  cal.getTime();
+            System.out.println("Start of the next week:   " + end);
+
+            return new ResponseEntity<>(orderTripService.getOrderByWeek(id, start, end
+            ), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
 }

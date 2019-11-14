@@ -5,6 +5,7 @@ import entities.Order;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public interface OrderTripService {
@@ -29,4 +30,6 @@ public interface OrderTripService {
     public String getClosestTourFinishDate(LocalDate date, int guider_id);
 
     public boolean checkOrderCanRefund(Order cancelOrder, LocalDateTime rightNow);
+    
+    public List<Order> getOrderByWeek(int id, Date start, Date end);
 }
