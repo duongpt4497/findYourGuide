@@ -16,7 +16,6 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import java.util.*;
 import org.springframework.scheduling.annotation.Scheduled;
 import services.Paypal.PaypalService;
@@ -24,10 +23,12 @@ import services.Paypal.PaypalService;
 @Repository
 public class OrderTripServiceImpl implements OrderTripService {
 
+
     private static final String UNCONFIRMED = "UNCONFIRMED";
     private static final String ONGOING = "ONGOING";
     private static final String FINISHED = "FINISHED";
     private static final String CANCELLED = "CANCELLED";
+
 
     private static final String HOUR_TAIL_0 = ":00";
     private static final String HOUR_TAIL_30 = ":30";
@@ -103,6 +104,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                         + " inner join post as p on p.post_id = o.post_id "
                         + " where o.traveler_id = ? and status = ? "
                         + "order by begin_date desc";
+
             } else {
                 throw new Exception("wrong role");
             }
@@ -199,11 +201,14 @@ public class OrderTripServiceImpl implements OrderTripService {
         }
     }
 
+
+    @Override
     public int checkOrderExist(int id) {
         int count = 0;
         try {
-            String query = "SELECT count (order_id) FROM ordertrip "
-                    + "where (guider_id = ?) ";
+            String query = "SELECT count (order_id) FROM ordertrip " +
+                    "where (guider_id = ?) ";
+
             count = jdbcTemplate.queryForObject(query, new RowMapper<Integer>() {
                 @Override
                 public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -280,7 +285,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                 }
             }, guider_id, date, FINISHED);
             if (result == null || result.isEmpty()) {
-                return "User dont have any schedule";
+                return "";
             } else {
                 closestFinishDate = result.get(0);
             }
@@ -293,7 +298,7 @@ public class OrderTripServiceImpl implements OrderTripService {
     }
 
     @Override
-    public boolean checkOrderCanRefund(Order cancelOrder, LocalDateTime rightNow) {
+    public boolean checkOrderReach48Hours(Order cancelOrder, LocalDateTime rightNow) {
         int dayCheck = cancelOrder.getBegin_date().toLocalDate().minusDays(2).compareTo(rightNow.toLocalDate());
         // check day
         if (dayCheck == 0) {
@@ -517,5 +522,10 @@ public class OrderTripServiceImpl implements OrderTripService {
         logger.warn(update.toString());
         //jdbcTemplate.batchUpdate(update.toArray(new String[0])[10]);
 
+    }
+
+    @Override
+    public boolean checkOrderCanRefund(Order cancelOrder, LocalDateTime rightNow) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

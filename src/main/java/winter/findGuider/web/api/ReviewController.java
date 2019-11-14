@@ -12,11 +12,11 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/review", produces = "application/json")
 @CrossOrigin(origins = "*")
-public class ReviewApi {
+public class ReviewController {
     private ReviewService reviewService;
 
     @Autowired
-    public ReviewApi(ReviewService rs) {
+    public ReviewController(ReviewService rs) {
         this.reviewService = rs;
     }
 
@@ -45,6 +45,21 @@ public class ReviewApi {
     public ResponseEntity<Boolean> createReview(@RequestBody Review newReview) {
         try {
             return new ResponseEntity<>(reviewService.createReview(newReview), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/checkExist")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Review>> checkReviewExist(@RequestParam("order_id") long order_id) {
+        try {
+            boolean isExist = reviewService.checkReviewExist(order_id);
+            if (isExist) {
+                return new ResponseEntity<>(reviewService.findReviewByOrderId(order_id), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }

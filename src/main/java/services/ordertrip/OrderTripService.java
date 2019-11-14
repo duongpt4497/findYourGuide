@@ -10,7 +10,9 @@ import java.util.List;
 
 public interface OrderTripService {
     public void createOrder(Order newOrder);
-    public int checkOrderExist(int id) ;
+
+    public int checkOrderExist(int id);
+
     public Order findOrderById(int order_id);
 
     public List<Order> findOrderByStatusAsGuider(String role, int id, String status);
@@ -29,7 +31,11 @@ public interface OrderTripService {
 
     public String getClosestTourFinishDate(LocalDate date, int guider_id);
 
+
     public boolean checkOrderCanRefund(Order cancelOrder, LocalDateTime rightNow);
     
     public List<Order> getOrderByWeek(int id, Date start, Date end);
+
+    public boolean checkOrderReach48Hours(Order cancelOrder, LocalDateTime rightNow);
+
 }

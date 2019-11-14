@@ -44,7 +44,8 @@ public class OrderTripController {
 
     @RequestMapping("/GetOrderByStatus")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<Order>> getOrderByStatus(@RequestParam("role") String role, @RequestParam("id") int id, @RequestParam("status") String status) {
+    public ResponseEntity<List<Order>> getOrderByStatus(@RequestParam("role") String role, @RequestParam("id") int id,
+                                                        @RequestParam("status") String status) {
         try {
             return new ResponseEntity<>(orderTripService.findOrderByStatusAsGuider(role, id, status), HttpStatus.OK);
         } catch (Exception e) {
@@ -66,13 +67,13 @@ public class OrderTripController {
 
     @RequestMapping("/CancelOrderAsTraveler")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> cancelOrderAsTraveler(@RequestBody Order order) {
+    public ResponseEntity<String> cancelOrderAsTraveler(@RequestParam("order_id") int order_id) {
         LocalDateTime rightNow = LocalDateTime.now();
         Order cancelOrder = new Order();
         try {
-            cancelOrder = orderTripService.findOrderById(order.getOrder_id());
+            cancelOrder = orderTripService.findOrderById(order_id);
             // check if refund is needed
-            boolean isRefund = orderTripService.checkOrderCanRefund(cancelOrder, rightNow);
+            boolean isRefund = orderTripService.checkOrderReach48Hours(cancelOrder, rightNow);
             // start cancel order
             boolean cancelSuccess;
             if (isRefund) {
@@ -85,6 +86,49 @@ public class OrderTripController {
                     }
                 } else {
                     return new ResponseEntity<>("Refund fail", HttpStatus.OK);
+                }
+            } else {
+                cancelSuccess = orderTripService.cancelOrder(cancelOrder.getOrder_id());
+                if (!cancelSuccess) {
+                    return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
+                }
+            }
+            return new ResponseEntity<>("Cancel Success", HttpStatus.OK);
+        } catch (PayPalRESTException e) {
+            String message = e.getDetails().getMessage();
+            paypalService.createRefundRecord(cancelOrder.getTransaction_id(), message);
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }
+    }
+
+    @RequestMapping("/CancelOrderAsGuider")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> cancelOrderAsGuider(@RequestParam("order_id") int order_id) {
+        LocalDateTime rightNow = LocalDateTime.now();
+        Order cancelOrder = new Order();
+        try {
+            cancelOrder = orderTripService.findOrderById(order_id);
+
+            // check if penalty is needed
+            boolean isPenalty = orderTripService.checkOrderReach48Hours(cancelOrder, rightNow);
+
+            // start cancel order
+            boolean cancelSuccess;
+
+            // refund traveler
+            Refund refund = paypalService.refundPayment(cancelOrder.getTransaction_id());
+            if (refund.getState().equals("completed")) {
+                paypalService.createRefundRecord(cancelOrder.getTransaction_id(), "success");
+            } else {
+                return new ResponseEntity<>("Refund fail", HttpStatus.OK);
+            }
+
+            // penalty guider contribution point
+            if (isPenalty) {
+                // TODO penalty guider code here
+                cancelSuccess = orderTripService.cancelOrder(cancelOrder.getOrder_id());
+                if (!cancelSuccess) {
+                    return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
                 }
             } else {
                 cancelSuccess = orderTripService.cancelOrder(cancelOrder.getOrder_id());
