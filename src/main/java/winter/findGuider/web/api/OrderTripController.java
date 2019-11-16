@@ -173,7 +173,7 @@ public class OrderTripController {
             System.out.println("Start of this week:       " + start);
 
             cal.add(Calendar.WEEK_OF_YEAR, 1);
-            Date end =  cal.getTime();
+            Date end = cal.getTime();
             System.out.println("Start of the next week:   " + end);
 
             return new ResponseEntity<>(orderTripService.getOrderByWeek(id, start, end
@@ -183,4 +183,13 @@ public class OrderTripController {
         }
     }
 
+    @RequestMapping("/GetExpectedTourEnd")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> getExpectedTourEnd(@RequestBody Order order) {
+        try {
+            return new ResponseEntity<>(orderTripService.getExpectedEndTourTime(order.getPost_id(), order.getBegin_date()), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 }
