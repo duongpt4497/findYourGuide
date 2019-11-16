@@ -37,12 +37,12 @@ public class TokenAuthenFilter extends OncePerRequestFilter{
         String username;
         String authToken = tokenService.resolveToken(request);
 
-        logger.warn("AuthToken: " +authToken);
+        //logger.warn("AuthToken: " +authToken);
 
         if (authToken != null) {
             // get username from token
             username = tokenService.getUsername(authToken);
-            logger.warn("UserName: "+username);
+            //logger.warn("UserName: "+username);
             if (username != null) {
                 // get user
                 UserDetails userDetails = principalService.loadUserByUsername(username);

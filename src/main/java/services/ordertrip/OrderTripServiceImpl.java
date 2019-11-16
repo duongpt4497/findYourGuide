@@ -108,6 +108,7 @@ public class OrderTripServiceImpl implements OrderTripService {
             } else {
                 throw new Exception("wrong role");
             }
+            
             result = jdbcTemplate.query(query, new RowMapper<Order>() {
                 @Override
                 public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -126,6 +127,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                             rs.getString("first_name") + " " + rs.getString("last_name"));
                 }
             }, id, status);
+            System.out.println(query+id+status+result.size());
         } catch (Exception e) {
             logger.warn(e.getMessage());
         }
@@ -499,6 +501,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                             rs.getString("first_name") + " " + rs.getString("last_name"));
                 }
             }, id, new java.sql.Date(start.getTime()), new java.sql.Date(end.getTime()));
+             System.out.println(query+id+result.get(0).getObject());
         } catch (Exception e) {
             logger.warn(e.getMessage());
         }

@@ -46,7 +46,7 @@ public class PlanController {
         try {
             return new ResponseEntity<>(planService.searchPlanByPostId(post_id), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.OK);
         }
     }
 }
