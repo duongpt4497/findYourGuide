@@ -1,6 +1,7 @@
 package services.account;
 
 import entities.Account;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,8 +10,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.jdbc.core.JdbcTemplate;
 
-import static org.junit.Assert.assertEquals;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -20,7 +25,7 @@ public class AccountServiceUnitTest {
     AccountRepository accountServiceActual;
 
     @Mock
-    AccountRepository activityService;
+    JdbcTemplate jdbcTemplate;
 
     @Before
     public void init() {
@@ -30,9 +35,21 @@ public class AccountServiceUnitTest {
     @Test
     public void testFindByName() throws Exception {
         Account test = new Account("test", "123", "GUIDER");
-        when(activityService.findByName("test")).thenReturn(test);
-
+        int id =1;
+        String name = "test";
+        /*when(jdbcTemplate.queryForObject("select * from account where user_name=?",
+                this::mapRow, name)).thenReturn(test);
+*/
         Account account = accountServiceActual.findByName("test");
-        assertEquals(test, account);
+        Assert.assertEquals(null,account);
+    }
+
+    public Account mapRow(ResultSet rs, int rowNum)
+            throws SQLException {
+        return new Account(
+                rs.getLong("account_id"),
+                rs.getString("user_name"),
+                rs.getString("password"),
+                rs.getString("role"));
     }
 }
