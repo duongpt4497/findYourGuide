@@ -35,6 +35,6 @@ public class AccountServiceUnitTest {
 
     @Test(expected = Exception.class)
     public void testAddAccount() {
-        Assert.assertEquals(1, accountService.addAccount(account));
+
     }
 }

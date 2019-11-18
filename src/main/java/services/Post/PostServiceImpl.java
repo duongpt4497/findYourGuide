@@ -41,7 +41,6 @@ public class PostServiceImpl implements PostService {
                             resultSet.getString("description"),
                             resultSet.getBoolean("active")
                     );
-
                 }
             }, guider_id);
         } catch (Exception e) {
@@ -63,7 +62,6 @@ public class PostServiceImpl implements PostService {
                             resultSet.getString("description"),
                             resultSet.getBoolean("active")
                     );
-
                 }
             }, category_id);
         } catch (Exception e) {
@@ -146,5 +144,26 @@ public class PostServiceImpl implements PostService {
             logger.warn(e.getMessage());
         }
         return (int) keyHolder.getKey();
+    }
+
+    @Override
+    public List<Post> getTopTour() {
+        try {
+            return jdbcTemplate.query("SELECT * FROM post order by rated limit 5", new RowMapper<Post>() {
+                @Override
+                public Post mapRow(ResultSet resultSet, int i) throws SQLException {
+                    return new Post(
+                            resultSet.getLong("post_id"),
+                            resultSet.getString("title"),
+                            generalService.checkForNull(resultSet.getArray("picture_link")),
+                            resultSet.getString("description"),
+                            resultSet.getBoolean("active")
+                    );
+                }
+            });
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+        }
+        return null;
     }
 }
