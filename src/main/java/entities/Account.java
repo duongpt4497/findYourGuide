@@ -5,15 +5,12 @@
  */
 package entities;
 
-import java.util.Date;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 /**
- *
  * @author dgdbp
  */
 @Data
@@ -21,13 +18,13 @@ import org.springframework.stereotype.Component;
 public class Account {
 
     private long id;
-//    @NotNull
+    //    @NotNull
 //    @NotEmpty
     private String userName;
-//    @NotNull
+    //    @NotNull
 //    @NotEmpty
     private String password;
-//    @NotNull
+    //    @NotNull
 //    @NotEmpty
     private String role;
     private String token;
@@ -41,18 +38,20 @@ public class Account {
         this.token = token;
         this.expired = expired;
     }
+
     public Account(long id, String userName, String password, String role) {
         this.id = id;
         this.userName = userName;
         this.password = password;
         this.role = role;
-     
+
     }
+
     public Account(long id, String userName, String role) {
         this.id = id;
         this.userName = userName;
         this.role = role;
-     
+
     }
 
     public Account() {
@@ -63,8 +62,53 @@ public class Account {
         this.userName = userName;
         this.password = password;
         this.role = role;
-    }   
-    
-    
+    }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Date getExpired() {
+        return expired;
+    }
+
+    public void setExpired(Date expired) {
+        this.expired = expired;
+    }
 }
