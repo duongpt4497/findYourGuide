@@ -79,6 +79,7 @@ public class GuiderController {
     }
 
     @RequestMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Guider> findGuider(@PathVariable("id") long id) {
         try {
             return new ResponseEntity<>(guiderService.findGuiderWithID(id), HttpStatus.OK);
@@ -88,9 +89,30 @@ public class GuiderController {
     }
 
     @RequestMapping("/guiderByPostId")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Guider> findGuiderByPostId(@RequestParam("post_id") long post_id) {
         try {
             return new ResponseEntity<>(guiderService.findGuiderWithPostId(post_id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/getTopGuiderByRate")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Guider>> getTop5guiderByRate() {
+        try {
+            return new ResponseEntity<>(guiderService.getTopGuiderByRate(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/getTopGuiderByContribute")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Guider>> getTop5guiderByContribute() {
+        try {
+            return new ResponseEntity<>(guiderService.getTopGuiderByContribute(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }

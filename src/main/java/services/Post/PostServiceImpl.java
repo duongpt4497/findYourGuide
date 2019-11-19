@@ -149,7 +149,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> getTopTour() {
         try {
-            return jdbcTemplate.query("SELECT * FROM post order by rated limit 5", new RowMapper<Post>() {
+            return jdbcTemplate.query("SELECT * FROM post order by rated desc limit 5", new RowMapper<Post>() {
                 @Override
                 public Post mapRow(ResultSet resultSet, int i) throws SQLException {
                     return new Post(
