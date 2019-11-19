@@ -77,4 +77,22 @@ public class GuiderController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
     }
+
+    @RequestMapping("/{id}")
+    public ResponseEntity<Guider> findGuider(@PathVariable("id") long id) {
+        try {
+            return new ResponseEntity<>(guiderService.findGuiderWithID(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/guiderByPostId")
+    public ResponseEntity<Guider> findGuiderByPostId(@RequestParam("post_id") long post_id) {
+        try {
+            return new ResponseEntity<>(guiderService.findGuiderWithPostId(post_id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 }
