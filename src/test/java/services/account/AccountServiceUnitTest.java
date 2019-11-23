@@ -32,9 +32,4 @@ public class AccountServiceUnitTest {
     public void testFindByName() {
         Assert.assertEquals(null, accountService.findByName("Jacky"));
     }
-
-    @Test(expected = Exception.class)
-    public void testAddAccount() {
-
-    }
 }

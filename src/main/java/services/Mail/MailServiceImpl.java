@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Repository;
 import services.guider.GuiderService;
@@ -37,35 +38,20 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public boolean sendMail(Order order) {
-//        String message;
-//        // Get sender info
-//        String role = this.getUserRole(feedback.getAccount_id());
-//        if (role == null) {
-//            return false;
-//        }
-//        if (role.equalsIgnoreCase("guider")) {
-//            Guider sender = guiderService.findGuiderWithID(feedback.getAccount_id());
-//            message = sender.getFirst_name() + " " + sender.getLast_name() + "\n"
-//                    + "Message: " + feedback.getMessage();
-//        } else {
-//            Traveler sender = travelerService.findTravelerWithId(feedback.getAccount_id());
-//            message = sender.getFirst_name() + " " + sender.getLast_name() + "\n"
-//                    + "Message: " + feedback.getMessage();
-//        }
-//        // Create a mail
-//        SimpleMailMessage mail = new SimpleMailMessage();
-//        mail.setTo();
-//        mail.setSubject("TravelWithLocal's feedback");
-//        mail.setText(message);
-//        // Send mail
-//        try {
-//            this.emailSender.send(mail);
-//            return true;
-//        } catch (Exception e) {
-//            logger.warn(e.getMessage());
-//            return false;
-//        }
-        return true;
+        String message;
+        // Create a mail
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo();
+        mail.setSubject("TravelWithLocal's");
+        mail.setText("");
+        // Send mail
+        try {
+            this.emailSender.send(mail);
+            return true;
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            return false;
+        }
     }
 
     private String getUserRole(int id) {

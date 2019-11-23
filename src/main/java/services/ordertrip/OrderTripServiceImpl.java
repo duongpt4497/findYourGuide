@@ -106,7 +106,7 @@ public class OrderTripServiceImpl implements OrderTripService {
             } else {
                 throw new Exception("wrong role");
             }
-            
+
             result = jdbcTemplate.query(query, new RowMapper<Order>() {
                 @Override
                 public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -125,7 +125,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                             rs.getString("first_name") + " " + rs.getString("last_name"));
                 }
             }, id, status);
-            System.out.println(query+id+status+result.size());
+            System.out.println(query + id + status + result.size());
         } catch (Exception e) {
             logger.warn(e.getMessage());
         }
@@ -331,7 +331,8 @@ public class OrderTripServiceImpl implements OrderTripService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
         double totalHour = this.getTourTotalHour(post_id);
         long bufferHour = (long) java.lang.Math.ceil(totalHour / 100 * Integer.parseInt(bufferPercent));
-        LocalDateTime end_date = begin_date.plusHours(bufferHour).minusMinutes(30);
+        long duration = (long) totalHour + bufferHour;
+        LocalDateTime end_date = begin_date.plusHours(duration).minusMinutes(30);
         return end_date.format(formatter);
     }
 
@@ -508,7 +509,7 @@ public class OrderTripServiceImpl implements OrderTripService {
                             rs.getString("first_name") + " " + rs.getString("last_name"));
                 }
             }, id, new java.sql.Date(start.getTime()), new java.sql.Date(end.getTime()));
-             System.out.println(query+id+result.get(0).getObject());
+            System.out.println(query + id + result.get(0).getObject());
         } catch (Exception e) {
             logger.warn(e.getMessage());
         }
