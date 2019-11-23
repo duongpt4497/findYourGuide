@@ -1,12 +1,15 @@
 package entities;
 
-import java.util.List;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
+
+import javax.validation.constraints.NotNull;
+
 @Data
 public class Post {
     private long post_id;
+    private long guider_id;
+    private long location_id;
+    private long category_id;
     private String title;
     private String video_link;
     @NotNull
@@ -22,7 +25,7 @@ public class Post {
     private String reasons;
 
 
-    public Post(String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location, long price, long rated, String reasons,String category) {
+    public Post(String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location, long price, long rated, String reasons, String category) {
 
         this.title = title;
         this.video_link = video_link;
@@ -38,7 +41,24 @@ public class Post {
         this.category = category;
     }
 
-    public Post(long post_id, String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location, long price, long rated, String reasons,String category) {
+    public Post(long post_id, long guider_id, long location_id, long category_id, String title, String video_link, @NotNull String[] picture_link, int total_hour, String description, String[] including_service, boolean active, long price, long rated, String reasons) {
+        this.post_id = post_id;
+        this.guider_id = guider_id;
+        this.location_id = location_id;
+        this.category_id = category_id;
+        this.title = title;
+        this.video_link = video_link;
+        this.picture_link = picture_link;
+        this.total_hour = total_hour;
+        this.description = description;
+        this.including_service = including_service;
+        this.active = active;
+        this.price = price;
+        this.rated = rated;
+        this.reasons = reasons;
+    }
+
+    public Post(long post_id, String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location, long price, long rated, String reasons, String category) {
         this.post_id = post_id;
         this.title = title;
         this.video_link = video_link;
@@ -54,8 +74,8 @@ public class Post {
         this.category = category;
     }
 
-    public Post(long post_id,String title, String[] picture_link, String description, boolean active) {
-        this.post_id  = post_id;
+    public Post(long post_id, String title, String[] picture_link, String description, boolean active) {
+        this.post_id = post_id;
         this.title = title;
         this.picture_link = picture_link;
         this.description = description;
@@ -70,69 +90,68 @@ public class Post {
         return title;
     }
 
-    public String getVideo_link() {
-        return video_link;
-    }
-
-    public String[] getPicture_link() {
-        return picture_link;
-    }
-
-    public int getTotal_hour() {
-        return total_hour;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String[] getIncluding_service() {
-        return including_service;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-
-    public long getPost_id() {
-        return post_id;
-    }
-
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getVideo_link() {
+        return video_link;
     }
 
     public void setVideo_link(String video_link) {
         this.video_link = video_link;
     }
 
+    public String[] getPicture_link() {
+        return picture_link;
+    }
+
     public void setPicture_link(String[] picture_link) {
         this.picture_link = picture_link;
+    }
+
+    public int getTotal_hour() {
+        return total_hour;
     }
 
     public void setTotal_hour(int total_hour) {
         this.total_hour = total_hour;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String[] getIncluding_service() {
+        return including_service;
     }
 
     public void setIncluding_service(String[] including_service) {
         this.including_service = including_service;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
     public void setActive(boolean active) {
         this.active = active;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public long getPost_id() {
+        return post_id;
     }
 
     public long getPrice() {
