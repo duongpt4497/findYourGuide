@@ -61,7 +61,7 @@ public class GuiderServiceImpl implements GuiderService {
                             rs.getString("last_name"), rs.getInt("age"), rs.getString("about_me"),
                             rs.getLong("contribution"), rs.getString("city"),
                             generalService.checkForNull(rs.getArray("languages")),
-                            rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avartar"),
+                            rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avatar"),
                             rs.getString("passion"));
                 }
             }, id);
