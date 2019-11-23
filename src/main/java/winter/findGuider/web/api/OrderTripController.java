@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import services.Mail.MailService;
 import services.Paypal.PaypalService;
 import services.ordertrip.OrderTripService;
 
@@ -23,11 +24,13 @@ public class OrderTripController {
 
     private OrderTripService orderTripService;
     private PaypalService paypalService;
+    private MailService mailService;
 
     @Autowired
-    public OrderTripController(OrderTripService os, PaypalService ps) {
+    public OrderTripController(OrderTripService os, PaypalService ps, MailService ms) {
         this.orderTripService = os;
         this.paypalService = ps;
+        this.mailService = ms;
     }
 
     @RequestMapping("/GetAvailableHours")
@@ -136,6 +139,10 @@ public class OrderTripController {
                     return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
                 }
             }
+            // TODO get email
+            Order order = orderTripService.findOrderById(order_id);
+            String content = mailService.getMailContent(order, "CANCELLED");
+            mailService.sendMail("travelwithlocalsysadm@gmail.com", "TravelWLocal Tour Cancelled", content);
             return new ResponseEntity<>("Cancel Success", HttpStatus.OK);
         } catch (PayPalRESTException e) {
             String message = e.getDetails().getMessage();
@@ -153,7 +160,14 @@ public class OrderTripController {
             if (count != 0) {
                 return new ResponseEntity<>(false, HttpStatus.OK);
             }
-            return new ResponseEntity<>(orderTripService.acceptOrder(orderId), HttpStatus.OK);
+            boolean result = orderTripService.acceptOrder(orderId);
+            if (result) {
+                // TODO get email
+                Order order = orderTripService.findOrderById(orderId);
+                String content = mailService.getMailContent(order, "ONGOING");
+                mailService.sendMail("travelwithlocalsysadm@gmail.com", "TravelWLocal Tour Accepted", content);
+            }
+            return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
