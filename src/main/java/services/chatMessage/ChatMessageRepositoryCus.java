@@ -7,4 +7,5 @@ import java.util.List;
 public interface ChatMessageRepositoryCus {
     public void save(ChatMessage chatMessage);
     public List<ChatMessage> get(String user, String receiver, int firstElement, int lastElement);
+    public List<ChatMessage> getReceiver(String user,int firstElement, int lastElement);
 }

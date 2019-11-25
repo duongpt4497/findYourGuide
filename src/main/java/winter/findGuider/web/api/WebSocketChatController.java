@@ -50,4 +50,11 @@ public class WebSocketChatController {
         return new ResponseEntity(chatMessages, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/messages/{user}/{firstElement}/{lastElement}", method = RequestMethod.POST)
+    public HttpEntity getMessage(@PathVariable("user") String user,@PathVariable("firstElement") int firstElement,@PathVariable("lastElement") int lastElement){
+        List<ChatMessage> chatMessages = new ArrayList<>();
+        chatMessages = chatMessageRepository.getReceiver(user,firstElement,lastElement);
+        return new ResponseEntity(chatMessages, HttpStatus.OK);
+    }
+
 }
