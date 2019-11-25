@@ -299,27 +299,27 @@ public class OrderTripServiceImpl implements OrderTripService {
 
     @Override
     public boolean checkOrderReach48Hours(Order cancelOrder, LocalDateTime rightNow) {
-        int dayCheck = cancelOrder.getBegin_date().toLocalDate().minusDays(2).compareTo(rightNow.toLocalDate());
+        int dayCheck = rightNow.toLocalDate().compareTo(cancelOrder.getBegin_date().toLocalDate().minusDays(2));
         // check day
         if (dayCheck == 0) {
             // check hour
             int beginHour = cancelOrder.getBegin_date().getHour();
-            int hourCheck = Integer.compare(rightNow.getHour(), beginHour);
-            if (hourCheck == -1) {
+            int hourCheck = Integer.compare(beginHour, rightNow.getHour());
+            if (hourCheck < 0) {
                 return true;
-            } else if (hourCheck == 1) {
+            } else if (hourCheck > 0) {
                 return false;
             } else {
                 // check minute
                 int beginMinute = cancelOrder.getBegin_date().getMinute();
-                int minuteCheck = Integer.compare(rightNow.getMinute(), beginMinute);
-                if (minuteCheck == -1) {
+                int minuteCheck = Integer.compare(beginMinute, rightNow.getMinute());
+                if (minuteCheck <= 0) {
                     return true;
                 } else {
                     return false;
                 }
             }
-        } else if (dayCheck == -1) {
+        } else if (dayCheck < 0) {
             return false;
         } else {
             return true;
