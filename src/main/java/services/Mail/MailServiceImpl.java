@@ -65,53 +65,58 @@ public class MailServiceImpl implements MailService {
     public String getMailContent(Order order, String orderStatus) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
         String content = "";
-        Traveler traveler = travelerService.findTravelerWithId(order.getTraveler_id());
-        Post post = postService.findSpecificPost(order.getPost_id());
-        Guider guider = guiderService.findGuiderWithPostId(order.getPost_id());
+        try {
+            Traveler traveler = travelerService.findTravelerWithId(order.getTraveler_id());
+            Post post = postService.findSpecificPost(order.getPost_id());
+            Guider guider = guiderService.findGuiderWithPostId(order.getPost_id());
 
-        // create mail content
-        content = content.concat("Dear Mr/Ms " + traveler.getLast_name() + "\n\n");
-        switch (orderStatus) {
-            case UNCONFIRMED:
-                content = content.concat("Your tour has been booked successfully.\n");
-                break;
-            case ONGOING:
-                content = content.concat("Your tour has been accepted by " + guider.getFirst_name() + " " + guider.getLast_name() + ".\n");
-                break;
-            case CANCELLED:
-                content = content.concat("Your tour has been cancelled by " + guider.getFirst_name() + " " + guider.getLast_name() + ".\n");
-                break;
-            case FINISHED:
-                content = content.concat("Your tour has finished.\n");
-                break;
-        }
-        content = content.concat("Below is the information of your tour:\n");
-        content = content.concat("Tour: " + post.getTitle() + "\n");
-        content = content.concat("Your guider: " + guider.getFirst_name() + " " + guider.getLast_name() + "\n");
-        content = content.concat("Begin on: " + order.getBegin_date().format(formatter)
-                + " - Expected end on: " + order.getFinish_date().format(formatter) + "\n");
-        content = content.concat("The tour has " + order.getAdult_quantity() + " adults and " + order.getChildren_quantity() + " childrens.\n");
-        content = content.concat("Total: " + order.getFee_paid() + "$\n\n");
-        String tourStatus = "";
-        if (order.getStatus() == null) {
-            tourStatus = "Waiting for confirmation";
-        } else {
-            switch (order.getStatus()) {
+            // create mail content
+            content = content.concat("Dear Mr/Ms " + traveler.getLast_name() + "\n\n");
+            switch (orderStatus) {
+                case UNCONFIRMED:
+                    content = content.concat("Your tour has been booked successfully.\n");
+                    break;
                 case ONGOING:
-                    tourStatus = "Ongoing";
+                    content = content.concat("Your tour has been accepted by " + guider.getFirst_name() + " " + guider.getLast_name() + ".\n");
                     break;
                 case CANCELLED:
-                    tourStatus = "Cancelled";
+                    content = content.concat("Your tour has been cancelled by " + guider.getFirst_name() + " " + guider.getLast_name() + ".\n");
                     break;
                 case FINISHED:
-                    tourStatus = "Finished";
+                    content = content.concat("Your tour has finished.\n");
                     break;
             }
+            content = content.concat("Below is the information of your tour:\n");
+            content = content.concat("Tour: " + post.getTitle() + "\n");
+            content = content.concat("Your guider: " + guider.getFirst_name() + " " + guider.getLast_name() + "\n");
+            content = content.concat("Begin on: " + order.getBegin_date().format(formatter)
+                    + " - Expected end on: " + order.getFinish_date().format(formatter) + "\n");
+            content = content.concat("The tour has " + order.getAdult_quantity() + " adults and " + order.getChildren_quantity() + " childrens.\n");
+            content = content.concat("Total: " + order.getFee_paid() + "$\n\n");
+            String tourStatus = "";
+            if (order.getStatus() == null) {
+                tourStatus = "Waiting for confirmation";
+            } else {
+                switch (order.getStatus()) {
+                    case ONGOING:
+                        tourStatus = "Ongoing";
+                        break;
+                    case CANCELLED:
+                        tourStatus = "Cancelled";
+                        break;
+                    case FINISHED:
+                        tourStatus = "Finished";
+                        break;
+                }
+            }
+            content = content.concat("Status: " + tourStatus + "\n\n");
+            content = content.concat("Thank your for using our service. We wish you a great trip and happy experience.\n\n");
+            content = content.concat("Sincerely,\n");
+            content = content.concat("TravelWLocal");
+            return content;
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            return null;
         }
-        content = content.concat("Status: " + tourStatus + "\n\n");
-        content = content.concat("Thank your for using our service. We wish you a great trip and happy experience.\n\n");
-        content = content.concat("Sincerely,\n");
-        content = content.concat("TravelWLocal");
-        return content;
     }
 }
