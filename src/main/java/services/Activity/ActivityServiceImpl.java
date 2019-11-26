@@ -25,7 +25,7 @@ public class ActivityServiceImpl implements  ActivityService {
     }
 
     @Override
-    public List<Activity> findActivityOfAPost(long post_id) {
+    public List<Activity> findActivityOfAPost(long post_id) throws Exception {
         try{
             return jdbcTemplate.query("select * from  activity where post_id = ? ", new RowMapper<Activity>() {
                 @Override

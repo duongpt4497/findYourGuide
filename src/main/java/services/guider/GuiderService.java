@@ -10,13 +10,13 @@ public interface GuiderService {
 
 	public Guider_Contract findGuiderContract(long id);
 
-	public long createGuider(Guider newGuider);
+	public long createGuider(Guider newGuider) throws Exception;
 
 	public void createGuiderContract(long guider_id, Guider_Contract newGuiderContract);
 
-	public long updateGuiderWithId(Guider guiderNeedUpdate);
+	public long updateGuiderWithId(Guider guiderNeedUpdate) throws Exception;
 
-	public long activateGuider(long id);
+	public long activateGuider(long id) throws Exception;
 
-	public long deactivateGuider(long id);
+	public long deactivateGuider(long id) throws Exception;
 }

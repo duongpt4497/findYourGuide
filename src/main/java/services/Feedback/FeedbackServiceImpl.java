@@ -41,7 +41,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public boolean sendFeedback(Feedback feedback) {
+    public boolean sendFeedback(Feedback feedback) throws Exception {
         String message;
         // Get sender info
         String role = this.getUserRole(feedback.getAccount_id());

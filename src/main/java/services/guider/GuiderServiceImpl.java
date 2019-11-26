@@ -92,7 +92,7 @@ public class GuiderServiceImpl implements GuiderService {
     }
 
     @Override
-    public long createGuider(Guider newGuider) {
+    public long createGuider(Guider newGuider) throws Exception{
         KeyHolder keyHolder = new GeneratedKeyHolder();
         try {
             String query = "insert into guider (first_name,last_name,age,about_me,contribution,city,active,language)" +
@@ -132,7 +132,7 @@ public class GuiderServiceImpl implements GuiderService {
     }
 
     @Override
-    public long updateGuiderWithId(Guider guiderNeedUpdate) {
+    public long updateGuiderWithId(Guider guiderNeedUpdate) throws Exception {
         try {
             String query = "update guider set first_name = ?, last_name = ?, age = ?, about_me = ?, city = ?, language = ? where guider_id = ?";
             jdbcTemplate.update(query, guiderNeedUpdate.getFirst_name(), guiderNeedUpdate.getLast_name(),
@@ -145,7 +145,7 @@ public class GuiderServiceImpl implements GuiderService {
     }
 
     @Override
-    public long activateGuider(long id) {
+    public long activateGuider(long id) throws Exception {
         try {
             String query = "update guider set active = true where guider_id = ? and active = false";
             jdbcTemplate.update(query, id);
@@ -156,7 +156,7 @@ public class GuiderServiceImpl implements GuiderService {
     }
 
     @Override
-    public long deactivateGuider(long id) {
+    public long deactivateGuider(long id) throws Exception {
         try {
             String query = "update guider set active = false where guider_id = ? and active = true";
             jdbcTemplate.update(query, id);
