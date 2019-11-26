@@ -5,18 +5,19 @@
  */
 package services.account;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import entities.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import entities.Account;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
- *
  * @author dgdbp
  */
 @Repository
@@ -29,33 +30,22 @@ public class AccountRepository {
         this.jdbc = jdbc;
     }
 
-    public Account mapRow(ResultSet rs, int rowNum)
-            throws SQLException {
-        return new Account(
-                rs.getLong("account_id"),
-                rs.getString("user_name"),
-                rs.getString("password"),
-                rs.getString("role"));
-    }
-
     public Account findByName(String name) {
         try {
-            return jdbc.queryForObject("select * from account where user_name=?",
-                    this::mapRow, name);
+            return jdbc.queryForObject("select * from account where user_name=?", new RowMapper<Account>() {
+                @Override
+                public Account mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    return new Account(
+                            rs.getLong("account_id"),
+                            rs.getString("user_name"),
+                            rs.getString("password"),
+                            rs.getString("role"));
+                }
+            }, name);
         } catch (Exception e) {
             System.out.println(e);
+            throw e;
         }
-        return null;
-    }
-
-    public Account findById(int id) {
-        try {
-            return jdbc.queryForObject("select * from account where account_id=? ",
-                    this::mapRow, id);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return null;
     }
 
     public int addAccount(Account acc) {
