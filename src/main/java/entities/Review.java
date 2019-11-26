@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Data
 public class Review {
-    private long order_id;
+    private long trip_id;
     private long traveler_id;
     private long guider_id;
     private long post_id;
@@ -17,8 +17,8 @@ public class Review {
     public Review() {
     }
 
-    public Review(long order_id, long traveler_id, long guider_id, long post_id, long rated, Date post_date, String review) {
-        this.order_id = order_id;
+    public Review(long trip_id, long traveler_id, long guider_id, long post_id, long rated, Date post_date, String review) {
+        this.trip_id = trip_id;
         this.traveler_id = traveler_id;
         this.guider_id = guider_id;
         this.post_id = post_id;
@@ -27,12 +27,12 @@ public class Review {
         this.review = review;
     }
 
-    public long getOrder_id() {
-        return order_id;
+    public long gettrip_id() {
+        return trip_id;
     }
 
-    public void setOrder_id(long order_id) {
-        this.order_id = order_id;
+    public void settrip_id(long trip_id) {
+        this.trip_id = trip_id;
     }
 
     public long getTraveler_id() {

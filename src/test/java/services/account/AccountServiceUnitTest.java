@@ -6,30 +6,73 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import winter.findGuider.TestDataSourceConfig;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AccountServiceUnitTest {
-
     @InjectMocks
     AccountRepository accountService;
 
-    @Mock
-    private JdbcTemplate jdbcTemplate;
-
-    private Account account;
+    private JdbcTemplate jdbcTemplate = new JdbcTemplate();
 
     @Before
     public void init() {
-        account = new Account("test", "123", "GUIDER");
+        TestDataSourceConfig config = new TestDataSourceConfig();
+        jdbcTemplate.setDataSource(config.setupDatasource());
+        accountService = new AccountRepository(jdbcTemplate);
+        jdbcTemplate.update("delete from account where user_name = 'Jacky'");
+        Account acc = new Account("Jacky", "$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK", "Jacky@gmail.com", "GUIDER");
+        accountService.addAccount(acc);
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
     public void testFindByName() {
-        Assert.assertEquals(null, accountService.findByName("Jacky"));
+        Assert.assertEquals("$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK", accountService.findByName("Jacky").getPassword());
+        Assert.assertEquals("Jacky@gmail.com", accountService.findByName("Jacky").getEmail());
+        Assert.assertEquals("GUIDER", accountService.findByName("Jacky").getRole());
+    }
+
+    @Test(expected = Exception.class)
+    public void testFindByName2() {
+        when(jdbcTemplate.queryForObject("select * from account where user_name=?", new RowMapper<Account>() {
+            @Override
+            public Account mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new Account(
+                        rs.getLong("account_id"),
+                        rs.getString("user_name"),
+                        rs.getString("password"),
+                        rs.getString("email"),
+                        rs.getString("role"));
+            }
+        }, "Jacky")).thenThrow(Exception.class);
+        Assert.assertEquals("$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK", accountService.findByName("Jacky").getPassword());
+        Assert.assertEquals("Jacky@gmail.com", accountService.findByName("Jacky").getEmail());
+        Assert.assertEquals("GUIDER", accountService.findByName("Jacky").getRole());
+    }
+
+    @Test
+    public void testAddAccount() {
+        Account account = new Account("test", "123", "test@test.com", "GUIDER");
+        jdbcTemplate.update("delete from account where user_name = 'test'");
+        int id = accountService.addAccount(account);
+        Assert.assertEquals(accountService.findByName("test").getId(), id);
+    }
+
+    @Test(expected = Exception.class)
+    public void testAddAccount2() {
+        Account account = new Account();
+        jdbcTemplate.update("delete from account where user_name = 'test'");
+        int id = accountService.addAccount(account);
+        Assert.assertEquals(accountService.findByName("test").getId(), id);
     }
 }

@@ -25,16 +25,16 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<Review> findReviewByOrderId(long order_id) {
+    public List<Review> findReviewByOrderId(long trip_id) {
         try {
-            String query = "select * from review where order_id = ?";
+            String query = "select * from review where trip_id = ?";
             return jdbcTemplate.query(query, new RowMapper<Review>() {
                 public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return new Review(rs.getLong("order_id"), rs.getLong("traveler_id"),
+                    return new Review(rs.getLong("trip_id"), rs.getLong("traveler_id"),
                             rs.getLong("guider_id"), rs.getLong("post_id"), rs.getLong("rated"),
                             rs.getDate("post_date"), rs.getString("review"));
                 }
-            }, order_id);
+            }, trip_id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
         }
@@ -47,7 +47,7 @@ public class ReviewServiceImpl implements ReviewService {
             String query = "select * from review where guider_id = ?";
             return jdbcTemplate.query(query, new RowMapper<Review>() {
                 public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return new Review(rs.getLong("order_id"), rs.getLong("traveler_id"),
+                    return new Review(rs.getLong("trip_id"), rs.getLong("traveler_id"),
                             rs.getLong("guider_id"), rs.getLong("post_id"), rs.getLong("rated"),
                             rs.getDate("post_date"), rs.getString("review"));
                 }
@@ -64,7 +64,7 @@ public class ReviewServiceImpl implements ReviewService {
             String query = "select * from review where post_id = ?";
             return jdbcTemplate.query(query, new RowMapper<Review>() {
                 public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return new Review(rs.getLong("order_id"), rs.getLong("traveler_id"),
+                    return new Review(rs.getLong("trip_id"), rs.getLong("traveler_id"),
                             rs.getLong("guider_id"), rs.getLong("post_id"), rs.getLong("rated"),
                             rs.getDate("post_date"), rs.getString("review"));
                 }
@@ -78,9 +78,9 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public boolean createReview(Review newReview) {
         try {
-            String query = "insert into review (order_id, traveler_id, guider_id, post_id, rated, post_date, review)" +
+            String query = "insert into review (trip_id, traveler_id, guider_id, post_id, rated, post_date, review)" +
                     "values (?,?,?,?,?,?,?)";
-            jdbcTemplate.update(query, newReview.getOrder_id(), newReview.getTraveler_id(), newReview.getGuider_id(),
+            jdbcTemplate.update(query, newReview.gettrip_id(), newReview.getTraveler_id(), newReview.getGuider_id(),
                     newReview.getPost_id(), newReview.getRated(), Timestamp.valueOf(LocalDateTime.now()), newReview.getReview());
             return true;
         } catch (Exception e) {
@@ -90,15 +90,15 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public boolean checkReviewExist(long order_id) {
+    public boolean checkReviewExist(long trip_id) {
         try {
-            String query = "select count(order_id) from review where order_id = ?";
+            String query = "select count(trip_id) from review where trip_id = ?";
             List<Integer> checklist = jdbcTemplate.query(query, new RowMapper<Integer>() {
                 @Override
                 public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
                     return rs.getInt("count");
                 }
-            }, order_id);
+            }, trip_id);
             if (checklist.get(0) == 0) {
                 return false;
             } else {

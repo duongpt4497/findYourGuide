@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.util.ReflectionTestUtils;
+import winter.findGuider.TestDataSourceConfig;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ContributionPointServiceImplTest {
@@ -18,11 +19,13 @@ public class ContributionPointServiceImplTest {
     @InjectMocks
     ContributionPointServiceImpl contributionPointService;
 
-    @Mock
-    private JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate = new JdbcTemplate();
 
     @Before
     public void init() {
+        TestDataSourceConfig config = new TestDataSourceConfig();
+        jdbcTemplate.setDataSource(config.setupDatasource());
+        contributionPointService = new ContributionPointServiceImpl(jdbcTemplate);
         ReflectionTestUtils.setField(contributionPointService, "corMoney", "10");
         ReflectionTestUtils.setField(contributionPointService, "corRated", "100");
         ReflectionTestUtils.setField(contributionPointService, "corTurn", "200");

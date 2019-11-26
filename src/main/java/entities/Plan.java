@@ -5,24 +5,24 @@ public class Plan {
     private String meeting_point;
     private String detail;
     private int post_id;
-    private int order_id;
+    private int trip_id;
 
     public Plan() {
     }
 
-    public Plan(int plan_id, String meeting_point, String detail, int post_id, int order_id) {
+    public Plan(int plan_id, String meeting_point, String detail, int post_id, int trip_id) {
         this.plan_id = plan_id;
         this.meeting_point = meeting_point;
         this.detail = detail;
         this.post_id = post_id;
-        this.order_id = order_id;
+        this.trip_id = trip_id;
     }
 
-    public Plan(String meeting_point, String detail, int post_id, int order_id) {
+    public Plan(String meeting_point, String detail, int post_id, int trip_id) {
         this.meeting_point = meeting_point;
         this.detail = detail;
         this.post_id = post_id;
-        this.order_id = order_id;
+        this.trip_id = trip_id;
     }
     
     public Plan(String meeting_point, String detail, int post_id) {
@@ -63,11 +63,11 @@ public class Plan {
         this.post_id = post_id;
     }
 
-    public int getOrder_id() {
-        return order_id;
+    public int gettrip_id() {
+        return trip_id;
     }
 
-    public void setOrder_id(int order_id) {
-        this.order_id = order_id;
+    public void settrip_id(int trip_id) {
+        this.trip_id = trip_id;
     }
 }

@@ -34,7 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
             });
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
-        return null;
     }
 }

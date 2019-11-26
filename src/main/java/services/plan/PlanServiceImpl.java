@@ -29,7 +29,7 @@ public class PlanServiceImpl implements PlanService {
     public int createPlan(Plan newPlan) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         try {
-            String insertQuery = "insert into plan (meeting_point, detail, post_id, order_id) values (?,?,?,?)";
+            String insertQuery = "insert into plan (meeting_point, detail, post_id, trip_id) values (?,?,?,?)";
 
             jdbcTemplate.update(connection -> {
                 PreparedStatement ps = connection
@@ -37,7 +37,7 @@ public class PlanServiceImpl implements PlanService {
                 ps.setString(1, newPlan.getMeeting_point());
                 ps.setString(2, newPlan.getDetail());
                 ps.setInt(3, newPlan.getPost_id());
-                ps.setInt(4, newPlan.getOrder_id());
+                ps.setInt(4, newPlan.gettrip_id());
                 return ps;
             }, keyHolder);
         } catch (Exception e) {
@@ -57,7 +57,7 @@ public class PlanServiceImpl implements PlanService {
                             rs.getString("meeting_point"),
                             rs.getString("detail"),
                             rs.getInt("post_id"),
-                            rs.getInt("order_id")
+                            rs.getInt("trip_id")
                     );
                 }
             }, plan_id);
@@ -78,7 +78,7 @@ public class PlanServiceImpl implements PlanService {
                             rs.getString("meeting_point"),
                             rs.getString("detail"),
                             rs.getInt("post_id"),
-                            rs.getInt("order_id")
+                            rs.getInt("trip_id")
                     );
                 }
             }, post_id);

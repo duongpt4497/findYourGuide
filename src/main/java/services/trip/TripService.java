@@ -1,4 +1,4 @@
-package services.ordertrip;
+package services.trip;
 
 import entities.Order;
 
@@ -8,20 +8,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public interface OrderTripService {
+public interface TripService {
     public void createOrder(Order newOrder);
 
     public int checkOrderExist(int id);
 
-    public Order findOrderById(int order_id);
+    public Order findOrderById(int trip_id);
 
     public List<Order> findOrderByStatusAsGuider(String role, int id, String status);
 
-    public boolean acceptOrder(int order_id);
+    public boolean acceptOrder(int trip_id);
 
-    public boolean cancelOrder(int order_id);
+    public boolean cancelOrder(int trip_id);
 
-    public boolean finishOrder(int order_id);
+    public boolean finishOrder(int trip_id);
 
     public void getOrderGuiderId_FinishDate(Order newOrder);
 

@@ -5,7 +5,7 @@ import entities.Review;
 import java.util.List;
 
 public interface ReviewService {
-    List<Review> findReviewByOrderId(long order_id);
+    List<Review> findReviewByOrderId(long trip_id);
 
     List<Review> findReviewsByGuiderId(long guider_id);
 
@@ -13,5 +13,5 @@ public interface ReviewService {
 
     public boolean createReview(Review newReview);
 
-    public boolean checkReviewExist(long order_id);
+    public boolean checkReviewExist(long trip_id);
 }

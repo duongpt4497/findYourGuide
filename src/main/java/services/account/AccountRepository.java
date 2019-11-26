@@ -6,6 +6,8 @@
 package services.account;
 
 import entities.Account;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -22,7 +24,7 @@ import java.sql.SQLException;
  */
 @Repository
 public class AccountRepository {
-
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private JdbcTemplate jdbc;
 
     @Autowired
@@ -39,11 +41,12 @@ public class AccountRepository {
                             rs.getLong("account_id"),
                             rs.getString("user_name"),
                             rs.getString("password"),
+                            rs.getString("email"),
                             rs.getString("role"));
                 }
             }, name);
         } catch (Exception e) {
-            System.out.println(e);
+            logger.warn(e.getMessage());
             throw e;
         }
     }
@@ -52,18 +55,20 @@ public class AccountRepository {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         try {
             String query = " INSERT INTO public.account( "
-                    + " user_name, password ,role ) "
-                    + " VALUES ( ?, ?, ? ) ";
+                    + " user_name, password, email ,role ) "
+                    + " VALUES ( ?, ?, ?, ? ) ";
             jdbc.update(connection -> {
                 PreparedStatement ps = connection
                         .prepareStatement(query, new String[]{"account_id"});
                 ps.setString(1, acc.getUserName());
                 ps.setString(2, acc.getPassword());
-                ps.setString(3, acc.getRole());
+                ps.setString(3, acc.getEmail());
+                ps.setString(4, acc.getRole());
                 return ps;
             }, keyHolder);
         } catch (Exception e) {
-            System.out.println(e);
+            logger.warn(e.getMessage());
+            throw e;
         }
         return (int) keyHolder.getKey();
     }

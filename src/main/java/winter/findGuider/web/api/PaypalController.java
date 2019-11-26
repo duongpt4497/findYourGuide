@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import services.Mail.MailService;
 import services.Paypal.PaypalService;
-import services.ordertrip.OrderTripService;
+import services.trip.TripService;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -34,14 +34,14 @@ public class PaypalController {
     private String URL_ROOT_CLIENT;
 
     private PaypalService paypalService;
-    private OrderTripService orderTripService;
+    private TripService tripService;
     private MailService mailService;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    public PaypalController(PaypalService ps, OrderTripService ots, MailService ms) {
+    public PaypalController(PaypalService ps, TripService ots, MailService ms) {
         this.paypalService = ps;
-        this.orderTripService = ots;
+        this.tripService = ots;
         this.mailService = ms;
     }
 
@@ -53,11 +53,11 @@ public class PaypalController {
                 + "&post_id=" + order.getPost_id() + "&adult=" + order.getAdult_quantity()
                 + "&children=" + order.getChildren_quantity() + "&begin_date=" + order.getBegin_date();
         try {
-            orderTripService.getOrderGuiderId_FinishDate(order);
+            tripService.getOrderGuiderId_FinishDate(order);
             order.setFee_paid(paypalService.getTransactionFee(order));
             successUrl += "&fee=" + order.getFee_paid();
             // Check for availability of order
-            int count = orderTripService.checkAvailabilityOfOrder(order);
+            int count = tripService.checkAvailabilityOfOrder(order);
             if (count != 0) {
                 return URL_ROOT_CLIENT + CHATBOX_PATH + order.getPost_id() + "/booking_time_not_available";
             }
@@ -100,7 +100,7 @@ public class PaypalController {
         order.setChildren_quantity(children_quantity);
         order.setBegin_date(LocalDateTime.parse(begin_date));
         order.setFee_paid(fee_paid);
-        orderTripService.getOrderGuiderId_FinishDate(order);
+        tripService.getOrderGuiderId_FinishDate(order);
         String description = paypalService.getTransactionDescription(order);
         HttpHeaders httpHeaders = new HttpHeaders();
         try {
@@ -109,7 +109,7 @@ public class PaypalController {
             order.setTransaction_id(transaction_id);
             if (payment.getState().equals("approved")) {
                 paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, true);
-                orderTripService.createOrder(order);
+                tripService.createOrder(order);
                 // TODO get email
                 String content = mailService.getMailContent(order, "UNCONFIRMED");
                 mailService.sendMail("travelwithlocalsysadm@gmail.com", "TravelWLocal Tour Information", content);

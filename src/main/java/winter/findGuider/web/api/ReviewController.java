@@ -52,11 +52,11 @@ public class ReviewController {
 
     @RequestMapping("/checkExist")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<Review>> checkReviewExist(@RequestParam("order_id") long order_id) {
+    public ResponseEntity<List<Review>> checkReviewExist(@RequestParam("trip_id") long trip_id) {
         try {
-            boolean isExist = reviewService.checkReviewExist(order_id);
+            boolean isExist = reviewService.checkReviewExist(trip_id);
             if (isExist) {
-                return new ResponseEntity<>(reviewService.findReviewByOrderId(order_id), HttpStatus.OK);
+                return new ResponseEntity<>(reviewService.findReviewByOrderId(trip_id), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             }
