@@ -30,58 +30,58 @@ public class ReviewServiceImpl implements ReviewService {
             String query = "select * from review where trip_id = ?";
             return jdbcTemplate.query(query, new RowMapper<Review>() {
                 public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return new Review(rs.getLong("trip_id"), rs.getLong("traveler_id"),
-                            rs.getLong("guider_id"), rs.getLong("post_id"), rs.getLong("rated"),
+                    return new Review(rs.getLong("trip_id"), rs.getLong("rated"),
                             rs.getDate("post_date"), rs.getString("review"));
                 }
             }, trip_id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
-        return null;
     }
 
     @Override
     public List<Review> findReviewsByGuiderId(long guider_id) {
         try {
-            String query = "select * from review where guider_id = ?";
+            String query = "select review.* from review " +
+                    "inner join trip on review.trip_id = trip.trip_id " +
+                    "inner join post on post.guider_id = ?";
             return jdbcTemplate.query(query, new RowMapper<Review>() {
                 public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return new Review(rs.getLong("trip_id"), rs.getLong("traveler_id"),
-                            rs.getLong("guider_id"), rs.getLong("post_id"), rs.getLong("rated"),
+                    return new Review(rs.getLong("trip_id"), rs.getLong("rated"),
                             rs.getDate("post_date"), rs.getString("review"));
                 }
             }, guider_id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
-        return null;
     }
 
     @Override
     public List<Review> findReviewsByPostId(long post_id) {
         try {
-            String query = "select * from review where post_id = ?";
+            String query = "select review.* from review " +
+                    "inner join trip on trip.post_id = ?";
             return jdbcTemplate.query(query, new RowMapper<Review>() {
                 public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return new Review(rs.getLong("trip_id"), rs.getLong("traveler_id"),
-                            rs.getLong("guider_id"), rs.getLong("post_id"), rs.getLong("rated"),
+                    return new Review(rs.getLong("trip_id"), rs.getLong("rated"),
                             rs.getDate("post_date"), rs.getString("review"));
                 }
             }, post_id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
-        return null;
     }
 
     @Override
     public boolean createReview(Review newReview) {
         try {
-            String query = "insert into review (trip_id, traveler_id, guider_id, post_id, rated, post_date, review)" +
-                    "values (?,?,?,?,?,?,?)";
-            jdbcTemplate.update(query, newReview.gettrip_id(), newReview.getTraveler_id(), newReview.getGuider_id(),
-                    newReview.getPost_id(), newReview.getRated(), Timestamp.valueOf(LocalDateTime.now()), newReview.getReview());
+            String query = "insert into review (trip_id, rated, post_date, review)" +
+                    "values (?,?,?,?)";
+            jdbcTemplate.update(query, newReview.getTrip_id(), newReview.getRated(),
+                    Timestamp.valueOf(LocalDateTime.now()), newReview.getReview());
             return true;
         } catch (Exception e) {
             logger.warn(e.getMessage());

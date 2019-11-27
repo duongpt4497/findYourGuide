@@ -7,9 +7,6 @@ import java.util.Date;
 @Data
 public class Review {
     private long trip_id;
-    private long traveler_id;
-    private long guider_id;
-    private long post_id;
     private long rated;
     private Date post_date;
     private String review;
@@ -17,46 +14,25 @@ public class Review {
     public Review() {
     }
 
-    public Review(long trip_id, long traveler_id, long guider_id, long post_id, long rated, Date post_date, String review) {
+    public Review(long trip_id, long rated, Date post_date, String review) {
         this.trip_id = trip_id;
-        this.traveler_id = traveler_id;
-        this.guider_id = guider_id;
-        this.post_id = post_id;
         this.rated = rated;
         this.post_date = post_date;
         this.review = review;
     }
 
-    public long gettrip_id() {
+    public Review(long trip_id, long rated, String review) {
+        this.trip_id = trip_id;
+        this.rated = rated;
+        this.review = review;
+    }
+
+    public long getTrip_id() {
         return trip_id;
     }
 
-    public void settrip_id(long trip_id) {
+    public void setTrip_id(long trip_id) {
         this.trip_id = trip_id;
-    }
-
-    public long getTraveler_id() {
-        return traveler_id;
-    }
-
-    public void setTraveler_id(long traveler_id) {
-        this.traveler_id = traveler_id;
-    }
-
-    public long getGuider_id() {
-        return guider_id;
-    }
-
-    public void setGuider_id(long guider_id) {
-        this.guider_id = guider_id;
-    }
-
-    public long getPost_id() {
-        return post_id;
-    }
-
-    public void setPost_id(long post_id) {
-        this.post_id = post_id;
     }
 
     public long getRated() {
