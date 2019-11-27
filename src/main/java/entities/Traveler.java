@@ -1,8 +1,9 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 public class Traveler {
@@ -15,11 +16,10 @@ public class Traveler {
 
     private String phone;
 
-    private String email;
-
     private int gender;
 
-    private Date date_of_birth;
+    @JsonFormat(pattern = "MM/dd/yyyy HH:mm")
+    private LocalDateTime date_of_birth;
 
     private String street;
 
@@ -42,12 +42,11 @@ public class Traveler {
     public Traveler() {
     }
 
-    public Traveler(long traveler_id, String first_name, String last_name, String phone, String email, int gender, Date date_of_birth, String street, String house_number, String postal_code, String slogan, String about_me, String[] language, String country, String city, String avatar_link) {
+    public Traveler(long traveler_id, String first_name, String last_name, String phone, int gender, LocalDateTime date_of_birth, String street, String house_number, String postal_code, String slogan, String about_me, String[] language, String country, String city, String avatar_link) {
         this.traveler_id = traveler_id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.phone = phone;
-        this.email = email;
         this.gender = gender;
         this.date_of_birth = date_of_birth;
         this.street = street;
@@ -58,14 +57,6 @@ public class Traveler {
         this.language = language;
         this.country = country;
         this.city = city;
-        this.avatar_link = avatar_link;
-    }
-
-    public String getAvatar_link() {
-        return avatar_link;
-    }
-
-    public void setAvatar_link(String avatar_link) {
         this.avatar_link = avatar_link;
     }
 
@@ -101,14 +92,6 @@ public class Traveler {
         this.phone = phone;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public int getGender() {
         return gender;
     }
@@ -117,11 +100,11 @@ public class Traveler {
         this.gender = gender;
     }
 
-    public Date getDate_of_birth() {
+    public LocalDateTime getDate_of_birth() {
         return date_of_birth;
     }
 
-    public void setDate_of_birth(Date date_of_birth) {
+    public void setDate_of_birth(LocalDateTime date_of_birth) {
         this.date_of_birth = date_of_birth;
     }
 
@@ -187,5 +170,13 @@ public class Traveler {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getAvatar_link() {
+        return avatar_link;
+    }
+
+    public void setAvatar_link(String avatar_link) {
+        this.avatar_link = avatar_link;
     }
 }
