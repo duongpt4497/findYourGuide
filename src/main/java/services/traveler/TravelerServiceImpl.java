@@ -29,9 +29,8 @@ public class TravelerServiceImpl implements TravelerService {
     public boolean createTraveler(Traveler newTraveler) {
         boolean success;
         try {
-            String insertQuery = "insert into traveler (traveler_id, first_name, last_name, gender, date_of_birth, phone, email, street, " +
-                    "house_number, slogan, postal_code, about_me, language, country, city, avatar_link) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
+            String insertQuery = "insert into traveler (traveler_id, first_name, last_name, phone, gender, date_of_birth, street, house_number, postal_code, slogan, about_me, language, country, city, avatar_link) " +
+                    "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             jdbcTemplate.update(insertQuery, newTraveler.getTraveler_id(), newTraveler.getFirst_name(), newTraveler.getLast_name(),
                     newTraveler.getGender(), new java.sql.Date(newTraveler.getDate_of_birth().getTime()), newTraveler.getPhone(),
                     newTraveler.getEmail(), newTraveler.getStreet(), newTraveler.getHouse_number(), newTraveler.getSlogan(),

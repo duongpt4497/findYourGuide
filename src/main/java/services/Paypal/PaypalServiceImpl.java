@@ -75,6 +75,7 @@ public class PaypalServiceImpl implements PaypalService {
                     new java.sql.Timestamp(System.currentTimeMillis()), success);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
     }
 
@@ -87,6 +88,7 @@ public class PaypalServiceImpl implements PaypalService {
             fee = price * order.getAdult_quantity() + (price / 2) * order.getChildren_quantity();
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
         return fee;
     }

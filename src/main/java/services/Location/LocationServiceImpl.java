@@ -24,7 +24,6 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public List<Location> showAllLocation() {
         return jdbcTemplate.query("select * from locations", new RowMapper<Location>() {
-
             @Override
             public Location mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Location(

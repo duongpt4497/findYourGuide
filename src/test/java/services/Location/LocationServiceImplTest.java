@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
+import services.GeneralService;
+import winter.findGuider.TestDataSourceConfig;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LocationServiceImplTest {
@@ -16,16 +18,26 @@ public class LocationServiceImplTest {
     @InjectMocks
     LocationServiceImpl locationService;
 
+    private JdbcTemplate jdbcTemplate = new JdbcTemplate();
+
     @Mock
-    private JdbcTemplate jdbcTemplate;
+    private GeneralService generalService;
 
     @Before
     public void init() {
+        TestDataSourceConfig config = new TestDataSourceConfig();
+        jdbcTemplate.setDataSource(config.setupDatasource());
+        locationService = new LocationServiceImpl(jdbcTemplate, generalService);
+        config.cleanTestDb(jdbcTemplate);
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
     public void showAllLocation() {
-        Assert.assertTrue(locationService.showAllLocation().isEmpty());
+        jdbcTemplate.update("insert into locations (location_id,country,city,place) values (1,'Vietnam','Hanoi','Hoan Kiem')");
+        jdbcTemplate.update("insert into locations (location_id,country,city,place) values (2,'Vietnam','Hanoi','Ho Tay')");
+        jdbcTemplate.update("insert into locations (location_id,country,city,place) values (3,'Vietnam','Hanoi','Pho Co')");
+        jdbcTemplate.update("insert into locations (location_id,country,city,place) values (4,'Vietnam','Hanoi','Trang Tien')");
+        Assert.assertEquals(4, locationService.showAllLocation().size());
     }
 }

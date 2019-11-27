@@ -18,9 +18,9 @@ public class TestDataSourceConfig {
 
     public void cleanTestDb(JdbcTemplate jdbcTemplate) {
         jdbcTemplate.update("delete from refund");
-        jdbcTemplate.update("delete from transaction");
         jdbcTemplate.update("delete from review");
         jdbcTemplate.update("delete from trip");
+        jdbcTemplate.update("delete from transaction");
         jdbcTemplate.update("delete from plan");
         jdbcTemplate.update("delete from favoritepost");
         jdbcTemplate.update("delete from post");
