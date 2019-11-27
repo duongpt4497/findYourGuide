@@ -1,7 +1,7 @@
 package winter.findGuider.web.api;
 
 import entities.Guider;
-import entities.Guider_Contract;
+import entities.Contract;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ public class GuiderController {
 
     @RequestMapping("/Create")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Guider> createGuider(@RequestBody Guider newGuider, @RequestBody Guider_Contract newGuiderContract) {
+    public ResponseEntity<Guider> createGuider(@RequestBody Guider newGuider, @RequestBody Contract newGuiderContract) {
         try {
             long insertedId = guiderService.createGuider(newGuider);
             guiderService.createGuiderContract(insertedId, newGuiderContract);

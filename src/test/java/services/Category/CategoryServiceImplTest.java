@@ -30,7 +30,7 @@ public class CategoryServiceImplTest {
         TestDataSourceConfig config = new TestDataSourceConfig();
         jdbcTemplate.setDataSource(config.setupDatasource());
         categoryService = new CategoryServiceImpl(jdbcTemplate);
-        jdbcTemplate.update("delete from category");
+        config.cleanTestDb(jdbcTemplate);
         jdbcTemplate.update("insert into category (name) values ('Food')");
         jdbcTemplate.update("insert into category (name) values ('History')");
         jdbcTemplate.update("insert into category (name) values ('Culture')");

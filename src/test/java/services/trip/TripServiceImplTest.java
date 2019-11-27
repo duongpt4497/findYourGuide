@@ -37,53 +37,53 @@ public class TripServiceImplTest {
     public void createOrder() {
         Order order = new Order();
         order.setPost_id(1);
-        tripService.createOrder(order);
+        tripService.createTrip(order);
     }
 
     @Test
     public void findOrderById() {
-        Assert.assertEquals(null, tripService.findOrderById(1));
+        Assert.assertEquals(null, tripService.findTripById(1));
     }
 
     @Test
     public void findOrderByStatusAsGuider1() {
-        Assert.assertTrue(tripService.findOrderByStatusAsGuider("guider", 1, "active").isEmpty());
+        Assert.assertTrue(tripService.findTripByStatus("guider", 1, "active").isEmpty());
     }
 
     @Test
     public void findOrderByStatusAsGuider2() {
-        Assert.assertTrue(tripService.findOrderByStatusAsGuider("traveler", 1, "active").isEmpty());
+        Assert.assertTrue(tripService.findTripByStatus("traveler", 1, "active").isEmpty());
     }
 
     @Test
     public void findOrderByStatusAsGuider3() {
-        Assert.assertTrue(tripService.findOrderByStatusAsGuider("none", 1, "active").isEmpty());
+        Assert.assertTrue(tripService.findTripByStatus("none", 1, "active").isEmpty());
     }
 
     @Test
     public void acceptOrder() {
-        Assert.assertEquals(false, tripService.acceptOrder(1));
+        Assert.assertEquals(false, tripService.acceptTrip(1));
     }
 
     @Test
     public void cancelOrder() {
-        Assert.assertEquals(false, tripService.cancelOrder(1));
+        Assert.assertEquals(false, tripService.cancelTrip(1));
     }
 
     @Test
     public void finishOrder() {
-        Assert.assertEquals(false, tripService.finishOrder(1));
+        Assert.assertEquals(false, tripService.finishTrip(1));
     }
 
     @Test
     public void getOrderGuiderId_FinishDate() {
         Order order = new Order();
-        tripService.getOrderGuiderId_FinishDate(order);
+        tripService.getTripGuiderId_FinishDate(order);
     }
 
     @Test
     public void checkOrderExist() {
-        Assert.assertEquals(0, tripService.checkOrderExist(1));
+        Assert.assertEquals(0, tripService.checkTripExist(1));
     }
 
     @Test
@@ -92,7 +92,7 @@ public class TripServiceImplTest {
         order.setGuider_id(1);
         order.setBegin_date(LocalDateTime.now());
         order.setFinish_date(LocalDateTime.now());
-        Assert.assertEquals(0, tripService.checkAvailabilityOfOrder(order));
+        Assert.assertEquals(0, tripService.checkAvailabilityOfTrip(order));
     }
 
     @Test(expected = AssertionError.class)
@@ -102,7 +102,7 @@ public class TripServiceImplTest {
 
     @Test
     public void getClosestTourFinishDate() {
-        Assert.assertEquals("", tripService.getClosestTourFinishDate(LocalDate.now(), 1));
+        Assert.assertEquals("", tripService.getClosestTripFinishDate(LocalDate.now(), 1));
     }
 
     @Test
@@ -110,7 +110,7 @@ public class TripServiceImplTest {
         Order order = new Order();
         order.setBegin_date(LocalDateTime.parse("2019-11-29T00:00"));
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T00:30");
-        Assert.assertEquals(false, tripService.checkOrderReach48Hours(order, rightNow));
+        Assert.assertEquals(false, tripService.checkTripReach48Hours(order, rightNow));
     }
 
     @Test
@@ -118,7 +118,7 @@ public class TripServiceImplTest {
         Order order = new Order();
         order.setBegin_date(LocalDateTime.parse("2019-11-27T00:00"));
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T00:30");
-        Assert.assertEquals(true, tripService.checkOrderReach48Hours(order, rightNow));
+        Assert.assertEquals(true, tripService.checkTripReach48Hours(order, rightNow));
     }
 
     @Test
@@ -126,7 +126,7 @@ public class TripServiceImplTest {
         Order order = new Order();
         order.setBegin_date(LocalDateTime.parse("2019-11-28T01:00"));
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T00:00");
-        Assert.assertEquals(false, tripService.checkOrderReach48Hours(order, rightNow));
+        Assert.assertEquals(false, tripService.checkTripReach48Hours(order, rightNow));
     }
 
     @Test
@@ -134,7 +134,7 @@ public class TripServiceImplTest {
         Order order = new Order();
         order.setBegin_date(LocalDateTime.parse("2019-11-28T01:00"));
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T02:00");
-        Assert.assertEquals(true, tripService.checkOrderReach48Hours(order, rightNow));
+        Assert.assertEquals(true, tripService.checkTripReach48Hours(order, rightNow));
     }
 
     @Test
@@ -142,7 +142,7 @@ public class TripServiceImplTest {
         Order order = new Order();
         order.setBegin_date(LocalDateTime.parse("2019-11-28T01:30"));
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T01:00");
-        Assert.assertEquals(false, tripService.checkOrderReach48Hours(order, rightNow));
+        Assert.assertEquals(false, tripService.checkTripReach48Hours(order, rightNow));
     }
 
     @Test
@@ -150,7 +150,7 @@ public class TripServiceImplTest {
         Order order = new Order();
         order.setBegin_date(LocalDateTime.parse("2019-11-28T01:30"));
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T01:50");
-        Assert.assertEquals(true, tripService.checkOrderReach48Hours(order, rightNow));
+        Assert.assertEquals(true, tripService.checkTripReach48Hours(order, rightNow));
     }
 
     @Test
@@ -158,18 +158,18 @@ public class TripServiceImplTest {
         Order order = new Order();
         order.setBegin_date(LocalDateTime.parse("2019-11-28T01:30"));
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T01:30");
-        Assert.assertEquals(true, tripService.checkOrderReach48Hours(order, rightNow));
+        Assert.assertEquals(true, tripService.checkTripReach48Hours(order, rightNow));
     }
 
     @Test
     public void getExpectedEndTourTime() {
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T01:30");
-        Assert.assertEquals("11/26/2019 01:00", tripService.getExpectedEndTourTime(1, rightNow));
+        Assert.assertEquals("11/26/2019 01:00", tripService.getExpectedEndTripTime(1, rightNow));
     }
 
     @Test
     public void getOrderByWeek() {
-        Assert.assertTrue(tripService.getOrderByWeek(1, Date.from(Instant.now()), Date.from(Instant.now())).isEmpty());
+        Assert.assertTrue(tripService.getTripByWeek(1, Date.from(Instant.now()), Date.from(Instant.now())).isEmpty());
     }
 
     @Test

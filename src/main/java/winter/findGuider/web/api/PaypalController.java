@@ -53,11 +53,11 @@ public class PaypalController {
                 + "&post_id=" + order.getPost_id() + "&adult=" + order.getAdult_quantity()
                 + "&children=" + order.getChildren_quantity() + "&begin_date=" + order.getBegin_date();
         try {
-            tripService.getOrderGuiderId_FinishDate(order);
+            tripService.getTripGuiderId_FinishDate(order);
             order.setFee_paid(paypalService.getTransactionFee(order));
             successUrl += "&fee=" + order.getFee_paid();
             // Check for availability of order
-            int count = tripService.checkAvailabilityOfOrder(order);
+            int count = tripService.checkAvailabilityOfTrip(order);
             if (count != 0) {
                 return URL_ROOT_CLIENT + CHATBOX_PATH + order.getPost_id() + "/booking_time_not_available";
             }
@@ -100,7 +100,7 @@ public class PaypalController {
         order.setChildren_quantity(children_quantity);
         order.setBegin_date(LocalDateTime.parse(begin_date));
         order.setFee_paid(fee_paid);
-        tripService.getOrderGuiderId_FinishDate(order);
+        tripService.getTripGuiderId_FinishDate(order);
         String description = paypalService.getTransactionDescription(order);
         HttpHeaders httpHeaders = new HttpHeaders();
         try {
@@ -109,7 +109,7 @@ public class PaypalController {
             order.setTransaction_id(transaction_id);
             if (payment.getState().equals("approved")) {
                 paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, true);
-                tripService.createOrder(order);
+                tripService.createTrip(order);
                 // TODO get email
                 String content = mailService.getMailContent(order, "UNCONFIRMED");
                 mailService.sendMail("travelwithlocalsysadm@gmail.com", "TravelWLocal Tour Information", content);

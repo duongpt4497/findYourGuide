@@ -2,11 +2,12 @@ package entities;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
-public class Guider_Contract {
-    private long guider_id;
+public class Contract {
+    private long contract_id;
     private String name;
     private String nationality;
     private Date date_of_birth;
@@ -16,13 +17,14 @@ public class Guider_Contract {
     private String identity_card_number;
     private Date card_issued_date;
     private String card_issued_province;
-    private Date account_active_date;
+    private LocalDateTime account_active_date;
+    private LocalDateTime account_deactive_date;
 
-    public Guider_Contract() {
+    public Contract() {
     }
 
-    public Guider_Contract(long guider_id, String name, String nationality, Date date_of_birth, int gender, String hometown, String address, String identity_card_number, Date card_issued_date, String card_issued_province, Date account_active_date) {
-        this.guider_id = guider_id;
+    public Contract(long contract_id, String name, String nationality, Date date_of_birth, int gender, String hometown, String address, String identity_card_number, Date card_issued_date, String card_issued_province, LocalDateTime account_active_date, LocalDateTime account_deactive_date) {
+        this.contract_id = contract_id;
         this.name = name;
         this.nationality = nationality;
         this.date_of_birth = date_of_birth;
@@ -33,14 +35,29 @@ public class Guider_Contract {
         this.card_issued_date = card_issued_date;
         this.card_issued_province = card_issued_province;
         this.account_active_date = account_active_date;
+        this.account_deactive_date = account_deactive_date;
     }
 
-    public long getGuider_id() {
-        return guider_id;
+    public Contract(String name, String nationality, Date date_of_birth, int gender, String hometown, String address, String identity_card_number, Date card_issued_date, String card_issued_province, LocalDateTime account_active_date, LocalDateTime account_deactive_date) {
+        this.name = name;
+        this.nationality = nationality;
+        this.date_of_birth = date_of_birth;
+        this.gender = gender;
+        this.hometown = hometown;
+        this.address = address;
+        this.identity_card_number = identity_card_number;
+        this.card_issued_date = card_issued_date;
+        this.card_issued_province = card_issued_province;
+        this.account_active_date = account_active_date;
+        this.account_deactive_date = account_deactive_date;
     }
 
-    public void setGuider_id(long guider_id) {
-        this.guider_id = guider_id;
+    public long getContract_id() {
+        return contract_id;
+    }
+
+    public void setContract_id(long contract_id) {
+        this.contract_id = contract_id;
     }
 
     public String getName() {
@@ -115,11 +132,19 @@ public class Guider_Contract {
         this.card_issued_province = card_issued_province;
     }
 
-    public Date getAccount_active_date() {
+    public LocalDateTime getAccount_active_date() {
         return account_active_date;
     }
 
-    public void setAccount_active_date(Date account_active_date) {
+    public void setAccount_active_date(LocalDateTime account_active_date) {
         this.account_active_date = account_active_date;
+    }
+
+    public LocalDateTime getAccount_deactive_date() {
+        return account_deactive_date;
+    }
+
+    public void setAccount_deactive_date(LocalDateTime account_deactive_date) {
+        this.account_deactive_date = account_deactive_date;
     }
 }

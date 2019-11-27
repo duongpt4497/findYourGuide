@@ -47,7 +47,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public void createOrder(Order newOrder) {
+    public void createTrip(Order newOrder) {
         try {
             String insertQuery = "insert into trip (traveler_id,guider_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)"
                     + "values (?,?,?,?,?,?,?,?,?,?)";
@@ -63,7 +63,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public Order findOrderById(int trip_id) {
+    public Order findTripById(int trip_id) {
         Order searchOrder = new Order();
         try {
             String query = "select * from trip where trip_id = ?";
@@ -86,7 +86,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public List<Order> findOrderByStatusAsGuider(String role, int id, String status) {
+    public List<Order> findTripByStatus(String role, int id, String status) {
         List<Order> result = new ArrayList<>();
         try {
             String query = "";
@@ -133,7 +133,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public boolean acceptOrder(int trip_id) {
+    public boolean acceptTrip(int trip_id) {
         try {
             String check = "select count(trip_id) from trip where trip_id = ? and status = ?";
             int count = jdbcTemplate.queryForObject(check, new Object[]{trip_id, UNCONFIRMED}, int.class);
@@ -150,7 +150,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public boolean cancelOrder(int trip_id) {
+    public boolean cancelTrip(int trip_id) {
         try {
             String check = "select count(trip_id) from trip where trip_id = ? and status = ? or status = ?";
             int count = jdbcTemplate.queryForObject(check, new Object[]{trip_id, UNCONFIRMED, ONGOING}, int.class);
@@ -167,7 +167,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public boolean finishOrder(int trip_id) {
+    public boolean finishTrip(int trip_id) {
         try {
             String check = "select count(trip_id) from trip where trip_id = ? and status = ?";
             int count = jdbcTemplate.queryForObject(check, new Object[]{trip_id, ONGOING}, int.class);
@@ -184,7 +184,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public void getOrderGuiderId_FinishDate(Order newOrder) {
+    public void getTripGuiderId_FinishDate(Order newOrder) {
         try {
             String query = "SELECT guider_id, total_hour FROM post where post_id = ?";
             jdbcTemplate.queryForObject(query, new RowMapper<Order>() {
@@ -203,7 +203,7 @@ public class TripServiceImpl implements TripService {
 
 
     @Override
-    public int checkOrderExist(int id) {
+    public int checkTripExist(int id) {
         int count = 0;
         try {
             String query = "SELECT count (trip_id) FROM trip " +
@@ -223,7 +223,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public int checkAvailabilityOfOrder(Order newOrder) {
+    public int checkAvailabilityOfTrip(Order newOrder) {
         int count = 0;
         try {
             String query = "SELECT count (trip_id) FROM trip " +
@@ -269,7 +269,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public String getClosestTourFinishDate(LocalDate date, int guider_id) {
+    public String getClosestTripFinishDate(LocalDate date, int guider_id) {
         String closestFinishDate = "";
         try {
             String query = "SELECT finish_date FROM trip "
@@ -298,7 +298,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public boolean checkOrderReach48Hours(Order cancelOrder, LocalDateTime rightNow) {
+    public boolean checkTripReach48Hours(Order cancelOrder, LocalDateTime rightNow) {
         int dayCheck = rightNow.toLocalDate().compareTo(cancelOrder.getBegin_date().toLocalDate().minusDays(2));
         // check day
         if (dayCheck == 0) {
@@ -327,7 +327,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public String getExpectedEndTourTime(int post_id, LocalDateTime begin_date) {
+    public String getExpectedEndTripTime(int post_id, LocalDateTime begin_date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
         double totalHour = this.getTourTotalHour(post_id);
         long bufferHour = (long) java.lang.Math.ceil(totalHour / 100 * Integer.parseInt(bufferPercent));
@@ -482,7 +482,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public List<Order> getOrderByWeek(int id, Date start, Date end) {
+    public List<Order> getTripByWeek(int id, Date start, Date end) {
         List<Order> result = new ArrayList<>();
         try {
             String query = "SELECT o.*, p.title, t.first_name, t.last_name FROM trip as o "

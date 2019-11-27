@@ -29,9 +29,9 @@ public class AccountServiceUnitTest {
         TestDataSourceConfig config = new TestDataSourceConfig();
         jdbcTemplate.setDataSource(config.setupDatasource());
         accountService = new AccountRepository(jdbcTemplate);
-        jdbcTemplate.update("delete from account where user_name = 'Jacky'");
-        Account acc = new Account("Jacky", "$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK", "Jacky@gmail.com", "GUIDER");
-        accountService.addAccount(acc);
+        config.cleanTestDb(jdbcTemplate);
+        jdbcTemplate.update("insert into account (user_name, password, email ,role) " +
+                "values ('Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         MockitoAnnotations.initMocks(this);
     }
 

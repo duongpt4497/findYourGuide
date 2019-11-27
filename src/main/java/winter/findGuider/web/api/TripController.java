@@ -50,7 +50,7 @@ public class TripController {
     public ResponseEntity<List<Order>> getOrderByStatus(@RequestParam("role") String role, @RequestParam("id") int id,
                                                         @RequestParam("status") String status) {
         try {
-            return new ResponseEntity<>(tripService.findOrderByStatusAsGuider(role, id, status), HttpStatus.OK);
+            return new ResponseEntity<>(tripService.findTripByStatus(role, id, status), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
@@ -60,7 +60,7 @@ public class TripController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> getClosestFinishDate(@RequestBody Order newOrder) {
         try {
-            String finishDate = tripService.getClosestTourFinishDate(newOrder.getBegin_date().toLocalDate(),
+            String finishDate = tripService.getClosestTripFinishDate(newOrder.getBegin_date().toLocalDate(),
                     newOrder.getGuider_id());
             return new ResponseEntity<>(finishDate, HttpStatus.OK);
         } catch (Exception e) {
@@ -74,16 +74,16 @@ public class TripController {
         LocalDateTime rightNow = LocalDateTime.now();
         Order cancelOrder = new Order();
         try {
-            cancelOrder = tripService.findOrderById(trip_id);
+            cancelOrder = tripService.findTripById(trip_id);
             // check if refund is needed
-            boolean isRefund = tripService.checkOrderReach48Hours(cancelOrder, rightNow);
+            boolean isRefund = tripService.checkTripReach48Hours(cancelOrder, rightNow);
             // start cancel order
             boolean cancelSuccess;
             if (isRefund) {
                 Refund refund = paypalService.refundPayment(cancelOrder.getTransaction_id());
                 if (refund.getState().equals("completed")) {
                     paypalService.createRefundRecord(cancelOrder.getTransaction_id(), "success");
-                    cancelSuccess = tripService.cancelOrder(cancelOrder.gettrip_id());
+                    cancelSuccess = tripService.cancelTrip(cancelOrder.gettrip_id());
                     if (!cancelSuccess) {
                         return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
                     }
@@ -91,7 +91,7 @@ public class TripController {
                     return new ResponseEntity<>("Refund fail", HttpStatus.OK);
                 }
             } else {
-                cancelSuccess = tripService.cancelOrder(cancelOrder.gettrip_id());
+                cancelSuccess = tripService.cancelTrip(cancelOrder.gettrip_id());
                 if (!cancelSuccess) {
                     return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
                 }
@@ -110,10 +110,10 @@ public class TripController {
         LocalDateTime rightNow = LocalDateTime.now();
         Order cancelOrder = new Order();
         try {
-            cancelOrder = tripService.findOrderById(trip_id);
+            cancelOrder = tripService.findTripById(trip_id);
 
             // check if penalty is needed
-            boolean isPenalty = tripService.checkOrderReach48Hours(cancelOrder, rightNow);
+            boolean isPenalty = tripService.checkTripReach48Hours(cancelOrder, rightNow);
 
             // start cancel order
             boolean cancelSuccess;
@@ -129,18 +129,18 @@ public class TripController {
             // penalty guider contribution point
             if (isPenalty) {
                 // TODO penalty guider code here
-                cancelSuccess = tripService.cancelOrder(cancelOrder.gettrip_id());
+                cancelSuccess = tripService.cancelTrip(cancelOrder.gettrip_id());
                 if (!cancelSuccess) {
                     return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
                 }
             } else {
-                cancelSuccess = tripService.cancelOrder(cancelOrder.gettrip_id());
+                cancelSuccess = tripService.cancelTrip(cancelOrder.gettrip_id());
                 if (!cancelSuccess) {
                     return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
                 }
             }
             // TODO get email
-            Order order = tripService.findOrderById(trip_id);
+            Order order = tripService.findTripById(trip_id);
             String content = mailService.getMailContent(order, "CANCELLED");
             mailService.sendMail("travelwithlocalsysadm@gmail.com", "TravelWLocal Tour Cancelled", content);
             return new ResponseEntity<>("Cancel Success", HttpStatus.OK);
@@ -156,14 +156,14 @@ public class TripController {
     public ResponseEntity<Boolean> acceptOrder(@PathVariable("trip_id") int orderId) {
         try {
             // Check for availability of order
-            int count = tripService.checkOrderExist(orderId);
+            int count = tripService.checkTripExist(orderId);
             if (count != 0) {
                 return new ResponseEntity<>(false, HttpStatus.OK);
             }
-            boolean result = tripService.acceptOrder(orderId);
+            boolean result = tripService.acceptTrip(orderId);
             if (result) {
                 // TODO get email
-                Order order = tripService.findOrderById(orderId);
+                Order order = tripService.findTripById(orderId);
                 String content = mailService.getMailContent(order, "ONGOING");
                 mailService.sendMail("travelwithlocalsysadm@gmail.com", "TravelWLocal Tour Accepted", content);
             }
@@ -190,7 +190,7 @@ public class TripController {
             Date end = cal.getTime();
             System.out.println("Start of the next week:   " + end);
 
-            return new ResponseEntity<>(tripService.getOrderByWeek(id, start, end
+            return new ResponseEntity<>(tripService.getTripByWeek(id, start, end
             ), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -201,7 +201,7 @@ public class TripController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> getExpectedTourEnd(@RequestBody Order order) {
         try {
-            return new ResponseEntity<>(tripService.getExpectedEndTourTime(order.getPost_id(), order.getBegin_date()), HttpStatus.OK);
+            return new ResponseEntity<>(tripService.getExpectedEndTripTime(order.getPost_id(), order.getBegin_date()), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
