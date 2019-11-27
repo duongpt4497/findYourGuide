@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import services.GeneralServiceImpl;
+import services.GeneralService;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,9 +21,9 @@ public class PostServiceImpl implements PostService {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private JdbcTemplate jdbcTemplate;
-    private GeneralServiceImpl generalService;
+    private GeneralService generalService;
 
-    public PostServiceImpl(JdbcTemplate jdbcTemplate, GeneralServiceImpl generalService) {
+    public PostServiceImpl(JdbcTemplate jdbcTemplate, GeneralService generalService) {
         this.jdbcTemplate = jdbcTemplate;
         this.generalService = generalService;
     }
@@ -54,8 +54,8 @@ public class PostServiceImpl implements PostService {
             }, guider_id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
-        return null;
     }
 
     @Override
@@ -84,8 +84,8 @@ public class PostServiceImpl implements PostService {
             }, category_id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
-        return null;
     }
 
     @Override
@@ -113,22 +113,24 @@ public class PostServiceImpl implements PostService {
             }, post_id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
-        return new Post();
     }
 
     @Override
     public void updatePost(long post_id, Post post) {
         try {
-            String query = "UPDATE post SET  title='" + post.getTitle() + "', picture_link='" + generalService.createSqlArray(generalService.convertBase64toImageAndChangeName(post.getPicture_link()))
-                    + "', video_link ='"
-                    + post.getVideo_link() + "',total_hour=" + post.getTotal_hour() + ",description = '" + post.getDescription() + "',including_service='" +
-                    generalService.createSqlArray(Arrays.asList(post.getIncluding_service())) + "',active = " + post.isActive() + ",location_id = " + Integer.parseInt(post.getLocation())
-                    + ",category_id = " + Integer.parseInt(post.getCategory())
-                    + ",rated =" + post.getRated() + ",price =" + post.getPrice() + ",reasons =" + post.getReasons() + " WHERE post_id =1";
-            jdbcTemplate.update(query);
+            String query = "update post set title = ?, picture_link = ?, video_link = ?, total_hour = ?, description = ?, " +
+                    "including_service = ?, active = ?, location_id = ?, category_id = ?, rated = ?, price = ?, reasons = ? where post_id = ?";
+            jdbcTemplate.update(query, post.getTitle(),
+                    generalService.createSqlArray(generalService.convertBase64toImageAndChangeName(post.getPicture_link())),
+                    post.getVideo_link(), post.getTotal_hour(), post.getDescription(),
+                    generalService.createSqlArray(Arrays.asList(post.getIncluding_service())),
+                    post.isActive(), post.getLocation_id(), post.getCategory_id(), post.getRated(),
+                    post.getPrice(), post.getReasons(), post_id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
     }
 
@@ -143,8 +145,8 @@ public class PostServiceImpl implements PostService {
                 PreparedStatement ps = connection
                         .prepareStatement(query, new String[]{"post_id"});
                 ps.setLong(1, guider_id);
-                ps.setLong(2, Long.parseLong(post.getLocation()));
-                ps.setLong(3, Long.parseLong(post.getCategory()));
+                ps.setLong(2, post.getLocation_id());
+                ps.setLong(3, post.getCategory_id());
                 ps.setString(4, post.getTitle());
                 ps.setString(5, post.getVideo_link());
                 ps.setArray(6, generalService.createSqlArray(generalService.convertBase64toImageAndChangeName(post.getPicture_link())));
@@ -159,6 +161,7 @@ public class PostServiceImpl implements PostService {
             }, keyHolder);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
         return (int) keyHolder.getKey();
     }
@@ -166,7 +169,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> getTopTour() {
         try {
-            return jdbcTemplate.query("SELECT * FROM post order by rated desc limit 5", new RowMapper<Post>() {
+            return jdbcTemplate.query("SELECT * FROM post order by rated desc limit 6", new RowMapper<Post>() {
                 @Override
                 public Post mapRow(ResultSet resultSet, int i) throws SQLException {
                     return new Post(
@@ -189,7 +192,7 @@ public class PostServiceImpl implements PostService {
             });
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
-        return null;
     }
 }

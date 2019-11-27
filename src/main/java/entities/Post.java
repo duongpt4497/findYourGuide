@@ -24,7 +24,6 @@ public class Post {
     private long rated;
     private String reasons;
 
-
     public Post(String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location, long price, long rated, String reasons, String category) {
 
         this.title = title;
@@ -82,8 +81,22 @@ public class Post {
         this.active = active;
     }
 
-    public Post() {
+    public Post(long location_id, long category_id, String title, String video_link, @NotNull String[] picture_link, int total_hour, String description, String[] including_service, boolean active, long price, long rated, String reasons) {
+        this.location_id = location_id;
+        this.category_id = category_id;
+        this.title = title;
+        this.video_link = video_link;
+        this.picture_link = picture_link;
+        this.total_hour = total_hour;
+        this.description = description;
+        this.including_service = including_service;
+        this.active = active;
+        this.price = price;
+        this.rated = rated;
+        this.reasons = reasons;
+    }
 
+    public Post() {
     }
 
     public String getTitle() {
@@ -154,6 +167,10 @@ public class Post {
         return post_id;
     }
 
+    public void setPost_id(long post_id) {
+        this.post_id = post_id;
+    }
+
     public long getPrice() {
         return price;
     }
@@ -184,5 +201,29 @@ public class Post {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public long getGuider_id() {
+        return guider_id;
+    }
+
+    public void setGuider_id(long guider_id) {
+        this.guider_id = guider_id;
+    }
+
+    public long getLocation_id() {
+        return location_id;
+    }
+
+    public void setLocation_id(long location_id) {
+        this.location_id = location_id;
+    }
+
+    public long getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(long category_id) {
+        this.category_id = category_id;
     }
 }
