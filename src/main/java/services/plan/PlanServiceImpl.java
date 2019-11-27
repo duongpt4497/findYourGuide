@@ -41,6 +41,7 @@ public class PlanServiceImpl implements PlanService {
             }, keyHolder);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
         return (int) keyHolder.getKey();
     }
@@ -55,15 +56,14 @@ public class PlanServiceImpl implements PlanService {
                             rs.getInt("plan_id"),
                             rs.getString("meeting_point"),
                             rs.getString("detail"),
-                            rs.getInt("post_id"),
-                            rs.getInt("trip_id")
+                            rs.getInt("post_id")
                     );
                 }
             }, plan_id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
-        return null;
     }
 
     @Override
@@ -76,15 +76,14 @@ public class PlanServiceImpl implements PlanService {
                             rs.getInt("plan_id"),
                             rs.getString("meeting_point"),
                             rs.getString("detail"),
-                            rs.getInt("post_id"),
-                            rs.getInt("trip_id")
+                            rs.getInt("post_id")
                     );
                 }
             }, post_id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
-        return null;
     }
 
     @Override
@@ -94,6 +93,7 @@ public class PlanServiceImpl implements PlanService {
             jdbcTemplate.update(query, meeting_point, detail, post_id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
     }
 }
