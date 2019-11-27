@@ -11,7 +11,6 @@ public class Order {
     private int traveler_id;
     private int guider_id;
     private int post_id;
-    
 
     @JsonFormat(pattern = "MM/dd/yyyy HH:mm")
     private LocalDateTime begin_date;
@@ -27,6 +26,7 @@ public class Order {
     private float rated;
     private String postTitle;
     private String object;
+
     public Order() {
     }
 
@@ -44,6 +44,7 @@ public class Order {
         this.transaction_id = transaction_id;
         this.status = status;
     }
+
     public Order(int trip_id, int traveler_id, int guider_id, float fee_paid, float rated) {
         this.trip_id = trip_id;
         this.traveler_id = traveler_id;
@@ -52,12 +53,12 @@ public class Order {
         this.rated = rated;
     }
 
-    public Order(int trip_id, int traveler_id, int guider_id, int post_id, LocalDateTime begin_date, LocalDateTime finish_date, int adult_quantity, int children_quantity, double fee_paid, String transaction_id, String status, String postTitle, String object ) {
+    public Order(int trip_id, int traveler_id, int guider_id, int post_id, LocalDateTime begin_date, LocalDateTime finish_date, int adult_quantity, int children_quantity, double fee_paid, String transaction_id, String status, String postTitle, String object) {
         this.trip_id = trip_id;
         this.traveler_id = traveler_id;
         this.guider_id = guider_id;
         this.post_id = post_id;
-        
+
         this.begin_date = begin_date;
         this.finish_date = finish_date;
         this.adult_quantity = adult_quantity;
@@ -68,21 +69,20 @@ public class Order {
         this.postTitle = postTitle;
         this.object = object;
     }
-    
-    
-    
-    public void setRated(float rated) {
-        this.rated = rated;
+
+
+    public Order(int guider_id, int traveler_id, double fee_paid) {
+        this.guider_id = guider_id;
+        this.fee_paid = fee_paid;
+        this.traveler_id = traveler_id;
     }
-    
+
     public float getRated() {
         return rated;
     }
 
-    public Order(int guider_id,int traveler_id,double fee_paid){
-        this.guider_id = guider_id;
-        this.fee_paid = fee_paid;
-        this.traveler_id = traveler_id;
+    public void setRated(float rated) {
+        this.rated = rated;
     }
 
     public int gettrip_id() {
@@ -172,7 +172,7 @@ public class Order {
     public void setStatus(String status) {
         this.status = status;
     }
-    
+
     public String getPostTitle() {
         return postTitle;
     }
@@ -180,7 +180,7 @@ public class Order {
     public void setPostTitle(String status) {
         this.postTitle = status;
     }
-    
+
     public String getObject() {
         return object;
     }

@@ -4,19 +4,19 @@ import entities.Location;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import services.GeneralServiceImpl;
+import services.GeneralService;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 @Repository
-public class LocationServiceImpl implements  LocationService {
+public class LocationServiceImpl implements LocationService {
 
     private JdbcTemplate jdbcTemplate;
-    private GeneralServiceImpl generalService;
+    private GeneralService generalService;
 
-    public LocationServiceImpl(JdbcTemplate jdbcTemplate, GeneralServiceImpl generalService) {
+    public LocationServiceImpl(JdbcTemplate jdbcTemplate, GeneralService generalService) {
         this.jdbcTemplate = jdbcTemplate;
         this.generalService = generalService;
     }

@@ -7,12 +7,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import services.GeneralService;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -81,13 +85,15 @@ public class GuiderServiceImpl implements GuiderService {
             result = jdbcTemplate.queryForObject(query, new RowMapper<Contract>() {
                 @Override
                 public Contract mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return new Contract(rs.getLong("contract_id"), rs.getString("name"),
+                    Contract ct = new Contract(rs.getLong("contract_id"), rs.getString("name"),
                             rs.getString("nationality"),
-                            rs.getDate("date_of_birth"), rs.getInt("gender"), rs.getString("hometown"),
+                            rs.getTimestamp("date_of_birth").toLocalDateTime(), rs.getInt("gender"),
+                            rs.getString("hometown"),
                             rs.getString("address"), rs.getString("identity_card_number"),
-                            rs.getDate("card_issued_date"), rs.getString("card_issued_province"),
+                            rs.getTimestamp("card_issued_date").toLocalDateTime(), rs.getString("card_issued_province"),
                             rs.getTimestamp("account_active_date").toLocalDateTime(),
-                            rs.getTimestamp("account_deactive_date").toLocalDateTime());
+                            (rs.getTimestamp("account_deactive_date") != null ? rs.getTimestamp("account_deactive_date").toLocalDateTime() : null));
+                    return ct;
                 }
             }, id);
         } catch (Exception e) {
@@ -113,31 +119,47 @@ public class GuiderServiceImpl implements GuiderService {
     }
 
     @Override
-    public void createGuiderContract(long guider_id, Contract contract) {
+    public long createGuiderContract(Contract contract) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
         try {
             String query = "insert into contract_detail (name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,account_active_date)" +
                     "values (?,?,?,?,?,?,?,?,?,?)";
-            jdbcTemplate.update(query, contract.getName(), contract.getNationality(),
-                    new java.sql.Date(contract.getDate_of_birth().getTime()), contract.getGender(),
-                    contract.getHometown(), contract.getAddress(), contract.getIdentity_card_number(),
-                    new java.sql.Date(contract.getCard_issued_date().getTime()), contract.getCard_issued_province(),
-                    java.sql.Date.valueOf(LocalDate.now()));
+            jdbcTemplate.update(connection -> {
+                PreparedStatement ps = connection
+                        .prepareStatement(query, new String[]{"contract_id"});
+                ps.setString(1, contract.getName());
+                ps.setString(2, contract.getNationality());
+                ps.setTimestamp(3, Timestamp.valueOf(contract.getDate_of_birth()));
+                ps.setLong(4, contract.getGender());
+                ps.setString(5, contract.getHometown());
+                ps.setString(6, contract.getAddress());
+                ps.setString(7, contract.getIdentity_card_number());
+                ps.setTimestamp(8, Timestamp.valueOf(contract.getCard_issued_date()));
+                ps.setString(9, contract.getCard_issued_province());
+                ps.setTimestamp(10, Timestamp.valueOf(LocalDateTime.now()));
+                return ps;
+            }, keyHolder);
+            return (int) keyHolder.getKey();
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
     }
 
     @Override
-    public long updateGuiderWithId(Guider guiderNeedUpdate) {
+    public long updateGuiderWithId(Guider guiderUpdate) {
         try {
-            String query = "update guider set first_name = ?, last_name = ?, age = ?, about_me = ?, city = ?, language = ? where guider_id = ?";
-            jdbcTemplate.update(query, guiderNeedUpdate.getFirst_name(), guiderNeedUpdate.getLast_name(),
-                    guiderNeedUpdate.getAge(), guiderNeedUpdate.getAbout_me(), guiderNeedUpdate.getCity(),
-                    guiderNeedUpdate.getGuider_id(), generalService.createSqlArray(Arrays.asList(guiderNeedUpdate.getLanguages())));
+            String query = "update guider set first_name = ?, last_name = ?, age = ?, phone = ?, about_me = ?, city = ?, " +
+                    "languages = ?, avatar = ?, passion = ? where guider_id = ?";
+            jdbcTemplate.update(query, guiderUpdate.getFirst_name(), guiderUpdate.getLast_name(),
+                    guiderUpdate.getAge(), guiderUpdate.getPhone(), guiderUpdate.getAbout_me(), guiderUpdate.getCity(),
+                    generalService.createSqlArray(Arrays.asList(guiderUpdate.getLanguages())), guiderUpdate.getAvatar(),
+                    guiderUpdate.getPassion(), guiderUpdate.getGuider_id());
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
-        return guiderNeedUpdate.getGuider_id();
+        return guiderUpdate.getGuider_id();
     }
 
     @Override
@@ -147,6 +169,7 @@ public class GuiderServiceImpl implements GuiderService {
             jdbcTemplate.update(query, id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
         return id;
     }
@@ -177,7 +200,7 @@ public class GuiderServiceImpl implements GuiderService {
                             rs.getString("about_me"),
                             rs.getLong("contribution"), rs.getString("city"),
                             generalService.checkForNull(rs.getArray("languages")),
-                            rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avartar"),
+                            rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avatar"),
                             rs.getString("passion"));
                 }
             });
@@ -191,7 +214,7 @@ public class GuiderServiceImpl implements GuiderService {
     public List<Guider> getTopGuiderByRate() {
         List<Guider> result = new ArrayList<>();
         try {
-            String query = "SELECT * FROM guider order by rated desc limit 5";
+            String query = "SELECT * FROM guider order by rated desc limit 6";
             result = jdbcTemplate.query(query, new RowMapper<Guider>() {
                 public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
                     return new Guider(rs.getLong("guider_id"), rs.getString("first_name"),
@@ -205,6 +228,7 @@ public class GuiderServiceImpl implements GuiderService {
             });
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
         return result;
     }
@@ -213,7 +237,7 @@ public class GuiderServiceImpl implements GuiderService {
     public List<Guider> getTopGuiderByContribute() {
         List<Guider> result = new ArrayList<>();
         try {
-            String query = "SELECT * FROM guider order by contribution desc limit 5";
+            String query = "SELECT * FROM guider order by contribution desc limit 6";
             result = jdbcTemplate.query(query, new RowMapper<Guider>() {
                 public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
                     return new Guider(rs.getLong("guider_id"), rs.getString("first_name"),
@@ -227,6 +251,7 @@ public class GuiderServiceImpl implements GuiderService {
             });
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
         return result;
     }

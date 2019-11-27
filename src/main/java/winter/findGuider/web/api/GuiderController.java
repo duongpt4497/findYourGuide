@@ -27,7 +27,7 @@ public class GuiderController {
     public ResponseEntity<Guider> createGuider(@RequestBody Guider newGuider, @RequestBody Contract newGuiderContract) {
         try {
             long insertedId = guiderService.createGuider(newGuider);
-            guiderService.createGuiderContract(insertedId, newGuiderContract);
+            guiderService.createGuiderContract(newGuiderContract);
             return new ResponseEntity<>(guiderService.findGuiderWithID(insertedId), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

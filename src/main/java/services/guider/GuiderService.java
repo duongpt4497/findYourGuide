@@ -14,7 +14,7 @@ public interface GuiderService {
 
     public long createGuider(Guider newGuider);
 
-    public void createGuiderContract(long guider_id, Contract newGuiderContract);
+    public long createGuiderContract(Contract newGuiderContract);
 
     public long updateGuiderWithId(Guider guiderNeedUpdate);
 

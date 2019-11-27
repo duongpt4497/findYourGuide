@@ -1,21 +1,26 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 public class Contract {
     private long contract_id;
     private String name;
     private String nationality;
-    private Date date_of_birth;
+
+    @JsonFormat(pattern = "MM/dd/yyyy HH:mm")
+    private LocalDateTime date_of_birth;
     private int gender;
     private String hometown;
     private String address;
     private String identity_card_number;
-    private Date card_issued_date;
+
+    @JsonFormat(pattern = "MM/dd/yyyy HH:mm")
+    private LocalDateTime card_issued_date;
+
     private String card_issued_province;
     private LocalDateTime account_active_date;
     private LocalDateTime account_deactive_date;
@@ -23,7 +28,7 @@ public class Contract {
     public Contract() {
     }
 
-    public Contract(long contract_id, String name, String nationality, Date date_of_birth, int gender, String hometown, String address, String identity_card_number, Date card_issued_date, String card_issued_province, LocalDateTime account_active_date, LocalDateTime account_deactive_date) {
+    public Contract(long contract_id, String name, String nationality, LocalDateTime date_of_birth, int gender, String hometown, String address, String identity_card_number, LocalDateTime card_issued_date, String card_issued_province, LocalDateTime account_active_date, LocalDateTime account_deactive_date) {
         this.contract_id = contract_id;
         this.name = name;
         this.nationality = nationality;
@@ -38,7 +43,7 @@ public class Contract {
         this.account_deactive_date = account_deactive_date;
     }
 
-    public Contract(String name, String nationality, Date date_of_birth, int gender, String hometown, String address, String identity_card_number, Date card_issued_date, String card_issued_province, LocalDateTime account_active_date, LocalDateTime account_deactive_date) {
+    public Contract(String name, String nationality, LocalDateTime date_of_birth, int gender, String hometown, String address, String identity_card_number, LocalDateTime card_issued_date, String card_issued_province, LocalDateTime account_active_date, LocalDateTime account_deactive_date) {
         this.name = name;
         this.nationality = nationality;
         this.date_of_birth = date_of_birth;
@@ -76,11 +81,11 @@ public class Contract {
         this.nationality = nationality;
     }
 
-    public Date getDate_of_birth() {
+    public LocalDateTime getDate_of_birth() {
         return date_of_birth;
     }
 
-    public void setDate_of_birth(Date date_of_birth) {
+    public void setDate_of_birth(LocalDateTime date_of_birth) {
         this.date_of_birth = date_of_birth;
     }
 
@@ -116,11 +121,11 @@ public class Contract {
         this.identity_card_number = identity_card_number;
     }
 
-    public Date getCard_issued_date() {
+    public LocalDateTime getCard_issued_date() {
         return card_issued_date;
     }
 
-    public void setCard_issued_date(Date card_issued_date) {
+    public void setCard_issued_date(LocalDateTime card_issued_date) {
         this.card_issued_date = card_issued_date;
     }
 
