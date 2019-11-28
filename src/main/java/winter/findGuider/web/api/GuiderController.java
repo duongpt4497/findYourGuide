@@ -117,4 +117,15 @@ public class GuiderController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+
+    @RequestMapping("/AcceptContract")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Boolean> acceptContract(@RequestParam long guider_id, @RequestParam long contract_id) {
+        try {
+            guiderService.linkGuiderWithContract(guider_id, contract_id);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        }
+    }
 }
