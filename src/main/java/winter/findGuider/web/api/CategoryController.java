@@ -4,10 +4,7 @@ import entities.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import services.Category.CategoryService;
 
 @RestController
@@ -23,6 +20,7 @@ public class CategoryController {
     }
 
     @RequestMapping("/findAll")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Category> findAllCategory() {
         try {
             return new ResponseEntity(categoryService.findAllCategory(), HttpStatus.OK);
@@ -32,6 +30,7 @@ public class CategoryController {
     }
 
     @RequestMapping("/create")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Boolean> createCategory(@RequestParam String name) {
         try {
             categoryService.createCategory(name);

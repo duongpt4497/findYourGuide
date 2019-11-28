@@ -71,6 +71,13 @@ public class Account {
         this.role = role;
     }
 
+    public Account(long id, String userName, String email, String role) {
+        this.id = id;
+        this.userName = userName;
+        this.email = email;
+        this.role = role;
+    }
+
     public String getEmail() {
         return email;
     }

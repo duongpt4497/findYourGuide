@@ -18,6 +18,8 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author dgdbp
@@ -81,5 +83,23 @@ public class AccountRepository {
             logger.warn(e.getMessage());
             throw e;
         }
+    }
+
+    public List<Account> findAllAccount() {
+        List<Account> result = new ArrayList<>();
+        try {
+            String query = "select account_id, user_name, email, role from account";
+            result = jdbc.query(query, new RowMapper<Account>() {
+                @Override
+                public Account mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    return new Account(rs.getInt("account_id"), rs.getString("user_name"),
+                            rs.getString("email"), rs.getString("role"));
+                }
+            });
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            throw e;
+        }
+        return result;
     }
 }

@@ -9,14 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import winter.findGuider.TestDataSourceConfig;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AccountServiceUnitTest {
@@ -74,5 +67,17 @@ public class AccountServiceUnitTest {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','TRAVELER')");
         Assert.assertEquals("Jacky@gmail.com", accountService.getEmail(1));
+    }
+
+    @Test
+    public void findAllAccount() {
+        jdbcTemplate.update("delete from account");
+        jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
+                "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','TRAVELER')");
+        jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
+                "values (2,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','TRAVELER')");
+        jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
+                "values (3,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','TRAVELER')");
+        Assert.assertEquals(3, accountService.findAllAccount().size());
     }
 }
