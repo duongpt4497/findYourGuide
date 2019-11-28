@@ -11,10 +11,15 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.mail.javamail.JavaMailSender;
+import services.GeneralService;
 import services.Post.PostService;
+import services.Post.PostServiceImpl;
 import services.guider.GuiderService;
+import services.guider.GuiderServiceImpl;
 import services.traveler.TravelerService;
+import services.traveler.TravelerServiceImpl;
 import services.trip.TripService;
+import services.trip.TripServiceImpl;
 import winter.findGuider.TestDataSourceConfig;
 
 import java.time.LocalDateTime;
@@ -31,33 +36,23 @@ public class MailServiceImplTest {
     private JavaMailSender emailSender;
 
     @Mock
+    private GeneralService generalService;
+
     private TravelerService travelerService;
-
-    @Mock
     private GuiderService guiderService;
-
-    @Mock
     private PostService postService;
-
-    @Mock
     private TripService tripService;
 
     @Before
     public void init() {
         TestDataSourceConfig config = new TestDataSourceConfig();
         jdbcTemplate.setDataSource(config.setupDatasource());
+        travelerService = new TravelerServiceImpl(jdbcTemplate, generalService);
+        guiderService = new GuiderServiceImpl(jdbcTemplate, generalService);
+        postService = new PostServiceImpl(jdbcTemplate, generalService);
+        tripService = new TripServiceImpl(jdbcTemplate);
         mailService = new MailServiceImpl(emailSender, travelerService, guiderService, postService, tripService);
         config.cleanTestDb(jdbcTemplate);
-        MockitoAnnotations.initMocks(this);
-    }
-
-    @Test
-    public void sendMail() {
-        Assert.assertEquals(true, mailService.sendMail("travelwithlocalsysadm@gmail.com", "test method", "test"));
-    }
-
-    @Test
-    public void getMailContent() {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
@@ -73,8 +68,96 @@ public class MailServiceImplTest {
                 "values (2,'Megan','Deo','123',2,'1996-02-13','a','12','12','a','a','{en,vi}','vietnam','hanoi','a')");
         jdbcTemplate.update("INSERT INTO post(post_id,guider_id, location_id,category_id, title, video_link, picture_link, total_hour, description, including_service, active,price,rated,reasons) " +
                 "VALUES (1,1,1,1,'test post','a','{a}',2,'a','{a,b}',true,10,5,'abc')");
-        Order order = new Order(1, 2, 1, 1, LocalDateTime.now(), LocalDateTime.now(), 2, 1, 150, "ABCD", null);
-        Assert.assertEquals(null, mailService.getMailContent(order, "UNCONFIRMED"));
+        MockitoAnnotations.initMocks(this);
+    }
+
+    @Test
+    public void sendMail() {
+        Assert.assertEquals(true, mailService.sendMail("travelwithlocalsysadm@gmail.com", "test method", "test"));
+    }
+
+    @Test
+    public void getMailContent() {
+        Order order = new Order(1, 2, 1, 1, LocalDateTime.parse("2019-11-12T00:00"), LocalDateTime.parse("2019-11-12T00:00"), 2, 1, 150, "ABCD", null);
+        Assert.assertEquals("Dear Mr/Ms Deo\n" +
+                "\n" +
+                "Your tour has been booked successfully.\n" +
+                "Below is the information of your tour:\n" +
+                "Tour: test post\n" +
+                "Your guider: John Doe\n" +
+                "Begin on: 11/12/2019 00:00 - Expected end on: 11/12/2019 00:00\n" +
+                "The tour has 2 adults and 1 children.\n" +
+                "Total: 150.0$\n" +
+                "\n" +
+                "Status: Waiting for confirmation\n" +
+                "\n" +
+                "Thank your for using our service. We wish you a great trip and happy experience.\n" +
+                "\n" +
+                "Sincerely,\n" +
+                "TravelWLocal", mailService.getMailContent(order, "UNCONFIRMED"));
+    }
+
+    @Test
+    public void getMailContent2() {
+        Order order = new Order(1, 2, 1, 1, LocalDateTime.parse("2019-11-12T00:00"), LocalDateTime.parse("2019-11-12T00:00"), 2, 1, 150, "ABCD", "ONGOING");
+        Assert.assertEquals("Dear Mr/Ms Deo\n" +
+                "\n" +
+                "Your tour has been accepted by John Doe.\n" +
+                "Below is the information of your tour:\n" +
+                "Tour: test post\n" +
+                "Your guider: John Doe\n" +
+                "Begin on: 11/12/2019 00:00 - Expected end on: 11/12/2019 00:00\n" +
+                "The tour has 2 adults and 1 children.\n" +
+                "Total: 150.0$\n" +
+                "\n" +
+                "Status: Ongoing\n" +
+                "\n" +
+                "Thank your for using our service. We wish you a great trip and happy experience.\n" +
+                "\n" +
+                "Sincerely,\n" +
+                "TravelWLocal", mailService.getMailContent(order, "ONGOING"));
+    }
+
+    @Test
+    public void getMailContent3() {
+        Order order = new Order(1, 2, 1, 1, LocalDateTime.parse("2019-11-12T00:00"), LocalDateTime.parse("2019-11-12T00:00"), 2, 1, 150, "ABCD", "CANCELLED");
+        Assert.assertEquals("Dear Mr/Ms Deo\n" +
+                "\n" +
+                "Your tour has been cancelled by John Doe.\n" +
+                "Below is the information of your tour:\n" +
+                "Tour: test post\n" +
+                "Your guider: John Doe\n" +
+                "Begin on: 11/12/2019 00:00 - Expected end on: 11/12/2019 00:00\n" +
+                "The tour has 2 adults and 1 children.\n" +
+                "Total: 150.0$\n" +
+                "\n" +
+                "Status: Cancelled\n" +
+                "\n" +
+                "Thank your for using our service. We wish you a great trip and happy experience.\n" +
+                "\n" +
+                "Sincerely,\n" +
+                "TravelWLocal", mailService.getMailContent(order, "CANCELLED"));
+    }
+
+    @Test
+    public void getMailContent4() {
+        Order order = new Order(1, 2, 1, 1, LocalDateTime.parse("2019-11-12T00:00"), LocalDateTime.parse("2019-11-12T00:00"), 2, 1, 150, "ABCD", "FINISHED");
+        Assert.assertEquals("Dear Mr/Ms Deo\n" +
+                "\n" +
+                "Your tour has finished.\n" +
+                "Below is the information of your tour:\n" +
+                "Tour: test post\n" +
+                "Your guider: John Doe\n" +
+                "Begin on: 11/12/2019 00:00 - Expected end on: 11/12/2019 00:00\n" +
+                "The tour has 2 adults and 1 children.\n" +
+                "Total: 150.0$\n" +
+                "\n" +
+                "Status: Finished\n" +
+                "\n" +
+                "Thank your for using our service. We wish you a great trip and happy experience.\n" +
+                "\n" +
+                "Sincerely,\n" +
+                "TravelWLocal", mailService.getMailContent(order, "FINISHED"));
     }
 
     @Test

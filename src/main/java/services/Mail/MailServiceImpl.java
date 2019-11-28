@@ -91,7 +91,7 @@ public class MailServiceImpl implements MailService {
             content = content.concat("Your guider: " + guider.getFirst_name() + " " + guider.getLast_name() + "\n");
             content = content.concat("Begin on: " + order.getBegin_date().format(formatter)
                     + " - Expected end on: " + order.getFinish_date().format(formatter) + "\n");
-            content = content.concat("The tour has " + order.getAdult_quantity() + " adults and " + order.getChildren_quantity() + " childrens.\n");
+            content = content.concat("The tour has " + order.getAdult_quantity() + " adults and " + order.getChildren_quantity() + " children.\n");
             content = content.concat("Total: " + order.getFee_paid() + "$\n\n");
             String tourStatus = "";
             if (order.getStatus() == null) {
