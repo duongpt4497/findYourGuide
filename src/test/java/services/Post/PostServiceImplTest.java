@@ -86,15 +86,8 @@ public class PostServiceImplTest {
         Assert.assertEquals("test", postService.findSpecificPost(1).getTitle());
     }
 
-    @Test(expected = Exception.class)
-    public void insertNewPost() {
-        Post post = new Post(1, 1, "test new", "a", new String[]{"a"}, 2, "a", new String[]{"a", "b"}, true, 10, 5, "a");
-        int id = postService.insertNewPost(1, post);
-        Assert.assertEquals("test new", postService.findSpecificPost(id).getTitle());
-    }
-
     @Test
-    public void insertNewPost2() {
+    public void insertNewPost() {
         jdbcTemplate.update("delete from post");
         Post post = new Post(1, 1, "test new", "a", new String[]{"a"}, 2, "a", new String[]{"a", "b"}, true, 10, 5, "a");
         int id = postService.insertNewPost(1, post);

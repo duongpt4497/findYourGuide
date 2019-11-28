@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import services.Mail.MailService;
 import services.Paypal.PaypalService;
+import services.contributionPoint.ContributionPointService;
+import services.guider.GuiderService;
 import services.trip.TripService;
 
 import java.time.LocalDateTime;
@@ -25,12 +27,16 @@ public class TripController {
     private TripService tripService;
     private PaypalService paypalService;
     private MailService mailService;
+    private ContributionPointService contributionPointService;
+    private GuiderService guiderService;
 
     @Autowired
-    public TripController(TripService os, PaypalService ps, MailService ms) {
+    public TripController(TripService os, PaypalService ps, MailService ms, ContributionPointService cps, GuiderService gs) {
         this.tripService = os;
         this.paypalService = ps;
         this.mailService = ms;
+        this.contributionPointService = cps;
+        this.guiderService = gs;
     }
 
     @RequestMapping("/GetAvailableHours")
@@ -128,7 +134,8 @@ public class TripController {
 
             // penalty guider contribution point
             if (isPenalty) {
-                // TODO penalty guider code here
+                int guiderId = (int) guiderService.findGuiderWithPostId(cancelOrder.getPost_id()).getGuider_id();
+                contributionPointService.penaltyGuiderForCancel(guiderId);
                 cancelSuccess = tripService.cancelTrip(cancelOrder.gettrip_id());
                 if (!cancelSuccess) {
                     return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);

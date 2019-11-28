@@ -1,8 +1,6 @@
 package services.contributionPoint;
 
-import entities.Guider;
 import entities.Order;
-import entities.Review;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,50 +13,37 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 @Repository
-public class ContributionPointServiceImpl implements ContributionPointService{
-
+public class ContributionPointServiceImpl implements ContributionPointService {
+    private static final Logger log = LoggerFactory.getLogger(ContributionPointServiceImpl.class);
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM-dd-yyyy    HH:mm:ss");
 
     @Value("${correlation.price}")
     private String corMoney;
-
     @Value("${correlation.return}")
     private String corTurn;
-
     @Value("${correlation.rated}")
     private String corRated;
-
     @Value("${point.being.minus.onInactivateMonth}")
     private String minus;
-
     @Value("${percent.bonus.perMonth.20}")
     private String bonus20;
-
     @Value("${percent.bonus.perMonth.15}")
     private String bonus15;
-
     @Value("${percent.bonus.perMonth.10}")
     private String bonus10;
-
     @Value("${percent.bonus.perMonth.5}")
     private String bonus5;
-
     private JdbcTemplate jdbcTemplate;
-    private static final Logger log = LoggerFactory.getLogger(ContributionPointServiceImpl.class);
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM-dd-yyyy    HH:mm:ss");
 
     @Autowired
     public ContributionPointServiceImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
 
     //params: fee_paid in order, rated in review, no of turn count in order
     public long calculateContributionPerTour(double fee, float rated, int count) {
@@ -159,18 +144,32 @@ public class ContributionPointServiceImpl implements ContributionPointService{
             }
 
             update.add("update guider set contribution = contribution + "
-                    + (long)Math.floor(bonus) + " where guider_id = " + m.get("guider_id"));
-
+                    + (long) Math.floor(bonus) + " where guider_id = " + m.get("guider_id"));
         }
-   
+
         for (Map m : negativeGuider) {
             update.add("update guider set contribution = contribution - "
                     + minus + " where guider_id = " + m.get("guider_id"));
         }
         log.warn(update.toString());
         //jdbcTemplate.batchUpdate(update.toArray(new String[0])[10]);
+    }
 
-
+    @Override
+    public void penaltyGuiderForCancel(int guider_id) {
+        try {
+            String query = "select contribution from guider where guider_id = ?";
+            int point = jdbcTemplate.queryForObject(query, new Object[]{guider_id}, int.class);
+            point -= 500;
+            if (point < 0) {
+                point = 0;
+            }
+            String queryUpdate = "update guider set contribution = ? where guider_id = ?";
+            jdbcTemplate.update(queryUpdate, point, guider_id);
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+            throw e;
+        }
     }
 
 //                    Date date = new Date();

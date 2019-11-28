@@ -1,11 +1,8 @@
 package services.contributionPoint;
 
-import entities.Order;
-import entities.Review;
-
 public interface ContributionPointService {
 
-
+    void penaltyGuiderForCancel(int guider_id);
 
 //    long getAmountReturnOfATraveller (long guider_id,long traveller_id);
 //
