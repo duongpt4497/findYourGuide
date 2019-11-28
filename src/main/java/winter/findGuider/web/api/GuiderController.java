@@ -28,7 +28,6 @@ public class GuiderController {
         try {
             long guider_id = guiderService.createGuider(newGuider);
             long contract_id = guiderService.createGuiderContract(newGuiderContract);
-            guiderService.linkGuiderWithContract(guider_id, contract_id);
             return new ResponseEntity<>(guiderService.findGuiderWithID(guider_id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
