@@ -109,7 +109,7 @@ public class PaypalServiceImplTest {
         Order order = new Order();
         order.setAdult_quantity(1);
         order.setChildren_quantity(1);
-        order.setBegin_date(LocalDateTime.now());
+        order.setBegin_date(LocalDateTime.parse("2019-11-27T00:00"));
         order.setFee_paid(10);
         order.setTraveler_id(2);
         order.setPost_id(1);
