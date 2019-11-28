@@ -75,4 +75,12 @@ public class AccountServiceUnitTest {
         int id = accountService.addAccount(account);
         Assert.assertEquals(accountService.findByName("test").getId(), id);
     }
+
+    @Test
+    public void testGetEmail() {
+        jdbcTemplate.update("delete from account");
+        jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
+                "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','TRAVELER')");
+        Assert.assertEquals("Jacky@gmail.com", accountService.getEmail(1));
+    }
 }

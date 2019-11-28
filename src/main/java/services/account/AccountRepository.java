@@ -73,4 +73,13 @@ public class AccountRepository {
         return (int) keyHolder.getKey();
     }
 
+    public String getEmail(int account_id) {
+        try {
+            String query = "select email from account where account_id = ?";
+            return jdbc.queryForObject(query, new Object[]{account_id}, String.class);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            throw e;
+        }
+    }
 }

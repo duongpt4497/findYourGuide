@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import services.Mail.MailService;
 import services.Paypal.PaypalService;
+import services.account.AccountRepository;
 import services.contributionPoint.ContributionPointService;
 import services.guider.GuiderService;
 import services.trip.TripService;
@@ -29,14 +30,18 @@ public class TripController {
     private MailService mailService;
     private ContributionPointService contributionPointService;
     private GuiderService guiderService;
+    private AccountRepository accountRepository;
 
     @Autowired
-    public TripController(TripService os, PaypalService ps, MailService ms, ContributionPointService cps, GuiderService gs) {
+    public TripController(TripService os, PaypalService ps, MailService ms,
+                          ContributionPointService cps, GuiderService gs,
+                          AccountRepository ar) {
         this.tripService = os;
         this.paypalService = ps;
         this.mailService = ms;
         this.contributionPointService = cps;
         this.guiderService = gs;
+        this.accountRepository = ar;
     }
 
     @RequestMapping("/GetAvailableHours")
@@ -146,10 +151,10 @@ public class TripController {
                     return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
                 }
             }
-            // TODO get email
             Order order = tripService.findTripById(trip_id);
+            String email = accountRepository.getEmail(order.getTraveler_id());
             String content = mailService.getMailContent(order, "CANCELLED");
-            mailService.sendMail("travelwithlocalsysadm@gmail.com", "TravelWLocal Tour Cancelled", content);
+            mailService.sendMail(email, "TravelWLocal Tour Cancelled", content);
             return new ResponseEntity<>("Cancel Success", HttpStatus.OK);
         } catch (PayPalRESTException e) {
             String message = e.getDetails().getMessage();
@@ -169,10 +174,10 @@ public class TripController {
             }
             boolean result = tripService.acceptTrip(orderId);
             if (result) {
-                // TODO get email
                 Order order = tripService.findTripById(orderId);
+                String email = accountRepository.getEmail(order.getTraveler_id());
                 String content = mailService.getMailContent(order, "ONGOING");
-                mailService.sendMail("travelwithlocalsysadm@gmail.com", "TravelWLocal Tour Accepted", content);
+                mailService.sendMail(email, "TravelWLocal Tour Accepted", content);
             }
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
