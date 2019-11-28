@@ -15,6 +15,7 @@ import winter.findGuider.TestDataSourceConfig;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -37,27 +38,18 @@ public class AccountServiceUnitTest {
 
     @Test
     public void testFindByName() {
-        Assert.assertEquals("$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK", accountService.findByName("Jacky").getPassword());
-        Assert.assertEquals("Jacky@gmail.com", accountService.findByName("Jacky").getEmail());
-        Assert.assertEquals("GUIDER", accountService.findByName("Jacky").getRole());
+        Account acc = accountService.findByName("Jacky");
+        Assert.assertEquals("$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK", acc.getPassword());
+        Assert.assertEquals("Jacky@gmail.com", acc.getEmail());
+        Assert.assertEquals("GUIDER", acc.getRole());
     }
 
     @Test(expected = Exception.class)
     public void testFindByName2() {
-        when(jdbcTemplate.queryForObject("select * from account where user_name=?", new RowMapper<Account>() {
-            @Override
-            public Account mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return new Account(
-                        rs.getLong("account_id"),
-                        rs.getString("user_name"),
-                        rs.getString("password"),
-                        rs.getString("email"),
-                        rs.getString("role"));
-            }
-        }, "Jacky")).thenThrow(Exception.class);
-        Assert.assertEquals("$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK", accountService.findByName("Jacky").getPassword());
-        Assert.assertEquals("Jacky@gmail.com", accountService.findByName("Jacky").getEmail());
-        Assert.assertEquals("GUIDER", accountService.findByName("Jacky").getRole());
+        Account acc = accountService.findByName("Jacky");
+        Assert.assertEquals("$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK", acc.getPassword());
+        Assert.assertEquals("Jacky@gmail.com", acc.getEmail());
+        Assert.assertEquals("GUIDER", acc.getRole());
     }
 
     @Test
