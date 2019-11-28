@@ -53,4 +53,15 @@ public class TravelerController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+
+    @RequestMapping("/favorite")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Boolean> favoritePost(@RequestParam int traveler_id, @RequestParam int post_id) {
+        try {
+            travelerService.favoritePost(traveler_id, post_id);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        }
+    }
 }

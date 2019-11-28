@@ -90,4 +90,15 @@ public class TravelerServiceImpl implements TravelerService {
             throw e;
         }
     }
+
+    @Override
+    public void favoritePost(int traveler_id, int post_id) {
+        try {
+            String query = "insert into favoritepost (traveler_id, post_id) values (?,?)";
+            jdbcTemplate.update(query, traveler_id, post_id);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            throw e;
+        }
+    }
 }
