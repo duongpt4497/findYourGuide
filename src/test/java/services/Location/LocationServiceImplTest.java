@@ -40,4 +40,10 @@ public class LocationServiceImplTest {
         jdbcTemplate.update("insert into locations (location_id,country,city,place) values (4,'Vietnam','Hanoi','Trang Tien')");
         Assert.assertEquals(4, locationService.showAllLocation().size());
     }
+
+    @Test
+    public void createLocation() {
+        locationService.createLocation("vietnam", "hanoi", "Hoan Kiem");
+        Assert.assertEquals(1, locationService.showAllLocation().size());
+    }
 }

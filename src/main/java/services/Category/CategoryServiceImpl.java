@@ -37,4 +37,15 @@ public class CategoryServiceImpl implements CategoryService {
             throw e;
         }
     }
+
+    @Override
+    public void createCategory(String name) {
+        try {
+            String query = "insert into category (name) values (?)";
+            jdbcTemplate.update(query, name);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            throw e;
+        }
+    }
 }

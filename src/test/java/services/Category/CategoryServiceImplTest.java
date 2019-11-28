@@ -56,4 +56,11 @@ public class CategoryServiceImplTest {
         })).thenThrow(Exception.class);
         Assert.assertEquals(5, categoryService.findAllCategory().size());
     }
+
+    @Test
+    public void createCategory() {
+        jdbcTemplate.update("delete from category");
+        categoryService.createCategory("test");
+        Assert.assertEquals(1, categoryService.findAllCategory().size());
+    }
 }
