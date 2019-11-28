@@ -255,4 +255,22 @@ public class GuiderServiceImpl implements GuiderService {
         }
         return result;
     }
+
+    @Override
+    public void linkGuiderWithContract(long guider_id, long contract_id) {
+        try {
+            String check = "select count(guider_id) from contract where guider_id = ?";
+            int count = jdbcTemplate.queryForObject(check, new Object[]{guider_id}, int.class);
+            if (count == 0) {
+                String query = "insert into contract (guider_id, contract_id) values (?,?)";
+                jdbcTemplate.update(query, guider_id, contract_id);
+            } else {
+                String query = "update contract set contract_id = ? where guider_id = ?";
+                jdbcTemplate.update(query, contract_id, guider_id);
+            }
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            throw e;
+        }
+    }
 }

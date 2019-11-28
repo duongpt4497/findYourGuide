@@ -254,4 +254,50 @@ public class GuiderServiceImplTest {
         Assert.assertEquals(7, result.get(4).getGuider_id());
         Assert.assertEquals(1, result.get(5).getGuider_id());
     }
+
+    @Test
+    public void linkGuiderWithContract() {
+        jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
+                "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
+        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
+                "values (1,'John','Doe',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
+        jdbcTemplate.update("insert into contract_detail (contract_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,account_active_date)" +
+                "values (1,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi','2016-10-15')");
+        guiderService.linkGuiderWithContract(1, 1);
+        String check = "select count(guider_id) from contract where guider_id = ?";
+        int count = jdbcTemplate.queryForObject(check, new Object[]{1}, int.class);
+        Assert.assertEquals(1, count);
+    }
+
+    @Test
+    public void linkGuiderWithContract2() {
+        jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
+                "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
+        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
+                "values (1,'John','Doe',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
+        jdbcTemplate.update("insert into contract_detail (contract_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,account_active_date)" +
+                "values (1,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi','2016-10-15')");
+        jdbcTemplate.update("insert into contract_detail (contract_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,account_active_date)" +
+                "values (2,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi','2016-10-15')");
+        jdbcTemplate.update("insert into contract (guider_id,contract_id) values (1,1)");
+        guiderService.linkGuiderWithContract(1, 2);
+        String check = "select contract_id from contract where guider_id = ?";
+        int id = jdbcTemplate.queryForObject(check, new Object[]{1}, int.class);
+        Assert.assertEquals(2, id);
+    }
+
+    @Test(expected = Exception.class)
+    public void linkGuiderWithContract3() {
+        jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
+                "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
+        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
+                "values (1,'John','Doe',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
+        jdbcTemplate.update("insert into contract_detail (contract_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,account_active_date)" +
+                "values (1,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi','2016-10-15')");
+        jdbcTemplate.update("insert into contract (guider_id,contract_id) values (1,1)");
+        guiderService.linkGuiderWithContract(1, 2);
+        String check = "select contract_id from contract where guider_id = ?";
+        int id = jdbcTemplate.queryForObject(check, new Object[]{1}, int.class);
+        Assert.assertEquals(2, id);
+    }
 }
