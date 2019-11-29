@@ -14,4 +14,6 @@ public interface PostService {
     void updatePost(long post_id,Post post);
 
     int insertNewPost(long guider_id,Post post);
+
+    List<Post> getTopTour();
 }

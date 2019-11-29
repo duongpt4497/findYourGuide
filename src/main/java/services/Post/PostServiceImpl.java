@@ -36,12 +36,20 @@ public class PostServiceImpl implements PostService {
                 public Post mapRow(ResultSet resultSet, int i) throws SQLException {
                     return new Post(
                             resultSet.getLong("post_id"),
+                            resultSet.getLong("guider_id"),
+                            resultSet.getLong("location_id"),
+                            resultSet.getLong("category_id"),
                             resultSet.getString("title"),
+                            resultSet.getString("video_link"),
                             generalService.checkForNull(resultSet.getArray("picture_link")),
+                            resultSet.getInt("total_hour"),
                             resultSet.getString("description"),
-                            resultSet.getBoolean("active")
+                            generalService.checkForNull(resultSet.getArray("including_service")),
+                            resultSet.getBoolean("active"),
+                            resultSet.getFloat("price"),
+                            resultSet.getFloat("rated"),
+                            resultSet.getString("reasons")
                     );
-
                 }
             }, guider_id);
         } catch (Exception e) {
@@ -58,12 +66,20 @@ public class PostServiceImpl implements PostService {
                 public Post mapRow(ResultSet resultSet, int i) throws SQLException {
                     return new Post(
                             resultSet.getLong("post_id"),
+                            resultSet.getLong("guider_id"),
+                            resultSet.getLong("location_id"),
+                            resultSet.getLong("category_id"),
                             resultSet.getString("title"),
+                            resultSet.getString("video_link"),
                             generalService.checkForNull(resultSet.getArray("picture_link")),
+                            resultSet.getInt("total_hour"),
                             resultSet.getString("description"),
-                            resultSet.getBoolean("active")
+                            generalService.checkForNull(resultSet.getArray("including_service")),
+                            resultSet.getBoolean("active"),
+                            resultSet.getLong("price"),
+                            resultSet.getInt("rated"),
+                            resultSet.getString("reasons")
                     );
-
                 }
             }, category_id);
         } catch (Exception e) {
@@ -92,7 +108,6 @@ public class PostServiceImpl implements PostService {
                             resultSet.getLong("rated"),
                             resultSet.getString("reasons"),
                             resultSet.getString("name")
-
                     );
                 }
             }, post_id);
@@ -146,5 +161,35 @@ public class PostServiceImpl implements PostService {
             logger.warn(e.getMessage());
         }
         return (int) keyHolder.getKey();
+    }
+
+    @Override
+    public List<Post> getTopTour() {
+        try {
+            return jdbcTemplate.query("SELECT * FROM post order by rated desc limit 5", new RowMapper<Post>() {
+                @Override
+                public Post mapRow(ResultSet resultSet, int i) throws SQLException {
+                    return new Post(
+                            resultSet.getLong("post_id"),
+                            resultSet.getLong("guider_id"),
+                            resultSet.getLong("location_id"),
+                            resultSet.getLong("category_id"),
+                            resultSet.getString("title"),
+                            resultSet.getString("video_link"),
+                            generalService.checkForNull(resultSet.getArray("picture_link")),
+                            resultSet.getInt("total_hour"),
+                            resultSet.getString("description"),
+                            generalService.checkForNull(resultSet.getArray("including_service")),
+                            resultSet.getBoolean("active"),
+                            resultSet.getLong("price"),
+                            resultSet.getInt("rated"),
+                            resultSet.getString("reasons")
+                    );
+                }
+            });
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+        }
+        return null;
     }
 }

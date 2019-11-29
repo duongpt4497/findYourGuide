@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import services.Mail.MailService;
 import services.Paypal.PaypalService;
 import services.ordertrip.OrderTripService;
 
@@ -31,14 +32,17 @@ public class PaypalController {
     private String URL_ROOT_SERVER;
     @Value("${order.client.root.url}")
     private String URL_ROOT_CLIENT;
+
     private PaypalService paypalService;
     private OrderTripService orderTripService;
+    private MailService mailService;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    public PaypalController(PaypalService ps, OrderTripService ots) {
+    public PaypalController(PaypalService ps, OrderTripService ots, MailService ms) {
         this.paypalService = ps;
         this.orderTripService = ots;
+        this.mailService = ms;
     }
     
     @RequestMapping("/Pay")
@@ -106,6 +110,9 @@ public class PaypalController {
             if (payment.getState().equals("approved")) {
                 paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, true);
                 orderTripService.createOrder(order);
+                // TODO get email
+                String content = mailService.getMailContent(order, "UNCONFIRMED");
+                mailService.sendMail("travelwithlocalsysadm@gmail.com", "TravelWLocal Tour Information", content);
                 URI result = new URI(URL_ROOT_CLIENT + CHATBOX_PATH + order.getPost_id() + "/booking_success");
                 httpHeaders.setLocation(result);
             } else {

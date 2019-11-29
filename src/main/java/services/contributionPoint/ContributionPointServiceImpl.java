@@ -5,6 +5,7 @@ import entities.Order;
 import entities.Review;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -53,6 +54,7 @@ public class ContributionPointServiceImpl implements ContributionPointService{
     private static final Logger log = LoggerFactory.getLogger(ContributionPointServiceImpl.class);
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM-dd-yyyy    HH:mm:ss");
 
+    @Autowired
     public ContributionPointServiceImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

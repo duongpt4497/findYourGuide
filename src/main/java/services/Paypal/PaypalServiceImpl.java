@@ -95,10 +95,11 @@ public class PaypalServiceImpl implements PaypalService {
     public String getTransactionDescription(Order order) {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM dd, yyyy");
         List<String> description = new ArrayList<>();
-        String ds = "On " + format.format(order.getBegin_date()) + "\n";
-        ds += ". Include adult: " + order.getAdult_quantity() + ", children: " + order.getChildren_quantity()
-                + ". Fee: " + order.getFee_paid() + ".";
+        String ds = "";
         try {
+            ds = "On " + format.format(order.getBegin_date()) + "\n";
+            ds += ". Include adult: " + order.getAdult_quantity() + ", children: " + order.getChildren_quantity()
+                    + ". Fee: " + order.getFee_paid() + ".";
             String query = "SELECT title, traveler.first_name as traFname, traveler.last_name as traLname, " +
                     "guider.first_name as guFname, guider.last_name as guLname " +
                     "FROM post " +

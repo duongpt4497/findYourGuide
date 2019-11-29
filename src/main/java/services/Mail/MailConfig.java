@@ -1,4 +1,4 @@
-package services.Feedback;
+package services.Mail;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

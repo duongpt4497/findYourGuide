@@ -23,4 +23,10 @@ public interface GuiderService {
     public long deactivateGuider(long id);
 
     public List<Guider> searchGuiderByName(String key);
+
+
+    public List<Guider> getTopGuiderByRate();
+
+    public List<Guider> getTopGuiderByContribute();
+
 }
