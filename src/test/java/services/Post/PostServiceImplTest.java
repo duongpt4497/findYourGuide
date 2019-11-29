@@ -43,6 +43,9 @@ public class PostServiceImplTest {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (2,'Megan','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','TRAVELER')");
         jdbcTemplate.update("insert into locations (location_id,country,city,place) values (1,'Vietnam','Hanoi','Hoan Kiem')");
+        jdbcTemplate.update("insert into locations (location_id,country,city,place) values (2,'Vietnam','Hanoi','Trang Tien')");
+        jdbcTemplate.update("insert into locations (location_id,country,city,place) values (3,'Vietnam','Hanoi','Ho Tay')");
+        jdbcTemplate.update("insert into locations (location_id,country,city,place) values (4,'Vietnam','Hanoi','Pho Co')");
         jdbcTemplate.update("insert into category (category_id,name) values (1,'history')");
         jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
                 "values (1,'John','Doe',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
@@ -60,19 +63,19 @@ public class PostServiceImplTest {
         jdbcTemplate.update("INSERT INTO post(post_id,guider_id, location_id,category_id, title, video_link, picture_link, total_hour, description, including_service, active,price,rated,reasons) " +
                 "VALUES (1,1,1,1,'test post','a','{a}',2,'a','{a,b}',true,10,5,'abc')");
         jdbcTemplate.update("INSERT INTO post(post_id,guider_id, location_id,category_id, title, video_link, picture_link, total_hour, description, including_service, active,price,rated,reasons) " +
-                "VALUES (2,3,1,1,'Midria','a','{a}',2,'a','{a,b}',true,10,7,'abc')");
+                "VALUES (2,3,2,1,'Midria','a','{a}',2,'a','{a,b}',true,10,7,'abc')");
         jdbcTemplate.update("INSERT INTO post(post_id,guider_id, location_id,category_id, title, video_link, picture_link, total_hour, description, including_service, active,price,rated,reasons) " +
-                "VALUES (3,4,1,1,'Milo','a','{a}',2,'a','{a,b}',true,10,16,'abc')");
+                "VALUES (3,4,3,1,'Milo','a','{a}',2,'a','{a,b}',true,10,16,'abc')");
         jdbcTemplate.update("INSERT INTO post(post_id,guider_id, location_id,category_id, title, video_link, picture_link, total_hour, description, including_service, active,price,rated,reasons) " +
-                "VALUES (4,5,1,1,'Minute','a','{a}',2,'a','{a,b}',true,10,11,'abc')");
+                "VALUES (4,5,4,1,'Minute','a','{a}',2,'a','{a,b}',true,10,11,'abc')");
         jdbcTemplate.update("INSERT INTO post(post_id,guider_id, location_id,category_id, title, video_link, picture_link, total_hour, description, including_service, active,price,rated,reasons) " +
                 "VALUES (5,1,1,1,'Khala','a','{a}',2,'a','{a,b}',true,10,19,'abc')");
         jdbcTemplate.update("INSERT INTO post(post_id,guider_id, location_id,category_id, title, video_link, picture_link, total_hour, description, including_service, active,price,rated,reasons) " +
-                "VALUES (6,1,1,1,'Temre','a','{a}',2,'a','{a,b}',true,10,1,'abc')");
+                "VALUES (6,1,2,1,'Temre','a','{a}',2,'a','{a,b}',true,10,1,'abc')");
         jdbcTemplate.update("INSERT INTO post(post_id,guider_id, location_id,category_id, title, video_link, picture_link, total_hour, description, including_service, active,price,rated,reasons) " +
-                "VALUES (7,5,1,1,'Fooffy','a','{a}',2,'a','{a,b}',true,10,3,'abc')");
+                "VALUES (7,5,3,1,'Fooffy','a','{a}',2,'a','{a,b}',true,10,3,'abc')");
         jdbcTemplate.update("INSERT INTO post(post_id,guider_id, location_id,category_id, title, video_link, picture_link, total_hour, description, including_service, active,price,rated,reasons) " +
-                "VALUES (8,5,1,1,'Fuuffy','a','{a}',2,'a','{a,b}',true,10,20,'abc')");
+                "VALUES (8,5,4,1,'Fuuffy','a','{a}',2,'a','{a,b}',true,10,20,'abc')");
         MockitoAnnotations.initMocks(this);
     }
 
@@ -119,8 +122,8 @@ public class PostServiceImplTest {
     }
 
     @Test
-    public void findAllPostWithName() {
-        Assert.assertEquals(2, postService.findAllPostWithName("mi").size());
+    public void findAllPostWithGuiderName() {
+        Assert.assertEquals(2, postService.findAllPostWithGuiderName("mi").size());
     }
 
     @Test
@@ -140,5 +143,10 @@ public class PostServiceImplTest {
     public void activeDeactivePost3() {
         postService.activeDeactivePost(999);
         Assert.assertEquals(false, postService.findSpecificPost(1).isActive());
+    }
+
+    @Test
+    public void findAllPostWithLocationName() {
+        Assert.assertEquals(6, postService.findAllPostWithLocationName("ho").size());
     }
 }

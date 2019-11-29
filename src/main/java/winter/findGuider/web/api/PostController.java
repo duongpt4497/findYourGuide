@@ -83,11 +83,11 @@ public class PostController {
         }
     }
 
-    @RequestMapping("/findAllPostWithName")
+    @RequestMapping("/findAllPostWithGuiderName")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<Post>> findAllPostWithName(@RequestParam("name") String name) {
+    public ResponseEntity<List<Post>> findAllPostWithGuiderName(@RequestParam("name") String name) {
         try {
-            return new ResponseEntity<>(postService.findAllPostWithName(name), HttpStatus.OK);
+            return new ResponseEntity<>(postService.findAllPostWithGuiderName(name), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
@@ -101,6 +101,16 @@ public class PostController {
             return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/findAllPostWithLocationName")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Post>> findAllPostWithLocationName(@RequestParam("name") String name) {
+        try {
+            return new ResponseEntity<>(postService.findAllPostWithLocationName(name), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 }

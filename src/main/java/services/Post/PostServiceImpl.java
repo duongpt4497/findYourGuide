@@ -119,7 +119,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> findAllPostWithName(String name) {
+    public List<Post> findAllPostWithGuiderName(String name) {
         try {
             List<Post> result = new ArrayList<>();
             name = "'%" + name.toUpperCase() + "%'";
@@ -148,6 +148,35 @@ public class PostServiceImpl implements PostService {
                             rs.getLong("price"),
                             rs.getLong("rated"),
                             rs.getString("reasons"));
+                }
+            });
+            return result;
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            throw e;
+        }
+    }
+
+    @Override
+    public List<Post> findAllPostWithLocationName(String name) {
+        try {
+            List<Post> result = new ArrayList<>();
+            name = "'%" + name.toUpperCase() + "%'";
+            String query = "select post.*, name, city, place from post " +
+                    "inner join category on post.category_id = category.category_id " +
+                    "inner join locations on post.location_id = locations.location_id " +
+                    "where post.active = true " +
+                    "and (upper(country) like " + name +
+                    " or upper(city) like " + name +
+                    " or upper(place) like " + name + ")";
+            result = jdbcTemplate.query(query, new RowMapper<Post>() {
+                @Override
+                public Post mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    return new Post(rs.getLong("post_id"), rs.getString("title"), rs.getString("video_link"),
+                            generalService.checkForNull(rs.getArray("picture_link")), rs.getInt("total_hour"),
+                            rs.getString("description"), generalService.checkForNull(rs.getArray("including_service")),
+                            rs.getString("city") + " " + rs.getString("place"), rs.getString("name"),
+                            rs.getLong("price"), rs.getLong("rated"), rs.getString("reasons"));
                 }
             });
             return result;
