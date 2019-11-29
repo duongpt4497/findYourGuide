@@ -31,7 +31,8 @@ public class ReviewServiceImpl implements ReviewService {
             return jdbcTemplate.query(query, new RowMapper<Review>() {
                 public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
                     return new Review(rs.getLong("trip_id"), rs.getLong("rated"),
-                            rs.getDate("post_date"), rs.getString("review"));
+                            rs.getDate("post_date"), rs.getString("review"),
+                            rs.getBoolean("visible"));
                 }
             }, trip_id);
         } catch (Exception e) {
@@ -49,7 +50,8 @@ public class ReviewServiceImpl implements ReviewService {
             return jdbcTemplate.query(query, new RowMapper<Review>() {
                 public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
                     return new Review(rs.getLong("trip_id"), rs.getLong("rated"),
-                            rs.getDate("post_date"), rs.getString("review"));
+                            rs.getDate("post_date"), rs.getString("review"),
+                            rs.getBoolean("visible"));
                 }
             }, guider_id);
         } catch (Exception e) {
@@ -66,7 +68,8 @@ public class ReviewServiceImpl implements ReviewService {
             return jdbcTemplate.query(query, new RowMapper<Review>() {
                 public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
                     return new Review(rs.getLong("trip_id"), rs.getLong("rated"),
-                            rs.getDate("post_date"), rs.getString("review"));
+                            rs.getDate("post_date"), rs.getString("review"),
+                            rs.getBoolean("visible"));
                 }
             }, post_id);
         } catch (Exception e) {
@@ -78,10 +81,10 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public boolean createReview(Review newReview) {
         try {
-            String query = "insert into review (trip_id, rated, post_date, review)" +
-                    "values (?,?,?,?)";
+            String query = "insert into review (trip_id, rated, post_date, review, visible)" +
+                    "values (?,?,?,?,?)";
             jdbcTemplate.update(query, newReview.getTrip_id(), newReview.getRated(),
-                    Timestamp.valueOf(LocalDateTime.now()), newReview.getReview());
+                    Timestamp.valueOf(LocalDateTime.now()), newReview.getReview(), true);
             return true;
         } catch (Exception e) {
             logger.warn(e.getMessage());
@@ -107,6 +110,24 @@ public class ReviewServiceImpl implements ReviewService {
         } catch (Exception e) {
             logger.warn(e.getMessage());
             return false;
+        }
+    }
+
+    @Override
+    public void showHideReview(long trip_id) {
+        try {
+            String check = "select visible from review where trip_id = ?";
+            boolean isVisible = jdbcTemplate.queryForObject(check, new Object[]{trip_id}, boolean.class);
+            String query;
+            if (isVisible) {
+                query = "update review set visible = false where trip_id = ?";
+            } else {
+                query = "update review set visible = true where trip_id = ?";
+            }
+            jdbcTemplate.update(query, trip_id);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            throw e;
         }
     }
 }

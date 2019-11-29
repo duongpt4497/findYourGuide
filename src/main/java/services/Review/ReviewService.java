@@ -11,7 +11,9 @@ public interface ReviewService {
 
     List<Review> findReviewsByPostId(long post_id);
 
-    public boolean createReview(Review newReview);
+    boolean createReview(Review newReview);
 
-    public boolean checkReviewExist(long trip_id);
+    boolean checkReviewExist(long trip_id);
+
+    void showHideReview(long trip_id);
 }

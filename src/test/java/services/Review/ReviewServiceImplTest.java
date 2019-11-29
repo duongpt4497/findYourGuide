@@ -80,4 +80,23 @@ public class ReviewServiceImplTest {
     public void checkReviewExist2() {
         Assert.assertEquals(false, reviewService.checkReviewExist(2));
     }
+
+    @Test
+    public void showHideReview() {
+        reviewService.showHideReview(1);
+        Assert.assertEquals(false, reviewService.findReviewByOrderId(1).get(0).isVisible());
+    }
+
+    @Test
+    public void showHideReview2() {
+        reviewService.showHideReview(1);
+        reviewService.showHideReview(1);
+        Assert.assertEquals(true, reviewService.findReviewByOrderId(1).get(0).isVisible());
+    }
+
+    @Test(expected = Exception.class)
+    public void showHideReview3() {
+        reviewService.showHideReview(2);
+        Assert.assertEquals(false, reviewService.findReviewByOrderId(1).get(0).isVisible());
+    }
 }

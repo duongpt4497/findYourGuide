@@ -64,4 +64,15 @@ public class ReviewController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+
+    @RequestMapping("/showHideReview")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Boolean> showHideReview(@RequestBody long trip_id) {
+        try {
+            reviewService.showHideReview(trip_id);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        }
+    }
 }

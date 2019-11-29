@@ -10,15 +10,17 @@ public class Review {
     private long rated;
     private Date post_date;
     private String review;
+    private boolean visible;
 
     public Review() {
     }
 
-    public Review(long trip_id, long rated, Date post_date, String review) {
+    public Review(long trip_id, long rated, Date post_date, String review, boolean visible) {
         this.trip_id = trip_id;
         this.rated = rated;
         this.post_date = post_date;
         this.review = review;
+        this.visible = visible;
     }
 
     public Review(long trip_id, long rated, String review) {
@@ -57,5 +59,13 @@ public class Review {
 
     public void setReview(String review) {
         this.review = review;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 }
