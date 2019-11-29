@@ -92,4 +92,15 @@ public class PostController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+
+    @RequestMapping("/activeDeactivePost")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Boolean> activeDeactivePost(@RequestParam("post_id") long post_id) {
+        try {
+            postService.activeDeactivePost(post_id);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        }
+    }
 }

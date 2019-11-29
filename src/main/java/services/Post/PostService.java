@@ -13,9 +13,11 @@ public interface PostService {
 
     List<Post> findAllPostWithName(String name);
 
-    void updatePost(long post_id,Post post);
+    void updatePost(long post_id, Post post);
 
-    int insertNewPost(long guider_id,Post post);
+    int insertNewPost(long guider_id, Post post);
 
     List<Post> getTopTour();
+
+    void activeDeactivePost(long post_id);
 }

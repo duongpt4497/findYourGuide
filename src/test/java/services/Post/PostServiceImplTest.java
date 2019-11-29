@@ -122,4 +122,23 @@ public class PostServiceImplTest {
     public void findAllPostWithName() {
         Assert.assertEquals(2, postService.findAllPostWithName("mi").size());
     }
+
+    @Test
+    public void activeDeactivePost() {
+        postService.activeDeactivePost(1);
+        Assert.assertEquals(false, postService.findSpecificPost(1).isActive());
+    }
+
+    @Test
+    public void activeDeactivePost2() {
+        postService.activeDeactivePost(1);
+        postService.activeDeactivePost(1);
+        Assert.assertEquals(true, postService.findSpecificPost(1).isActive());
+    }
+
+    @Test(expected = Exception.class)
+    public void activeDeactivePost3() {
+        postService.activeDeactivePost(999);
+        Assert.assertEquals(false, postService.findSpecificPost(1).isActive());
+    }
 }

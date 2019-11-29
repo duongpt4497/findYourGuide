@@ -235,4 +235,22 @@ public class PostServiceImpl implements PostService {
             throw e;
         }
     }
+
+    @Override
+    public void activeDeactivePost(long post_id) {
+        try {
+            String check = "select active from post where post_id = ?";
+            boolean isActive = jdbcTemplate.queryForObject(check, new Object[]{post_id}, boolean.class);
+            String query;
+            if (isActive) {
+                query = "update post set active = false where post_id = ?";
+            } else {
+                query = "update post set active = true where post_id = ?";
+            }
+            jdbcTemplate.update(query, post_id);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            throw e;
+        }
+    }
 }
