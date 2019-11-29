@@ -17,12 +17,12 @@ public class Post {
     private boolean active;
     private String location;
     private String category;
-    private long price;
-    private long rated;
+    private float price;
+    private float rated;
     private String reasons;
 
 
-    public Post(String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location, long price, long rated, String reasons,String category) {
+    public Post(String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location, float price, float rated, String reasons,String category) {
 
         this.title = title;
         this.video_link = video_link;
@@ -38,7 +38,7 @@ public class Post {
         this.category = category;
     }
 
-    public Post(long post_id, String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location, long price, long rated, String reasons,String category) {
+    public Post(long post_id, String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location, float price, float rated, String reasons,String category) {
         this.post_id = post_id;
         this.title = title;
         this.video_link = video_link;
@@ -135,19 +135,19 @@ public class Post {
         this.location = location;
     }
 
-    public long getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
-    public long getRated() {
+    public float getRated() {
         return rated;
     }
 
-    public void setRated(long rated) {
+    public void setRated(float rated) {
         this.rated = rated;
     }
 

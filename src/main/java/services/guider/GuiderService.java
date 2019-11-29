@@ -22,5 +22,5 @@ public interface GuiderService {
 
     public long deactivateGuider(long id);
 
-    public List<Guider> searchGuider(String key);
+    public List<Guider> searchGuiderByName(String key);
 }

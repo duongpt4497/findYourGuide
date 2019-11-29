@@ -40,7 +40,7 @@ public class PaypalController {
         this.paypalService = ps;
         this.orderTripService = ots;
     }
-
+    
     @RequestMapping("/Pay")
     @ResponseStatus(HttpStatus.OK)
     public String payment(@RequestBody Order order) {

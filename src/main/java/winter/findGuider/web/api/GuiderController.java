@@ -73,7 +73,7 @@ public class GuiderController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Guider>> searchGuider(@PathVariable("key") String key) {
         try {
-            return new ResponseEntity<>(guiderService.searchGuider(key), HttpStatus.OK);
+            return new ResponseEntity<>(guiderService.searchGuiderByName(key), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }

@@ -24,7 +24,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import services.security.AuthProvider;
+import services.security.AuthenProvider;
 import services.account.AccountRepository;
 
 /**
@@ -38,9 +38,9 @@ public class AccountController {
 
     private UserService userService;
     private AccountRepository repo;
-    private AuthProvider auth;
+    private AuthenProvider auth;
     @Autowired
-    public AccountController(AccountRepository repo,UserService userService, AuthProvider auth){
+    public AccountController(AccountRepository repo,UserService userService, AuthenProvider auth){
         this.userService = userService;
         this.repo = repo;
         this.auth = auth;
@@ -61,7 +61,7 @@ public class AccountController {
             sidCookie.setHttpOnly(true);
             sidCookie.setDomain("localhost");
             response.addCookie(sidCookie);
-            repo.addAccount(registered);
+//            repo.addAccount(registered);
             registered.setPassword("");
             registered.setToken("");
             System.out.println(acc.getExpired());

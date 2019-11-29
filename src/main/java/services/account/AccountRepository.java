@@ -38,7 +38,7 @@ public class AccountRepository {
                 rs.getString("role"));
     }
 
-    public Account findByName(String name) {
+    public Account findAccountByName(String name) {
         try {
             return jdbc.queryForObject("select * from account where user_name=?",
                     this::mapRow, name);

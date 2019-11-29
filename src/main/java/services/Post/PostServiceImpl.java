@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import services.GeneralServiceImpl;
+import services.GeneralService;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,15 +21,15 @@ public class PostServiceImpl implements PostService {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private JdbcTemplate jdbcTemplate;
-    private GeneralServiceImpl generalService;
+    private GeneralService generalService;
 
-    public PostServiceImpl(JdbcTemplate jdbcTemplate, GeneralServiceImpl generalService) {
+    public PostServiceImpl(JdbcTemplate jdbcTemplate, GeneralService generalService) {
         this.jdbcTemplate = jdbcTemplate;
         this.generalService = generalService;
     }
 
     @Override
-    public List<Post> findAllPost(long guider_id) {
+    public List<Post> findAllPostOfOneGuider(long guider_id) {
         try {
             return jdbcTemplate.query("select * from post where guider_id = ?", new RowMapper<Post>() {
                 @Override
@@ -137,8 +137,8 @@ public class PostServiceImpl implements PostService {
                 ps.setString(8, post.getDescription());
                 ps.setArray(9, generalService.createSqlArray(Arrays.asList(post.getIncluding_service())));
                 ps.setBoolean(10, post.isActive());
-                ps.setLong(11, post.getPrice());
-                ps.setLong(12, post.getRated());
+                ps.setFloat(11, post.getPrice());
+                ps.setFloat(12, post.getRated());
                 ps.setString(13, post.getReasons());
                 return ps;
             }, keyHolder);

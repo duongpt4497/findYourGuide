@@ -29,7 +29,7 @@ public class PrincipalService implements UserDetailsService {
     
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account user = repo.findByName(username);
+        Account user = repo.findAccountByName(username);
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }

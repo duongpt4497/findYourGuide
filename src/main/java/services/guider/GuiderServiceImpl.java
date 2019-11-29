@@ -168,7 +168,7 @@ public class GuiderServiceImpl implements GuiderService {
         return id;
     }
     
-    public List<Guider> searchGuider(String key) {
+    public List<Guider> searchGuiderByName(String key) {
         List<Guider>  result = new ArrayList<>();
         try {
             String query = "select g.* from guider as g "

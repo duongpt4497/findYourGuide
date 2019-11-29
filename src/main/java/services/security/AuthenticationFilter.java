@@ -33,10 +33,10 @@ import javax.servlet.http.Cookie;
  */
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    private AuthProvider authenticationManager;
+    private AuthenProvider authenticationManager;
     private TokenHelper TokenHelper;
 
-    public AuthenticationFilter(AuthProvider authenticationManager, TokenHelper tokenService) {
+    public AuthenticationFilter(AuthenProvider authenticationManager, TokenHelper tokenService) {
         this.authenticationManager = authenticationManager;
         this.TokenHelper = tokenService;
 
