@@ -11,6 +11,8 @@ public interface PostService {
 
     Post findSpecificPost(long post_id);
 
+    List<Post> findAllPostWithName(String name);
+
     void updatePost(long post_id,Post post);
 
     int insertNewPost(long guider_id,Post post);

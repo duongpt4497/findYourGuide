@@ -13,6 +13,7 @@ import services.GeneralService;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -111,6 +112,45 @@ public class PostServiceImpl implements PostService {
                     );
                 }
             }, post_id);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            throw e;
+        }
+    }
+
+    @Override
+    public List<Post> findAllPostWithName(String name) {
+        try {
+            List<Post> result = new ArrayList<>();
+            name = "'%" + name.toUpperCase() + "%'";
+            String query = "select post_id, title, video_link, picture_link, total_hour, description, including_service, " +
+                    "price, post.rated, reasons, locations.city, place, category.name " +
+                    "from post inner join guider on post.guider_id = guider.guider_id " +
+                    "inner join locations on post.location_id = locations.location_id " +
+                    "inner join category on post.category_id = category.category_id " +
+                    "inner join account on post.guider_id = account.account_id " +
+                    "where post.active = true " +
+                    "and (upper(first_name) like " + name +
+                    " or upper(last_name) like " + name +
+                    " or upper(user_name) like " + name + ")";
+            result = jdbcTemplate.query(query, new RowMapper<Post>() {
+                @Override
+                public Post mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    return new Post(rs.getLong("post_id"),
+                            rs.getString("title"),
+                            rs.getString("video_link"),
+                            generalService.checkForNull(rs.getArray("picture_link")),
+                            rs.getInt("total_hour"),
+                            rs.getString("description"),
+                            generalService.checkForNull(rs.getArray("including_service")),
+                            rs.getString("city") + " " + rs.getString("place"),
+                            rs.getString("name"),
+                            rs.getLong("price"),
+                            rs.getLong("rated"),
+                            rs.getString("reasons"));
+                }
+            });
+            return result;
         } catch (Exception e) {
             logger.warn(e.getMessage());
             throw e;

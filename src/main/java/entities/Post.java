@@ -96,6 +96,21 @@ public class Post {
         this.reasons = reasons;
     }
 
+    public Post(long post_id, String title, String video_link, @NotNull String[] picture_link, int total_hour, String description, String[] including_service, String location, String category, long price, long rated, String reasons) {
+        this.post_id = post_id;
+        this.title = title;
+        this.video_link = video_link;
+        this.picture_link = picture_link;
+        this.total_hour = total_hour;
+        this.description = description;
+        this.including_service = including_service;
+        this.location = location;
+        this.category = category;
+        this.price = price;
+        this.rated = rated;
+        this.reasons = reasons;
+    }
+
     public Post() {
     }
 
