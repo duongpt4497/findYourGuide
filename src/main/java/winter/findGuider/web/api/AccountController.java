@@ -11,20 +11,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import services.account.AccountRepository;
-import services.security.AuthProvider;
+import services.security.AuthenProvider;
 import services.security.UserService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
-import javax.validation.Valid;
-import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import services.security.AuthenProvider;
-import services.account.AccountRepository;
 
 /**
  * @author dgdbp
@@ -37,9 +30,9 @@ public class AccountController {
     private UserService userService;
     private AccountRepository repo;
     private AuthenProvider auth;
-	
+
     @Autowired
-    public AccountController(AccountRepository repo,UserService userService, AuthenProvider auth){
+    public AccountController(AccountRepository repo, UserService userService, AuthenProvider auth) {
         this.userService = userService;
         this.repo = repo;
         this.auth = auth;

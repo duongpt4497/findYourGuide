@@ -34,15 +34,6 @@ public class AccountRepository {
         this.jdbc = jdbc;
     }
 
-    public Account mapRow(ResultSet rs, int rowNum)
-            throws SQLException {
-        return new Account(
-                rs.getLong("account_id"),
-                rs.getString("user_name"),
-                rs.getString("password"),
-                rs.getString("role"));
-    }
-
     public Account findAccountByName(String name) {
         try {
             return jdbc.queryForObject("select * from account where user_name=?", new RowMapper<Account>() {

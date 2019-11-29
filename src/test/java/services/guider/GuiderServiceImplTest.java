@@ -164,7 +164,7 @@ public class GuiderServiceImplTest {
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
                 "values (1,'John','Doe',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
-        Assert.assertEquals(1, guiderService.searchGuider("John").size());
+        Assert.assertEquals(1, guiderService.searchGuiderByName("John").size());
     }
 
     @Test

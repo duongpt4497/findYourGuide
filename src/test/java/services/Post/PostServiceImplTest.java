@@ -77,8 +77,8 @@ public class PostServiceImplTest {
     }
 
     @Test
-    public void findAllPost() {
-        Assert.assertEquals(8, postService.findAllPost(1).size());
+    public void findAllPostOfOneGuider() {
+        Assert.assertEquals(8, postService.findAllPostOfOneGuider(1).size());
     }
 
     @Test
