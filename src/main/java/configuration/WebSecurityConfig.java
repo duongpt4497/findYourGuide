@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     TokenHelper tokenHelper;
     private PrincipalService userDetail;
     @Autowired
-    private AuthProvider authProvide;
+    private AuthenProvider authProvide;
     @Autowired
     private PrincipalService principalService;
     @Autowired
@@ -91,6 +91,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 //                .antMatchers("/location/**").hasAuthority("TRAVELER")
                 .antMatchers("/location/**").permitAll()
+                .antMatchers("/**/*.jpg").permitAll()
                 .antMatchers("/account/**").permitAll()
                 .antMatchers("/category/**").permitAll()
                 .antMatchers("/guiderpost/**").permitAll()

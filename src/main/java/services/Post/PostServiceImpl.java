@@ -30,7 +30,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> findAllPost(long guider_id) {
+    public List<Post> findAllPostOfOneGuider(long guider_id) {
         try {
             return jdbcTemplate.query("select * from post where guider_id = ?", new RowMapper<Post>() {
                 @Override
@@ -47,8 +47,8 @@ public class PostServiceImpl implements PostService {
                             resultSet.getString("description"),
                             generalService.checkForNull(resultSet.getArray("including_service")),
                             resultSet.getBoolean("active"),
-                            resultSet.getLong("price"),
-                            resultSet.getInt("rated"),
+                            resultSet.getFloat("price"),
+                            resultSet.getFloat("rated"),
                             resultSet.getString("reasons")
                     );
                 }
@@ -194,8 +194,8 @@ public class PostServiceImpl implements PostService {
                 ps.setString(8, post.getDescription());
                 ps.setArray(9, generalService.createSqlArray(Arrays.asList(post.getIncluding_service())));
                 ps.setBoolean(10, post.isActive());
-                ps.setLong(11, post.getPrice());
-                ps.setLong(12, post.getRated());
+                ps.setFloat(11, post.getPrice());
+                ps.setFloat(12, post.getRated());
                 ps.setString(13, post.getReasons());
                 return ps;
             }, keyHolder);

@@ -40,7 +40,6 @@ services\Category\CategoryServiceImpl.class
 services\Location\LocationServiceImpl.class
 services\Post\PostServiceImpl$2.class
 services\security\AuthenticationFilter.class
-services\security\AuthProvider.class
 entities\AuthenticationImp.class
 services\plan\PlanServiceImpl.class
 entities\TransactionRecord.class

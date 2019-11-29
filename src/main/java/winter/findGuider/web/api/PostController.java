@@ -24,7 +24,8 @@ public class PostController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Post>> findAllPostOfOneGuider(@RequestParam("guider_id") long guider_id) {
         try {
-            return new ResponseEntity<>(postService.findAllPost(guider_id), HttpStatus.OK);
+
+            return new ResponseEntity<>(postService.findAllPostOfOneGuider(guider_id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
@@ -34,6 +35,7 @@ public class PostController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Post>> findAllPostOfOneCategory(@RequestParam("category_id") long category_id) {
         try {
+
             return new ResponseEntity<>(postService.findAllPostByCategoryId(category_id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

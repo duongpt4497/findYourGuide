@@ -26,7 +26,6 @@ E:\counter\master\src\main\java\winter\findGuider\web\api\FeedbackController.jav
 E:\counter\master\src\main\java\winter\findGuider\FindGuiderApplication.java
 E:\counter\master\src\main\java\winter\findGuider\web\api\GuiderController.java
 E:\counter\master\src\main\java\services\ordertrip\OrderTripServiceImpl.java
-E:\counter\master\src\main\java\services\security\AuthProvider.java
 E:\counter\master\src\main\java\services\Post\PostService.java
 E:\counter\master\src\main\java\services\security\AuthenticationFilter.java
 E:\counter\master\src\main\java\entities\Plan.java
@@ -35,6 +34,7 @@ E:\counter\master\src\main\java\services\Paypal\PaypalServiceImpl.java
 E:\counter\master\src\main\java\winter\findGuider\web\api\TravelerController.java
 E:\counter\master\src\main\java\entities\Order.java
 E:\counter\master\src\main\java\services\Paypal\PaypalPaymentIntent.java
+E:\counter\master\src\main\java\services\security\AuthenProvider.java
 E:\counter\master\src\main\java\entities\Post.java
 E:\counter\master\src\main\java\services\guider\GuiderService.java
 E:\counter\master\src\main\java\services\security\TokenBaseAuthentication.java

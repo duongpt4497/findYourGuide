@@ -185,9 +185,11 @@ public class GuiderServiceImpl implements GuiderService {
         return id;
     }
 
+
     @Override
-    public List<Guider> searchGuider(String key) {
+    public List<Guider> searchGuiderByName(String key) {
         List<Guider> result = new ArrayList<>();
+
         try {
             String query = "select g.* from guider as g "
                     + " inner join account as a on g.guider_id = a.account_id "

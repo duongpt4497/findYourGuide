@@ -29,12 +29,12 @@ import services.account.AccountRepository;
  * @author dgdbp
  */
 @Component
-public class AuthProvider implements AuthenticationProvider {
+public class AuthenProvider implements AuthenticationProvider {
     private PasswordEncoder encoder;
     private AccountRepository userService;
 
     @Autowired
-    public AuthProvider(AccountRepository userService, PasswordEncoder encoder) {
+    public AuthenProvider(AccountRepository userService, PasswordEncoder encoder) {
         this.userService = userService;
         this.encoder = encoder;
     }
@@ -47,7 +47,7 @@ public class AuthProvider implements AuthenticationProvider {
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
         System.out.println("auth name:  " + username);
         System.out.println("auth pass:  " + password);
-        Account acc = userService.findByName(username);
+        Account acc = userService.findAccountByName(username);
         grantedAuths.add(new SimpleGrantedAuthority(acc.getRole()));
         System.out.println("db name:  " + acc.getUserName());
         System.out.println("db pass:  " + acc.getPassword());

@@ -47,7 +47,7 @@ public class PaypalController {
         this.mailService = ms;
         this.accountRepository = ar;
     }
-
+    
     @RequestMapping("/Pay")
     @ResponseStatus(HttpStatus.OK)
     public String payment(@RequestBody Order order) {

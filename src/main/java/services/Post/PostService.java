@@ -5,7 +5,7 @@ import entities.Post;
 import java.util.List;
 
 public interface PostService {
-    List<Post> findAllPost(long guider_id);
+    List<Post> findAllPostOfOneGuider(long guider_id);
 
     List<Post> findAllPostByCategoryId(long category_id);
 

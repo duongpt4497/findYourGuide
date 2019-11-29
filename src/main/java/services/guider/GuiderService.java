@@ -22,7 +22,7 @@ public interface GuiderService {
 
     long deactivateGuider(long id);
 
-    List<Guider> searchGuider(String key);
+    List<Guider> searchGuiderByName(String key);
 
     List<Guider> getTopGuiderByRate();
 
