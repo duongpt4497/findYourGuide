@@ -120,7 +120,7 @@ public class GuiderController {
 
     @RequestMapping("/AcceptContract")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> acceptContract(@RequestParam long guider_id, @RequestParam long contract_id) {
+    public ResponseEntity<Boolean> acceptContract(@RequestParam("guider_id") long guider_id, @RequestParam("contract_id") long contract_id) {
         try {
             guiderService.linkGuiderWithContract(guider_id, contract_id);
             return new ResponseEntity<>(true, HttpStatus.OK);

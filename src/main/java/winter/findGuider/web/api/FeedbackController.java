@@ -33,7 +33,7 @@ public class FeedbackController {
     }
 
     @RequestMapping("/create")
-    public ResponseEntity<Boolean> createFeedback(@RequestParam int account_id, @RequestParam String message) {
+    public ResponseEntity<Boolean> createFeedback(@RequestParam("account_id") int account_id, @RequestParam("message") String message) {
         try {
             feedbackService.createFeedback(account_id, message);
             return new ResponseEntity(true, HttpStatus.OK);

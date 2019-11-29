@@ -67,7 +67,7 @@ public class ReviewController {
 
     @RequestMapping("/showHideReview")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> showHideReview(@RequestBody long trip_id) {
+    public ResponseEntity<Boolean> showHideReview(@RequestParam("trip_id") long trip_id) {
         try {
             reviewService.showHideReview(trip_id);
             return new ResponseEntity<>(true, HttpStatus.OK);

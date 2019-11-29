@@ -80,4 +80,14 @@ public class PostController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+
+    @RequestMapping("/findAllPostWithName")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Post>> findAllPostWithName(@RequestParam("name") String name) {
+        try {
+            return new ResponseEntity<>(postService.findAllPostWithName(name), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 }

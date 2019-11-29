@@ -20,7 +20,7 @@ public class TravelerController {
 
     @RequestMapping("/GetTraveler")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Traveler> getTravelerWithId(@RequestParam int traveler_id) {
+    public ResponseEntity<Traveler> getTravelerWithId(@RequestParam("traveler_id") int traveler_id) {
         try {
             Traveler searchTraveler = travelerService.findTravelerWithId(traveler_id);
             if (searchTraveler == null) {
@@ -56,7 +56,7 @@ public class TravelerController {
 
     @RequestMapping("/favorite")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> favoritePost(@RequestParam int traveler_id, @RequestParam int post_id) {
+    public ResponseEntity<Boolean> favoritePost(@RequestParam("traveler_id") int traveler_id, @RequestParam("post_id") int post_id) {
         try {
             travelerService.favoritePost(traveler_id, post_id);
             return new ResponseEntity<>(true, HttpStatus.OK);

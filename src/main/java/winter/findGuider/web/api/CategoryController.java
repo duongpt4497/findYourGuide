@@ -31,7 +31,7 @@ public class CategoryController {
 
     @RequestMapping("/create")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> createCategory(@RequestParam String name) {
+    public ResponseEntity<Boolean> createCategory(@RequestParam("name") String name) {
         try {
             categoryService.createCategory(name);
             return new ResponseEntity(true, HttpStatus.OK);

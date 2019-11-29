@@ -31,8 +31,8 @@ public class LocationController {
 
     @RequestMapping("/create")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> createLocation(@RequestParam String country, @RequestParam String city,
-                                                  @RequestParam String place) {
+    public ResponseEntity<Boolean> createLocation(@RequestParam("country") String country, @RequestParam("city") String city,
+                                                  @RequestParam("place") String place) {
         try {
             locationService.createLocation(country, city, place);
             return new ResponseEntity(true, HttpStatus.OK);
