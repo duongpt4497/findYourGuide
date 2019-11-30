@@ -20,6 +20,7 @@ import services.trip.TripService;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
+import java.util.logging.Level;
 
 @RestController
 @RequestMapping(path = "/Payment", produces = "application/json")

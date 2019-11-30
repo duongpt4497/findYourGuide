@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package services.security;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import entities.Account;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,6 +66,8 @@ public class UserService {
             }
         } catch (EmptyResultDataAccessException empty) {
             return false;
+        } catch (Exception ex) {
+            log.error(ex.toString());
         }
 
         return false;

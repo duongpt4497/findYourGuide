@@ -1,11 +1,9 @@
-E:\counter\master\src\main\java\services\Feedback\FeedbackServiceImpl.java
 E:\counter\master\src\main\java\services\chatMessage\ChatMessageRepositoryImpl.java
 E:\counter\master\src\main\java\configuration\WebSocketConfig.java
 E:\counter\master\src\main\java\services\security\UserService.java
 E:\counter\master\src\main\java\services\Review\ReviewServiceImpl.java
 E:\counter\master\src\main\java\services\Category\CategoryServiceImpl.java
 E:\counter\master\src\main\java\entities\Account.java
-E:\counter\master\src\main\java\winter\findGuider\web\api\GuiderInfoController.java
 E:\counter\master\src\main\java\configuration\HttpHandshakeInterceptor.java
 E:\counter\master\src\main\java\entities\Principal.java
 E:\counter\master\src\main\java\services\security\TokenAuthenFilter.java
@@ -14,6 +12,7 @@ E:\counter\master\src\main\java\services\plan\PlanService.java
 E:\counter\master\src\main\java\services\GeneralService.java
 E:\counter\master\src\main\java\services\Review\ReviewService.java
 E:\counter\master\src\main\java\entities\Feedback.java
+E:\counter\master\src\main\java\services\Mail\MailService.java
 E:\counter\master\src\main\java\entities\Traveler.java
 E:\counter\master\src\main\java\services\guider\GuiderServiceImpl.java
 E:\counter\master\src\main\java\entities\Guider_Contract.java
@@ -22,7 +21,6 @@ E:\counter\master\src\main\java\winter\findGuider\web\api\AccountController.java
 E:\counter\master\src\main\java\winter\findGuider\web\api\PlanController.java
 E:\counter\master\src\main\java\services\plan\PlanServiceImpl.java
 E:\counter\master\src\main\java\winter\findGuider\web\api\CategoryController.java
-E:\counter\master\src\main\java\winter\findGuider\web\api\FeedbackController.java
 E:\counter\master\src\main\java\winter\findGuider\FindGuiderApplication.java
 E:\counter\master\src\main\java\winter\findGuider\web\api\GuiderController.java
 E:\counter\master\src\main\java\services\ordertrip\OrderTripServiceImpl.java
@@ -38,10 +36,10 @@ E:\counter\master\src\main\java\services\security\AuthenProvider.java
 E:\counter\master\src\main\java\entities\Post.java
 E:\counter\master\src\main\java\services\guider\GuiderService.java
 E:\counter\master\src\main\java\services\security\TokenBaseAuthentication.java
-E:\counter\master\src\main\java\services\Feedback\MailConfig.java
 E:\counter\master\src\main\java\winter\findGuider\web\api\OrderTripController.java
 E:\counter\master\src\main\java\services\Location\LocationServiceImpl.java
 E:\counter\master\src\main\java\services\traveler\TravelerServiceImpl.java
+E:\counter\master\src\main\java\services\Mail\MailServiceImpl.java
 E:\counter\master\src\main\java\services\security\TokenHelper.java
 E:\counter\master\src\main\java\entities\Guider.java
 E:\counter\master\src\main\java\entities\ChatMessage.java
@@ -56,7 +54,6 @@ E:\counter\master\src\main\java\services\security\PrincipalService.java
 E:\counter\master\src\main\java\services\Paypal\PaypalConfig.java
 E:\counter\master\src\main\java\services\Paypal\PaypalPaymentMethod.java
 E:\counter\master\src\main\java\services\traveler\TravelerService.java
-E:\counter\master\src\main\java\services\Feedback\FeedbackService.java
 E:\counter\master\src\main\java\services\Post\PostServiceImpl.java
 E:\counter\master\src\main\java\services\chatMessage\ChatMessageRepositoryCus.java
 E:\counter\master\src\main\java\services\Paypal\PaypalService.java
@@ -65,6 +62,7 @@ E:\counter\master\src\main\java\winter\findGuider\web\api\WebSocketChatControlle
 E:\counter\master\src\main\java\entities\TransactionRecord.java
 E:\counter\master\src\main\java\services\Category\CategoryService.java
 E:\counter\master\src\main\java\winter\findGuider\web\api\LocationController.java
+E:\counter\master\src\main\java\services\Mail\MailConfig.java
 E:\counter\master\src\main\java\configuration\WebSecurityConfig.java
 E:\counter\master\src\main\java\services\contributionPoint\ContributionPointService.java
 E:\counter\master\src\main\java\services\contributionPoint\ContributionPointServiceImpl.java

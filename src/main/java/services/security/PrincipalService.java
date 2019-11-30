@@ -25,24 +25,22 @@ import services.account.AccountRepository;
 @Component
 public class PrincipalService implements UserDetailsService {
     private Logger logger = LoggerFactory.getLogger(getClass());
-
     @Autowired
     private AccountRepository repo;
     
     
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account user = null;
         try {
-            user = repo.findAccountByName(username);
-        } catch (Exception e) {
+            Account user = repo.findAccountByName(username);
+            if (user == null) {
+                throw new UsernameNotFoundException(username);
+            }
+            return new Principal(user);
+        } catch (Exception ex) {
             logger.error(e.getMessage());
             throw new UsernameNotFoundException(username);
         }
-        if (user == null) {
-            throw new UsernameNotFoundException(username);
-        }
-        return new Principal(user);
     }
 
 

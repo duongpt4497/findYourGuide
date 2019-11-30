@@ -23,9 +23,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.security.core.*;
 import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import services.account.AccountRepository;
+import services.contributionPoint.ContributionPointServiceImpl;
 
 /**
  *
@@ -36,7 +40,7 @@ public class AuthenProvider implements AuthenticationProvider {
     private Logger logger = LoggerFactory.getLogger(getClass());
     private PasswordEncoder encoder;
     private AccountRepository userService;
-
+    private static final Logger log = LoggerFactory.getLogger(AuthenProvider.class);
     @Autowired
     public AuthenProvider(AccountRepository userService, PasswordEncoder encoder) {
         this.userService = userService;

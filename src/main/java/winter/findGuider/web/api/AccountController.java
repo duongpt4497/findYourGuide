@@ -18,6 +18,16 @@ import services.security.UserService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+
+import javax.validation.Valid;
+import org.springframework.http.HttpHeaders;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import services.security.AuthenProvider;
+import services.account.AccountRepository;
+
 import java.util.Date;
 import java.util.List;
 
@@ -42,6 +52,8 @@ public class AccountController {
 
     @PostMapping(path = "registrator", consumes = "application/json")
     public ResponseEntity registerUserAccount(@RequestBody Account acc, HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
         Account registered = null;
         acc.setToken("");
         acc.setExpired(new Date());
@@ -54,16 +66,17 @@ public class AccountController {
             sidCookie.setHttpOnly(true);
             sidCookie.setDomain("localhost");
             response.addCookie(sidCookie);
-//            repo.addAccount(registered);
             registered.setPassword("");
             registered.setToken("");
             System.out.println(acc.getExpired());
         } catch (Exception e) {
             logger.error(e.getMessage());
-            return new ResponseEntity<>("regist fail", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
         // rest of the implementation
         return new ResponseEntity<>(registered.getToken(), HttpStatus.OK);
+
     }
 
     @PostMapping("/logout")
