@@ -162,7 +162,8 @@ public class PostServiceImpl implements PostService {
     @Override
     public void updatePost(long post_id, Post post) throws Exception {
         String query = "update post set title = ?, picture_link = ?, video_link = ?, total_hour = ?, description = ?, " +
-                "including_service = ?, active = ?, location_id = ?, category_id = ?, rated = ?, price = ?, reasons = ? where post_id = ?";
+                "including_service = ?, active = ?, location_id = ?, category_id = ?, rated = ?, price = ?, reasons = ? " +
+                "where post_id = ? and authorized = true";
         jdbcTemplate.update(query, post.getTitle(),
                 generalService.createSqlArray(generalService.convertBase64toImageAndChangeName(post.getPicture_link())),
                 post.getVideo_link(), post.getTotal_hour(), post.getDescription(),
