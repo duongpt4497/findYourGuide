@@ -2,7 +2,7 @@ package services.contributionPoint;
 
 public interface ContributionPointService {
 
-    void penaltyGuiderForCancel(int guider_id);
+    void penaltyGuiderForCancel(int guider_id) throws Exception;
 
 //    long getAmountReturnOfATraveller (long guider_id,long traveller_id);
 //

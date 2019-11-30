@@ -156,20 +156,15 @@ public class ContributionPointServiceImpl implements ContributionPointService {
     }
 
     @Override
-    public void penaltyGuiderForCancel(int guider_id) {
-        try {
-            String query = "select contribution from guider where guider_id = ?";
-            int point = jdbcTemplate.queryForObject(query, new Object[]{guider_id}, int.class);
-            point -= 500;
-            if (point < 0) {
-                point = 0;
-            }
-            String queryUpdate = "update guider set contribution = ? where guider_id = ?";
-            jdbcTemplate.update(queryUpdate, point, guider_id);
-        } catch (Exception e) {
-            log.warn(e.getMessage());
-            throw e;
+    public void penaltyGuiderForCancel(int guider_id) throws Exception {
+        String query = "select contribution from guider where guider_id = ?";
+        int point = jdbcTemplate.queryForObject(query, new Object[]{guider_id}, int.class);
+        point -= 500;
+        if (point < 0) {
+            point = 0;
         }
+        String queryUpdate = "update guider set contribution = ? where guider_id = ?";
+        jdbcTemplate.update(queryUpdate, point, guider_id);
     }
 
 //                    Date date = new Date();
