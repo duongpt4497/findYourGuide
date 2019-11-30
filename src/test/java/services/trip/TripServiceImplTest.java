@@ -1,6 +1,5 @@
 package services.trip;
 
-import com.paypal.base.rest.PayPalRESTException;
 import entities.Order;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.util.ReflectionTestUtils;
 import winter.findGuider.TestDataSourceConfig;
@@ -53,7 +51,7 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void createOrder() {
+    public void createOrder() throws Exception {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         Order order = new Order(2, 1, LocalDateTime.now(), LocalDateTime.now(),
                 1, 1, 120, "abc", null);
@@ -62,17 +60,8 @@ public class TripServiceImplTest {
         Assert.assertEquals(1, result);
     }
 
-    @Test(expected = Exception.class)
-    public void createOrder2() {
-        Order order = new Order(2, 1, LocalDateTime.now(), LocalDateTime.now(),
-                1, 1, 120, "abc", null);
-        tripService.createTrip(order);
-        int result = jdbcTemplate.queryForObject("select count(trip_id) from trip", new Object[]{}, int.class);
-        Assert.assertEquals(1, result);
-    }
-
     @Test
-    public void findOrderById() {
+    public void findOrderById() throws Exception {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
@@ -81,7 +70,7 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void findTripByStatus1() {
+    public void findTripByStatus() throws Exception {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
@@ -90,7 +79,7 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void findTripByStatus2() {
+    public void findTripByStatus2() throws Exception {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
@@ -98,8 +87,8 @@ public class TripServiceImplTest {
         Assert.assertEquals(1, tripService.findTripByStatus("traveler", 2, "UNCONFIRMED").get(0).gettrip_id());
     }
 
-    @Test
-    public void findTripByStatus3() {
+    @Test(expected = Exception.class)
+    public void findTripByStatus3() throws Exception {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
@@ -108,7 +97,7 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void acceptOrder() {
+    public void acceptOrder() throws Exception {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
@@ -117,7 +106,7 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void acceptOrder2() {
+    public void acceptOrder2() throws Exception {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
@@ -126,7 +115,7 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void cancelOrder() {
+    public void cancelOrder() throws Exception {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
@@ -135,7 +124,7 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void cancelOrder2() {
+    public void cancelOrder2() throws Exception {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
@@ -144,7 +133,7 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void finishOrder() {
+    public void finishOrder() throws Exception {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
                 "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','ONGOING')");
@@ -152,7 +141,7 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void finishOrder2() {
+    public void finishOrder2() throws Exception {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
@@ -161,7 +150,7 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void getOrderGuiderId_FinishDate() {
+    public void getOrderGuiderId_FinishDate() throws Exception {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         Order order = new Order();
@@ -175,22 +164,8 @@ public class TripServiceImplTest {
         Assert.assertEquals(1, order.getGuider_id());
     }
 
-    @Test(expected = EmptyResultDataAccessException.class)
-    public void getOrderGuiderId_FinishDate2() {
-        jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
-                "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
-        Order order = new Order();
-        order.setTraveler_id(2);
-        order.setAdult_quantity(1);
-        order.setChildren_quantity(1);
-        order.setBegin_date(LocalDateTime.now());
-        order.setFee_paid(150);
-        tripService.getTripGuiderId_FinishDate(order);
-        Assert.assertEquals(1, order.getGuider_id());
-    }
-
     @Test
-    public void checkOrderExist() {
+    public void checkOrderExist() throws Exception {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
@@ -199,7 +174,7 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void checkAvailabilityOfOrder() {
+    public void checkAvailabilityOfOrder() throws Exception {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
@@ -211,17 +186,8 @@ public class TripServiceImplTest {
         Assert.assertEquals(1, tripService.checkAvailabilityOfTrip(order));
     }
 
-    @Test(expected = NullPointerException.class)
-    public void checkAvailabilityOfOrder2() {
-        jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
-                "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
-        jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
-                "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','ONGOING')");
-        Assert.assertEquals(0, tripService.checkAvailabilityOfTrip(null));
-    }
-
     @Test
-    public void getGuiderAvailableHours() {
+    public void getGuiderAvailableHours() throws Exception {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
@@ -262,7 +228,7 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void getClosestTourFinishDate() {
+    public void getClosestTourFinishDate() throws Exception {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
@@ -271,12 +237,12 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void getClosestTourFinishDate2() {
+    public void getClosestTourFinishDate2() throws Exception {
         Assert.assertEquals("", tripService.getClosestTripFinishDate(LocalDate.parse("2019-11-24"), 1));
     }
 
     @Test
-    public void checkOrderReach48Hours() {
+    public void checkOrderReach48Hours() throws Exception {
         Order order = new Order();
         order.setBegin_date(LocalDateTime.parse("2019-11-29T00:00"));
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T00:30");
@@ -284,7 +250,7 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void checkOrderReach48Hours2() {
+    public void checkOrderReach48Hours2() throws Exception {
         Order order = new Order();
         order.setBegin_date(LocalDateTime.parse("2019-11-27T00:00"));
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T00:30");
@@ -292,7 +258,7 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void checkOrderReach48Hours3() {
+    public void checkOrderReach48Hours3() throws Exception {
         Order order = new Order();
         order.setBegin_date(LocalDateTime.parse("2019-11-28T01:00"));
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T00:00");
@@ -300,7 +266,7 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void checkOrderReach48Hours4() {
+    public void checkOrderReach48Hours4() throws Exception {
         Order order = new Order();
         order.setBegin_date(LocalDateTime.parse("2019-11-28T01:00"));
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T02:00");
@@ -308,7 +274,7 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void checkOrderReach48Hours5() {
+    public void checkOrderReach48Hours5() throws Exception {
         Order order = new Order();
         order.setBegin_date(LocalDateTime.parse("2019-11-28T01:30"));
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T01:00");
@@ -316,7 +282,7 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void checkOrderReach48Hours6() {
+    public void checkOrderReach48Hours6() throws Exception {
         Order order = new Order();
         order.setBegin_date(LocalDateTime.parse("2019-11-28T01:30"));
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T01:50");
@@ -324,7 +290,7 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void checkOrderReach48Hours7() {
+    public void checkOrderReach48Hours7() throws Exception {
         Order order = new Order();
         order.setBegin_date(LocalDateTime.parse("2019-11-28T01:30"));
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T01:30");
@@ -332,43 +298,24 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void getExpectedEndTourTime() {
+    public void getExpectedEndTourTime() throws Exception {
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T01:30");
         Assert.assertEquals("11/26/2019 04:00", tripService.getExpectedEndTripTime(1, rightNow));
     }
 
     @Test
-    public void getOrderByWeek() {
+    public void getOrderByWeek() throws Exception {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
                 "values (1,2,1,'2019-11-22T05:30','2019-11-22T07:00',1,1,150,'abc','ONGOING')");
-        try {
-            Date start = new SimpleDateFormat("yyyy-MM-dd").parse("2019-11-20");
-            Date end = new SimpleDateFormat("yyyy-MM-dd").parse("2019-11-30");
-            Assert.assertEquals(1, tripService.getTripByWeek(1, start, end).size());
-        } catch (Exception e) {
-
-        }
-    }
-
-    @Test(expected = AssertionError.class)
-    public void getOrderByWeek2() {
-        jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
-                "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
-        jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
-                "values (1,2,1,'2019-11-22T05:30','2019-11-22T07:00',1,1,150,'abc','ONGOING')");
-        try {
-            Date start = new SimpleDateFormat("yyyy-MM-dd").parse("2019-11-20");
-            Date end = new SimpleDateFormat("yyyy-MM-dd").parse("2019-11-30");
-            Assert.assertEquals(1, tripService.getTripByWeek(1, null, null).size());
-        } catch (Exception e) {
-
-        }
+        Date start = new SimpleDateFormat("yyyy-MM-dd").parse("2019-11-20");
+        Date end = new SimpleDateFormat("yyyy-MM-dd").parse("2019-11-30");
+        Assert.assertEquals(1, tripService.getTripByWeek(1, start, end).size());
     }
 
     @Test
-    public void orderFilter() throws PayPalRESTException {
+    public void orderFilter() throws Exception {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +

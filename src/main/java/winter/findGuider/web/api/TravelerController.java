@@ -1,6 +1,8 @@
 package winter.findGuider.web.api;
 
 import entities.Traveler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import services.traveler.TravelerService;
 @RequestMapping(path = "/Traveler", produces = "application/json")
 @CrossOrigin(origins = "*")
 public class TravelerController {
+    private Logger logger = LoggerFactory.getLogger(getClass());
     private TravelerService travelerService;
 
     @Autowired
@@ -28,6 +31,7 @@ public class TravelerController {
             }
             return new ResponseEntity<>(searchTraveler, HttpStatus.OK);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
@@ -39,6 +43,7 @@ public class TravelerController {
             boolean success = travelerService.createTraveler(newTraveler);
             return new ResponseEntity<>(success, HttpStatus.OK);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
@@ -50,6 +55,7 @@ public class TravelerController {
             travelerService.updateTraveler(travelerNeedUpdate);
             return new ResponseEntity<>(travelerService.findTravelerWithId(travelerNeedUpdate.getTraveler_id()), HttpStatus.OK);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
@@ -61,6 +67,7 @@ public class TravelerController {
             travelerService.favoritePost(traveler_id, post_id);
             return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
         }
     }

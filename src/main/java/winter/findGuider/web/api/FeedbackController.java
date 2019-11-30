@@ -1,6 +1,8 @@
 package winter.findGuider.web.api;
 
 import entities.Feedback;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import java.util.List;
 @RequestMapping(path = "/feedback", produces = "application/json")
 @CrossOrigin(origins = "*")
 public class FeedbackController {
+    private Logger logger = LoggerFactory.getLogger(getClass());
     private FeedbackService feedbackService;
 
     @Autowired
@@ -28,6 +31,7 @@ public class FeedbackController {
         try {
             return new ResponseEntity(feedbackService.findAllFeedback(), HttpStatus.OK);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity(null, HttpStatus.NOT_FOUND);
         }
     }
@@ -38,6 +42,7 @@ public class FeedbackController {
             feedbackService.createFeedback(account_id, message);
             return new ResponseEntity(true, HttpStatus.OK);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity(false, HttpStatus.NOT_FOUND);
         }
     }

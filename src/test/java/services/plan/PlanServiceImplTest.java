@@ -29,7 +29,7 @@ public class PlanServiceImplTest {
     }
 
     @Test
-    public void createPlan() {
+    public void createPlan() throws Exception {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
@@ -53,7 +53,7 @@ public class PlanServiceImplTest {
     }
 
     @Test
-    public void searchPlanByPlanId() {
+    public void searchPlanByPlanId() throws Exception {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
@@ -77,7 +77,7 @@ public class PlanServiceImplTest {
     }
 
     @Test
-    public void searchPlanByPostId() {
+    public void searchPlanByPostId() throws Exception {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
@@ -101,7 +101,7 @@ public class PlanServiceImplTest {
     }
 
     @Test
-    public void updatePlan() {
+    public void updatePlan() throws Exception {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +

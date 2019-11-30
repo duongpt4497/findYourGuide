@@ -30,55 +30,31 @@ public class AccountServiceUnitTest {
     }
 
     @Test
-    public void testFindByName() {
+    public void testFindByName() throws Exception {
         Account acc = accountService.findAccountByName("Jacky");
         Assert.assertEquals("$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK", acc.getPassword());
         Assert.assertEquals("Jacky@gmail.com", acc.getEmail());
         Assert.assertEquals("GUIDER", acc.getRole());
     }
 
-    @Test(expected = Exception.class)
-    public void testFindByName2() {
-        Account acc = accountService.findAccountByName("abc");
-        Assert.assertEquals("$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK", acc.getPassword());
-        Assert.assertEquals("Jacky@gmail.com", acc.getEmail());
-        Assert.assertEquals("GUIDER", acc.getRole());
-    }
-
     @Test
-    public void testAddAccount() {
+    public void testAddAccount() throws Exception {
         Account account = new Account("test", "123", "test@test.com", "GUIDER");
         jdbcTemplate.update("delete from account where user_name = 'test'");
         int id = accountService.addAccount(account);
         Assert.assertEquals(accountService.findAccountByName("test").getId(), id);
     }
 
-    @Test(expected = Exception.class)
-    public void testAddAccount2() {
-        Account account = new Account();
-        jdbcTemplate.update("delete from account where user_name = 'test'");
-        int id = accountService.addAccount(account);
-        Assert.assertEquals(accountService.findAccountByName("test").getId(), id);
-    }
-
     @Test
-    public void testGetEmail() {
+    public void testGetEmail() throws Exception {
         jdbcTemplate.update("delete from account");
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','TRAVELER')");
         Assert.assertEquals("Jacky@gmail.com", accountService.getEmail(1));
     }
 
-    @Test(expected = Exception.class)
-    public void testGetEmail2() {
-        jdbcTemplate.update("delete from account");
-        jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
-                "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','TRAVELER')");
-        Assert.assertEquals("Jacky@gmail.com", accountService.getEmail(2));
-    }
-
     @Test
-    public void findAllAccount() {
+    public void findAllAccount() throws Exception {
         jdbcTemplate.update("delete from account");
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','TRAVELER')");

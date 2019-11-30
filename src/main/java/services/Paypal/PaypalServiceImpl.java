@@ -19,7 +19,6 @@ import java.util.List;
 
 @Repository
 public class PaypalServiceImpl implements PaypalService {
-    private final Logger logger = LoggerFactory.getLogger(getClass());
     private JdbcTemplate jdbcTemplate;
     private APIContext apiContext;
 
@@ -67,68 +66,55 @@ public class PaypalServiceImpl implements PaypalService {
     }
 
     @Override
-    public void createTransactionRecord(String transaction_id, String payment_id, String payer_id, String description, boolean success) {
-        try {
-            String insertQuery = "insert into transaction (transaction_id, payment_id, payer_id, description, date_of_transaction, success) " +
-                    "values (?,?,?,?,?,?)";
-            jdbcTemplate.update(insertQuery, transaction_id, payment_id, payer_id, description,
-                    new java.sql.Timestamp(System.currentTimeMillis()), success);
-        } catch (Exception e) {
-            logger.warn(e.getMessage());
-            throw e;
-        }
+    public void createTransactionRecord(String transaction_id, String payment_id,
+                                        String payer_id, String description, boolean success) throws Exception {
+        String insertQuery = "insert into transaction (transaction_id, payment_id, payer_id, description, date_of_transaction, success) " +
+                "values (?,?,?,?,?,?)";
+        jdbcTemplate.update(insertQuery, transaction_id, payment_id, payer_id, description,
+                new java.sql.Timestamp(System.currentTimeMillis()), success);
     }
 
     @Override
-    public double getTransactionFee(Order order) {
+    public double getTransactionFee(Order order) throws Exception {
         double fee = 0;
-        try {
-            String query = "select price from post where post_id = ?";
-            double price = jdbcTemplate.queryForObject(query, new Object[]{order.getPost_id()}, double.class);
-            fee = price * order.getAdult_quantity() + (price / 2) * order.getChildren_quantity();
-        } catch (Exception e) {
-            logger.warn(e.getMessage());
-            throw e;
-        }
+        String query = "select price from post where post_id = ?";
+        double price = jdbcTemplate.queryForObject(query, new Object[]{order.getPost_id()}, double.class);
+        fee = price * order.getAdult_quantity() + (price / 2) * order.getChildren_quantity();
         return fee;
     }
 
     @Override
-    public String getTransactionDescription(Order order) {
+    public String getTransactionDescription(Order order) throws Exception {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM dd, yyyy");
         List<String> description = new ArrayList<>();
         String ds = "";
-        try {
-            ds = "On " + format.format(order.getBegin_date()) + "\n";
-            ds += ". Include adult: " + order.getAdult_quantity() + ", children: " + order.getChildren_quantity()
-                    + ". Fee: " + order.getFee_paid() + ".";
-            String query = "SELECT title, traveler.first_name as traFname, traveler.last_name as traLname, " +
-                    "guider.first_name as guFname, guider.last_name as guLname " +
-                    "FROM post " +
-                    "join guider on post.guider_id = guider.guider_id " +
-                    "join traveler on traveler_id = ? " +
-                    "where post_id = ?";
-            description = jdbcTemplate.query(query, new RowMapper<String>() {
-                @Override
-                public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    String info = "";
-                    if (rs.getString("title") != null) {
-                        info += " On tour " + rs.getString("title");
-                    }
-                    if (rs.getString("traFname") != null && (rs.getString("traLname") != null)) {
-                        info += " of " + rs.getString("traFname") + " " + rs.getString("traLname");
-                    }
-                    if (rs.getString("guFname") != null && rs.getString("guLname") != null) {
-                        info += " and " + rs.getString("guFname") + " " + rs.getString("guLname");
-                    }
-                    return info;
+        ds = "On " + format.format(order.getBegin_date()) + "\n";
+        ds += ". Include adult: " + order.getAdult_quantity() + ", children: " + order.getChildren_quantity()
+                + ". Fee: " + order.getFee_paid() + ".";
+        String query = "SELECT title, traveler.first_name as traFname, traveler.last_name as traLname, " +
+                "guider.first_name as guFname, guider.last_name as guLname " +
+                "FROM post " +
+                "join guider on post.guider_id = guider.guider_id " +
+                "join traveler on traveler_id = ? " +
+                "where post_id = ?";
+        description = jdbcTemplate.query(query, new RowMapper<String>() {
+            @Override
+            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+                String info = "";
+                if (rs.getString("title") != null) {
+                    info += " On tour " + rs.getString("title");
                 }
-            }, order.getTraveler_id(), order.getPost_id());
-            if (description != null && !description.isEmpty()) {
-                ds += description.get(0);
+                if (rs.getString("traFname") != null && (rs.getString("traLname") != null)) {
+                    info += " of " + rs.getString("traFname") + " " + rs.getString("traLname");
+                }
+                if (rs.getString("guFname") != null && rs.getString("guLname") != null) {
+                    info += " and " + rs.getString("guFname") + " " + rs.getString("guLname");
+                }
+                return info;
             }
-        } catch (Exception e) {
-            logger.warn(e.getMessage());
+        }, order.getTraveler_id(), order.getPost_id());
+        if (description != null && !description.isEmpty()) {
+            ds += description.get(0);
         }
         return ds;
     }
@@ -150,12 +136,8 @@ public class PaypalServiceImpl implements PaypalService {
     }
 
     @Override
-    public void createRefundRecord(String transaction_id, String message) {
-        try {
-            String query = "insert into refund (transaction_id, date_of_refund, message) values (?,?,?)";
-            jdbcTemplate.update(query, transaction_id, new java.sql.Timestamp(System.currentTimeMillis()), message);
-        } catch (Exception e) {
-            logger.warn(e.getMessage());
-        }
+    public void createRefundRecord(String transaction_id, String message) throws Exception {
+        String query = "insert into refund (transaction_id, date_of_refund, message) values (?,?,?)";
+        jdbcTemplate.update(query, transaction_id, new java.sql.Timestamp(System.currentTimeMillis()), message);
     }
 }

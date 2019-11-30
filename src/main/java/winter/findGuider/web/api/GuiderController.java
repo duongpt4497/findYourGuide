@@ -2,6 +2,8 @@ package winter.findGuider.web.api;
 
 import entities.Contract;
 import entities.Guider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +16,7 @@ import java.util.List;
 @RequestMapping(path = "/Guider", produces = "application/json")
 @CrossOrigin(origins = "*")
 public class GuiderController {
-
+    private Logger logger = LoggerFactory.getLogger(getClass());
     private GuiderService guiderService;
 
     @Autowired
@@ -30,6 +32,7 @@ public class GuiderController {
             long contract_id = guiderService.createGuiderContract(newGuiderContract);
             return new ResponseEntity<>(guiderService.findGuiderWithID(guider_id), HttpStatus.OK);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
@@ -41,6 +44,7 @@ public class GuiderController {
             guiderService.updateGuiderWithId(guiderNeedUpdate);
             return new ResponseEntity<>(guiderService.findGuiderWithID(guiderNeedUpdate.getGuider_id()), HttpStatus.OK);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
@@ -52,6 +56,7 @@ public class GuiderController {
             long activatedId = guiderService.activateGuider(id);
             return new ResponseEntity<>(guiderService.findGuiderWithID(activatedId), HttpStatus.OK);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
 
@@ -64,6 +69,7 @@ public class GuiderController {
             long deactivatedId = guiderService.deactivateGuider(id);
             return new ResponseEntity<>(guiderService.findGuiderWithID(deactivatedId), HttpStatus.OK);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
@@ -74,6 +80,7 @@ public class GuiderController {
         try {
             return new ResponseEntity<>(guiderService.searchGuiderByName(key), HttpStatus.OK);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
     }
@@ -84,6 +91,7 @@ public class GuiderController {
         try {
             return new ResponseEntity<>(guiderService.findGuiderWithID(id), HttpStatus.OK);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
@@ -94,6 +102,7 @@ public class GuiderController {
         try {
             return new ResponseEntity<>(guiderService.findGuiderWithPostId(post_id), HttpStatus.OK);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
@@ -104,6 +113,7 @@ public class GuiderController {
         try {
             return new ResponseEntity<>(guiderService.getTopGuiderByRate(), HttpStatus.OK);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
@@ -114,6 +124,7 @@ public class GuiderController {
         try {
             return new ResponseEntity<>(guiderService.getTopGuiderByContribute(), HttpStatus.OK);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
@@ -125,6 +136,7 @@ public class GuiderController {
             guiderService.linkGuiderWithContract(guider_id, contract_id);
             return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
         }
     }

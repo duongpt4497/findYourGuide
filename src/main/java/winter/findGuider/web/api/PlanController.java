@@ -1,6 +1,8 @@
 package winter.findGuider.web.api;
 
 import entities.Plan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import services.plan.PlanService;
 @RequestMapping(path = "/plan", produces = "application/json")
 @CrossOrigin(origins = "*")
 public class PlanController {
+    private Logger logger = LoggerFactory.getLogger(getClass());
     private PlanService planService;
 
     @Autowired
@@ -25,6 +28,7 @@ public class PlanController {
             int createdId = planService.createPlan(plan);
             return new ResponseEntity<>(createdId, HttpStatus.OK);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
@@ -36,6 +40,7 @@ public class PlanController {
             planService.updatePlan(plan.getPost_id(), plan.getMeeting_point(), plan.getDetail());
             return new ResponseEntity<>(planService.searchPlanByPostId(plan.getPost_id()), HttpStatus.OK);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
@@ -46,7 +51,8 @@ public class PlanController {
         try {
             return new ResponseEntity<>(planService.searchPlanByPostId(post_id), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.OK);
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 }

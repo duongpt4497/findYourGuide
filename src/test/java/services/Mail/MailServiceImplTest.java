@@ -72,12 +72,12 @@ public class MailServiceImplTest {
     }
 
     @Test
-    public void sendMail() {
+    public void sendMail() throws Exception {
         Assert.assertEquals(true, mailService.sendMail("travelwithlocalsysadm@gmail.com", "test method", "test"));
     }
 
     @Test
-    public void getMailContent() {
+    public void getMailContent() throws Exception {
         Order order = new Order(1, 2, 1, 1, LocalDateTime.parse("2019-11-12T00:00"), LocalDateTime.parse("2019-11-12T00:00"), 2, 1, 150, "ABCD", null);
         Assert.assertEquals("Dear Mr/Ms Deo\n" +
                 "\n" +
@@ -98,7 +98,7 @@ public class MailServiceImplTest {
     }
 
     @Test
-    public void getMailContent2() {
+    public void getMailContent2() throws Exception {
         Order order = new Order(1, 2, 1, 1, LocalDateTime.parse("2019-11-12T00:00"), LocalDateTime.parse("2019-11-12T00:00"), 2, 1, 150, "ABCD", "ONGOING");
         Assert.assertEquals("Dear Mr/Ms Deo\n" +
                 "\n" +
@@ -119,7 +119,7 @@ public class MailServiceImplTest {
     }
 
     @Test
-    public void getMailContent3() {
+    public void getMailContent3() throws Exception {
         Order order = new Order(1, 2, 1, 1, LocalDateTime.parse("2019-11-12T00:00"), LocalDateTime.parse("2019-11-12T00:00"), 2, 1, 150, "ABCD", "CANCELLED");
         Assert.assertEquals("Dear Mr/Ms Deo\n" +
                 "\n" +
@@ -140,7 +140,7 @@ public class MailServiceImplTest {
     }
 
     @Test
-    public void getMailContent4() {
+    public void getMailContent4() throws Exception {
         Order order = new Order(1, 2, 1, 1, LocalDateTime.parse("2019-11-12T00:00"), LocalDateTime.parse("2019-11-12T00:00"), 2, 1, 150, "ABCD", "FINISHED");
         Assert.assertEquals("Dear Mr/Ms Deo\n" +
                 "\n" +
@@ -158,11 +158,5 @@ public class MailServiceImplTest {
                 "\n" +
                 "Sincerely,\n" +
                 "TravelWLocal", mailService.getMailContent(order, "FINISHED"));
-    }
-
-    @Test
-    public void getMailContentError() {
-        Order order = new Order(1, 1, 1, 1, LocalDateTime.now(), LocalDateTime.now(), 2, 1, 150, "ABCD", null);
-        Assert.assertEquals(null, mailService.getMailContent(order, "UNCONFIRMED"));
     }
 }

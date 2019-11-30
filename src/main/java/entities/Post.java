@@ -23,6 +23,7 @@ public class Post {
     private float price;
     private float rated;
     private String reasons;
+    private boolean authorized;
 
     public Post(long post_id, long guider_id, long location_id, long category_id, String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, float price, float rated, String reasons) {
         this.post_id = post_id;
@@ -240,5 +241,17 @@ public class Post {
 
     public void setCategory_id(long category_id) {
         this.category_id = category_id;
+    }
+
+    public void setPost_id(long post_id) {
+        this.post_id = post_id;
+    }
+
+    public boolean isAuthorized() {
+        return authorized;
+    }
+
+    public void setAuthorized(boolean authorized) {
+        this.authorized = authorized;
     }
 }

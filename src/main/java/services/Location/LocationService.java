@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface LocationService {
 
-    List<Location> showAllLocation();
+    List<Location> showAllLocation() throws Exception;
 
-    void createLocation(String country, String city, String place);
+    void createLocation(String country, String city, String place) throws Exception;
 }
