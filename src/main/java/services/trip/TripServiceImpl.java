@@ -47,207 +47,163 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public void createTrip(Order newOrder) {
-        try {
-            String insertQuery = "insert into trip (traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)"
-                    + "values (?,?,?,?,?,?,?,?,?)";
-            double totalHour = this.getTourTotalHour(newOrder.getPost_id());
-            long bufferHour = (long) java.lang.Math.ceil(totalHour / 100 * Integer.parseInt(bufferPercent));
-            jdbcTemplate.update(insertQuery, newOrder.getTraveler_id(), newOrder.getPost_id(),
-                    Timestamp.valueOf(newOrder.getBegin_date()),
-                    Timestamp.valueOf(newOrder.getFinish_date().plusHours(bufferHour).minusMinutes(30)),
-                    newOrder.getAdult_quantity(), newOrder.getChildren_quantity(), newOrder.getFee_paid(),
-                    newOrder.getTransaction_id(), UNCONFIRMED);
-        } catch (Exception e) {
-            logger.warn(e.getMessage());
-            throw e;
-        }
+    public void createTrip(Order newOrder) throws Exception {
+        String insertQuery = "insert into trip (traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)"
+                + "values (?,?,?,?,?,?,?,?,?)";
+        double totalHour = this.getTourTotalHour(newOrder.getPost_id());
+        long bufferHour = (long) java.lang.Math.ceil(totalHour / 100 * Integer.parseInt(bufferPercent));
+        jdbcTemplate.update(insertQuery, newOrder.getTraveler_id(), newOrder.getPost_id(),
+                Timestamp.valueOf(newOrder.getBegin_date()),
+                Timestamp.valueOf(newOrder.getFinish_date().plusHours(bufferHour).minusMinutes(30)),
+                newOrder.getAdult_quantity(), newOrder.getChildren_quantity(), newOrder.getFee_paid(),
+                newOrder.getTransaction_id(), UNCONFIRMED);
     }
 
     @Override
-    public Order findTripById(int trip_id) {
+    public Order findTripById(int trip_id) throws Exception {
         Order searchOrder = new Order();
-        try {
-            String query = "select * from trip where trip_id = ?";
-            searchOrder = jdbcTemplate.queryForObject(query, new RowMapper<Order>() {
-                @Override
-                public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return new Order(rs.getInt("trip_id"), rs.getInt("traveler_id"),
-                            rs.getInt("post_id"),
-                            rs.getTimestamp("begin_date").toLocalDateTime(),
-                            rs.getTimestamp("finish_date").toLocalDateTime(),
-                            rs.getInt("adult_quantity"), rs.getInt("children_quantity"),
-                            rs.getLong("fee_paid"), rs.getString("transaction_id"),
-                            rs.getString("status"));
-                }
-            }, trip_id);
-        } catch (Exception e) {
-            logger.warn(e.getMessage());
-            throw e;
-        }
+        String query = "select * from trip where trip_id = ?";
+        searchOrder = jdbcTemplate.queryForObject(query, new RowMapper<Order>() {
+            @Override
+            public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new Order(rs.getInt("trip_id"), rs.getInt("traveler_id"),
+                        rs.getInt("post_id"),
+                        rs.getTimestamp("begin_date").toLocalDateTime(),
+                        rs.getTimestamp("finish_date").toLocalDateTime(),
+                        rs.getInt("adult_quantity"), rs.getInt("children_quantity"),
+                        rs.getLong("fee_paid"), rs.getString("transaction_id"),
+                        rs.getString("status"));
+            }
+        }, trip_id);
         return searchOrder;
     }
 
     @Override
-    public List<Order> findTripByStatus(String role, int id, String status) {
+    public List<Order> findTripByStatus(String role, int id, String status) throws Exception {
         List<Order> result = new ArrayList<>();
-        try {
-            String query = "";
-            if (role.equalsIgnoreCase("guider")) {
-                query = "SELECT o.*, p.guider_id, p.title, t.first_name, t.last_name FROM trip as o "
-                        + " inner join traveler as t on o.traveler_id = t.traveler_id "
-                        + " inner join post as p on p.post_id = o.post_id "
-                        + " where p.guider_id = ? and status = ? "
-                        + " order by begin_date desc ";
-            } else if (role.equalsIgnoreCase("traveler")) {
-                query = "SELECT o.*, p.guider_id, p.title, g.first_name, g.last_name " +
-                        "FROM trip as o " +
-                        "inner join post as p on p.post_id = o.post_id " +
-                        "inner join guider as g on p.guider_id = g.guider_id " +
-                        "where o.traveler_id = ? and status = ? " +
-                        "order by begin_date desc";
-            } else {
-                throw new Exception("wrong role");
-            }
-
-            result = jdbcTemplate.query(query, new RowMapper<Order>() {
-                @Override
-                public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return new Order(rs.getInt("trip_id"),
-                            rs.getInt("traveler_id"),
-                            rs.getInt("guider_id"),
-                            rs.getInt("post_id"),
-                            rs.getTimestamp("begin_date").toLocalDateTime(),
-                            rs.getTimestamp("finish_date").toLocalDateTime(),
-                            rs.getInt("adult_quantity"),
-                            rs.getInt("children_quantity"),
-                            rs.getDouble("fee_paid"),
-                            rs.getString("transaction_id"),
-                            rs.getString("status"),
-                            rs.getString("title"),
-                            rs.getString("first_name") + " " + rs.getString("last_name"));
-                }
-            }, id, status);
-            System.out.println(query + id + status + result.size());
-        } catch (Exception e) {
-            logger.warn(e.getMessage());
+        String query = "";
+        if (role.equalsIgnoreCase("guider")) {
+            query = "SELECT o.*, p.guider_id, p.title, t.first_name, t.last_name FROM trip as o "
+                    + " inner join traveler as t on o.traveler_id = t.traveler_id "
+                    + " inner join post as p on p.post_id = o.post_id "
+                    + " where p.guider_id = ? and status = ? "
+                    + " order by begin_date desc ";
+        } else if (role.equalsIgnoreCase("traveler")) {
+            query = "SELECT o.*, p.guider_id, p.title, g.first_name, g.last_name " +
+                    "FROM trip as o " +
+                    "inner join post as p on p.post_id = o.post_id " +
+                    "inner join guider as g on p.guider_id = g.guider_id " +
+                    "where o.traveler_id = ? and status = ? " +
+                    "order by begin_date desc";
+        } else {
+            throw new Exception("wrong role");
         }
+
+        result = jdbcTemplate.query(query, new RowMapper<Order>() {
+            @Override
+            public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new Order(rs.getInt("trip_id"),
+                        rs.getInt("traveler_id"),
+                        rs.getInt("guider_id"),
+                        rs.getInt("post_id"),
+                        rs.getTimestamp("begin_date").toLocalDateTime(),
+                        rs.getTimestamp("finish_date").toLocalDateTime(),
+                        rs.getInt("adult_quantity"),
+                        rs.getInt("children_quantity"),
+                        rs.getDouble("fee_paid"),
+                        rs.getString("transaction_id"),
+                        rs.getString("status"),
+                        rs.getString("title"),
+                        rs.getString("first_name") + " " + rs.getString("last_name"));
+            }
+        }, id, status);
+        System.out.println(query + id + status + result.size());
         return result;
     }
 
     @Override
-    public boolean acceptTrip(int trip_id) {
-        try {
-            String check = "select count(trip_id) from trip where trip_id = ? and status = ?";
-            int count = jdbcTemplate.queryForObject(check, new Object[]{trip_id, UNCONFIRMED}, int.class);
-            if (count == 0) {
-                return false;
-            }
-            String query = "update trip set status = ? where trip_id = ?";
-            jdbcTemplate.update(query, ONGOING, trip_id);
-            return true;
-        } catch (Exception e) {
-            logger.warn(e.getMessage());
+    public boolean acceptTrip(int trip_id) throws Exception {
+        String check = "select count(trip_id) from trip where trip_id = ? and status = ?";
+        int count = jdbcTemplate.queryForObject(check, new Object[]{trip_id, UNCONFIRMED}, int.class);
+        if (count == 0) {
             return false;
         }
-    }
-
-    @Override
-    public boolean cancelTrip(int trip_id) {
-        try {
-            String check = "select count(trip_id) from trip where trip_id = ? and status = ? or status = ?";
-            int count = jdbcTemplate.queryForObject(check, new Object[]{trip_id, UNCONFIRMED, ONGOING}, int.class);
-            if (count == 0) {
-                return false;
-            }
-            String query = "update trip set status = ? where trip_id = ?";
-            jdbcTemplate.update(query, CANCELLED, trip_id);
-        } catch (Exception e) {
-            logger.warn(e.getMessage());
-            return false;
-        }
+        String query = "update trip set status = ? where trip_id = ?";
+        jdbcTemplate.update(query, ONGOING, trip_id);
         return true;
     }
 
     @Override
-    public boolean finishTrip(int trip_id) {
-        try {
-            String check = "select count(trip_id) from trip where trip_id = ? and status = ?";
-            int count = jdbcTemplate.queryForObject(check, new Object[]{trip_id, ONGOING}, int.class);
-            if (count == 0) {
-                return false;
-            }
-            String query = "update trip set status = ? where trip_id = ?";
-            jdbcTemplate.update(query, FINISHED, trip_id);
-            return true;
-        } catch (Exception e) {
-            logger.warn(e.getMessage());
+    public boolean cancelTrip(int trip_id) throws Exception {
+        String check = "select count(trip_id) from trip where trip_id = ? and status = ? or status = ?";
+        int count = jdbcTemplate.queryForObject(check, new Object[]{trip_id, UNCONFIRMED, ONGOING}, int.class);
+        if (count == 0) {
             return false;
         }
+        String query = "update trip set status = ? where trip_id = ?";
+        jdbcTemplate.update(query, CANCELLED, trip_id);
+        return true;
     }
 
     @Override
-    public void getTripGuiderId_FinishDate(Order newOrder) {
-        try {
-            String query = "SELECT guider_id, total_hour FROM post where post_id = ?";
-            jdbcTemplate.queryForObject(query, new RowMapper<Order>() {
-                @Override
-                public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    newOrder.setGuider_id(rs.getInt("guider_id"));
-                    Timestamp finishDate = Timestamp.valueOf(newOrder.getBegin_date().plusHours(rs.getLong("total_hour")));
-                    newOrder.setFinish_date(finishDate.toLocalDateTime());
-                    return newOrder;
-                }
-            }, newOrder.getPost_id());
-        } catch (Exception e) {
-            logger.warn(e.getMessage());
-            throw e;
+    public boolean finishTrip(int trip_id) throws Exception {
+        String check = "select count(trip_id) from trip where trip_id = ? and status = ?";
+        int count = jdbcTemplate.queryForObject(check, new Object[]{trip_id, ONGOING}, int.class);
+        if (count == 0) {
+            return false;
         }
+        String query = "update trip set status = ? where trip_id = ?";
+        jdbcTemplate.update(query, FINISHED, trip_id);
+        return true;
+    }
+
+    @Override
+    public void getTripGuiderId_FinishDate(Order newOrder) throws Exception {
+        String query = "SELECT guider_id, total_hour FROM post where post_id = ?";
+        jdbcTemplate.queryForObject(query, new RowMapper<Order>() {
+            @Override
+            public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
+                newOrder.setGuider_id(rs.getInt("guider_id"));
+                Timestamp finishDate = Timestamp.valueOf(newOrder.getBegin_date().plusHours(rs.getLong("total_hour")));
+                newOrder.setFinish_date(finishDate.toLocalDateTime());
+                return newOrder;
+            }
+        }, newOrder.getPost_id());
     }
 
 
     @Override
-    public int checkTripExist(int id) {
+    public int checkTripExist(int id) throws Exception {
         int count = 0;
-        try {
-            String query = "SELECT count (trip.trip_id) FROM trip inner join post on guider_id = ?";
-            count = jdbcTemplate.queryForObject(query, new RowMapper<Integer>() {
-                @Override
-                public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return rs.getInt("count");
+        String query = "SELECT count (trip.trip_id) FROM trip inner join post on guider_id = ?";
+        count = jdbcTemplate.queryForObject(query, new RowMapper<Integer>() {
+            @Override
+            public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return rs.getInt("count");
 
-                }
-            }, id);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            throw e;
-        }
+            }
+        }, id);
         return count;
     }
 
     @Override
-    public int checkAvailabilityOfTrip(Order newOrder) {
+    public int checkAvailabilityOfTrip(Order newOrder) throws Exception {
         int count = 0;
-        try {
-            String query = "SELECT count (trip_id) FROM trip " +
-                    "inner join post on guider_id = ? " +
-                    "where (status = ?) " +
-                    "and ((begin_date between ? and ?) " +
-                    "or (finish_date between ? and ?))";
-            int guider_id = newOrder.getGuider_id();
-            Timestamp acceptableBeginDate = Timestamp.valueOf(newOrder.getBegin_date());
-            Timestamp acceptableFinishDate = Timestamp.valueOf(newOrder.getFinish_date());
-            count = jdbcTemplate.queryForObject(query, new Object[]{guider_id, ONGOING, acceptableBeginDate,
-                    acceptableFinishDate, acceptableBeginDate, acceptableFinishDate}, int.class);
-        } catch (Exception e) {
-            logger.warn(e.getMessage());
-            throw e;
-        }
+        String query = "SELECT count (trip_id) FROM trip " +
+                "inner join post on guider_id = ? " +
+                "where (status = ?) " +
+                "and ((begin_date between ? and ?) " +
+                "or (finish_date between ? and ?))";
+        int guider_id = newOrder.getGuider_id();
+        Timestamp acceptableBeginDate = Timestamp.valueOf(newOrder.getBegin_date());
+        Timestamp acceptableFinishDate = Timestamp.valueOf(newOrder.getFinish_date());
+        count = jdbcTemplate.queryForObject(query, new Object[]{guider_id, ONGOING, acceptableBeginDate,
+                acceptableFinishDate, acceptableBeginDate, acceptableFinishDate}, int.class);
         return count;
     }
 
     @Override
-    public ArrayList<String> getGuiderAvailableHours(LocalDate date, int post_id, int guider_id) {
+    public ArrayList<String> getGuiderAvailableHours(LocalDate date, int post_id, int guider_id) throws Exception {
         // Create default available hours
         ArrayList<String> availableHours = new ArrayList<>();
         this.createHourArray(availableHours, 0, 24);
@@ -273,36 +229,32 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public String getClosestTripFinishDate(LocalDate date, int guider_id) {
+    public String getClosestTripFinishDate(LocalDate date, int guider_id) throws Exception {
         String closestFinishDate = "";
-        try {
-            String query = "SELECT finish_date FROM trip "
-                    + "inner join post on guider_id = ? "
-                    + "where finish_date < ? "
-                    + "and status = ? "
-                    + "order by finish_date desc "
-                    + "limit 1";
-            List<String> result = jdbcTemplate.query(query, new RowMapper<String>() {
-                @Override
-                public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return rs.getString(1);
-                }
-            }, guider_id, date, FINISHED);
-            if (result == null || result.isEmpty()) {
-                return "";
-            } else {
-                closestFinishDate = result.get(0);
+        String query = "SELECT finish_date FROM trip "
+                + "inner join post on guider_id = ? "
+                + "where finish_date < ? "
+                + "and status = ? "
+                + "order by finish_date desc "
+                + "limit 1";
+        List<String> result = jdbcTemplate.query(query, new RowMapper<String>() {
+            @Override
+            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return rs.getString(1);
             }
-            closestFinishDate = new SimpleDateFormat("MM/dd/yyyy HH:mm").format(
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(closestFinishDate));
-        } catch (Exception e) {
-            logger.warn(e.getMessage());
+        }, guider_id, date, FINISHED);
+        if (result == null || result.isEmpty()) {
+            return "";
+        } else {
+            closestFinishDate = result.get(0);
         }
+        closestFinishDate = new SimpleDateFormat("MM/dd/yyyy HH:mm").format(
+                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(closestFinishDate));
         return closestFinishDate;
     }
 
     @Override
-    public boolean checkTripReach48Hours(Order cancelOrder, LocalDateTime rightNow) {
+    public boolean checkTripReach48Hours(Order cancelOrder, LocalDateTime rightNow) throws Exception {
         int dayCheck = rightNow.toLocalDate().compareTo(cancelOrder.getBegin_date().toLocalDate().minusDays(2));
         // check day
         if (dayCheck == 0) {
@@ -331,7 +283,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public String getExpectedEndTripTime(int post_id, LocalDateTime begin_date) {
+    public String getExpectedEndTripTime(int post_id, LocalDateTime begin_date) throws Exception {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
         double totalHour = this.getTourTotalHour(post_id);
         long bufferHour = (long) java.lang.Math.ceil(totalHour / 100 * Integer.parseInt(bufferPercent));
@@ -340,19 +292,14 @@ public class TripServiceImpl implements TripService {
         return end_date.format(formatter);
     }
 
-    private double getTourTotalHour(int post_id) {
+    private double getTourTotalHour(int post_id) throws Exception {
         double total_hour = 0;
-        try {
-            String query = "SELECT total_hour FROM post where post_id = ?";
-            total_hour = (double) jdbcTemplate.queryForObject(query, new Object[]{post_id}, int.class);
-        } catch (Exception e) {
-            logger.warn(e.getMessage());
-            throw e;
-        }
+        String query = "SELECT total_hour FROM post where post_id = ?";
+        total_hour = (double) jdbcTemplate.queryForObject(query, new Object[]{post_id}, int.class);
         return total_hour;
     }
 
-    private void createHourArray(ArrayList<String> array, int startHour, int endHour) {
+    private void createHourArray(ArrayList<String> array, int startHour, int endHour) throws Exception {
         String[] hourTails = {HOUR_TAIL_0, HOUR_TAIL_30};
         for (int i = startHour; i < endHour; i++) {
             for (int j = 0; j < 2; j++) {
@@ -367,7 +314,7 @@ public class TripServiceImpl implements TripService {
         }
     }
 
-    private List<Order> getGuiderSchedule(int guider_id, LocalDate date) {
+    private List<Order> getGuiderSchedule(int guider_id, LocalDate date) throws Exception {
         List<Order> guiderSchedule = new ArrayList<>();
         String query = "SELECT begin_date, finish_date FROM trip "
                 + "inner join post on guider_id = ? "
@@ -375,24 +322,19 @@ public class TripServiceImpl implements TripService {
                 + "and Date(begin_date) = ? "
                 + "or Date(finish_date) = ? "
                 + "order by begin_date";
-        try {
-            guiderSchedule = jdbcTemplate.query(query, new RowMapper<Order>() {
-                @Override
-                public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    Order temp = new Order();
-                    temp.setBegin_date(rs.getTimestamp("begin_date").toLocalDateTime());
-                    temp.setFinish_date(rs.getTimestamp("finish_date").toLocalDateTime());
-                    return temp;
-                }
-            }, guider_id, ONGOING, date, date);
-        } catch (Exception e) {
-            logger.warn(e.getMessage());
-            throw e;
-        }
+        guiderSchedule = jdbcTemplate.query(query, new RowMapper<Order>() {
+            @Override
+            public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Order temp = new Order();
+                temp.setBegin_date(rs.getTimestamp("begin_date").toLocalDateTime());
+                temp.setFinish_date(rs.getTimestamp("finish_date").toLocalDateTime());
+                return temp;
+            }
+        }, guider_id, ONGOING, date, date);
         return guiderSchedule;
     }
 
-    private ArrayList<String> getOccupyHours(List<Order> guiderSchedule, LocalDate date) {
+    private ArrayList<String> getOccupyHours(List<Order> guiderSchedule, LocalDate date) throws Exception {
         ArrayList<String> occupyHour = new ArrayList<>();
         for (Order order : guiderSchedule) {
             int beginHour = order.getBegin_date().getHour();
@@ -435,38 +377,34 @@ public class TripServiceImpl implements TripService {
     }
 
     private ArrayList<String> getUnacceptableHours(int post_id, ArrayList<String> availableHours,
-                                                   ArrayList<String> nextDayOccupyHour, LocalDate date) {
+                                                   ArrayList<String> nextDayOccupyHour, LocalDate date) throws Exception {
         ArrayList<String> unacceptableHours = new ArrayList<>();
         double totalHour = this.getTourTotalHour(post_id);
         long bufferHour = (long) java.lang.Math.ceil(totalHour / 100 * Integer.parseInt(bufferPercent));
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         for (String hour : availableHours) {
-            try {
-                Date temp = format.parse(date + " " + hour);
-                calendar.setTime(temp);
-                calendar.add(Calendar.HOUR_OF_DAY, (int) totalHour);
-                calendar.add(Calendar.HOUR_OF_DAY, (int) bufferHour);
-                calendar.add(Calendar.MINUTE, -30);
-                String checkTime = String.format("%02d", calendar.get(Calendar.HOUR_OF_DAY)) + ":"
-                        + String.format("%02d", calendar.get(Calendar.MINUTE));
-                if (calendar.get(Calendar.DAY_OF_MONTH) > date.getDayOfMonth()) {
-                    if (nextDayOccupyHour.contains(checkTime)) {
-                        unacceptableHours.add(hour);
-                    }
-                } else {
-                    if (!availableHours.contains(checkTime)) {
-                        unacceptableHours.add(hour);
-                    }
+            Date temp = format.parse(date + " " + hour);
+            calendar.setTime(temp);
+            calendar.add(Calendar.HOUR_OF_DAY, (int) totalHour);
+            calendar.add(Calendar.HOUR_OF_DAY, (int) bufferHour);
+            calendar.add(Calendar.MINUTE, -30);
+            String checkTime = String.format("%02d", calendar.get(Calendar.HOUR_OF_DAY)) + ":"
+                    + String.format("%02d", calendar.get(Calendar.MINUTE));
+            if (calendar.get(Calendar.DAY_OF_MONTH) > date.getDayOfMonth()) {
+                if (nextDayOccupyHour.contains(checkTime)) {
+                    unacceptableHours.add(hour);
                 }
-            } catch (Exception e) {
-                logger.warn(e.getMessage());
+            } else {
+                if (!availableHours.contains(checkTime)) {
+                    unacceptableHours.add(hour);
+                }
             }
         }
         return unacceptableHours;
     }
 
-    private void removeHour(ArrayList<String> array, int hour, String type) {
+    private void removeHour(ArrayList<String> array, int hour, String type) throws Exception {
         if (hour < 10) {
             array.remove("0" + hour + (type.equals(HOUR_POSITION_BEFORE) ? HOUR_TAIL_0 : HOUR_TAIL_30));
         } else {
@@ -474,7 +412,7 @@ public class TripServiceImpl implements TripService {
         }
     }
 
-    private boolean checkDuplicateHours(ArrayList<String> occupyHour, int hour) {
+    private boolean checkDuplicateHours(ArrayList<String> occupyHour, int hour) throws Exception {
         if (hour < 10) {
             if (occupyHour.contains("0" + hour + HOUR_TAIL_0) || occupyHour.contains("0" + hour + HOUR_TAIL_30)) {
                 return true;
@@ -488,37 +426,33 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public List<Order> getTripByWeek(int id, Date start, Date end) {
+    public List<Order> getTripByWeek(int id, Date start, Date end) throws Exception {
         List<Order> result = new ArrayList<>();
-        try {
-            String query = "SELECT o.*, p.guider_id, p.title, t.first_name, t.last_name FROM trip as o "
-                    + " inner join traveler as t on o.traveler_id = t.traveler_id "
-                    + " inner join post as p on p.post_id = o.post_id "
-                    + " and p.guider_id = ? and (status = 'ONGOING') "
-                    + " and (begin_date between ? and ?)   "
-                    + " order by begin_date desc ";
-            result = jdbcTemplate.query(query, new RowMapper<Order>() {
-                @Override
-                public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return new Order(rs.getInt("trip_id"),
-                            rs.getInt("traveler_id"),
-                            rs.getInt("guider_id"),
-                            rs.getInt("post_id"),
-                            rs.getTimestamp("begin_date").toLocalDateTime(),
-                            rs.getTimestamp("finish_date").toLocalDateTime(),
-                            rs.getInt("adult_quantity"),
-                            rs.getInt("children_quantity"),
-                            rs.getDouble("fee_paid"),
-                            rs.getString("transaction_id"),
-                            rs.getString("status"),
-                            rs.getString("title"),
-                            rs.getString("first_name") + " " + rs.getString("last_name"));
-                }
-            }, id, new java.sql.Date(start.getTime()), new java.sql.Date(end.getTime()));
-            System.out.println(query + id + result.get(0).getObject());
-        } catch (Exception e) {
-            logger.warn(e.getMessage());
-        }
+        String query = "SELECT o.*, p.guider_id, p.title, t.first_name, t.last_name FROM trip as o "
+                + " inner join traveler as t on o.traveler_id = t.traveler_id "
+                + " inner join post as p on p.post_id = o.post_id "
+                + " and p.guider_id = ? and (status = 'ONGOING') "
+                + " and (begin_date between ? and ?)   "
+                + " order by begin_date desc ";
+        result = jdbcTemplate.query(query, new RowMapper<Order>() {
+            @Override
+            public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new Order(rs.getInt("trip_id"),
+                        rs.getInt("traveler_id"),
+                        rs.getInt("guider_id"),
+                        rs.getInt("post_id"),
+                        rs.getTimestamp("begin_date").toLocalDateTime(),
+                        rs.getTimestamp("finish_date").toLocalDateTime(),
+                        rs.getInt("adult_quantity"),
+                        rs.getInt("children_quantity"),
+                        rs.getDouble("fee_paid"),
+                        rs.getString("transaction_id"),
+                        rs.getString("status"),
+                        rs.getString("title"),
+                        rs.getString("first_name") + " " + rs.getString("last_name"));
+            }
+        }, id, new java.sql.Date(start.getTime()), new java.sql.Date(end.getTime()));
+        System.out.println(query + id + result.get(0).getObject());
         return result;
     }
 
@@ -538,6 +472,5 @@ public class TripServiceImpl implements TripService {
         }
         logger.warn(update.toString());
         //jdbcTemplate.batchUpdate(update.toArray(new String[0])[10]);
-
     }
 }

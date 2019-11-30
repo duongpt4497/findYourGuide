@@ -33,7 +33,7 @@ public class FeedbackServiceImplTest {
     }
 
     @Test
-    public void findAllFeedback() {
+    public void findAllFeedback() throws Exception {
         jdbcTemplate.update("insert into feedback (feedback_id,account_id,time_sent,message)" +
                 "values (1,1,'2019-11-28 05:00:00','test')");
         List<Feedback> result = feedbackService.findAllFeedback();
@@ -42,14 +42,8 @@ public class FeedbackServiceImplTest {
     }
 
     @Test
-    public void createFeedback() {
+    public void createFeedback() throws Exception {
         feedbackService.createFeedback(1, "test");
-        Assert.assertEquals(1, feedbackService.findAllFeedback().size());
-    }
-
-    @Test(expected = Exception.class)
-    public void createFeedback2() {
-        feedbackService.createFeedback(2, "test");
         Assert.assertEquals(1, feedbackService.findAllFeedback().size());
     }
 }

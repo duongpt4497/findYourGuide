@@ -40,25 +40,12 @@ public class CategoryServiceImplTest {
     }
 
     @Test
-    public void testFindAllCategory() {
-        Assert.assertEquals(5, categoryService.findAllCategory().size());
-    }
-
-    @Test(expected = Exception.class)
-    public void testFindAllCategory2() {
-        when(jdbcTemplate.query("select * from category", new RowMapper<Category>() {
-            public Category mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return new Category(
-                        rs.getInt("category_id"),
-                        rs.getString("name")
-                );
-            }
-        })).thenThrow(Exception.class);
+    public void testFindAllCategory() throws Exception {
         Assert.assertEquals(5, categoryService.findAllCategory().size());
     }
 
     @Test
-    public void createCategory() {
+    public void createCategory() throws Exception {
         jdbcTemplate.update("delete from category");
         categoryService.createCategory("test");
         Assert.assertEquals(1, categoryService.findAllCategory().size());

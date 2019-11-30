@@ -28,8 +28,7 @@ public class WebSocketChatController {
 
     @Autowired
     private ChatMessageRepositoryImpl chatMessageRepository;
-
-    private static final Logger logger = LoggerFactory.getLogger(WebSocketChatController.class);
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
@@ -37,10 +36,13 @@ public class WebSocketChatController {
 
     @MessageMapping("/chat.sendMessage")
     public void sendMessage(Principal principal, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor , @PathVariable("receiver") String receiver) {
-        chatMessageRepository.save(chatMessage);
-        this.simpMessagingTemplate.convertAndSendToUser(chatMessage.getReceiver(),"/queue/reply", chatMessage);
-        this.simpMessagingTemplate.convertAndSendToUser(chatMessage.getUser(),"/queue/reply", chatMessage);
-
+        try {
+            chatMessageRepository.save(chatMessage);
+            this.simpMessagingTemplate.convertAndSendToUser(chatMessage.getReceiver(),"/queue/reply", chatMessage);
+            this.simpMessagingTemplate.convertAndSendToUser(chatMessage.getUser(),"/queue/reply", chatMessage);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/messages/{user}/{receiver}/{firstElement}/{lastElement}", method = RequestMethod.POST)

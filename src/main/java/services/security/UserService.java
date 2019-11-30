@@ -6,20 +6,21 @@
 package services.security;
 
 import entities.Account;
-import services.account.AccountRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import services.account.AccountRepository;
 
 /**
- *
  * @author dgdbp
  */
 @Service
 public class UserService {
-
+    private Logger logger = LoggerFactory.getLogger(getClass());
     private AccountRepository repo;
     private PasswordEncoder passwordEncoder;
     private TokenHelper TokenHelper;
@@ -39,11 +40,11 @@ public class UserService {
         if (nameExisted(acc.getUserName())) {
             throw new Exception(
                     "There is an account with that user name: "
-                    + acc.getUserName());
+                            + acc.getUserName());
         }
         repo.addAccount(acc);
         acc.setToken(TokenHelper.createToken(acc.getUserName()));
-        System.out.println("token:  "+acc.getToken());
+        System.out.println("token:  " + acc.getToken());
         acc.setPassword(passwordEncoder.encode(acc.getPassword()));
         // the rest of the registration operation
         return acc;
@@ -51,12 +52,18 @@ public class UserService {
 
     private boolean nameExisted(String name) {
         try {
-            Account user = repo.findAccountByName(name);
+            Account user = null;
+            try {
+                user = repo.findAccountByName(name);
+            } catch (Exception e) {
+                logger.error(e.getMessage());
+                return false;
+            }
             System.out.println(name);
             if (user != null) {
                 return true;
             }
-        } catch (EmptyResultDataAccessException empty){
+        } catch (EmptyResultDataAccessException empty) {
             return false;
         }
 

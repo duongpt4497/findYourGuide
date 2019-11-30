@@ -20,20 +20,17 @@ public class LocationServiceImplTest {
 
     private JdbcTemplate jdbcTemplate = new JdbcTemplate();
 
-    @Mock
-    private GeneralService generalService;
-
     @Before
     public void init() {
         TestDataSourceConfig config = new TestDataSourceConfig();
         jdbcTemplate.setDataSource(config.setupDatasource());
-        locationService = new LocationServiceImpl(jdbcTemplate, generalService);
+        locationService = new LocationServiceImpl(jdbcTemplate);
         config.cleanTestDb(jdbcTemplate);
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    public void showAllLocation() {
+    public void showAllLocation() throws Exception {
         jdbcTemplate.update("insert into locations (location_id,country,city,place) values (1,'Vietnam','Hanoi','Hoan Kiem')");
         jdbcTemplate.update("insert into locations (location_id,country,city,place) values (2,'Vietnam','Hanoi','Ho Tay')");
         jdbcTemplate.update("insert into locations (location_id,country,city,place) values (3,'Vietnam','Hanoi','Pho Co')");
@@ -42,7 +39,7 @@ public class LocationServiceImplTest {
     }
 
     @Test
-    public void createLocation() {
+    public void createLocation() throws Exception {
         locationService.createLocation("vietnam", "hanoi", "Hoan Kiem");
         Assert.assertEquals(1, locationService.showAllLocation().size());
     }

@@ -63,14 +63,14 @@ public class ContributionPointServiceImplTest {
     }
 
     @Test
-    public void penaltyGuiderForCancel() {
+    public void penaltyGuiderForCancel() throws Exception {
         contributionPointService.penaltyGuiderForCancel(1);
         int result = jdbcTemplate.queryForObject("select contribution from guider where guider_id = ?", new Object[]{1}, int.class);
         Assert.assertEquals(500, result);
     }
 
     @Test
-    public void penaltyGuiderForCancel2() {
+    public void penaltyGuiderForCancel2() throws Exception {
         jdbcTemplate.update("insert into account(account_id,user_name,password,email,role) values (3,'Jack','123','Jack@gmail.com','TRAVELER')");
         jdbcTemplate.update("insert into guider(guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
                 "values (3,'John','Doe',21,'12345678','abc',10,'Hanoi','{vi,en}',true,5,'a','a')");
@@ -80,7 +80,7 @@ public class ContributionPointServiceImplTest {
     }
 
     @Test
-    public void penaltyGuiderForCancel3() {
+    public void penaltyGuiderForCancel3() throws Exception {
         jdbcTemplate.update("insert into account(account_id,user_name,password,email,role) values (3,'Jack','123','Jack@gmail.com','TRAVELER')");
         jdbcTemplate.update("insert into guider(guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
                 "values (3,'John','Doe',21,'12345678','abc',500,'Hanoi','{vi,en}',true,5,'a','a')");

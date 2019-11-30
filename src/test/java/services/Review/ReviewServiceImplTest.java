@@ -43,22 +43,22 @@ public class ReviewServiceImplTest {
     }
 
     @Test
-    public void findReviewByOrderId() {
+    public void findReviewByOrderId() throws Exception {
         Assert.assertEquals("abc", reviewService.findReviewByOrderId(1).get(0).getReview());
     }
 
     @Test
-    public void findReviewsByGuiderId() {
+    public void findReviewsByGuiderId() throws Exception {
         Assert.assertEquals("abc", reviewService.findReviewsByGuiderId(1).get(0).getReview());
     }
 
     @Test
-    public void findReviewsByPostId() {
+    public void findReviewsByPostId() throws Exception {
         Assert.assertEquals("abc", reviewService.findReviewsByPostId(1).get(0).getReview());
     }
 
     @Test
-    public void createReview() {
+    public void createReview() throws Exception {
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
                 "values (2,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','FINISHED')");
         Review review = new Review(2, 5, "abc");
@@ -66,37 +66,25 @@ public class ReviewServiceImplTest {
     }
 
     @Test
-    public void createReview2() {
-        Review review = new Review(1, 5, "abc");
-        Assert.assertEquals(false, reviewService.createReview(review));
-    }
-
-    @Test
-    public void checkReviewExist() {
+    public void checkReviewExist() throws Exception {
         Assert.assertEquals(true, reviewService.checkReviewExist(1));
     }
 
     @Test
-    public void checkReviewExist2() {
+    public void checkReviewExist2() throws Exception {
         Assert.assertEquals(false, reviewService.checkReviewExist(2));
     }
 
     @Test
-    public void showHideReview() {
+    public void showHideReview() throws Exception {
         reviewService.showHideReview(1);
         Assert.assertEquals(false, reviewService.findReviewByOrderId(1).get(0).isVisible());
     }
 
     @Test
-    public void showHideReview2() {
+    public void showHideReview2() throws Exception {
         reviewService.showHideReview(1);
         reviewService.showHideReview(1);
         Assert.assertEquals(true, reviewService.findReviewByOrderId(1).get(0).isVisible());
-    }
-
-    @Test(expected = Exception.class)
-    public void showHideReview3() {
-        reviewService.showHideReview(2);
-        Assert.assertEquals(false, reviewService.findReviewByOrderId(1).get(0).isVisible());
     }
 }

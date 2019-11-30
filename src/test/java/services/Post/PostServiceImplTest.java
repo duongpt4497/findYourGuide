@@ -80,29 +80,29 @@ public class PostServiceImplTest {
     }
 
     @Test
-    public void findAllPostOfOneGuider() {
+    public void findAllPostOfOneGuider() throws Exception {
         Assert.assertEquals(3, postService.findAllPostOfOneGuider(1).size());
     }
 
     @Test
-    public void findAllPostByCategoryId() {
+    public void findAllPostByCategoryId() throws Exception {
         Assert.assertEquals(8, postService.findAllPostByCategoryId(1).size());
     }
 
     @Test
-    public void findSpecificPost() {
+    public void findSpecificPost() throws Exception {
         Assert.assertEquals("test post", postService.findSpecificPost(1).getTitle());
     }
 
     @Test
-    public void updatePost() {
+    public void updatePost() throws Exception {
         Post post = new Post(1, 1, "test", "a", new String[]{"a"}, 2, "a", new String[]{"a", "b"}, true, 10, 5, "a");
         postService.updatePost(1, post);
         Assert.assertEquals("test", postService.findSpecificPost(1).getTitle());
     }
 
     @Test
-    public void insertNewPost() {
+    public void insertNewPost() throws Exception {
         jdbcTemplate.update("delete from post");
         Post post = new Post(1, 1, "test new", "a", new String[]{"a"}, 2, "a", new String[]{"a", "b"}, true, 10, 5, "a");
         int id = postService.insertNewPost(1, post);
@@ -110,7 +110,7 @@ public class PostServiceImplTest {
     }
 
     @Test
-    public void getTopTour() {
+    public void getTopTour() throws Exception {
         List<Post> result = postService.getTopTour();
         Assert.assertEquals(6, result.size());
         Assert.assertEquals(8, result.get(0).getPost_id());
@@ -122,31 +122,25 @@ public class PostServiceImplTest {
     }
 
     @Test
-    public void findAllPostWithGuiderName() {
+    public void findAllPostWithGuiderName() throws Exception {
         Assert.assertEquals(2, postService.findAllPostWithGuiderName("mi").size());
     }
 
     @Test
-    public void activeDeactivePost() {
-        postService.activeDeactivePost(1);
+    public void activeDeactivePost() throws Exception {
+        postService.activeDeactivePostForGuider(1);
         Assert.assertEquals(false, postService.findSpecificPost(1).isActive());
     }
 
     @Test
-    public void activeDeactivePost2() {
-        postService.activeDeactivePost(1);
-        postService.activeDeactivePost(1);
+    public void activeDeactivePost2() throws Exception {
+        postService.activeDeactivePostForGuider(1);
+        postService.activeDeactivePostForGuider(1);
         Assert.assertEquals(true, postService.findSpecificPost(1).isActive());
     }
 
-    @Test(expected = Exception.class)
-    public void activeDeactivePost3() {
-        postService.activeDeactivePost(999);
-        Assert.assertEquals(false, postService.findSpecificPost(1).isActive());
-    }
-
     @Test
-    public void findAllPostWithLocationName() {
+    public void findAllPostWithLocationName() throws Exception {
         Assert.assertEquals(6, postService.findAllPostWithLocationName("ho").size());
     }
 }

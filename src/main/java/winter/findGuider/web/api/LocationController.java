@@ -1,6 +1,8 @@
 package winter.findGuider.web.api;
 
 import entities.Location;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +13,7 @@ import services.Location.LocationService;
 @RequestMapping(path = "/location", produces = "application/json")
 @CrossOrigin(origins = "*")
 public class LocationController {
-
+    private Logger logger = LoggerFactory.getLogger(getClass());
     private LocationService locationService;
 
     @Autowired
@@ -25,6 +27,7 @@ public class LocationController {
         try {
             return new ResponseEntity(locationService.showAllLocation(), HttpStatus.OK);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity(null, HttpStatus.NOT_FOUND);
         }
     }
@@ -37,18 +40,8 @@ public class LocationController {
             locationService.createLocation(country, city, place);
             return new ResponseEntity(true, HttpStatus.OK);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity(false, HttpStatus.NOT_FOUND);
         }
-    }
-
-    @GetMapping("/update")
-    public ResponseEntity<Long> updateLocation() {
-        try {
-
-            //return new ResponseEntity(locationService.showAllLocation(), HttpStatus.OK);
-        } catch (Exception e) {
-            System.out.println(e.getMessage() + e.getStackTrace());
-        }
-        return null;
     }
 }

@@ -11,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import winter.findGuider.TestDataSourceConfig;
 
@@ -48,12 +47,12 @@ public class PaypalServiceImplTest {
     }
 
     @Test
-    public void createTransactionRecord() {
+    public void createTransactionRecord() throws Exception {
         paypalService.createTransactionRecord("1", "1", "1", "a", true);
     }
 
     @Test
-    public void getTransactionFee() {
+    public void getTransactionFee() throws Exception {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into locations (location_id,country,city,place) values (1,'Vietnam','Hanoi','Hoan Kiem')");
@@ -72,25 +71,8 @@ public class PaypalServiceImplTest {
         Assert.assertEquals(15, paypalService.getTransactionFee(order), 0D);
     }
 
-    @Test(expected = EmptyResultDataAccessException.class)
-    public void getTransactionFee2() {
-        jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
-                "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
-        jdbcTemplate.update("insert into locations (location_id,country,city,place) values (1,'Vietnam','Hanoi','Hoan Kiem')");
-        jdbcTemplate.update("insert into category (category_id,name) values (1,'history')");
-        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
-                "values (1,'John','Doe',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
-        jdbcTemplate.update("insert into contract_detail (contract_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,account_active_date)" +
-                "values (1,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi','2016-10-15')");
-        jdbcTemplate.update("insert into contract (guider_id,contract_id) values (1,1)");
-        jdbcTemplate.update("INSERT INTO post(post_id,guider_id, location_id,category_id, title, video_link, picture_link, total_hour, description, including_service, active,price,rated,reasons) " +
-                "VALUES (1,1,1,1,'test post','a','{a}',2,'a','{a,b}',true,10,5,'abc')");
-        Order order = new Order();
-        Assert.assertEquals(15, paypalService.getTransactionFee(order), 0D);
-    }
-
     @Test
-    public void getTransactionDescription() {
+    public void getTransactionDescription() throws Exception {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
@@ -114,11 +96,6 @@ public class PaypalServiceImplTest {
         order.setTraveler_id(2);
         order.setPost_id(1);
         Assert.assertEquals("On Nov 27, 2019\n. Include adult: 1, children: 1. Fee: 10.0. On tour test post of Megan Deo and John Doe", paypalService.getTransactionDescription(order));
-    }
-
-    @Test
-    public void getTransactionDescription2() {
-        Assert.assertEquals("", paypalService.getTransactionDescription(null));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -145,7 +122,9 @@ public class PaypalServiceImplTest {
     }
 
     @Test
-    public void createRefundRecord() {
+    public void createRefundRecord() throws Exception {
+        jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
+                "values ('1','abc','abc','abc','2019-11-22T03:00',true)");
         paypalService.createRefundRecord("1", "a");
     }
 }

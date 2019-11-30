@@ -9,6 +9,9 @@ import entities.Account;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -30,6 +33,7 @@ import services.account.AccountRepository;
  */
 @Component
 public class AuthenProvider implements AuthenticationProvider {
+    private Logger logger = LoggerFactory.getLogger(getClass());
     private PasswordEncoder encoder;
     private AccountRepository userService;
 
@@ -47,7 +51,13 @@ public class AuthenProvider implements AuthenticationProvider {
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
         System.out.println("auth name:  " + username);
         System.out.println("auth pass:  " + password);
-        Account acc = userService.findAccountByName(username);
+        Account acc = null;
+        try {
+            acc = userService.findAccountByName(username);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new BadCredentialsException("Authentication failed");
+        }
         grantedAuths.add(new SimpleGrantedAuthority(acc.getRole()));
         System.out.println("db name:  " + acc.getUserName());
         System.out.println("db pass:  " + acc.getPassword());

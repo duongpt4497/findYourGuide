@@ -38,7 +38,7 @@ public class GuiderServiceImplTest {
     }
 
     @Test
-    public void findGuiderWithID() {
+    public void findGuiderWithID() throws Exception {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
@@ -47,7 +47,7 @@ public class GuiderServiceImplTest {
     }
 
     @Test
-    public void findGuiderWithPostId() {
+    public void findGuiderWithPostId() throws Exception {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into locations (location_id,country,city,place) values (1,'Vietnam','Hanoi','Hoan Kiem')");
@@ -63,7 +63,7 @@ public class GuiderServiceImplTest {
     }
 
     @Test
-    public void findGuiderContract() {
+    public void findGuiderContract() throws Exception {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
@@ -75,23 +75,15 @@ public class GuiderServiceImplTest {
     }
 
     @Test
-    public void createGuider() {
+    public void createGuider() throws Exception {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         Guider guider = new Guider(1, "test", "test", 21, "123456", "a", 123, "hanoi", new String[]{"en", "vi"}, true, 5, "a", "a");
         Assert.assertEquals(1, guiderService.createGuider(guider));
     }
 
-    @Test(expected = NullPointerException.class)
-    public void createGuider2() {
-        jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
-                "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
-        Guider guider = new Guider();
-        Assert.assertEquals(1, guiderService.createGuider(guider));
-    }
-
     @Test
-    public void createGuiderContract() {
+    public void createGuiderContract() throws Exception {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
@@ -104,20 +96,8 @@ public class GuiderServiceImplTest {
         Assert.assertEquals("test", guiderService.findGuiderContract(1).getName());
     }
 
-    @Test(expected = NullPointerException.class)
-    public void createGuiderContract2() {
-        jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
-                "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
-        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
-                "values (1,'John','Doe',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
-        Contract contract = new Contract();
-        long id = guiderService.createGuiderContract(contract);
-        jdbcTemplate.update("insert into contract (guider_id,contract_id) values (1," + id + ")");
-        Assert.assertEquals("test", guiderService.findGuiderContract(1).getName());
-    }
-
     @Test
-    public void updateGuiderWithId() {
+    public void updateGuiderWithId() throws Exception {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
@@ -127,19 +107,8 @@ public class GuiderServiceImplTest {
         Assert.assertEquals("test", guiderService.findGuiderWithID(id).getFirst_name());
     }
 
-    @Test(expected = NullPointerException.class)
-    public void updateGuiderWithId2() {
-        jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
-                "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
-        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
-                "values (1,'John','Doe',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
-        Guider guider = new Guider();
-        long id = guiderService.updateGuiderWithId(guider);
-        Assert.assertEquals("test", guiderService.findGuiderWithID(id).getFirst_name());
-    }
-
     @Test
-    public void activateGuider() {
+    public void activateGuider() throws Exception {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
@@ -149,7 +118,7 @@ public class GuiderServiceImplTest {
     }
 
     @Test
-    public void deactivateGuider() {
+    public void deactivateGuider() throws Exception {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
@@ -159,7 +128,7 @@ public class GuiderServiceImplTest {
     }
 
     @Test
-    public void searchGuider() {
+    public void searchGuider() throws Exception {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
@@ -168,7 +137,7 @@ public class GuiderServiceImplTest {
     }
 
     @Test
-    public void getTopGuiderByRate() {
+    public void getTopGuiderByRate() throws Exception {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
@@ -212,7 +181,7 @@ public class GuiderServiceImplTest {
     }
 
     @Test
-    public void getTopGuiderByContribute() {
+    public void getTopGuiderByContribute() throws Exception {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
@@ -256,7 +225,7 @@ public class GuiderServiceImplTest {
     }
 
     @Test
-    public void linkGuiderWithContract() {
+    public void linkGuiderWithContract() throws Exception {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
@@ -270,7 +239,7 @@ public class GuiderServiceImplTest {
     }
 
     @Test
-    public void linkGuiderWithContract2() {
+    public void linkGuiderWithContract2() throws Exception {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
@@ -279,21 +248,6 @@ public class GuiderServiceImplTest {
                 "values (1,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi','2016-10-15')");
         jdbcTemplate.update("insert into contract_detail (contract_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,account_active_date)" +
                 "values (2,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi','2016-10-15')");
-        jdbcTemplate.update("insert into contract (guider_id,contract_id) values (1,1)");
-        guiderService.linkGuiderWithContract(1, 2);
-        String check = "select contract_id from contract where guider_id = ?";
-        int id = jdbcTemplate.queryForObject(check, new Object[]{1}, int.class);
-        Assert.assertEquals(2, id);
-    }
-
-    @Test(expected = Exception.class)
-    public void linkGuiderWithContract3() {
-        jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
-                "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
-        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
-                "values (1,'John','Doe',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
-        jdbcTemplate.update("insert into contract_detail (contract_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,account_active_date)" +
-                "values (1,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi','2016-10-15')");
         jdbcTemplate.update("insert into contract (guider_id,contract_id) values (1,1)");
         guiderService.linkGuiderWithContract(1, 2);
         String check = "select contract_id from contract where guider_id = ?";

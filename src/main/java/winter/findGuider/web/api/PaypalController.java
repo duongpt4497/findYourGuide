@@ -47,7 +47,7 @@ public class PaypalController {
         this.mailService = ms;
         this.accountRepository = ar;
     }
-    
+
     @RequestMapping("/Pay")
     @ResponseStatus(HttpStatus.OK)
     public String payment(@RequestBody Order order) {
@@ -72,7 +72,9 @@ public class PaypalController {
                 }
             }
         } catch (PayPalRESTException e) {
-            logger.warn(e.getMessage());
+            logger.error(e.getMessage());
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
         }
         return URL_ROOT_CLIENT + CHATBOX_PATH + order.getPost_id() + "/paypal_server_error";
     }
@@ -85,7 +87,7 @@ public class PaypalController {
             URI result = new URI(URL_ROOT_CLIENT + CHATBOX_PATH + post_id);
             httpHeaders.setLocation(result);
         } catch (Exception e) {
-            logger.warn(e.getMessage());
+            logger.error(e.getMessage());
         }
         return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
     }
@@ -97,16 +99,17 @@ public class PaypalController {
                                              @RequestParam("adult") int adult_quantity, @RequestParam("children") int children_quantity,
                                              @RequestParam("begin_date") String begin_date, @RequestParam("fee") double fee_paid) {
         Order order = new Order();
-        order.setTraveler_id(traveler_id);
-        order.setPost_id(post_id);
-        order.setAdult_quantity(adult_quantity);
-        order.setChildren_quantity(children_quantity);
-        order.setBegin_date(LocalDateTime.parse(begin_date));
-        order.setFee_paid(fee_paid);
-        tripService.getTripGuiderId_FinishDate(order);
-        String description = paypalService.getTransactionDescription(order);
         HttpHeaders httpHeaders = new HttpHeaders();
         try {
+            order.setTraveler_id(traveler_id);
+            order.setPost_id(post_id);
+            order.setAdult_quantity(adult_quantity);
+            order.setChildren_quantity(children_quantity);
+            order.setBegin_date(LocalDateTime.parse(begin_date));
+            order.setFee_paid(fee_paid);
+            tripService.getTripGuiderId_FinishDate(order);
+            String description = paypalService.getTransactionDescription(order);
+
             Payment payment = paypalService.executePayment(paymentId, payerId);
             String transaction_id = payment.getTransactions().get(0).getRelatedResources().get(0).getSale().getId();
             order.setTransaction_id(transaction_id);
@@ -124,7 +127,9 @@ public class PaypalController {
                 httpHeaders.setLocation(result);
             }
         } catch (PayPalRESTException | URISyntaxException e) {
-            logger.warn(e.getMessage());
+            logger.error(e.getMessage());
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
         }
         return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
     }

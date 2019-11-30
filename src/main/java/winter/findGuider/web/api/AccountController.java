@@ -6,6 +6,8 @@
 package winter.findGuider.web.api;
 
 import entities.Account;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +28,7 @@ import java.util.List;
 @RequestMapping(path = "/account")
 @CrossOrigin(origins = "http://localhost:3000")
 public class AccountController {
-
+    private Logger logger = LoggerFactory.getLogger(getClass());
     private UserService userService;
     private AccountRepository repo;
     private AuthenProvider auth;
@@ -40,7 +42,6 @@ public class AccountController {
 
     @PostMapping(path = "registrator", consumes = "application/json")
     public ResponseEntity registerUserAccount(@RequestBody Account acc, HttpServletResponse response) {
-
         Account registered = null;
         acc.setToken("");
         acc.setExpired(new Date());
@@ -58,6 +59,7 @@ public class AccountController {
             registered.setToken("");
             System.out.println(acc.getExpired());
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity<>("regist fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         // rest of the implementation
@@ -68,19 +70,13 @@ public class AccountController {
     public void logout() {
     }
 
-
-    @GetMapping()
-    public ResponseEntity blahblah() {
-
-        return new ResponseEntity<>("leuleu!!", HttpStatus.OK);
-    }
-
     @RequestMapping("/findAll")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Account>> findAllCategory() {
         try {
             return new ResponseEntity(repo.findAllAccount(), HttpStatus.OK);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return new ResponseEntity(null, HttpStatus.NOT_FOUND);
         }
     }
