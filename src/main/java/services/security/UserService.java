@@ -67,7 +67,7 @@ public class UserService {
         } catch (EmptyResultDataAccessException empty) {
             return false;
         } catch (Exception ex) {
-            log.error(ex.toString());
+            logger.error(ex.toString());
         }
 
         return false;

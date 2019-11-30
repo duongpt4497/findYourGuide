@@ -38,7 +38,7 @@ public class PrincipalService implements UserDetailsService {
             }
             return new Principal(user);
         } catch (Exception ex) {
-            logger.error(e.getMessage());
+            logger.error(ex.getMessage());
             throw new UsernameNotFoundException(username);
         }
     }
