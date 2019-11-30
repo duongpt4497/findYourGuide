@@ -87,6 +87,5 @@ public class AccountServiceUnitTest {
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (3,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','TRAVELER')");
         Assert.assertEquals(3, accountService.findAllAccount().size());
->>>>>>> a16cb8c8c4e03dc53cf8386b7f7be9b886e984f4
     }
 }
