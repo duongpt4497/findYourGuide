@@ -20,6 +20,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,49 +40,50 @@ public class AccountController {
     private UserService userService;
     private AccountRepository repo;
     private AuthenProvider auth;
+
     @Autowired
-    public AccountController(AccountRepository repo,UserService userService, AuthenProvider auth){
+    public AccountController(AccountRepository repo, UserService userService, AuthenProvider auth) {
         this.userService = userService;
         this.repo = repo;
         this.auth = auth;
     }
 
-    @PostMapping(path="registrator", consumes="application/json")
-    public ResponseEntity registerUserAccount( @RequestBody Account acc, HttpServletResponse response) {
-        
+    @PostMapping(path = "registrator", consumes = "application/json")
+    public ResponseEntity registerUserAccount(@RequestBody Account acc, HttpServletResponse response) {
+         
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
         Account registered = null;
         acc.setToken("");
         acc.setExpired(new Date());
         try {
-            System.out.println(acc.getPassword()+"/"+acc.getUserName()+"/"+acc.getRole());
+            System.out.println(acc.getPassword() + "/" + acc.getUserName() + "/" + acc.getRole());
             registered = userService.registerNewUserAccount(acc);
-             Cookie sidCookie = new Cookie("token",registered.getToken());
+
+            Cookie sidCookie = new Cookie("token", registered.getToken());
             sidCookie.setPath("/");
 //            sidCookie.setSecure(true);
             sidCookie.setHttpOnly(true);
             sidCookie.setDomain("localhost");
             response.addCookie(sidCookie);
-//            repo.addAccount(registered);
             registered.setPassword("");
             registered.setToken("");
             System.out.println(acc.getExpired());
         } catch (Exception e) {
-            return new ResponseEntity<>( "regist fail", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         // rest of the implementation
-        return new ResponseEntity<>( registered.getToken(), HttpStatus.OK);
+        return new ResponseEntity<>(registered, HttpStatus.OK);
     }
-    
+
     @PostMapping("/logout")
     public void logout() {
     }
-  
-    
+
     @GetMapping()
-    public ResponseEntity blahblah( ) {
-      
-        return new ResponseEntity<>( "leuleu!!", HttpStatus.OK);
+    public ResponseEntity blahblah() {
+
+        return new ResponseEntity<>("leuleu!!", HttpStatus.OK);
     }
- 
 
 }
