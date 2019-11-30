@@ -20,9 +20,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.security.core.*;
 import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import services.account.AccountRepository;
+import services.contributionPoint.ContributionPointServiceImpl;
 
 /**
  *
@@ -32,7 +36,7 @@ import services.account.AccountRepository;
 public class AuthenProvider implements AuthenticationProvider {
     private PasswordEncoder encoder;
     private AccountRepository userService;
-
+    private static final Logger log = LoggerFactory.getLogger(AuthenProvider.class);
     @Autowired
     public AuthenProvider(AccountRepository userService, PasswordEncoder encoder) {
         this.userService = userService;
@@ -47,7 +51,12 @@ public class AuthenProvider implements AuthenticationProvider {
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
         System.out.println("auth name:  " + username);
         System.out.println("auth pass:  " + password);
-        Account acc = userService.findAccountByName(username);
+        Account acc = null;
+        try {
+            acc = userService.findAccountByName(username);
+        } catch (Exception ex) {
+            log.error(ex.toString());
+        }
         grantedAuths.add(new SimpleGrantedAuthority(acc.getRole()));
         System.out.println("db name:  " + acc.getUserName());
         System.out.println("db pass:  " + acc.getPassword());

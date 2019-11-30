@@ -14,11 +14,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import services.Mail.MailService;
 import services.Paypal.PaypalService;
-import services.ordertrip.OrderTripService;
+import services.account.AccountRepository;
+import services.trip.TripService;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
+import java.util.logging.Level;
 
 @RestController
 @RequestMapping(path = "/Payment", produces = "application/json")
@@ -34,15 +36,17 @@ public class PaypalController {
     private String URL_ROOT_CLIENT;
 
     private PaypalService paypalService;
-    private OrderTripService orderTripService;
+    private TripService tripService;
     private MailService mailService;
+    private AccountRepository accountRepository;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    public PaypalController(PaypalService ps, OrderTripService ots, MailService ms) {
+    public PaypalController(PaypalService ps, TripService ots, MailService ms, AccountRepository ar) {
         this.paypalService = ps;
-        this.orderTripService = ots;
+        this.tripService = ots;
         this.mailService = ms;
+        this.accountRepository = ar;
     }
     
     @RequestMapping("/Pay")
@@ -53,11 +57,11 @@ public class PaypalController {
                 + "&post_id=" + order.getPost_id() + "&adult=" + order.getAdult_quantity()
                 + "&children=" + order.getChildren_quantity() + "&begin_date=" + order.getBegin_date();
         try {
-            orderTripService.getOrderGuiderId_FinishDate(order);
+            tripService.getTripGuiderId_FinishDate(order);
             order.setFee_paid(paypalService.getTransactionFee(order));
             successUrl += "&fee=" + order.getFee_paid();
             // Check for availability of order
-            int count = orderTripService.checkAvailabilityOfOrder(order);
+            int count = tripService.checkAvailabilityOfTrip(order);
             if (count != 0) {
                 return URL_ROOT_CLIENT + CHATBOX_PATH + order.getPost_id() + "/booking_time_not_available";
             }
@@ -100,7 +104,7 @@ public class PaypalController {
         order.setChildren_quantity(children_quantity);
         order.setBegin_date(LocalDateTime.parse(begin_date));
         order.setFee_paid(fee_paid);
-        orderTripService.getOrderGuiderId_FinishDate(order);
+        tripService.getTripGuiderId_FinishDate(order);
         String description = paypalService.getTransactionDescription(order);
         HttpHeaders httpHeaders = new HttpHeaders();
         try {
@@ -109,10 +113,10 @@ public class PaypalController {
             order.setTransaction_id(transaction_id);
             if (payment.getState().equals("approved")) {
                 paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, true);
-                orderTripService.createOrder(order);
-                // TODO get email
+                tripService.createTrip(order);
+                String email = accountRepository.getEmail(order.getTraveler_id());
                 String content = mailService.getMailContent(order, "UNCONFIRMED");
-                mailService.sendMail("travelwithlocalsysadm@gmail.com", "TravelWLocal Tour Information", content);
+                mailService.sendMail(email, "TravelWLocal Tour Information", content);
                 URI result = new URI(URL_ROOT_CLIENT + CHATBOX_PATH + order.getPost_id() + "/booking_success");
                 httpHeaders.setLocation(result);
             } else {
@@ -121,7 +125,9 @@ public class PaypalController {
                 httpHeaders.setLocation(result);
             }
         } catch (PayPalRESTException | URISyntaxException e) {
-            logger.warn(e.getMessage());
+            logger.error(e.getMessage());
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
         }
         return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
     }

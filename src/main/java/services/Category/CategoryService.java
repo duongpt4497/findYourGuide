@@ -5,5 +5,8 @@ import entities.Category;
 import java.util.List;
 
 public interface CategoryService {
-    List<Category> findAllCategory();
+
+    List<Category> findAllCategory() throws Exception;
+
+    void createCategory(String name) throws Exception;
 }

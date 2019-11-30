@@ -13,6 +13,7 @@ import services.GeneralService;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -54,8 +55,8 @@ public class PostServiceImpl implements PostService {
             }, guider_id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
-        return null;
     }
 
     @Override
@@ -84,8 +85,8 @@ public class PostServiceImpl implements PostService {
             }, category_id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
-        return null;
     }
 
     @Override
@@ -113,22 +114,92 @@ public class PostServiceImpl implements PostService {
             }, post_id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
-        return new Post();
+    }
+
+    @Override
+    public List<Post> findAllPostWithGuiderName(String name) {
+        try {
+            List<Post> result = new ArrayList<>();
+            name = "'%" + name.toUpperCase() + "%'";
+            String query = "select post_id, title, video_link, picture_link, total_hour, description, including_service, " +
+                    "price, post.rated, reasons, locations.city, place, category.name " +
+                    "from post inner join guider on post.guider_id = guider.guider_id " +
+                    "inner join locations on post.location_id = locations.location_id " +
+                    "inner join category on post.category_id = category.category_id " +
+                    "inner join account on post.guider_id = account.account_id " +
+                    "where post.active = true " +
+                    "and (upper(first_name) like " + name +
+                    " or upper(last_name) like " + name +
+                    " or upper(user_name) like " + name + ")";
+            result = jdbcTemplate.query(query, new RowMapper<Post>() {
+                @Override
+                public Post mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    return new Post(rs.getLong("post_id"),
+                            rs.getString("title"),
+                            rs.getString("video_link"),
+                            generalService.checkForNull(rs.getArray("picture_link")),
+                            rs.getInt("total_hour"),
+                            rs.getString("description"),
+                            generalService.checkForNull(rs.getArray("including_service")),
+                            rs.getString("city") + " " + rs.getString("place"),
+                            rs.getString("name"),
+                            rs.getLong("price"),
+                            rs.getLong("rated"),
+                            rs.getString("reasons"));
+                }
+            });
+            return result;
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            throw e;
+        }
+    }
+
+    @Override
+    public List<Post> findAllPostWithLocationName(String name) {
+        try {
+            List<Post> result = new ArrayList<>();
+            name = "'%" + name.toUpperCase() + "%'";
+            String query = "select post.*, name, city, place from post " +
+                    "inner join category on post.category_id = category.category_id " +
+                    "inner join locations on post.location_id = locations.location_id " +
+                    "where post.active = true " +
+                    "and (upper(country) like " + name +
+                    " or upper(city) like " + name +
+                    " or upper(place) like " + name + ")";
+            result = jdbcTemplate.query(query, new RowMapper<Post>() {
+                @Override
+                public Post mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    return new Post(rs.getLong("post_id"), rs.getString("title"), rs.getString("video_link"),
+                            generalService.checkForNull(rs.getArray("picture_link")), rs.getInt("total_hour"),
+                            rs.getString("description"), generalService.checkForNull(rs.getArray("including_service")),
+                            rs.getString("city") + " " + rs.getString("place"), rs.getString("name"),
+                            rs.getLong("price"), rs.getLong("rated"), rs.getString("reasons"));
+                }
+            });
+            return result;
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            throw e;
+        }
     }
 
     @Override
     public void updatePost(long post_id, Post post) {
         try {
-            String query = "UPDATE post SET  title='" + post.getTitle() + "', picture_link='" + generalService.createSqlArray(generalService.convertBase64toImageAndChangeName(post.getPicture_link()))
-                    + "', video_link ='"
-                    + post.getVideo_link() + "',total_hour=" + post.getTotal_hour() + ",description = '" + post.getDescription() + "',including_service='" +
-                    generalService.createSqlArray(Arrays.asList(post.getIncluding_service())) + "',active = " + post.isActive() + ",location_id = " + Integer.parseInt(post.getLocation())
-                    + ",category_id = " + Integer.parseInt(post.getCategory())
-                    + ",rated =" + post.getRated() + ",price =" + post.getPrice() + ",reasons =" + post.getReasons() + " WHERE post_id =1";
-            jdbcTemplate.update(query);
+            String query = "update post set title = ?, picture_link = ?, video_link = ?, total_hour = ?, description = ?, " +
+                    "including_service = ?, active = ?, location_id = ?, category_id = ?, rated = ?, price = ?, reasons = ? where post_id = ?";
+            jdbcTemplate.update(query, post.getTitle(),
+                    generalService.createSqlArray(generalService.convertBase64toImageAndChangeName(post.getPicture_link())),
+                    post.getVideo_link(), post.getTotal_hour(), post.getDescription(),
+                    generalService.createSqlArray(Arrays.asList(post.getIncluding_service())),
+                    post.isActive(), post.getLocation_id(), post.getCategory_id(), post.getRated(),
+                    post.getPrice(), post.getReasons(), post_id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
     }
 
@@ -143,8 +214,8 @@ public class PostServiceImpl implements PostService {
                 PreparedStatement ps = connection
                         .prepareStatement(query, new String[]{"post_id"});
                 ps.setLong(1, guider_id);
-                ps.setLong(2, Long.parseLong(post.getLocation()));
-                ps.setLong(3, Long.parseLong(post.getCategory()));
+                ps.setLong(2, post.getLocation_id());
+                ps.setLong(3, post.getCategory_id());
                 ps.setString(4, post.getTitle());
                 ps.setString(5, post.getVideo_link());
                 ps.setArray(6, generalService.createSqlArray(generalService.convertBase64toImageAndChangeName(post.getPicture_link())));
@@ -159,6 +230,7 @@ public class PostServiceImpl implements PostService {
             }, keyHolder);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
         return (int) keyHolder.getKey();
     }
@@ -166,7 +238,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> getTopTour() {
         try {
-            return jdbcTemplate.query("SELECT * FROM post order by rated desc limit 5", new RowMapper<Post>() {
+            return jdbcTemplate.query("SELECT * FROM post order by rated desc limit 6", new RowMapper<Post>() {
                 @Override
                 public Post mapRow(ResultSet resultSet, int i) throws SQLException {
                     return new Post(
@@ -189,7 +261,25 @@ public class PostServiceImpl implements PostService {
             });
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
-        return null;
+    }
+
+    @Override
+    public void activeDeactivePost(long post_id) {
+        try {
+            String check = "select active from post where post_id = ?";
+            boolean isActive = jdbcTemplate.queryForObject(check, new Object[]{post_id}, boolean.class);
+            String query;
+            if (isActive) {
+                query = "update post set active = false where post_id = ?";
+            } else {
+                query = "update post set active = true where post_id = ?";
+            }
+            jdbcTemplate.update(query, post_id);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            throw e;
+        }
     }
 }

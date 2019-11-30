@@ -13,7 +13,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Repository;
 import services.Post.PostService;
 import services.guider.GuiderService;
-import services.ordertrip.OrderTripService;
+import services.trip.TripService;
 import services.traveler.TravelerService;
 
 import java.time.format.DateTimeFormatter;
@@ -30,18 +30,18 @@ public class MailServiceImpl implements MailService {
     private TravelerService travelerService;
     private GuiderService guiderService;
     private PostService postService;
-    private OrderTripService orderTripService;
+    private TripService tripService;
 
     @Value("${sysadmin.email}")
     private String sysadminEmail;
 
     @Autowired
-    public MailServiceImpl(JavaMailSender jm, TravelerService ts, GuiderService gs, PostService ps, OrderTripService ots) {
+    public MailServiceImpl(JavaMailSender jm, TravelerService ts, GuiderService gs, PostService ps, TripService ots) {
         this.emailSender = jm;
         this.travelerService = ts;
         this.guiderService = gs;
         this.postService = ps;
-        this.orderTripService = ots;
+        this.tripService = ots;
     }
 
     @Override
@@ -91,7 +91,7 @@ public class MailServiceImpl implements MailService {
             content = content.concat("Your guider: " + guider.getFirst_name() + " " + guider.getLast_name() + "\n");
             content = content.concat("Begin on: " + order.getBegin_date().format(formatter)
                     + " - Expected end on: " + order.getFinish_date().format(formatter) + "\n");
-            content = content.concat("The tour has " + order.getAdult_quantity() + " adults and " + order.getChildren_quantity() + " childrens.\n");
+            content = content.concat("The tour has " + order.getAdult_quantity() + " adults and " + order.getChildren_quantity() + " children.\n");
             content = content.concat("Total: " + order.getFee_paid() + "$\n\n");
             String tourStatus = "";
             if (order.getStatus() == null) {

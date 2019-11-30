@@ -9,6 +9,7 @@ public class Guider {
     private String first_name;
     private String last_name;
     private int age;
+    private String phone;
     private String about_me;
     private long contribution;
     private String city;
@@ -21,11 +22,12 @@ public class Guider {
     public Guider() {
     }
 
-    public Guider(long guider_id, String first_name, String last_name, int age, String about_me, long contribution, String city, String[] languages, boolean active, long rated, String avatar, String passion) {
+    public Guider(long guider_id, String first_name, String last_name, int age, String phone, String about_me, long contribution, String city, String[] languages, boolean active, long rated, String avatar, String passion) {
         this.guider_id = guider_id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.age = age;
+        this.phone = phone;
         this.about_me = about_me;
         this.contribution = contribution;
         this.city = city;
@@ -130,5 +132,13 @@ public class Guider {
 
     public void setPassion(String passion) {
         this.passion = passion;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

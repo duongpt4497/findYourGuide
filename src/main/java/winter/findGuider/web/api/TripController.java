@@ -9,35 +9,48 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import services.Mail.MailService;
 import services.Paypal.PaypalService;
-import services.ordertrip.OrderTripService;
+import services.account.AccountRepository;
+import services.contributionPoint.ContributionPointService;
+import services.guider.GuiderService;
+import services.trip.TripService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping(path = "/Order", produces = "application/json")
 @CrossOrigin(origins = "*")
-public class OrderTripController {
+public class TripController {
 
-    private OrderTripService orderTripService;
+    private TripService tripService;
     private PaypalService paypalService;
     private MailService mailService;
+    private ContributionPointService contributionPointService;
+    private GuiderService guiderService;
+    private AccountRepository accountRepository;
 
     @Autowired
-    public OrderTripController(OrderTripService os, PaypalService ps, MailService ms) {
-        this.orderTripService = os;
+    public TripController(TripService os, PaypalService ps, MailService ms,
+                          ContributionPointService cps, GuiderService gs,
+                          AccountRepository ar) {
+        this.tripService = os;
         this.paypalService = ps;
         this.mailService = ms;
+        this.contributionPointService = cps;
+        this.guiderService = gs;
+        this.accountRepository = ar;
     }
 
     @RequestMapping("/GetAvailableHours")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<ArrayList<String>> getAvailableBookingHour(@RequestBody Order newOrder) {
         try {
-            ArrayList<String> availableHour = orderTripService.getGuiderAvailableHours(newOrder.getBegin_date().toLocalDate(),
+            ArrayList<String> availableHour = tripService.getGuiderAvailableHours(newOrder.getBegin_date().toLocalDate(),
                     newOrder.getPost_id(), newOrder.getGuider_id());
             return new ResponseEntity<>(availableHour, HttpStatus.OK);
         } catch (Exception e) {
@@ -50,7 +63,7 @@ public class OrderTripController {
     public ResponseEntity<List<Order>> getOrderByStatus(@RequestParam("role") String role, @RequestParam("id") int id,
                                                         @RequestParam("status") String status) {
         try {
-            return new ResponseEntity<>(orderTripService.findOrderByStatusAsGuider(role, id, status), HttpStatus.OK);
+            return new ResponseEntity<>(tripService.findTripByStatus(role, id, status), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
@@ -60,7 +73,7 @@ public class OrderTripController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> getClosestFinishDate(@RequestBody Order newOrder) {
         try {
-            String finishDate = orderTripService.getClosestTourFinishDate(newOrder.getBegin_date().toLocalDate(),
+            String finishDate = tripService.getClosestTripFinishDate(newOrder.getBegin_date().toLocalDate(),
                     newOrder.getGuider_id());
             return new ResponseEntity<>(finishDate, HttpStatus.OK);
         } catch (Exception e) {
@@ -70,20 +83,20 @@ public class OrderTripController {
 
     @RequestMapping("/CancelOrderAsTraveler")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> cancelOrderAsTraveler(@RequestParam("order_id") int order_id) {
+    public ResponseEntity<String> cancelOrderAsTraveler(@RequestParam("trip_id") int trip_id) {
         LocalDateTime rightNow = LocalDateTime.now();
         Order cancelOrder = new Order();
         try {
-            cancelOrder = orderTripService.findOrderById(order_id);
+            cancelOrder = tripService.findTripById(trip_id);
             // check if refund is needed
-            boolean isRefund = orderTripService.checkOrderReach48Hours(cancelOrder, rightNow);
+            boolean isRefund = tripService.checkTripReach48Hours(cancelOrder, rightNow);
             // start cancel order
             boolean cancelSuccess;
             if (isRefund) {
                 Refund refund = paypalService.refundPayment(cancelOrder.getTransaction_id());
                 if (refund.getState().equals("completed")) {
                     paypalService.createRefundRecord(cancelOrder.getTransaction_id(), "success");
-                    cancelSuccess = orderTripService.cancelOrder(cancelOrder.getOrder_id());
+                    cancelSuccess = tripService.cancelTrip(cancelOrder.gettrip_id());
                     if (!cancelSuccess) {
                         return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
                     }
@@ -91,7 +104,7 @@ public class OrderTripController {
                     return new ResponseEntity<>("Refund fail", HttpStatus.OK);
                 }
             } else {
-                cancelSuccess = orderTripService.cancelOrder(cancelOrder.getOrder_id());
+                cancelSuccess = tripService.cancelTrip(cancelOrder.gettrip_id());
                 if (!cancelSuccess) {
                     return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
                 }
@@ -106,14 +119,14 @@ public class OrderTripController {
 
     @RequestMapping("/CancelOrderAsGuider")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> cancelOrderAsGuider(@RequestParam("order_id") int order_id) {
+    public ResponseEntity<String> cancelOrderAsGuider(@RequestParam("trip_id") int trip_id) {
         LocalDateTime rightNow = LocalDateTime.now();
         Order cancelOrder = new Order();
         try {
-            cancelOrder = orderTripService.findOrderById(order_id);
+            cancelOrder = tripService.findTripById(trip_id);
 
             // check if penalty is needed
-            boolean isPenalty = orderTripService.checkOrderReach48Hours(cancelOrder, rightNow);
+            boolean isPenalty = tripService.checkTripReach48Hours(cancelOrder, rightNow);
 
             // start cancel order
             boolean cancelSuccess;
@@ -128,44 +141,48 @@ public class OrderTripController {
 
             // penalty guider contribution point
             if (isPenalty) {
-                // TODO penalty guider code here
-                cancelSuccess = orderTripService.cancelOrder(cancelOrder.getOrder_id());
+                int guiderId = (int) guiderService.findGuiderWithPostId(cancelOrder.getPost_id()).getGuider_id();
+                contributionPointService.penaltyGuiderForCancel(guiderId);
+                cancelSuccess = tripService.cancelTrip(cancelOrder.gettrip_id());
                 if (!cancelSuccess) {
                     return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
                 }
             } else {
-                cancelSuccess = orderTripService.cancelOrder(cancelOrder.getOrder_id());
+                cancelSuccess = tripService.cancelTrip(cancelOrder.gettrip_id());
                 if (!cancelSuccess) {
                     return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
                 }
             }
-            // TODO get email
-            Order order = orderTripService.findOrderById(order_id);
+            Order order = tripService.findTripById(trip_id);
+            String email = accountRepository.getEmail(order.getTraveler_id());
             String content = mailService.getMailContent(order, "CANCELLED");
-            mailService.sendMail("travelwithlocalsysadm@gmail.com", "TravelWLocal Tour Cancelled", content);
+            mailService.sendMail(email, "TravelWLocal Tour Cancelled", content);
             return new ResponseEntity<>("Cancel Success", HttpStatus.OK);
         } catch (PayPalRESTException e) {
             String message = e.getDetails().getMessage();
             paypalService.createRefundRecord(cancelOrder.getTransaction_id(), message);
             return new ResponseEntity<>(message, HttpStatus.OK);
+        } catch (Exception ex) {
+            Logger.getLogger(TripController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
-    @RequestMapping("/AcceptOrder/{order_id}")
+    @RequestMapping("/AcceptOrder/{trip_id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> acceptOrder(@PathVariable("order_id") int orderId) {
+    public ResponseEntity<Boolean> acceptOrder(@PathVariable("trip_id") int orderId) {
         try {
             // Check for availability of order
-            int count = orderTripService.checkOrderExist(orderId);
+            int count = tripService.checkTripExist(orderId);
             if (count != 0) {
                 return new ResponseEntity<>(false, HttpStatus.OK);
             }
-            boolean result = orderTripService.acceptOrder(orderId);
+            boolean result = tripService.acceptTrip(orderId);
             if (result) {
-                // TODO get email
-                Order order = orderTripService.findOrderById(orderId);
+                Order order = tripService.findTripById(orderId);
+                String email = accountRepository.getEmail(order.getTraveler_id());
                 String content = mailService.getMailContent(order, "ONGOING");
-                mailService.sendMail("travelwithlocalsysadm@gmail.com", "TravelWLocal Tour Accepted", content);
+                mailService.sendMail(email, "TravelWLocal Tour Accepted", content);
             }
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
@@ -190,7 +207,7 @@ public class OrderTripController {
             Date end = cal.getTime();
             System.out.println("Start of the next week:   " + end);
 
-            return new ResponseEntity<>(orderTripService.getOrderByWeek(id, start, end
+            return new ResponseEntity<>(tripService.getTripByWeek(id, start, end
             ), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -201,7 +218,7 @@ public class OrderTripController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> getExpectedTourEnd(@RequestBody Order order) {
         try {
-            return new ResponseEntity<>(orderTripService.getExpectedEndTourTime(order.getPost_id(), order.getBegin_date()), HttpStatus.OK);
+            return new ResponseEntity<>(tripService.getExpectedEndTripTime(order.getPost_id(), order.getBegin_date()), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }

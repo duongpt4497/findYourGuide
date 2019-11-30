@@ -75,6 +75,7 @@ public class PaypalServiceImpl implements PaypalService {
                     new java.sql.Timestamp(System.currentTimeMillis()), success);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
     }
 
@@ -87,6 +88,7 @@ public class PaypalServiceImpl implements PaypalService {
             fee = price * order.getAdult_quantity() + (price / 2) * order.getChildren_quantity();
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
         return fee;
     }
@@ -133,7 +135,7 @@ public class PaypalServiceImpl implements PaypalService {
 
     @Override
     public Refund refundPayment(String transaction_id) throws PayPalRESTException {
-        String query = "SELECT fee_paid FROM ordertrip where transaction_id = ?";
+        String query = "SELECT fee_paid FROM trip where transaction_id = ?";
         double fee = jdbcTemplate.queryForObject(query, new Object[]{transaction_id}, double.class);
         // Create new refund
         Refund refund = new Refund();

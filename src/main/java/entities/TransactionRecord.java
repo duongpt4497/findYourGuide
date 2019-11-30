@@ -12,19 +12,19 @@ public class TransactionRecord {
     private String description;
     private Timestamp date_of_transaction;
     private boolean success;
-    private long order_id;
+    private long trip_id;
 
     public TransactionRecord() {
     }
 
-    public TransactionRecord(String transaction_id, String payment_id, String payer_id, String description, Timestamp date_of_transaction, boolean success, long order_id) {
+    public TransactionRecord(String transaction_id, String payment_id, String payer_id, String description, Timestamp date_of_transaction, boolean success, long trip_id) {
         this.transaction_id = transaction_id;
         this.payment_id = payment_id;
         this.payer_id = payer_id;
         this.description = description;
         this.date_of_transaction = date_of_transaction;
         this.success = success;
-        this.order_id = order_id;
+        this.trip_id = trip_id;
     }
 
     public String getTransaction_id() {
@@ -75,11 +75,11 @@ public class TransactionRecord {
         this.success = success;
     }
 
-    public long getOrder_id() {
-        return order_id;
+    public long gettrip_id() {
+        return trip_id;
     }
 
-    public void setOrder_id(long order_id) {
-        this.order_id = order_id;
+    public void settrip_id(long trip_id) {
+        this.trip_id = trip_id;
     }
 }

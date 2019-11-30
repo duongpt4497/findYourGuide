@@ -19,13 +19,14 @@ public class Account {
 
     private long id;
     //    @NotNull
-//    @NotEmpty
+    //    @NotEmpty
     private String userName;
     //    @NotNull
-//    @NotEmpty
+    //    @NotEmpty
     private String password;
+    private String email;
     //    @NotNull
-//    @NotEmpty
+    //    @NotEmpty
     private String role;
     private String token;
     private Date expired;
@@ -39,12 +40,12 @@ public class Account {
         this.expired = expired;
     }
 
-    public Account(long id, String userName, String password, String role) {
+    public Account(long id, String userName, String password, String email, String role) {
         this.id = id;
         this.userName = userName;
         this.password = password;
+        this.email = email;
         this.role = role;
-
     }
 
     public Account(long id, String userName, String role) {
@@ -58,10 +59,31 @@ public class Account {
     }
 
     public Account(String userName, String password, String role) {
-
         this.userName = userName;
         this.password = password;
         this.role = role;
+    }
+
+    public Account(String userName, String password, String email, String role) {
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
+
+    public Account(long id, String userName, String email, String role) {
+        this.id = id;
+        this.userName = userName;
+        this.email = email;
+        this.role = role;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public long getId() {

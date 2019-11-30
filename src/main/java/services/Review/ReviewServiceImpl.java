@@ -25,63 +25,66 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<Review> findReviewByOrderId(long order_id) {
+    public List<Review> findReviewByOrderId(long trip_id) {
         try {
-            String query = "select * from review where order_id = ?";
+            String query = "select * from review where trip_id = ?";
             return jdbcTemplate.query(query, new RowMapper<Review>() {
                 public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return new Review(rs.getLong("order_id"), rs.getLong("traveler_id"),
-                            rs.getLong("guider_id"), rs.getLong("post_id"), rs.getLong("rated"),
-                            rs.getDate("post_date"), rs.getString("review"));
+                    return new Review(rs.getLong("trip_id"), rs.getLong("rated"),
+                            rs.getDate("post_date"), rs.getString("review"),
+                            rs.getBoolean("visible"));
                 }
-            }, order_id);
+            }, trip_id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
-        return null;
     }
 
     @Override
     public List<Review> findReviewsByGuiderId(long guider_id) {
         try {
-            String query = "select * from review where guider_id = ?";
+            String query = "select review.* from review " +
+                    "inner join trip on review.trip_id = trip.trip_id " +
+                    "inner join post on post.guider_id = ?";
             return jdbcTemplate.query(query, new RowMapper<Review>() {
                 public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return new Review(rs.getLong("order_id"), rs.getLong("traveler_id"),
-                            rs.getLong("guider_id"), rs.getLong("post_id"), rs.getLong("rated"),
-                            rs.getDate("post_date"), rs.getString("review"));
+                    return new Review(rs.getLong("trip_id"), rs.getLong("rated"),
+                            rs.getDate("post_date"), rs.getString("review"),
+                            rs.getBoolean("visible"));
                 }
             }, guider_id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
-        return null;
     }
 
     @Override
     public List<Review> findReviewsByPostId(long post_id) {
         try {
-            String query = "select * from review where post_id = ?";
+            String query = "select review.* from review " +
+                    "inner join trip on trip.post_id = ?";
             return jdbcTemplate.query(query, new RowMapper<Review>() {
                 public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
-                    return new Review(rs.getLong("order_id"), rs.getLong("traveler_id"),
-                            rs.getLong("guider_id"), rs.getLong("post_id"), rs.getLong("rated"),
-                            rs.getDate("post_date"), rs.getString("review"));
+                    return new Review(rs.getLong("trip_id"), rs.getLong("rated"),
+                            rs.getDate("post_date"), rs.getString("review"),
+                            rs.getBoolean("visible"));
                 }
             }, post_id);
         } catch (Exception e) {
             logger.warn(e.getMessage());
+            throw e;
         }
-        return null;
     }
 
     @Override
     public boolean createReview(Review newReview) {
         try {
-            String query = "insert into review (order_id, traveler_id, guider_id, post_id, rated, post_date, review)" +
-                    "values (?,?,?,?,?,?,?)";
-            jdbcTemplate.update(query, newReview.getOrder_id(), newReview.getTraveler_id(), newReview.getGuider_id(),
-                    newReview.getPost_id(), newReview.getRated(), Timestamp.valueOf(LocalDateTime.now()), newReview.getReview());
+            String query = "insert into review (trip_id, rated, post_date, review, visible)" +
+                    "values (?,?,?,?,?)";
+            jdbcTemplate.update(query, newReview.getTrip_id(), newReview.getRated(),
+                    Timestamp.valueOf(LocalDateTime.now()), newReview.getReview(), true);
             return true;
         } catch (Exception e) {
             logger.warn(e.getMessage());
@@ -90,15 +93,15 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public boolean checkReviewExist(long order_id) {
+    public boolean checkReviewExist(long trip_id) {
         try {
-            String query = "select count(order_id) from review where order_id = ?";
+            String query = "select count(trip_id) from review where trip_id = ?";
             List<Integer> checklist = jdbcTemplate.query(query, new RowMapper<Integer>() {
                 @Override
                 public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
                     return rs.getInt("count");
                 }
-            }, order_id);
+            }, trip_id);
             if (checklist.get(0) == 0) {
                 return false;
             } else {
@@ -107,6 +110,24 @@ public class ReviewServiceImpl implements ReviewService {
         } catch (Exception e) {
             logger.warn(e.getMessage());
             return false;
+        }
+    }
+
+    @Override
+    public void showHideReview(long trip_id) {
+        try {
+            String check = "select visible from review where trip_id = ?";
+            boolean isVisible = jdbcTemplate.queryForObject(check, new Object[]{trip_id}, boolean.class);
+            String query;
+            if (isVisible) {
+                query = "update review set visible = false where trip_id = ?";
+            } else {
+                query = "update review set visible = true where trip_id = ?";
+            }
+            jdbcTemplate.update(query, trip_id);
+        } catch (Exception e) {
+            logger.warn(e.getMessage());
+            throw e;
         }
     }
 }

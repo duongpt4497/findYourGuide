@@ -20,7 +20,7 @@ public class TravelerController {
 
     @RequestMapping("/GetTraveler")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Traveler> getTravelerWithId(@RequestParam int traveler_id) {
+    public ResponseEntity<Traveler> getTravelerWithId(@RequestParam("traveler_id") int traveler_id) {
         try {
             Traveler searchTraveler = travelerService.findTravelerWithId(traveler_id);
             if (searchTraveler == null) {
@@ -51,6 +51,17 @@ public class TravelerController {
             return new ResponseEntity<>(travelerService.findTravelerWithId(travelerNeedUpdate.getTraveler_id()), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/favorite")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Boolean> favoritePost(@RequestParam("traveler_id") int traveler_id, @RequestParam("post_id") int post_id) {
+        try {
+            travelerService.favoritePost(traveler_id, post_id);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
         }
     }
 }

@@ -6,57 +6,35 @@ import java.util.Date;
 
 @Data
 public class Review {
-    private long order_id;
-    private long traveler_id;
-    private long guider_id;
-    private long post_id;
+    private long trip_id;
     private long rated;
     private Date post_date;
     private String review;
+    private boolean visible;
 
     public Review() {
     }
 
-    public Review(long order_id, long traveler_id, long guider_id, long post_id, long rated, Date post_date, String review) {
-        this.order_id = order_id;
-        this.traveler_id = traveler_id;
-        this.guider_id = guider_id;
-        this.post_id = post_id;
+    public Review(long trip_id, long rated, Date post_date, String review, boolean visible) {
+        this.trip_id = trip_id;
         this.rated = rated;
         this.post_date = post_date;
         this.review = review;
+        this.visible = visible;
     }
 
-    public long getOrder_id() {
-        return order_id;
+    public Review(long trip_id, long rated, String review) {
+        this.trip_id = trip_id;
+        this.rated = rated;
+        this.review = review;
     }
 
-    public void setOrder_id(long order_id) {
-        this.order_id = order_id;
+    public long getTrip_id() {
+        return trip_id;
     }
 
-    public long getTraveler_id() {
-        return traveler_id;
-    }
-
-    public void setTraveler_id(long traveler_id) {
-        this.traveler_id = traveler_id;
-    }
-
-    public long getGuider_id() {
-        return guider_id;
-    }
-
-    public void setGuider_id(long guider_id) {
-        this.guider_id = guider_id;
-    }
-
-    public long getPost_id() {
-        return post_id;
-    }
-
-    public void setPost_id(long post_id) {
-        this.post_id = post_id;
+    public void setTrip_id(long trip_id) {
+        this.trip_id = trip_id;
     }
 
     public long getRated() {
@@ -81,5 +59,13 @@ public class Review {
 
     public void setReview(String review) {
         this.review = review;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 }

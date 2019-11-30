@@ -1,7 +1,7 @@
 package winter.findGuider.web.api;
 
+import entities.Contract;
 import entities.Guider;
-import entities.Guider_Contract;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +24,11 @@ public class GuiderController {
 
     @RequestMapping("/Create")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Guider> createGuider(@RequestBody Guider newGuider, @RequestBody Guider_Contract newGuiderContract) {
+    public ResponseEntity<Guider> createGuider(@RequestBody Guider newGuider, @RequestBody Contract newGuiderContract) {
         try {
-            long insertedId = guiderService.createGuider(newGuider);
-            guiderService.createGuiderContract(insertedId, newGuiderContract);
-            return new ResponseEntity<>(guiderService.findGuiderWithID(insertedId), HttpStatus.OK);
+            long guider_id = guiderService.createGuider(newGuider);
+            long contract_id = guiderService.createGuiderContract(newGuiderContract);
+            return new ResponseEntity<>(guiderService.findGuiderWithID(guider_id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
@@ -115,6 +115,17 @@ public class GuiderController {
             return new ResponseEntity<>(guiderService.getTopGuiderByContribute(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/AcceptContract")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Boolean> acceptContract(@RequestParam("guider_id") long guider_id, @RequestParam("contract_id") long contract_id) {
+        try {
+            guiderService.linkGuiderWithContract(guider_id, contract_id);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
         }
     }
 }

@@ -3,9 +3,11 @@ package services.traveler;
 import entities.Traveler;
 
 public interface TravelerService {
-    public boolean createTraveler(Traveler newTraveler);
+    boolean createTraveler(Traveler newTraveler);
 
-    public Traveler findTravelerWithId(long id);
+    Traveler findTravelerWithId(long id);
 
-    public void updateTraveler(Traveler travelerNeedUpdate);
+    void updateTraveler(Traveler travelerNeedUpdate);
+
+    void favoritePost(int traveler_id, int post_id);
 }

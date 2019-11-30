@@ -1,32 +1,32 @@
 package services.guider;
 
 import entities.Guider;
-import entities.Guider_Contract;
+import entities.Contract;
 
 import java.util.List;
 
 public interface GuiderService {
-    public Guider findGuiderWithID(long id);
+    Guider findGuiderWithID(long id);
 
-    public Guider findGuiderWithPostId(long id);
+    Guider findGuiderWithPostId(long id);
 
-    public Guider_Contract findGuiderContract(long id);
+    Contract findGuiderContract(long id);
 
-    public long createGuider(Guider newGuider);
+    long createGuider(Guider newGuider);
 
-    public void createGuiderContract(long guider_id, Guider_Contract newGuiderContract);
+    long createGuiderContract(Contract newGuiderContract);
 
-    public long updateGuiderWithId(Guider guiderNeedUpdate);
+    long updateGuiderWithId(Guider guiderNeedUpdate);
 
-    public long activateGuider(long id);
+    long activateGuider(long id);
 
-    public long deactivateGuider(long id);
+    long deactivateGuider(long id);
 
-    public List<Guider> searchGuiderByName(String key);
+    List<Guider> searchGuiderByName(String key);
 
+    List<Guider> getTopGuiderByRate();
 
-    public List<Guider> getTopGuiderByRate();
+    List<Guider> getTopGuiderByContribute();
 
-    public List<Guider> getTopGuiderByContribute();
-
+    void linkGuiderWithContract(long guider_id, long contract_id);
 }

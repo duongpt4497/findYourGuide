@@ -82,4 +82,35 @@ public class PostController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+
+    @RequestMapping("/findAllPostWithGuiderName")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Post>> findAllPostWithGuiderName(@RequestParam("name") String name) {
+        try {
+            return new ResponseEntity<>(postService.findAllPostWithGuiderName(name), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/activeDeactivePost")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Boolean> activeDeactivePost(@RequestParam("post_id") long post_id) {
+        try {
+            postService.activeDeactivePost(post_id);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/findAllPostWithLocationName")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Post>> findAllPostWithLocationName(@RequestParam("name") String name) {
+        try {
+            return new ResponseEntity<>(postService.findAllPostWithLocationName(name), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 }

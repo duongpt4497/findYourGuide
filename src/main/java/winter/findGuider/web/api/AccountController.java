@@ -5,20 +5,18 @@
  */
 package winter.findGuider.web.api;
 
+import entities.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import services.account.AccountRepository;
+import services.security.AuthenProvider;
 import services.security.UserService;
-import entities.Account;
-import java.util.Date;
+
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import javax.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
@@ -28,8 +26,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import services.security.AuthenProvider;
 import services.account.AccountRepository;
 
+import java.util.Date;
+import java.util.List;
+
 /**
- *
  * @author dgdbp
  */
 @RestController
@@ -50,6 +50,7 @@ public class AccountController {
 
     @PostMapping(path = "registrator", consumes = "application/json")
     public ResponseEntity registerUserAccount(@RequestBody Account acc, HttpServletResponse response) {
+
          
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
         response.setHeader("Access-Control-Allow-Credentials", "true");
@@ -59,7 +60,6 @@ public class AccountController {
         try {
             System.out.println(acc.getPassword() + "/" + acc.getUserName() + "/" + acc.getRole());
             registered = userService.registerNewUserAccount(acc);
-
             Cookie sidCookie = new Cookie("token", registered.getToken());
             sidCookie.setPath("/");
 //            sidCookie.setSecure(true);
@@ -70,20 +70,28 @@ public class AccountController {
             registered.setToken("");
             System.out.println(acc.getExpired());
         } catch (Exception e) {
+
             return new ResponseEntity<>(e.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
         // rest of the implementation
-        return new ResponseEntity<>(registered, HttpStatus.OK);
+        return new ResponseEntity<>(registered.getToken(), HttpStatus.OK);
+
     }
 
     @PostMapping("/logout")
     public void logout() {
     }
 
-    @GetMapping()
-    public ResponseEntity blahblah() {
 
-        return new ResponseEntity<>("leuleu!!", HttpStatus.OK);
+
+    @RequestMapping("/findAll")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Account>> findAllCategory() {
+        try {
+            return new ResponseEntity(repo.findAllAccount(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+        }
     }
-
 }

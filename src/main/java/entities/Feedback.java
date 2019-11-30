@@ -7,6 +7,7 @@ public class Feedback {
     private int account_id;
     private String message;
     private LocalDateTime time_sent;
+    private String sender_name;
 
     public Feedback() {
     }
@@ -16,6 +17,13 @@ public class Feedback {
         this.account_id = account_id;
         this.message = message;
         this.time_sent = time_sent;
+    }
+
+    public Feedback(int feedback_id, String message, LocalDateTime time_sent, String sender_name) {
+        this.feedback_id = feedback_id;
+        this.message = message;
+        this.time_sent = time_sent;
+        this.sender_name = sender_name;
     }
 
     public int getFeedback_id() {
@@ -48,5 +56,13 @@ public class Feedback {
 
     public void setTime_sent(LocalDateTime time_sent) {
         this.time_sent = time_sent;
+    }
+
+    public String getSender_name() {
+        return sender_name;
+    }
+
+    public void setSender_name(String sender_name) {
+        this.sender_name = sender_name;
     }
 }

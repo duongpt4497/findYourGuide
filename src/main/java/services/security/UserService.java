@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package services.security;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import entities.Account;
 import services.account.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class UserService {
-
+    private static final Logger log = LoggerFactory.getLogger(UserService.class);
     private AccountRepository repo;
     private PasswordEncoder passwordEncoder;
     private TokenHelper TokenHelper;
@@ -58,6 +59,8 @@ public class UserService {
             }
         } catch (EmptyResultDataAccessException empty){
             return false;
+        } catch (Exception ex) {
+            log.error(ex.toString());
         }
 
         return false;
