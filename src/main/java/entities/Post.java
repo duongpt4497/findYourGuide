@@ -25,7 +25,7 @@ public class Post {
     private String reasons;
     private boolean authorized;
 
-    public Post(long post_id, long guider_id, long location_id, long category_id, String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, float price, float rated, String reasons) {
+    public Post(long post_id, long guider_id, long location_id, long category_id, String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, float price, float rated, String reasons, boolean authorized) {
         this.post_id = post_id;
         this.guider_id = guider_id;
         this.location_id = location_id;
@@ -40,9 +40,8 @@ public class Post {
         this.price = price;
         this.rated = rated;
         this.reasons = reasons;
+        this.authorized = authorized;
     }
-
-
 
     public Post(String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location, float price, float rated, String reasons,String category) {
 
@@ -61,7 +60,7 @@ public class Post {
     }
 
 
-    public Post(long post_id, String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location, float price, float rated, String reasons,String category) {
+    public Post(long post_id, String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location, float price, float rated, String reasons,String category, boolean authorized) {
 
         this.post_id = post_id;
         this.title = title;
@@ -76,6 +75,7 @@ public class Post {
         this.rated = rated;
         this.reasons = reasons;
         this.category = category;
+        this.authorized = authorized;
     }
 
     public Post(long post_id, String title, String[] picture_link, String description, boolean active) {
@@ -86,7 +86,7 @@ public class Post {
         this.active = active;
     }
 
-    public Post(long location_id, long category_id, String title, String video_link, @NotNull String[] picture_link, int total_hour, String description, String[] including_service, boolean active, long price, long rated, String reasons) {
+    public Post(long location_id, long category_id, String title, String video_link, @NotNull String[] picture_link, int total_hour, String description, String[] including_service, boolean active, long price, long rated, String reasons, boolean authorized) {
         this.location_id = location_id;
         this.category_id = category_id;
         this.title = title;
@@ -99,6 +99,7 @@ public class Post {
         this.price = price;
         this.rated = rated;
         this.reasons = reasons;
+        this.authorized = authorized;
     }
 
     public Post(long post_id, String title, String video_link, @NotNull String[] picture_link, int total_hour, String description, String[] including_service, String location, String category, long price, long rated, String reasons) {
