@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 package services.security;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import entities.Account;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +42,7 @@ public class UserService {
                     "There is an account with that user name: "
                             + acc.getUserName());
         }
-        
+
         acc.setToken(TokenHelper.createToken(acc.getUserName()));
         acc.setPassword(passwordEncoder.encode(acc.getPassword()));
         repo.addAccount(acc);
@@ -51,29 +50,15 @@ public class UserService {
         return acc;
     }
 
-    private boolean nameExisted(String name) {
+    private boolean nameExisted(String name) throws Exception {
         try {
-            Account user = null;
-            try {
-                user = repo.findAccountByName(name);
-            } catch (Exception e) {
-                logger.error(e.getMessage());
-                return false;
-            }
+            Account user = repo.findAccountByName(name);
             if (user != null) {
                 return true;
             }
         } catch (EmptyResultDataAccessException empty) {
             return false;
-        } catch (Exception ex) {
-            logger.error(ex.toString());
         }
-
         return false;
     }
-
-//    @Transactional
-//    public String saveUser(String username, String password, String email) {
-//
-//    }
 }
