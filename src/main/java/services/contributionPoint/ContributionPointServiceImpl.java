@@ -57,8 +57,9 @@ public class ContributionPointServiceImpl implements ContributionPointService {
     @Scheduled(cron = "0 1 0 * * *")
     public void updateContributionbyDay() {
         List<Order> lo = new ArrayList<>();
-        String query = "select o1.trip_id, o1.traveler_id, o1.guider_id, o1.fee_paid, r2.rated from trip as o1 "
-                + " inner join review as r2 on o1.trip_id = r2.trip_id"
+        String query = "select o1.trip_id, o1.traveler_id, p3.guider_id, o1.fee_paid, r2.rated from trip as o1 "
+                + " inner join review as r2 on o1.trip_id = r2.trip_id "
+                + " inner join post as p3 on o1.post_id = p3.post_id "
 //                + " where extract (epoch from (now() - o1.finish_date))::integer "
                 //                + " < extract(epoch from TIMESTAMP '1970-1-3 00:00:00')::integer "
                 //                + " and where extract (epoch from (now() - o1.finish_date))::integer "
@@ -75,8 +76,10 @@ public class ContributionPointServiceImpl implements ContributionPointService {
                         rs.getFloat("rated"));
             }
         });
-        String count = "select count(traveler_id) from trip where guider_id = ? "
-                + " and traveler_id= ? group by traveler_id, guider_id; ";
+        String count = "select count(o1.traveler_id) from trip as o1 "
+                 + " inner join post as p3 on o1.post_id = p3.post_id "
+                + " where p3.guider_id = ? "
+                + " and o1.traveler_id= ? group by o1.traveler_id, p3.guider_id; ";
         List<String> update = new ArrayList<>();
         for (Order o : lo) {
             int turn = jdbcTemplate.queryForObject(count, new RowMapper<Integer>() {
@@ -102,25 +105,29 @@ public class ContributionPointServiceImpl implements ContributionPointService {
     @Scheduled(cron = "0 0 1 */30 * *")
     public void updateContributionbyMonth() {
 
-        String queryPositive = "select guider_id, count(guider_id) from trip where "
+        String queryPositive = "select p3.guider_id, count(p3.guider_id) from trip as o1 "
+                 + " inner join post as p3 on o1.post_id = p3.post_id where "
 //                + " extract (epoch from (now() - o1.finish_date))::integer "
 //                + " <= extract(epoch from TIMESTAMP '1970-1-31 00:00:00')::integer and  "
-                + " status = 'FINISHED' group by guider_id ; ";
+                + " o1.status = 'FINISHED' group by p3.guider_id ; ";
         List<Map<String, Object>> positiveGuider = jdbcTemplate.queryForList(queryPositive);
         String queryNegative = " select guider_id from guider where contribution < ? except "
-                + " select guider_id from trip where "
+                + " select p3.guider_id from trip as o1 " 
+                 + " inner join post as p3 on o1.post_id = p3.post_id where "
 //                + "  extract (epoch from (now() - o1.finish_date))::integer "
 //                + " <= extract(epoch from TIMESTAMP '1970-1-31 00:00:00')::integer and  "
-                + " status = 'FINISHED'  ; ";
+                + " o1.status = 'FINISHED'  ; ";
         List<Map<String, Object>> negativeGuider = jdbcTemplate.queryForList(queryNegative, Integer.parseInt(minus));
 
         List<String> update = new ArrayList<>();
         for (Map m : positiveGuider) {
 
-            String incomeQuery = "select sum(fee_paid) from trip where guider_id = ? and "
+            String incomeQuery = "select sum(o1.fee_paid) from trip as o1 "
+                    + " inner join post as p3 on o1.post_id = p3.post_id where "
+                    + " where p3.guider_id = ? and "
 //                    + "  extract (epoch from (now() - o1.finish_date))::integer "
 //                    + " <= extract(epoch from TIMESTAMP '1970-1-31 00:00:00')::integer and  "
-                    + " status = 'FINISHED' group by guider_id; ";
+                    + " o1.status = 'FINISHED' group by p3.guider_id; ";
             int income = jdbcTemplate.queryForObject(incomeQuery, new RowMapper<Integer>() {
                 @Override
                 public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {

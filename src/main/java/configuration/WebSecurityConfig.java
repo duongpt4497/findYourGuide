@@ -92,6 +92,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/location/**").hasAuthority("TRAVELER")
                 .antMatchers("/location/**").permitAll()
                 .antMatchers("/**/*.jpg").permitAll()
+                .antMatchers("/images/**").permitAll()
                 .antMatchers("/account/**").permitAll()
                 .antMatchers("/category/**").permitAll()
                 .antMatchers("/guiderpost/**").permitAll()

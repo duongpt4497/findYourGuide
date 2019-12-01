@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -37,7 +39,7 @@ import org.springframework.web.util.WebUtils;
  */
 @Service
 public class TokenHelper {
-
+    private Logger logger = LoggerFactory.getLogger(getClass());
     @Value("${jwt.secret}")
     private String secretKey;
 
@@ -78,7 +80,8 @@ public class TokenHelper {
         try {
             return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
         } catch (JwtException | IllegalArgumentException e) {
-            System.out.println(e);
+            logger.error(e.toString());
+    
         }
         return null;
     }
@@ -89,13 +92,9 @@ public class TokenHelper {
         try{
             bearerToken = WebUtils.getCookie(request, "token").getValue();
         } catch (Exception e) {
-            System.out.println(e);
+           logger.error(e.toString());
         }
         
-        System.out.println("bearerToken: " + bearerToken);
-//        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-//            return bearerToken.substring(7);
-//        }
         if (bearerToken != null) {
             return bearerToken;
         }
@@ -105,13 +104,13 @@ public class TokenHelper {
     public boolean validateToken(String token, UserDetails principal) {
         try {
             Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
-            System.out.println("ID: " + claims.getId());
-            System.out.println("Subject: " + claims.getSubject());
-            System.out.println("Issuer: " + claims.getIssuer());
-            System.out.println("Expiration: " + claims.getExpiration());
+//            System.out.println("ID: " + claims.getId());
+//            System.out.println("Subject: " + claims.getSubject());
+//            System.out.println("Issuer: " + claims.getIssuer());
+//            System.out.println("Expiration: " + claims.getExpiration());
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            System.out.println(e);
+            logger.error(e.toString());
         }
 
         return false;

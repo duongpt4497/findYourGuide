@@ -62,20 +62,19 @@ public class AccountController {
             registered = userService.registerNewUserAccount(acc);
             Cookie sidCookie = new Cookie("token", registered.getToken());
             sidCookie.setPath("/");
-//            sidCookie.setSecure(true);
             sidCookie.setHttpOnly(true);
             sidCookie.setDomain("localhost");
             response.addCookie(sidCookie);
             registered.setPassword("");
             registered.setToken("");
-            System.out.println(acc.getExpired());
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.error(e.toString());
             return new ResponseEntity<>(e.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         // rest of the implementation
-        return new ResponseEntity<>(registered.getToken(), HttpStatus.OK);
+        //let log in after registration
+        return new ResponseEntity<>(registered, HttpStatus.OK);
 
     }
 

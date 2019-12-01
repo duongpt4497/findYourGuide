@@ -16,6 +16,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import java.util.Arrays;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  *
  * @author dgdbp
@@ -23,7 +25,7 @@ import java.util.Arrays;
 @Component
 public class TokenAuthenFilter extends OncePerRequestFilter{
     private TokenHelper tokenService;
-
+    private Logger logger = LoggerFactory.getLogger(getClass());
     private PrincipalService principalService;
     @Autowired
     public TokenAuthenFilter(TokenHelper tokenService, PrincipalService principalService) {
@@ -50,14 +52,12 @@ public class TokenAuthenFilter extends OncePerRequestFilter{
                     // create authentication
                     TokenBaseAuthentication authentication = new TokenBaseAuthentication(userDetails);
                     authentication.setToken(authToken);
-                    System.out.println(authentication.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(authentication); // Adding Token in Security COntext
                 }
             }else{
-                logger.warn("Something is wrong with Token.");
+                logger.error("Something is wrong with Token.");
             }
         }
-        System.out.println(request.getHeader("Sec-Fetch-Mode"));
         fc.doFilter(request, response);
     }
     
