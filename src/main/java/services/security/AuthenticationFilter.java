@@ -26,13 +26,14 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.stream.Collectors;
 import javax.servlet.http.Cookie;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author dgdbp
  */
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-
+    private org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
     private AuthenProvider authenticationManager;
     private TokenHelper TokenHelper;
 
@@ -48,8 +49,6 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         try {
             
             Account acc = new ObjectMapper().readValue(request.getInputStream(), Account.class);
-            System.out.println(acc.getPassword() + "/" + acc.getUserName() + "/" + acc.getRole());
-            System.out.println(request.getHeader("Sec-Fetch-Mode")+"auth filter"); 
             return authenticationManager.authenticate(new AuthenticationImp(acc));
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -59,7 +58,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
         
-            System.out.println(authResult.getPrincipal().toString());
+     
             String token = TokenHelper.createToken(authResult.getPrincipal().toString());
             response.addHeader("Access-Control-Allow-Origin", "http://localhost:3000");
             response.addHeader("Access-Control-Allow-Credentials", "true");
@@ -70,7 +69,6 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
             sidCookie.setHttpOnly(true);
             sidCookie.setDomain("localhost");
             response.addCookie(sidCookie);
-            System.out.println(request.getHeader("Sec-Fetch-Mode")+"authen success");
             Account res = new Account(Integer.parseInt(authResult.getCredentials().toString())
                     ,authResult.getPrincipal().toString(), authResult.getAuthorities().toArray()[0].toString());
             response.getWriter().write(new Gson().toJson(res));

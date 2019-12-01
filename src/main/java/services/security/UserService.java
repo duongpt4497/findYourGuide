@@ -43,10 +43,10 @@ public class UserService {
                     "There is an account with that user name: "
                             + acc.getUserName());
         }
-        repo.addAccount(acc);
+        
         acc.setToken(TokenHelper.createToken(acc.getUserName()));
-        System.out.println("token:  " + acc.getToken());
         acc.setPassword(passwordEncoder.encode(acc.getPassword()));
+        repo.addAccount(acc);
         // the rest of the registration operation
         return acc;
     }
@@ -60,7 +60,6 @@ public class UserService {
                 logger.error(e.getMessage());
                 return false;
             }
-            System.out.println(name);
             if (user != null) {
                 return true;
             }
