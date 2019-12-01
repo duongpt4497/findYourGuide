@@ -125,7 +125,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers(
                 HttpMethod.GET,
                 "/",
-                "/assets/**",
+                "/images/**",
                 "/**/*.html",
                 "/**/*.css",
                 "/**/*.js",
