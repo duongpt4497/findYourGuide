@@ -123,7 +123,7 @@ public class ContributionPointServiceImpl implements ContributionPointService {
         for (Map m : positiveGuider) {
 
             String incomeQuery = "select sum(o1.fee_paid) from trip as o1 "
-                    + " inner join post as p3 on o1.post_id = p3.post_id where "
+                    + " inner join post as p3 on o1.post_id = p3.post_id "
                     + " where p3.guider_id = ? and "
 //                    + "  extract (epoch from (now() - o1.finish_date))::integer "
 //                    + " <= extract(epoch from TIMESTAMP '1970-1-31 00:00:00')::integer and  "
