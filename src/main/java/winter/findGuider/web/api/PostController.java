@@ -56,7 +56,7 @@ public class PostController {
         }
     }
 
-    @RequestMapping(consumes = "application/json", value = "/update/post")
+        @RequestMapping(consumes = "application/json", value = "/update/post")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Long> updatePost(@RequestBody Post post) {
         try {

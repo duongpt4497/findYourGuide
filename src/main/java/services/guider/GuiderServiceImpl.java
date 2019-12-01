@@ -91,7 +91,7 @@ public class GuiderServiceImpl implements GuiderService {
                 "values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(query, newGuider.getGuider_id(), newGuider.getFirst_name(), newGuider.getLast_name(),
                 newGuider.getAge(), newGuider.getPhone(), newGuider.getAbout_me(), newGuider.getContribution(),
-                newGuider.getCity(), generalService.createSqlArray(Arrays.asList(newGuider.getLanguages())), true,
+                newGuider.getCity(), generalService.createSqlArray(Arrays.asList(newGuider.getLanguages())), newGuider.isActive(),
                 newGuider.getRated(), newGuider.getAvatar(), newGuider.getPassion());
         return newGuider.getGuider_id();
     }

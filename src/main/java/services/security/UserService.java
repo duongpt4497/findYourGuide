@@ -5,7 +5,13 @@
  */
 package services.security;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import entities.Account;
+import entities.Guider;
+import entities.Traveler;
+import java.time.LocalDateTime;
+import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +20,23 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import services.account.AccountRepository;
+import services.guider.GuiderService;
+import services.traveler.TravelerService;
 
 /**
  * @author dgdbp
  */
 @Service
 public class UserService {
+
     private Logger logger = LoggerFactory.getLogger(getClass());
     private AccountRepository repo;
     private PasswordEncoder passwordEncoder;
     private TokenHelper TokenHelper;
+    @Autowired
+    private GuiderService gs;
+    @Autowired
+    private TravelerService ts;
 
     @Autowired
     public UserService(AccountRepository repo, PasswordEncoder passwordEncoder, TokenHelper tokenService) {
@@ -40,19 +53,29 @@ public class UserService {
         if (nameExisted(acc.getUserName())) {
             throw new Exception(
                     "There is an account with that user name: "
-                            + acc.getUserName());
+                    + acc.getUserName());
         }
 
         acc.setToken(TokenHelper.createToken(acc.getUserName()));
         acc.setPassword(passwordEncoder.encode(acc.getPassword()));
-        repo.addAccount(acc);
+        long id = repo.addAccount(acc);
+        if (acc.getRole().equalsIgnoreCase("GUIDER")) {
+            gs.createGuider(new Guider(id, "", "", 0, "", "", 0, "", new String[]{}, false, 0, "", ""));
+        } else if (acc.getRole().equalsIgnoreCase("TRAVELER")) {
+            ts.createTraveler(new Traveler(id, "", "", "", 0, new java.sql.Timestamp(
+                    new Date().getTime()).toLocalDateTime(), "", "", "", "", "", new String[]{}, "", "", ""));
+        }
         // the rest of the registration operation
         return acc;
     }
 
     private boolean nameExisted(String name) throws Exception {
+        Account user = null;
         try {
-            Account user = repo.findAccountByName(name);
+            
+                user = repo.findAccountByName(name);
+
+
             if (user != null) {
                 return true;
             }

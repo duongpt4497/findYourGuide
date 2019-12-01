@@ -6,3 +6,4 @@
 2019-Dec-01 15:53:52 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
 2019-Dec-01 15:53:52 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
 2019-Dec-01 15:53:52 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+
