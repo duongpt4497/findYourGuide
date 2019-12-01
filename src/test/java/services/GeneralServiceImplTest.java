@@ -64,14 +64,6 @@ public class GeneralServiceImplTest {
 
     @Test
     public void convertBase64toImageAndChangeName() {
-    }
 
-    @Test
-    public void generateLongId() {
-
-    }
-
-    @Test
-    public void tilNextMillis() {
     }
 }
