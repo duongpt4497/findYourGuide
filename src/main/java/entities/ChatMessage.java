@@ -4,28 +4,18 @@ package entities;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
 import java.util.Date;
 
 
 @Document(collection = "messageCollection")
 public class ChatMessage {
 
-        @Id
-        private String id ;
-
-
-        private String content;
-
-
-        private String user;
-
-
-        private String receiver;
-
-        private Date dateReceived;
-
-
+    @Id
+    private String id;
+    private String content;
+    private String user;
+    private String receiver;
+    private Date dateReceived;
 
     public Date getDateReceived() {
         return dateReceived;
@@ -52,19 +42,19 @@ public class ChatMessage {
     }
 
     public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
-
-        public String getUser() {
-            return user;
-        }
-
-        public void setUser(String sender) {
-            this.user = sender;
-        }
-
+        return content;
     }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String sender) {
+        this.user = sender;
+    }
+
+}

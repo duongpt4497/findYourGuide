@@ -96,7 +96,7 @@ public class PostServiceImplTest {
 
     @Test
     public void updatePost() throws Exception {
-        Post post = new Post(1, 1, "test", "a", new String[]{"a"}, 2, "a", new String[]{"a", "b"}, true, 10, 5, "a");
+        Post post = new Post(1, 1, "test", "a", new String[]{"a"}, 2, "a", new String[]{"a", "b"}, true, 10, 5, "a", true);
         postService.updatePost(1, post);
         Assert.assertEquals("test", postService.findSpecificPost(1).getTitle());
     }
@@ -104,7 +104,7 @@ public class PostServiceImplTest {
     @Test
     public void insertNewPost() throws Exception {
         jdbcTemplate.update("delete from post");
-        Post post = new Post(1, 1, "test new", "a", new String[]{"a"}, 2, "a", new String[]{"a", "b"}, true, 10, 5, "a");
+        Post post = new Post(1, 1, "test new", "a", new String[]{"a"}, 2, "a", new String[]{"a", "b"}, true, 10, 5, "a", true);
         int id = postService.insertNewPost(1, post);
         Assert.assertEquals("test new", postService.findSpecificPost(id).getTitle());
     }
@@ -142,5 +142,20 @@ public class PostServiceImplTest {
     @Test
     public void findAllPostWithLocationName() throws Exception {
         Assert.assertEquals(6, postService.findAllPostWithLocationName("ho").size());
+    }
+
+    @Test
+    public void authorizePost() throws Exception {
+        postService.authorizePost(1);
+        Assert.assertEquals(false, postService.findSpecificPost(1).isActive());
+        Assert.assertEquals(false, postService.findSpecificPost(1).isAuthorized());
+    }
+
+    @Test
+    public void authorizePost2() throws Exception {
+        postService.authorizePost(1);
+        postService.authorizePost(1);
+        Assert.assertEquals(false, postService.findSpecificPost(1).isActive());
+        Assert.assertEquals(true, postService.findSpecificPost(1).isAuthorized());
     }
 }

@@ -46,7 +46,8 @@ public class PostServiceImpl implements PostService {
                         resultSet.getBoolean("active"),
                         resultSet.getFloat("price"),
                         resultSet.getFloat("rated"),
-                        resultSet.getString("reasons")
+                        resultSet.getString("reasons"),
+                        resultSet.getBoolean("authorized")
                 );
             }
         }, guider_id);
@@ -71,7 +72,8 @@ public class PostServiceImpl implements PostService {
                         resultSet.getBoolean("active"),
                         resultSet.getLong("price"),
                         resultSet.getInt("rated"),
-                        resultSet.getString("reasons")
+                        resultSet.getString("reasons"),
+                        resultSet.getBoolean("authorized")
                 );
             }
         }, category_id);
@@ -95,7 +97,8 @@ public class PostServiceImpl implements PostService {
                         resultSet.getLong("price"),
                         resultSet.getLong("rated"),
                         resultSet.getString("reasons"),
-                        resultSet.getString("name")
+                        resultSet.getString("name"),
+                        resultSet.getBoolean("authorized")
                 );
             }
         }, post_id);
@@ -218,7 +221,8 @@ public class PostServiceImpl implements PostService {
                         resultSet.getBoolean("active"),
                         resultSet.getLong("price"),
                         resultSet.getInt("rated"),
-                        resultSet.getString("reasons")
+                        resultSet.getString("reasons"),
+                        resultSet.getBoolean("authorized")
                 );
             }
         });

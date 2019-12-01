@@ -82,7 +82,7 @@ public class GeneralServiceImpl implements GeneralService {
         return imageUrls;
     }
 
-    public Long generateLongId() throws Exception {
+    private Long generateLongId() throws Exception {
         long timestamp = System.currentTimeMillis();
         if (lastTimestamp == timestamp) {
             sequence = (sequence + 1) % sequenceMax;
@@ -97,7 +97,7 @@ public class GeneralServiceImpl implements GeneralService {
         return id;
     }
 
-    public long tilNextMillis(long lastTimestamp) throws Exception {
+    private long tilNextMillis(long lastTimestamp) throws Exception {
         long timestamp = System.currentTimeMillis();
         while (timestamp <= lastTimestamp) {
             timestamp = System.currentTimeMillis();

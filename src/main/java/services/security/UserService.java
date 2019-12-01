@@ -69,24 +69,19 @@ public class UserService {
         return acc;
     }
 
-    private boolean nameExisted(String name) {
+    private boolean nameExisted(String name) throws Exception {
+        Account user = null;
         try {
-            Account user = null;
+            
                 user = repo.findAccountByName(name);
+
+
             if (user != null) {
                 return true;
             }
         } catch (EmptyResultDataAccessException empty) {
             return false;
-        } catch (Exception ex) {
-            logger.error(ex.toString());
         }
-
         return false;
     }
-
-//    @Transactional
-//    public String saveUser(String username, String password, String email) {
-//
-//    }
 }

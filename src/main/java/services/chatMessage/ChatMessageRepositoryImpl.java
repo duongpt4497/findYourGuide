@@ -13,7 +13,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
 
 @Repository
@@ -24,44 +25,42 @@ public class ChatMessageRepositoryImpl implements ChatMessageRepositoryCus {
 
     @Override
     public void save(ChatMessage chatMessage) {
-        mongoTemplate.save(chatMessage,"messageCollection");
+        mongoTemplate.save(chatMessage, "messageCollection");
     }
 
     @Override
     public List<ChatMessage> get(String user, String receiver, int firstElement, int lastElement) {
         List<ChatMessage> allChatMessages = mongoTemplate.find(new Query(Criteria.where("user").is(user)
                 .andOperator(Criteria.where("receiver").is(receiver))).
-                with(new Sort(Sort.Direction.DESC, "dateReceived")),ChatMessage.class);
+                with(new Sort(Sort.Direction.DESC, "dateReceived")), ChatMessage.class);
         int count = allChatMessages.size();
-        if ( count >= lastElement){
-            allChatMessages.subList(firstElement,lastElement);
+        if (count >= lastElement) {
+            allChatMessages.subList(firstElement, lastElement);
         }
-        if ( count <lastElement){
-            if ( count<=firstElement){
+        if (count < lastElement) {
+            if (count <= firstElement) {
                 return null;
-            }else{
-                allChatMessages.subList(firstElement,count);
+            } else {
+                allChatMessages.subList(firstElement, count);
             }
         }
         return allChatMessages;
     }
 
     @Scheduled(cron = "0 59 23 1/1 * ? *")
-    public void putDataFromMongoToPostgres(){
+    public void putDataFromMongoToPostgres() throws ParseException {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:00");
         LocalDateTime now = LocalDateTime.now();
         Date startDate = new Date();
         Date endDate = new Date();
-        try {
-            startDate=  new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(dtf.format(now.minusDays(1)));
-            endDate =  new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(dtf.format(now));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+
+        startDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(dtf.format(now.minusDays(1)));
+        endDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(dtf.format(now));
+
         System.out.println(startDate);
         System.out.println(endDate);
-        List<ChatMessage> chatMessages = mongoTemplate.find(new Query(Criteria.where("dateReceived").gt(startDate).lt(endDate)),ChatMessage.class);
-        for ( ChatMessage chatMessage1 : chatMessages){
+        List<ChatMessage> chatMessages = mongoTemplate.find(new Query(Criteria.where("dateReceived").gt(startDate).lt(endDate)), ChatMessage.class);
+        for (ChatMessage chatMessage1 : chatMessages) {
             System.out.println(chatMessage1.getReceiver());
             System.out.println(chatMessage1.getId());
             System.out.println(chatMessage1.getContent());
