@@ -244,7 +244,7 @@ public class TripServiceImpl implements TripService {
             }
         }, guider_id, date, FINISHED);
         if (result == null || result.isEmpty()) {
-            return "";
+            return "a very long time ago";
         } else {
             closestFinishDate = result.get(0);
         }
