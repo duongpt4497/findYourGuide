@@ -60,6 +60,13 @@ public class Traveler {
         this.avatar_link = avatar_link;
     }
 
+    public Traveler(long traveler_id, String first_name, String last_name, String phone) {
+        this.traveler_id = traveler_id;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.phone = phone;
+    }
+
     public long getTraveler_id() {
         return traveler_id;
     }

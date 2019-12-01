@@ -97,4 +97,57 @@ public class TravelerServiceImplTest {
         int result = jdbcTemplate.queryForObject("select count (post_id) from favoritepost where traveler_id = ?", new Object[]{2}, int.class);
         Assert.assertEquals(1, result);
     }
+
+    @Test
+    public void isLackingProfile() throws Exception {
+        jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
+                "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','TRAVELER')");
+        jdbcTemplate.update("insert into traveler (traveler_id, first_name, last_name, phone, gender, date_of_birth, street, house_number, postal_code, slogan, about_me, language, country, city, avatar_link)" +
+                "values (1,'','Deo','123',2,'1996-02-13','a','12','12','a','a','{en,vi}','vietnam','hanoi','a')");
+        Assert.assertEquals(true, travelerService.isLackingProfile(1));
+    }
+
+    @Test
+    public void isLackingProfile2() throws Exception {
+        jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
+                "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','TRAVELER')");
+        jdbcTemplate.update("insert into traveler (traveler_id, first_name, last_name, phone, gender, date_of_birth, street, house_number, postal_code, slogan, about_me, language, country, city, avatar_link)" +
+                "values (1,'Megan','','123',2,'1996-02-13','a','12','12','a','a','{en,vi}','vietnam','hanoi','a')");
+        Assert.assertEquals(true, travelerService.isLackingProfile(1));
+    }
+
+    @Test
+    public void isLackingProfile3() throws Exception {
+        jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
+                "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','TRAVELER')");
+        jdbcTemplate.update("insert into traveler (traveler_id, first_name, last_name, phone, gender, date_of_birth, street, house_number, postal_code, slogan, about_me, language, country, city, avatar_link)" +
+                "values (1,'Megan','Deo','',2,'1996-02-13','a','12','12','a','a','{en,vi}','vietnam','hanoi','a')");
+        Assert.assertEquals(true, travelerService.isLackingProfile(1));
+    }
+
+    @Test
+    public void isLackingProfile4() throws Exception {
+        jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
+                "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','TRAVELER')");
+        jdbcTemplate.update("insert into traveler (traveler_id, first_name, last_name, phone, gender, date_of_birth, street, house_number, postal_code, slogan, about_me, language, country, city, avatar_link)" +
+                "values (1,'Megan','Deo','123',2,'1996-02-13','a','12','12','a','a','{en,vi}','vietnam','hanoi','a')");
+        Assert.assertEquals(false, travelerService.isLackingProfile(1));
+    }
+
+    @Test
+    public void updateLackingProfile() throws Exception {
+        jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
+                "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','TRAVELER')");
+        jdbcTemplate.update("insert into traveler (traveler_id, first_name, last_name, phone, gender, date_of_birth, street, house_number, postal_code, slogan, about_me, language, country, city, avatar_link)" +
+                "values (1,'','','',2,'1996-02-13','a','12','12','a','a','{en,vi}','vietnam','hanoi','a')");
+        Traveler traveler = new Traveler();
+        traveler.setTraveler_id(1);
+        traveler.setFirst_name("Megan");
+        traveler.setLast_name("Doe");
+        traveler.setPhone("123456");
+        travelerService.updateLackingProfile(traveler);
+        Assert.assertEquals("Megan", travelerService.findTravelerWithId(1).getFirst_name());
+        Assert.assertEquals("Doe", travelerService.findTravelerWithId(1).getLast_name());
+        Assert.assertEquals("123456", travelerService.findTravelerWithId(1).getPhone());
+    }
 }

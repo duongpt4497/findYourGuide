@@ -1,8 +1,6 @@
 package services.traveler;
 
 import entities.Traveler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -79,5 +77,33 @@ public class TravelerServiceImpl implements TravelerService {
     public void favoritePost(int traveler_id, int post_id) throws Exception {
         String query = "insert into favoritepost (traveler_id, post_id) values (?,?)";
         jdbcTemplate.update(query, traveler_id, post_id);
+    }
+
+    @Override
+    public boolean isLackingProfile(long traveler_id) throws Exception {
+        String query = "select traveler_id, first_name, last_name, phone from traveler where traveler_id = ?";
+        Traveler traveler = jdbcTemplate.queryForObject(query, new RowMapper<Traveler>() {
+            @Override
+            public Traveler mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new Traveler(rs.getLong("traveler_id"), rs.getString("first_name"),
+                        rs.getString("last_name"), rs.getString("phone"));
+            }
+        }, traveler_id);
+        if (traveler.getFirst_name() == null || "".equals(traveler.getFirst_name())) {
+            return true;
+        }
+        if (traveler.getLast_name() == null || "".equals(traveler.getLast_name())) {
+            return true;
+        }
+        if (traveler.getPhone() == null || "".equals(traveler.getPhone())) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void updateLackingProfile(Traveler traveler) throws Exception {
+        String query = "update traveler set first_name = ?, last_name = ?, phone = ? where traveler_id = ?";
+        jdbcTemplate.update(query, traveler.getFirst_name(), traveler.getLast_name(), traveler.getPhone(), traveler.getTraveler_id());
     }
 }
