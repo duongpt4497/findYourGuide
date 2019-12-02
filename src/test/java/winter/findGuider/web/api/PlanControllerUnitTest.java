@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.util.ReflectionTestUtils;
 import services.plan.PlanService;
 
 import static org.mockito.Mockito.when;
@@ -35,11 +36,13 @@ public class PlanControllerUnitTest {
         when(planService.createPlan(plan)).thenReturn(1);
         ResponseEntity<Integer> result = planController.createPlan(plan);
     }
-    @Test(expected = AssertionError.class)
+    @Test
     public void testCreatePlanWithException() throws Exception{
-        thrown.expect(AssertionError.class);
+
         Plan plan = new Plan();
-        when(planService.createPlan(plan)).thenThrow(Exception.class);
+        //when(planService.createPlan(plan)).thenThrow(Exception.class);
+        ReflectionTestUtils.setField(planController, "planService", null);
+
         ResponseEntity<Integer> result = planController.createPlan(plan);
     }
     @Test
@@ -52,7 +55,8 @@ public class PlanControllerUnitTest {
     public void testUpdatePlanWithException() throws Exception{
         thrown.expect(AssertionError.class);
         Plan plan = Mockito.mock(Plan.class);
-        //when(planService.updatePlan(plan.getPost_id(), plan.getMeeting_point(), plan.getDetail())).thenThrow(Exception.class);
+        ReflectionTestUtils.setField(planController, "planService", null);
+
         ResponseEntity<Plan> result = planController.updatePlan(plan);
     }
 
@@ -62,11 +66,11 @@ public class PlanControllerUnitTest {
         //when(planService.createPlan(plan)).thenReturn(1);
         ResponseEntity<Plan> result = planController.findPlan(1);
     }
-    @Test(expected = AssertionError.class)
+    @Test
     public void testFindPlanWithException() throws Exception{
-        thrown.expect(AssertionError.class);
+
         Plan plan = Mockito.mock(Plan.class);
         when(planService.searchPlanByPostId(1)).thenThrow(Exception.class);
-        ResponseEntity<Plan> result = planController.updatePlan(plan);
+        ResponseEntity<Plan> result = planController.findPlan(1);
     }
 }

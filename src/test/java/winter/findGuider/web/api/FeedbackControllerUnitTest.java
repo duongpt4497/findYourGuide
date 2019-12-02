@@ -10,7 +10,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.util.ReflectionTestUtils;
 import services.feedback.FeedbackService;
+
+import java.util.List;
 
 import static org.mockito.Mockito.when;
 
@@ -29,34 +33,24 @@ public class FeedbackControllerUnitTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    /*@Test
-    public void testSendFeedBack1(){
-        Feedback feedback = Mockito.mock(Feedback.class);
-        //when(feedbackService.sendFeedback(feedback)).thenReturn(true);
-        feedbackController.c(feedback);
+    @Test
+    public void testCreateCategory(){
+        ResponseEntity<Boolean> result = feedbackController.createFeedback(1,"this is good");
+        Assert.assertEquals(200,result.getStatusCodeValue());
     }
     @Test
-    public void testSendFeedBack2() throws Exception {
-        Feedback feedback = Mockito.mock(Feedback.class);
-        when(feedbackService.sendFeedback(feedback)).thenReturn(true);
-        feedbackController.sendFeedback(feedback);
+    public void testCreateFeedbackWithException() throws Exception {
+        ReflectionTestUtils.setField(feedbackController, "feedbackService", null);
+
+        ResponseEntity<Boolean> result = feedbackController.createFeedback(1,"this is good");
+        Assert.assertEquals(404,result.getStatusCodeValue());
     }
 
     @Test
-    public void testSendFeedBack3() throws Exception {
-        Feedback feedback = Mockito.mock(Feedback.class);
-        when(feedbackService.sendFeedback(feedback)).thenReturn(true);
-        when(feedbackService.createFeedback(feedback)).thenReturn(true);
-        feedbackController.sendFeedback(feedback);
+    public void testFindAllFeedbackWithException() throws Exception {
+        //ReflectionTestUtils.setField(feedbackController, "feedbackService", null);
+        when(feedbackService.findAllFeedback()).thenThrow(Exception.class);
+        ResponseEntity<List<Feedback>> result = feedbackController.findAllFeedback();
+        Assert.assertEquals(404,result.getStatusCodeValue());
     }
-
-    @Test(expected = AssertionError.class)
-    public void testSendFeedBackWithException() throws Exception {
-        thrown.expect(AssertionError.class);
-        Feedback feedback = Mockito.mock(Feedback.class);
-
-        when(feedbackService.sendFeedback(feedback)).thenThrow(Exception.class);
-        //when(feedbackService.createFeedback(feedback)).thenThrow(Exception.class);
-        feedbackController.sendFeedback(feedback);
-    }*/
 }

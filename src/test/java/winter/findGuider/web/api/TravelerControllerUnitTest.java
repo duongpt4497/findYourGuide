@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.util.ReflectionTestUtils;
 import services.traveler.TravelerService;
 
 import static org.mockito.Mockito.when;
@@ -82,6 +83,41 @@ public class TravelerControllerUnitTest {
         Traveler traveler = Mockito.mock(Traveler.class);
         when(travelerService.findTravelerWithId(traveler.getTraveler_id())).thenThrow(Exception.class);
         ResponseEntity<Traveler> result = travelerController.updateTraveler(traveler);
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testFavoritePost(){
+        ResponseEntity<Boolean> result = travelerController.favoritePost(1,1);
+        Assert.assertEquals(200,result.getStatusCodeValue());
+    }
+    @Test
+    public void testFavoritePostWithException() throws Exception {
+        ReflectionTestUtils.setField(travelerController, "travelerService", null);
+
+        ResponseEntity<Boolean> result = travelerController.favoritePost(1,1);
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testIsLackingProfileWithException() throws Exception {
+        ReflectionTestUtils.setField(travelerController, "travelerService", null);
+
+        ResponseEntity<Boolean> result = travelerController.isLackingProfile(1);
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testUpdateLackingProfile(){
+        Traveler traveler = Mockito.mock(Traveler.class);
+        ResponseEntity<Boolean> result = travelerController.updateLackingProfile(traveler);
+        Assert.assertEquals(200,result.getStatusCodeValue());
+    }
+    @Test
+    public void testUpdateLackingProfileWithException() throws Exception {
+        ReflectionTestUtils.setField(travelerController, "travelerService", null);
+        Traveler traveler = Mockito.mock(Traveler.class);
+        ResponseEntity<Boolean> result = travelerController.updateLackingProfile(traveler);
         Assert.assertEquals(404,result.getStatusCodeValue());
     }
 }

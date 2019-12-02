@@ -146,8 +146,7 @@ Assert.assertEquals(200,result.getStatusCodeValue());
         thrown.expect(AssertionError.class);
         Order order = new Order(1, 1, 1, 1, LocalDateTime.parse("2019-01-01T01:01:01"), LocalDateTime.parse("2019-01-01T10:01:01"), 1, 1, 1, "1", "false");
         //ocalDateTime rightNow = LocalDateTime.now();
-        when(orderTripService.findTripById(1)).thenThrow(Exception.class);
-
+        //when()
         ResponseEntity<String> result = orderTripController.cancelOrderAsTraveler(1);
         // Assert.assertEquals(404,result.getStatusCodeValue());
     }

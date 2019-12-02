@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.util.ReflectionTestUtils;
 import services.Post.PostServiceImpl;
 
 import java.util.ArrayList;
@@ -82,7 +83,13 @@ public class PostControllerUnitTest {
         Assert.assertEquals(200,result.getStatusCodeValue());
     }
 
-
+    @Test
+    public void testUpdatePostWithException() throws Exception {
+        Post post = Mockito.mock(Post.class);
+        ReflectionTestUtils.setField(postController, "postService", null);
+        ResponseEntity<Long> result = postController.updatePost(post);
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
 
     @Test
     public void testInsertNewPost(){
@@ -97,6 +104,53 @@ public class PostControllerUnitTest {
         Post post = Mockito.mock(Post.class);
         when(postService.insertNewPost(1,post)).thenThrow(Exception.class);
         ResponseEntity<Integer> result = postController.insertNewPost(1,post);
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testGetTop5TourWithException() throws Exception{
+        when(postService.getTopTour()).thenThrow(Exception.class);
+        ResponseEntity<List<Post>> result = postController.getTop5Tour();
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testFindAllPostWithGuiderNameWithException() throws Exception{
+        when(postService.findAllPostWithGuiderName("ha")).thenThrow(Exception.class);
+        ResponseEntity<List<Post>> result = postController.findAllPostWithGuiderName("ha");
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testFindAllPostWithLocationNameWithException() throws Exception{
+        when(postService.findAllPostWithLocationName("ha")).thenThrow(Exception.class);
+        ResponseEntity<List<Post>> result = postController.findAllPostWithLocationName("ha");
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testActivatePost(){
+        ResponseEntity<Boolean> result = postController.activeDeactivePost(1);
+        Assert.assertEquals(200,result.getStatusCodeValue());
+    }
+    @Test
+    public void testActivatePostWithException() throws Exception {
+        ReflectionTestUtils.setField(postController, "postService", null);
+
+        ResponseEntity<Boolean> result = postController.activeDeactivePost(1);
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testAuthorizePost(){
+        ResponseEntity<Boolean> result = postController.authorizePost(1);
+        Assert.assertEquals(200,result.getStatusCodeValue());
+    }
+    @Test
+    public void testAuthorizePostWithException() throws Exception {
+        ReflectionTestUtils.setField(postController, "postService", null);
+
+        ResponseEntity<Boolean> result = postController.authorizePost(1);
         Assert.assertEquals(404,result.getStatusCodeValue());
     }
 }

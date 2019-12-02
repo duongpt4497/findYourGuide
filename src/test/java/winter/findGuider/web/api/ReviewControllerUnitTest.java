@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.util.ReflectionTestUtils;
 import services.Review.ReviewService;
 
 import java.util.List;
@@ -97,4 +98,19 @@ public class ReviewControllerUnitTest {
         ResponseEntity<List<Review>>  result = reviewController.checkReviewExist(1);
         Assert.assertEquals(404,result.getStatusCodeValue());
     }
+
+    @Test
+    public void testShowHideReview(){
+        ResponseEntity<Boolean> result = reviewController.showHideReview(1);
+        Assert.assertEquals(200,result.getStatusCodeValue());
+    }
+    @Test
+    public void testActivatePostWithException() throws Exception {
+        ReflectionTestUtils.setField(reviewController, "reviewService", null);
+
+        ResponseEntity<Boolean> result = reviewController.showHideReview(1);
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
+
+
 }

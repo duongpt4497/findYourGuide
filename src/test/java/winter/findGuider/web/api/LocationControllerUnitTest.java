@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.util.ReflectionTestUtils;
 import services.Location.LocationServiceImpl;
 import services.guider.GuiderService;
 
@@ -55,5 +56,18 @@ public class LocationControllerUnitTest {
         Assert.assertEquals(404, result.getStatusCodeValue());
     }
 
+    @Test
+    public void testCreateLocation(){
+        ResponseEntity<Boolean> result = locationController.createLocation("Vietnam","Hanoi","Ho Tay");
+        Assert.assertEquals(200,result.getStatusCodeValue());
+    }
 
+    @Test
+    public void testAcceptContractWithException() throws Exception{
+        //when(guiderService.linkGuiderWithContract(1,1)).thenThrow(Exception.class);
+        ReflectionTestUtils.setField(locationController, "locationService", null);
+
+        ResponseEntity<Boolean> result = locationController.createLocation("Vietnam","Hanoi","Ho Tay");
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
 }

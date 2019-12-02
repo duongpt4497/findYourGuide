@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.util.ReflectionTestUtils;
 import services.Category.CategoryServiceImpl;
 
 import java.util.ArrayList;
@@ -51,5 +52,16 @@ public class CategoryControllerUnitTest {
 
         Assert.assertEquals(404, result.getStatusCodeValue());
     }
+    @Test
+    public void testCreateCategory(){
+        ResponseEntity<Boolean> result = categoryController.createCategory("Food");
+        Assert.assertEquals(200,result.getStatusCodeValue());
+    }
+    @Test
+    public void testActivatePostWithException() throws Exception {
+        ReflectionTestUtils.setField(categoryController, "categoryService", null);
 
+        ResponseEntity<Boolean> result = categoryController.createCategory("Food");
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
 }
