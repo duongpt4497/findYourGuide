@@ -1,6 +1,7 @@
 package winter.findGuider.web.api;
 
 import entities.Feedback;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -49,13 +50,13 @@ public class FeedbackControllerUnitTest {
         feedbackController.sendFeedback(feedback);
     }
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void testSendFeedBackWithException() throws Exception {
-        thrown.expect(Exception.class);
+        thrown.expect(AssertionError.class);
         Feedback feedback = Mockito.mock(Feedback.class);
 
         when(feedbackService.sendFeedback(feedback)).thenThrow(Exception.class);
-        when(feedbackService.createFeedback(feedback)).thenThrow(Exception.class);
+        //when(feedbackService.createFeedback(feedback)).thenThrow(Exception.class);
         feedbackController.sendFeedback(feedback);
     }
 }
