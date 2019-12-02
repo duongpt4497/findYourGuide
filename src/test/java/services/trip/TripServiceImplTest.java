@@ -238,7 +238,7 @@ public class TripServiceImplTest {
 
     @Test
     public void getClosestTourFinishDate2() throws Exception {
-        Assert.assertEquals("", tripService.getClosestTripFinishDate(LocalDate.parse("2019-11-24"), 1));
+        Assert.assertEquals("a very long time ago", tripService.getClosestTripFinishDate(LocalDate.parse("2019-11-24"), 1));
     }
 
     @Test
