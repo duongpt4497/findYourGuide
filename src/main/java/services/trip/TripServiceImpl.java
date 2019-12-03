@@ -39,7 +39,7 @@ public class TripServiceImpl implements TripService {
     @Value("${order.buffer}")
     private String bufferPercent;
     @Autowired
-    private PaypalService payment;
+    private PaypalService paypalService;
 
     @Autowired
     public TripServiceImpl(JdbcTemplate jdbcTemplate) {
@@ -461,15 +461,15 @@ public class TripServiceImpl implements TripService {
     public void cancelTripFilter() throws PayPalRESTException {
         List<Map<String, Object>> lo = new ArrayList<>();
         String query = "select trip_id, transaction_id from trip "
-                + " where extract (epoch from (now() - order_time))::integer "
+                + " where extract (epoch from (now() - book_time))::integer "
                 + " < extract(epoch from TIMESTAMP '1970-1-1 05:00:00')::integer "
                 + " and status = 'UNCONFIRMED'; ";
         lo = jdbcTemplate.queryForList(query);
 
         List<String> update = new ArrayList<>();
         for (Map m : lo) {
-            payment.refundPayment(m.get("transaction_id").toString());
-            update.add("update guider set status = 'CANCELLED' where trip_id = " + m.get("trip_id"));
+            paypalService.refundPayment(m.get("transaction_id").toString());
+            update.add("update trip set status = 'CANCELLED' where trip_id = " + m.get("trip_id"));
         }
         logger.warn(update.toString());
         jdbcTemplate.batchUpdate(update.toArray(new String[0]));
@@ -489,7 +489,7 @@ public class TripServiceImpl implements TripService {
         List<String> update = new ArrayList<>();
         for (Map m : lo) {
             
-            update.add("update guider set status = 'FINISHED' where trip_id = " + m.get("trip_id"));
+            update.add("update trip set status = 'FINISHED' where trip_id = " + m.get("trip_id"));
         }
         logger.warn(update.toString());
         jdbcTemplate.batchUpdate(update.toArray(new String[0]));

@@ -7,10 +7,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.util.ReflectionTestUtils;
+import services.Paypal.PaypalService;
 import winter.findGuider.TestDataSourceConfig;
 
 import java.text.SimpleDateFormat;
@@ -25,6 +27,9 @@ public class TripServiceImplTest {
     TripServiceImpl tripService;
 
     private JdbcTemplate jdbcTemplate = new JdbcTemplate();
+
+    @Mock
+    PaypalService paypalService;
 
     @Before
     public void init() {
