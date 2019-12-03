@@ -68,7 +68,30 @@ public class TravelerController {
             return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
-            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/isLackingProfile")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Boolean> isLackingProfile(@RequestParam("traveler_id") long traveler_id) {
+        try {
+            return new ResponseEntity<>(travelerService.isLackingProfile(traveler_id), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/updateLackingProfile")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Boolean> updateLackingProfile(@RequestBody Traveler traveler) {
+        try {
+            travelerService.updateLackingProfile(traveler);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 }

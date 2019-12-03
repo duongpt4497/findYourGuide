@@ -18,7 +18,7 @@ public class Traveler {
 
     private int gender;
 
-    @JsonFormat(pattern = "MM/dd/yyyy HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime date_of_birth;
 
     private String street;
@@ -58,6 +58,13 @@ public class Traveler {
         this.country = country;
         this.city = city;
         this.avatar_link = avatar_link;
+    }
+
+    public Traveler(long traveler_id, String first_name, String last_name, String phone) {
+        this.traveler_id = traveler_id;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.phone = phone;
     }
 
     public long getTraveler_id() {

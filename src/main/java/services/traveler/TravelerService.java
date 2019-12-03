@@ -10,4 +10,8 @@ public interface TravelerService {
     void updateTraveler(Traveler travelerNeedUpdate) throws Exception;
 
     void favoritePost(int traveler_id, int post_id) throws Exception;
+
+    boolean isLackingProfile(long traveler_id) throws Exception;
+
+    void updateLackingProfile(Traveler traveler) throws Exception;
 }

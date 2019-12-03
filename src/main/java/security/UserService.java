@@ -3,17 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package services.security;
+package security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import entities.Account;
 import entities.Guider;
 import entities.Traveler;
-import java.time.LocalDateTime;
+
 import java.util.Date;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;

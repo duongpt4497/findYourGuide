@@ -17,6 +17,7 @@ import services.guider.GuiderService;
 import services.trip.TripService;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -87,7 +88,9 @@ public class TripController {
     @RequestMapping("/CancelOrderAsTraveler")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> cancelOrderAsTraveler(@RequestParam("trip_id") int trip_id) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime rightNow = LocalDateTime.now();
+        rightNow.format(formatter);
         Order cancelOrder = new Order();
         try {
             cancelOrder = tripService.findTripById(trip_id);
@@ -131,7 +134,9 @@ public class TripController {
     @RequestMapping("/CancelOrderAsGuider")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> cancelOrderAsGuider(@RequestParam("trip_id") int trip_id) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime rightNow = LocalDateTime.now();
+        rightNow.format(formatter);
         Order cancelOrder = new Order();
         try {
             cancelOrder = tripService.findTripById(trip_id);

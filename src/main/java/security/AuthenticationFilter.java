@@ -3,39 +3,39 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package services.security;
+package security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import entities.Account;
 import entities.AuthenticationImp;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.FilterChain;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import java.util.stream.Collectors;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.servlet.FilterChain;
 import javax.servlet.http.Cookie;
-import org.slf4j.LoggerFactory;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
- *
  * @author dgdbp
  */
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
     private AuthenProvider authenticationManager;
     private TokenHelper TokenHelper;
+
+    @Value("${order.client.root.url}")
+    private String URL_ROOT_CLIENT;
+
+    @Value("${order.client.root.url.domain}")
+    private String URL_ROOT_CLIENT_DOMAIN;
 
     public AuthenticationFilter(AuthenProvider authenticationManager, TokenHelper tokenService) {
         this.authenticationManager = authenticationManager;
@@ -45,9 +45,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        
         try {
-            
             Account acc = new ObjectMapper().readValue(request.getInputStream(), Account.class);
             return authenticationManager.authenticate(new AuthenticationImp(acc));
         } catch (Exception e) {
@@ -57,23 +55,20 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
-        
-     
-            String token = TokenHelper.createToken(authResult.getPrincipal().toString());
-            response.addHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-            response.addHeader("Access-Control-Allow-Credentials", "true");
-            response.setStatus(HttpServletResponse.SC_OK);
-            Cookie sidCookie = new Cookie("token",token);
-            sidCookie.setPath("/");
+        String token = TokenHelper.createToken(authResult.getPrincipal().toString());
+        response.addHeader("Access-Control-Allow-Origin", "http://" + URL_ROOT_CLIENT);
+        response.addHeader("Access-Control-Allow-Credentials", "true");
+        response.setStatus(HttpServletResponse.SC_OK);
+        Cookie sidCookie = new Cookie("token", token);
+        sidCookie.setPath("/");
 //            sidCookie.setSecure(true);
-            sidCookie.setHttpOnly(true);
-            sidCookie.setDomain("localhost");
-            response.addCookie(sidCookie);
-            Account res = new Account(Integer.parseInt(authResult.getCredentials().toString())
-                    ,authResult.getPrincipal().toString(), authResult.getAuthorities().toArray()[0].toString());
-            response.getWriter().write(new Gson().toJson(res));
-            //response.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
-        
+        sidCookie.setHttpOnly(true);
+        sidCookie.setDomain(URL_ROOT_CLIENT_DOMAIN);
+        response.addCookie(sidCookie);
+        Account res = new Account(Integer.parseInt(authResult.getCredentials().toString())
+                , authResult.getPrincipal().toString(), authResult.getAuthorities().toArray()[0].toString());
+        response.getWriter().write(new Gson().toJson(res));
+        //response.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
     }
 
     @Override
