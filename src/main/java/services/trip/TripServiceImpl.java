@@ -456,13 +456,14 @@ public class TripServiceImpl implements TripService {
         return result;
     }
 
-    @Scheduled(cron = "0 0 * * * *")
-    public void orderFilter() throws PayPalRESTException {
+    //@Scheduled(cron = "0 0 * * * *")
+    @Scheduled(cron = "0 0/5 * 1/1 * ? *")
+    public void cancelTripFilter() throws PayPalRESTException {
         List<Map<String, Object>> lo = new ArrayList<>();
-        String query = "select trip_id, transaction_id "
+        String query = "select trip_id, transaction_id from trip "
                 + " where extract (epoch from (now() - order_time))::integer "
                 + " < extract(epoch from TIMESTAMP '1970-1-1 05:00:00')::integer "
-                + " and status = 'UNCONFIRMED'  ; ";
+                + " and status = 'UNCONFIRMED'; ";
         lo = jdbcTemplate.queryForList(query);
 
         List<String> update = new ArrayList<>();
@@ -471,6 +472,26 @@ public class TripServiceImpl implements TripService {
             update.add("update guider set status = 'CANCELLED' where trip_id = " + m.get("trip_id"));
         }
         logger.warn(update.toString());
-        //jdbcTemplate.batchUpdate(update.toArray(new String[0])[10]);
+        jdbcTemplate.batchUpdate(update.toArray(new String[0]));
+    }
+    
+    //@Scheduled(cron = "0 0 * * * *")
+    @Scheduled(cron = "0 0/5 * 1/1 * ? *")
+    public void finishTripFilter() throws PayPalRESTException {
+        List<Map<String, Object>> lo = new ArrayList<>();
+        String query = "select trip_id from trip "
+                + " where extract (epoch from (now() - finish_date))::integer "
+                + " < extract(epoch from TIMESTAMP '1970-1-2 00:00:00')::integer "
+                + " and now() > finish_date "
+                + " and status = 'ONGOING'; ";
+        lo = jdbcTemplate.queryForList(query);
+
+        List<String> update = new ArrayList<>();
+        for (Map m : lo) {
+            
+            update.add("update guider set status = 'FINISHED' where trip_id = " + m.get("trip_id"));
+        }
+        logger.warn(update.toString());
+        jdbcTemplate.batchUpdate(update.toArray(new String[0]));
     }
 }

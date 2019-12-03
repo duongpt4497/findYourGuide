@@ -20,6 +20,7 @@ import services.trip.TripService;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -93,7 +94,9 @@ public class TripController {
     @RequestMapping("/CancelOrderAsTraveler")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> cancelOrderAsTraveler(@RequestParam("trip_id") int trip_id) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime rightNow = LocalDateTime.now();
+        rightNow.format(formatter);
         Order cancelOrder = new Order();
         try {
             cancelOrder = tripService.findTripById(trip_id);
@@ -119,8 +122,8 @@ public class TripController {
                 }
             }
             webSocketNotificationController = new WebSocketNotificationController();
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            Date current = formatter.parse(formatter.format(new Date()));
+            SimpleDateFormat formatter2nd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date current = formatter2nd.parse(formatter2nd.format(new Date()));
 
             String traveler_username= accountRepository.findAccountNameByAccountId(cancelOrder.getTraveler_id());
             String guider_username = accountRepository.findAccountNameByAccountId(cancelOrder.getGuider_id());
@@ -151,7 +154,9 @@ public class TripController {
     @RequestMapping("/CancelOrderAsGuider")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> cancelOrderAsGuider(@RequestParam("trip_id") int trip_id) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime rightNow = LocalDateTime.now();
+        rightNow.format(formatter);
         Order cancelOrder = new Order();
         try {
             cancelOrder = tripService.findTripById(trip_id);
@@ -181,8 +186,8 @@ public class TripController {
                 }
             }
             webSocketNotificationController = new WebSocketNotificationController();
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            Date current = formatter.parse(formatter.format(new Date()));
+            SimpleDateFormat formatter2nd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date current = formatter2nd.parse(formatter2nd.format(new Date()));
 
             String traveler_username= accountRepository.findAccountNameByAccountId(cancelOrder.getTraveler_id());
             String guider_username = accountRepository.findAccountNameByAccountId(cancelOrder.getGuider_id());

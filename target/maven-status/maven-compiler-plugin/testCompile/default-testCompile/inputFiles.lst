@@ -7,9 +7,12 @@ E:\counter\master\src\test\java\services\Paypal\PaypalServiceImplTest.java
 E:\counter\master\src\test\java\services\Location\LocationServiceImplTest.java
 E:\counter\master\src\test\java\services\account\AccountServiceUnitTest.java
 E:\counter\master\src\test\java\services\feedback\FeedbackServiceImplTest.java
+E:\counter\master\src\test\java\services\chatMessage\WebSocketEventListenerTest.java
 E:\counter\master\src\test\java\services\Post\PostServiceImplTest.java
 E:\counter\master\src\test\java\services\trip\TripServiceImplTest.java
+E:\counter\master\src\test\java\services\chatMessage\ChatMessageRepositoryImplTest.java
 E:\counter\master\src\test\java\services\GeneralServiceImplTest.java
+E:\counter\master\src\test\java\services\security\UserServiceTest.java
 E:\counter\master\src\test\java\services\traveler\TravelerServiceImplTest.java
 E:\counter\master\src\test\java\services\guider\GuiderServiceImplTest.java
 E:\counter\master\src\test\java\services\Review\ReviewServiceImplTest.java

@@ -37,8 +37,10 @@ public class WebSocketNotificationController {
     @RequestMapping(value = "/notification/{receiver}/{firstElement}/{lastElement}", method = RequestMethod.POST)
     public HttpEntity getMessage( @PathVariable("receiver") String receiver, @PathVariable("firstElement") int firstElement, @PathVariable("lastElement") int lastElement){
         List<Notification> notifications = new ArrayList<>();
+
         notificationRepositoryImpl.updateSeen(receiver);
         notifications = notificationRepositoryImpl.get(receiver,firstElement,lastElement);
+
         return new ResponseEntity(notifications, HttpStatus.OK);
     }
 }

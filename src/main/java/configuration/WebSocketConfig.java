@@ -51,7 +51,7 @@ public class WebSocketConfig extends  AbstractWebSocketMessageBrokerConfigurer  
 
     @Override
     public void configureClientInboundChannel(ChannelRegistration registration) {
-
+        
         registration.setInterceptors(new ChannelInterceptorAdapter() {
 
             @Override

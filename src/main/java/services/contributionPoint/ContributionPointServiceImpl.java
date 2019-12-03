@@ -54,17 +54,18 @@ public class ContributionPointServiceImpl implements ContributionPointService {
     //query all order finished in the second day before
     //calculate contribute increasing
     //update contribute to guider
-    @Scheduled(cron = "0 1 0 * * *")
+    //@Scheduled(cron = "0 1 * * * *")
+    @Scheduled(cron = "0 0 0/1 1/1 * ? *")
     public void updateContributionbyDay() {
         List<Order> lo = new ArrayList<>();
         String query = "select o1.trip_id, o1.traveler_id, p3.guider_id, o1.fee_paid, r2.rated from trip as o1 "
                 + " inner join review as r2 on o1.trip_id = r2.trip_id "
                 + " inner join post as p3 on o1.post_id = p3.post_id "
-//                + " where extract (epoch from (now() - o1.finish_date))::integer "
-                //                + " < extract(epoch from TIMESTAMP '1970-1-3 00:00:00')::integer "
-                //                + " and where extract (epoch from (now() - o1.finish_date))::integer "
-                //                + " >= extract(epoch from TIMESTAMP '1970-1-2 00:00:00')::integer "
-                //                + " and o1.status = 'FINISHED'  ; "
+                + " where extract (epoch from (now() - o1.finish_date))::integer "
+                                + " < extract(epoch from TIMESTAMP '1970-1-3 00:00:00')::integer "
+                                + " and where extract (epoch from (now() - o1.finish_date))::integer "
+                                + " >= extract(epoch from TIMESTAMP '1970-1-2 00:00:00')::integer "
+                                + " and o1.status = 'FINISHED'  ; "
                 ;
         lo = jdbcTemplate.query(query, new RowMapper<Order>() {
             @Override
@@ -86,7 +87,6 @@ public class ContributionPointServiceImpl implements ContributionPointService {
                 @Override
                 public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
                     return rs.getInt("count");
-
                 }
             }, o.getGuider_id(), o.getTraveler_id());
 //            log.warn("count result :" + turn);
@@ -95,27 +95,28 @@ public class ContributionPointServiceImpl implements ContributionPointService {
                     + " where guider_id = " + o.gettrip_id());
         }
         log.warn(update.toString());
-        //jdbcTemplate.batchUpdate(update.toArray(new String[0])[10]);
+        jdbcTemplate.batchUpdate(update.toArray(new String[0]));
 
     }
 
     //query all negative and positive guider
     //bonus or reduce contribute 
     //update to guider
-    @Scheduled(cron = "0 0 1 */30 * *")
+    //@Scheduled(cron = "0 0 1 */30 * *")
+    @Scheduled(cron = "0 0 0/2 1/1 * ? *")
     public void updateContributionbyMonth() {
 
         String queryPositive = "select p3.guider_id, count(p3.guider_id) from trip as o1 "
                  + " inner join post as p3 on o1.post_id = p3.post_id where "
-//                + " extract (epoch from (now() - o1.finish_date))::integer "
-//                + " <= extract(epoch from TIMESTAMP '1970-1-31 00:00:00')::integer and  "
+                + " extract (epoch from (now() - o1.finish_date))::integer "
+                + " <= extract(epoch from TIMESTAMP '1970-1-31 00:00:00')::integer and  "
                 + " o1.status = 'FINISHED' group by p3.guider_id ; ";
         List<Map<String, Object>> positiveGuider = jdbcTemplate.queryForList(queryPositive);
         String queryNegative = " select guider_id from guider where contribution < ? except "
                 + " select p3.guider_id from trip as o1 " 
                  + " inner join post as p3 on o1.post_id = p3.post_id where "
-//                + "  extract (epoch from (now() - o1.finish_date))::integer "
-//                + " <= extract(epoch from TIMESTAMP '1970-1-31 00:00:00')::integer and  "
+                + "  extract (epoch from (now() - o1.finish_date))::integer "
+                + " <= extract(epoch from TIMESTAMP '1970-1-31 00:00:00')::integer and  "
                 + " o1.status = 'FINISHED'  ; ";
         List<Map<String, Object>> negativeGuider = jdbcTemplate.queryForList(queryNegative, Integer.parseInt(minus));
 
@@ -125,8 +126,8 @@ public class ContributionPointServiceImpl implements ContributionPointService {
             String incomeQuery = "select sum(o1.fee_paid) from trip as o1 "
                     + " inner join post as p3 on o1.post_id = p3.post_id "
                     + " where p3.guider_id = ? and "
-//                    + "  extract (epoch from (now() - o1.finish_date))::integer "
-//                    + " <= extract(epoch from TIMESTAMP '1970-1-31 00:00:00')::integer and  "
+                    + "  extract (epoch from (now() - o1.finish_date))::integer "
+                    + " <= extract(epoch from TIMESTAMP '1970-1-31 00:00:00')::integer and  "
                     + " o1.status = 'FINISHED' group by p3.guider_id; ";
             int income = jdbcTemplate.queryForObject(incomeQuery, new RowMapper<Integer>() {
                 @Override
@@ -159,7 +160,7 @@ public class ContributionPointServiceImpl implements ContributionPointService {
                     + minus + " where guider_id = " + m.get("guider_id"));
         }
         log.warn(update.toString());
-        //jdbcTemplate.batchUpdate(update.toArray(new String[0])[10]);
+        jdbcTemplate.batchUpdate(update.toArray(new String[0]));
     }
 
     @Override

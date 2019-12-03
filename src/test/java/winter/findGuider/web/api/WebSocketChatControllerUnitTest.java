@@ -41,7 +41,7 @@ public class WebSocketChatControllerUnitTest {
         ChatMessage chatMessage = Mockito.mock(ChatMessage.class);
         SimpMessageHeaderAccessor headerAccessor = Mockito.mock(SimpMessageHeaderAccessor.class);
 
-        webSocketChatController.sendMessage(principal,chatMessage,headerAccessor,"ha");
+        webSocketChatController.sendMessage(chatMessage);
     }
     @Test
     public void testSendMessageWithException(){
@@ -50,7 +50,7 @@ public class WebSocketChatControllerUnitTest {
         SimpMessageHeaderAccessor headerAccessor = Mockito.mock(SimpMessageHeaderAccessor.class);
         ReflectionTestUtils.setField(webSocketChatController, "chatMessageRepository", null);
 
-        webSocketChatController.sendMessage(principal,chatMessage,headerAccessor,"ha");
+        webSocketChatController.sendMessage(chatMessage);
     }
     @Test
     public void testGetMessage(){
