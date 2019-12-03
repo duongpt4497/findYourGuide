@@ -29,11 +29,10 @@ public class GuiderController {
 
     @RequestMapping("/Create")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Guider> createGuider(@RequestBody Guider newGuider, @RequestBody Contract newGuiderContract) {
+    public ResponseEntity<Boolean> createGuider(@RequestBody Contract newGuiderContract) {
         try {
-            long guider_id = guiderService.createGuider(newGuider);
-            long contract_id = guiderService.createGuiderContract(newGuiderContract);
-            return new ResponseEntity<>(guiderService.findGuiderWithID(guider_id), HttpStatus.OK);
+            guiderService.createGuiderContract(newGuiderContract);
+            return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

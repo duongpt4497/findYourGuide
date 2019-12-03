@@ -78,6 +78,6 @@ public class AccountControllerUnitTest {
     @Test
     public void testFindAllCategory() throws Exception{
         when(accountRepository.findAllAccount()).thenThrow(Exception.class);
-        ResponseEntity<List<Account>> result = accountController.findAllCategory();
+        ResponseEntity<List<Account>> result = accountController.findAll();
     }
 }
