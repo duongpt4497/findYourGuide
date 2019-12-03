@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface NotificationRepositoryCus {
     public void save(Notification notification);
-    public List<Notification> get(String user, String receiver, int firstElement, int lastElement);
+    public List<Notification> get(String receiver, int firstElement, int lastElement);
     public void updateSeen(String user);
 }

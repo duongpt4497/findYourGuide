@@ -31,15 +31,16 @@ public class WebSocketNotificationController {
     @MessageMapping("/exchange.sendNotification")
     public void sendMessage( @Payload Notification notification) {
         notificationRepositoryImpl.save(notification);
-        this.simpMessagingTemplate.convertAndSendToUser(notification.getReceiver(),"/queue/reply", notification);
-        this.simpMessagingTemplate.convertAndSendToUser(notification.getUser(),"/queue/reply", notification);
-
+        this.simpMessagingTemplate.convertAndSendToUser(notification.getReceiver(), "/queue/reply", notification);
     }
 
-    @RequestMapping(value = "/notification/{user}/{receiver}/{firstElement}/{lastElement}", method = RequestMethod.POST)
-    public HttpEntity getMessage(@PathVariable("user") String user, @PathVariable("receiver") String receiver, @PathVariable("firstElement") int firstElement, @PathVariable("lastElement") int lastElement){
+    @RequestMapping(value = "/notification/{receiver}/{firstElement}/{lastElement}", method = RequestMethod.POST)
+    public HttpEntity getMessage( @PathVariable("receiver") String receiver, @PathVariable("firstElement") int firstElement, @PathVariable("lastElement") int lastElement){
         List<Notification> notifications = new ArrayList<>();
-        notifications = notificationRepositoryImpl.get(user,receiver,firstElement,lastElement);
+
+        notificationRepositoryImpl.updateSeen(receiver);
+        notifications = notificationRepositoryImpl.get(receiver,firstElement,lastElement);
+
         return new ResponseEntity(notifications, HttpStatus.OK);
     }
 }
