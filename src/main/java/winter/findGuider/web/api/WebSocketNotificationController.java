@@ -40,7 +40,6 @@ public class WebSocketNotificationController {
     public HttpEntity getMessage(@PathVariable("user") String user, @PathVariable("receiver") String receiver, @PathVariable("firstElement") int firstElement, @PathVariable("lastElement") int lastElement){
         List<Notification> notifications = new ArrayList<>();
         notifications = notificationRepositoryImpl.get(user,receiver,firstElement,lastElement);
-        not
         return new ResponseEntity(notifications, HttpStatus.OK);
     }
 }

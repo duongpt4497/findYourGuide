@@ -198,3 +198,7 @@ Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No q
 2019-Dec-03 12:49:41 ERROR [main] w.f.w.a.TravelerController - null
 2019-Dec-03 12:49:41 ERROR [main] w.f.w.a.TravelerController - null
 2019-Dec-03 12:49:42 ERROR [main] w.f.w.a.WebSocketChatController - null
+2019-Dec-03 16:58:37 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-03 16:58:37 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-03 16:58:37 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-03 16:58:37 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
