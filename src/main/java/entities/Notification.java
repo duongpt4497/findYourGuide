@@ -1,15 +1,12 @@
 package entities;
 
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
-
-@Document(collection = "messageCollection")
-public class ChatMessage {
-
+@Document(collection = "notiCollection")
+public class Notification {
     @Id
     private String id;
     private String content;
@@ -18,6 +15,7 @@ public class ChatMessage {
     private Date dateReceived;
     private boolean isSeen;
     private String type;
+
 
     public boolean isSeen() {
         return isSeen;

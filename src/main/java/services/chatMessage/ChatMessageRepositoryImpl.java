@@ -6,6 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 
@@ -32,7 +33,7 @@ public class ChatMessageRepositoryImpl implements ChatMessageRepositoryCus {
     public List<ChatMessage> get(String user, String receiver, int firstElement, int lastElement) {
         List<ChatMessage> allChatMessages = mongoTemplate.find(new Query(Criteria.where("user").is(user)
                 .andOperator(Criteria.where("receiver").is(receiver))).
-                with(new Sort(Sort.Direction.DESC, "dateReceived")), ChatMessage.class);
+                with(new Sort(Sort.Direction.DESC, "dateReceived")), ChatMessage.class,"messageCollection");
         int count = allChatMessages.size();
         if (count >= lastElement) {
             allChatMessages.subList(firstElement, lastElement);
@@ -42,6 +43,34 @@ public class ChatMessageRepositoryImpl implements ChatMessageRepositoryCus {
                 return null;
             } else {
                 allChatMessages.subList(firstElement, count);
+            }
+        }
+        return allChatMessages;
+    }
+
+    @Override
+    public void updateSeen(String user, String receiver) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("user").is(user).andOperator(Criteria.where("receiver").is(receiver).andOperator(Criteria.where("isSeen").is(false))));
+        Update update = new Update();
+        update.set("isSeen", true);
+        mongoTemplate.updateMulti(query, update, ChatMessage.class,"messageCollection");
+    }
+
+    @Override
+    public List<ChatMessage> getReceiver(String user, int firstElement, int lastElement) {
+        List<ChatMessage> allChatMessages = mongoTemplate.findDistinct(new Query(Criteria.where("user").is(user)
+        ).
+                with(new Sort(Sort.Direction.DESC, "dateReceived")),"receiver","messageCollection",ChatMessage.class);
+        int count = allChatMessages.size();
+        if ( count >= lastElement){
+            allChatMessages.subList(firstElement,lastElement);
+        }
+        if ( count <lastElement){
+            if ( count<=firstElement){
+                return null;
+            }else{
+                allChatMessages.subList(firstElement,count);
             }
         }
         return allChatMessages;
