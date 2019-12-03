@@ -1,11 +1,6 @@
 package services.Mail;
 
-import entities.Guider;
-import entities.Order;
-import entities.Post;
-import entities.Traveler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -104,6 +99,38 @@ public class MailServiceImpl implements MailService {
         }
         content = content.concat("Status: " + tourStatus + "\n\n");
         content = content.concat("Thank your for using our service. We wish you a great trip and happy experience.\n\n");
+        content = content.concat("Sincerely,\n");
+        content = content.concat("TravelWLocal");
+        return content;
+    }
+
+    @Override
+    public String acceptContractMailContent(long guider_id) throws Exception {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        String content = "";
+        Contract contract = guiderService.findGuiderContract(guider_id);
+        content = content.concat("Dear Mr/Ms " + contract.getName() + "\n\n");
+        content = content.concat("Your contract to become a guider has been accepted !\n\n");
+        content = content.concat("Here is the information you have given us upon setting up the contract\n");
+        content = content.concat("Name: " + contract.getName() + "\n");
+        content = content.concat("Nationality: " + contract.getNationality() + "\n");
+        content = content.concat("Date of birth (MM/dd/yyyy): " + contract.getDate_of_birth().format(formatter) + "\n");
+        if (contract.getGender() == 1) {
+            content = content.concat("Gender: Male\n");
+        } else if (contract.getGender() == 2) {
+            content = content.concat("Gender: Female\n");
+        } else {
+            content = content.concat("Gender: Other\n");
+        }
+        content = content.concat("Hometown: " + contract.getHometown() + "\n");
+        content = content.concat("Address: " + contract.getAddress() + "\n");
+        content = content.concat("Identity Card Number: " + contract.getIdentity_card_number() + "\n");
+        content = content.concat("Identity Card Issued Date: " + contract.getCard_issued_date().format(formatter) + "\n");
+        content = content.concat("Identity Card Issued Province: " + contract.getCard_issued_province() + "\n");
+        content = content.concat("If any information were mistakenly given, please contact us immediately.\n");
+        content = content.concat("We also recommend to update your profile if you have not done it, so the customers can have" +
+                "a better understanding about you !\n\n");
+        content = content.concat("Thank your for using our service.\n\n");
         content = content.concat("Sincerely,\n");
         content = content.concat("TravelWLocal");
         return content;

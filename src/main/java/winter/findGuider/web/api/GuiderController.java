@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import services.Mail.MailService;
+import services.account.AccountRepository;
 import services.guider.GuiderService;
 
 import java.util.List;
@@ -20,11 +21,13 @@ public class GuiderController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     private GuiderService guiderService;
     private MailService mailService;
+    private AccountRepository accountRepository;
 
     @Autowired
-    public GuiderController(GuiderService gs, MailService ms) {
+    public GuiderController(GuiderService gs, MailService ms, AccountRepository ar) {
         this.guiderService = gs;
         this.mailService = ms;
+        this.accountRepository = ar;
     }
 
     @RequestMapping("/Create")
@@ -147,7 +150,9 @@ public class GuiderController {
     public ResponseEntity<Boolean> acceptContract(@RequestParam("guider_id") long guider_id, @RequestParam("contract_id") long contract_id) {
         try {
             guiderService.linkGuiderWithContract(guider_id, contract_id);
-
+            String email = accountRepository.getEmail((int) guider_id);
+            String content = mailService.acceptContractMailContent(guider_id);
+            mailService.sendMail(email, "Your TravelWLocal Contract Was Accepted", content);
             return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
