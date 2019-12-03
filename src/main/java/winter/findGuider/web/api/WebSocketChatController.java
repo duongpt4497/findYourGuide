@@ -35,7 +35,7 @@ public class WebSocketChatController {
 
 
     @MessageMapping("/chat.sendMessage")
-    public void sendMessage(Principal principal, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor , @PathVariable("receiver") String receiver) {
+    public void sendMessage( @Payload ChatMessage chatMessage) {
         try {
             chatMessageRepository.save(chatMessage);
             this.simpMessagingTemplate.convertAndSendToUser(chatMessage.getReceiver(),"/queue/reply", chatMessage);
@@ -45,18 +45,24 @@ public class WebSocketChatController {
         }
     }
 
+    @MessageMapping("chat.sendSeen")
+    public void sendSeenMessage( @Payload ChatMessage chatMessage){
+        chatMessageRepository.updateSeen(chatMessage.getUser(),chatMessage.getReceiver());
+        this.simpMessagingTemplate.convertAndSendToUser(chatMessage.getUser(),"/queue/reply", chatMessage);
+    }
+
     @RequestMapping(value = "/messages/{user}/{receiver}/{firstElement}/{lastElement}", method = RequestMethod.POST)
     public HttpEntity getMessage(@PathVariable("user") String user,@PathVariable("receiver") String receiver,@PathVariable("firstElement") int firstElement,@PathVariable("lastElement") int lastElement){
+        chatMessageRepository.updateSeen(user,receiver);
         List<ChatMessage> chatMessages = new ArrayList<>();
         chatMessages = chatMessageRepository.get(user,receiver,firstElement,lastElement);
         return new ResponseEntity(chatMessages, HttpStatus.OK);
     }
 
-    @MessageMapping("/chat.addUser")
-    @SendTo("/topic/publicChatRoom")
-    public ChatMessage addUser(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-        // Add username in web socket session
-        headerAccessor.getSessionAttributes().put("user", chatMessage.getUser());
-        return chatMessage;
+    @RequestMapping(value = "/messages/{user}/{firstElement}/{lastElement}", method = RequestMethod.POST)
+    public HttpEntity getMessage(@PathVariable("user") String user,@PathVariable("firstElement") int firstElement,@PathVariable("lastElement") int lastElement){
+        List<ChatMessage> chatMessages = new ArrayList<>();
+        chatMessages = chatMessageRepository.getReceiver(user,firstElement,lastElement);
+        return new ResponseEntity(chatMessages, HttpStatus.OK);
     }
 }
