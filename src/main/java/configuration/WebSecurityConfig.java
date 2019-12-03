@@ -7,6 +7,7 @@ package configuration;
 
 import entities.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -46,6 +47,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private Principal principal;
 
+    @Value("${order.client.root.url}")
+    private String URL_ROOT_CLIENT;
+
 
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -72,7 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     CorsConfigurationSource corsConfigurationSource() {
         System.out.println("to cors");
         CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
-        configuration.setAllowedOrigins(Arrays.asList("http://23.94.188.212:3000"));
+        configuration.setAllowedOrigins(Arrays.asList("http://" + URL_ROOT_CLIENT));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "OPTION"));
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
