@@ -55,14 +55,14 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         
      
             String token = TokenHelper.createToken(authResult.getPrincipal().toString());
-            response.addHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+            response.addHeader("Access-Control-Allow-Origin", "http://23.94.188.212:3000");
             response.addHeader("Access-Control-Allow-Credentials", "true");
             response.setStatus(HttpServletResponse.SC_OK);
             Cookie sidCookie = new Cookie("token",token);
             sidCookie.setPath("/");
 //            sidCookie.setSecure(true);
             sidCookie.setHttpOnly(true);
-            sidCookie.setDomain("localhost");
+            sidCookie.setDomain("23.94.188.212");
             response.addCookie(sidCookie);
             Account res = new Account(Integer.parseInt(authResult.getCredentials().toString())
                     ,authResult.getPrincipal().toString(), authResult.getAuthorities().toArray()[0].toString());
