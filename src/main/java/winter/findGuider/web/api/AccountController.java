@@ -13,20 +13,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import services.account.AccountRepository;
-import services.security.AuthenProvider;
-import services.security.UserService;
+import security.AuthenProvider;
+import security.UserService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
-import javax.validation.Valid;
-import org.springframework.http.HttpHeaders;
-import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import services.security.AuthenProvider;
-import services.account.AccountRepository;
 
 import java.util.Date;
 import java.util.List;
