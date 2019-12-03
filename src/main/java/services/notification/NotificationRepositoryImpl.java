@@ -22,9 +22,8 @@ public class NotificationRepositoryImpl implements NotificationRepositoryCus {
     }
 
     @Override
-    public List<Notification> get(String user, String receiver, int firstElement, int lastElement) {
-        List<Notification> allNotifications = mongoTemplate.find(new Query(Criteria.where("user").is(user)
-                .andOperator(Criteria.where("receiver").is(receiver))).
+    public List<Notification> get(String receiver, int firstElement, int lastElement) {
+        List<Notification> allNotifications = mongoTemplate.find(new Query(Criteria.where("receiver").is(receiver)).
                 with(new Sort(Sort.Direction.DESC, "dateReceived")), Notification.class,"notiCollection");
 
         int count = allNotifications.size();
@@ -44,7 +43,7 @@ public class NotificationRepositoryImpl implements NotificationRepositoryCus {
     @Override
     public void updateSeen(String user) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("user").is(user).andOperator(Criteria.where("isSeen").is("false")));
+        query.addCriteria(Criteria.where("receiver").is(user).andOperator(Criteria.where("isSeen").is("false")));
         Update update = new Update();
         update.set("isSeen", true);
         mongoTemplate.updateMulti(query, update, Notification.class,"notiCollection");
