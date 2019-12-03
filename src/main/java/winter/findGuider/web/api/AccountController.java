@@ -9,24 +9,18 @@ import entities.Account;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import services.account.AccountRepository;
-import services.security.AuthenProvider;
-import services.security.UserService;
+import security.AuthenProvider;
+import security.UserService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
-import javax.validation.Valid;
-import org.springframework.http.HttpHeaders;
-import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import services.security.AuthenProvider;
-import services.account.AccountRepository;
 
 import java.util.Date;
 import java.util.List;
@@ -36,12 +30,18 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(path = "/account")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://23.94.188.212:3000")
 public class AccountController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     private UserService userService;
     private AccountRepository repo;
     private AuthenProvider auth;
+
+    @Value("${order.client.root.url}")
+    private String URL_ROOT_CLIENT;
+
+    @Value("${order.client.root.url.domain}")
+    private String URL_ROOT_CLIENT_DOMAIN;
 
     @Autowired
     public AccountController(AccountRepository repo, UserService userService, AuthenProvider auth) {
@@ -52,7 +52,7 @@ public class AccountController {
 
     @PostMapping(path = "registrator", consumes = "application/json")
     public ResponseEntity registerUserAccount(@RequestBody Account acc, HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+        response.setHeader("Access-Control-Allow-Origin", "http://" + URL_ROOT_CLIENT);
         response.setHeader("Access-Control-Allow-Credentials", "true");
         Account registered = null;
         acc.setToken("");
@@ -63,7 +63,7 @@ public class AccountController {
             Cookie sidCookie = new Cookie("token", registered.getToken());
             sidCookie.setPath("/");
             sidCookie.setHttpOnly(true);
-            sidCookie.setDomain("localhost");
+            sidCookie.setDomain(URL_ROOT_CLIENT_DOMAIN);
             response.addCookie(sidCookie);
             registered.setPassword("");
             registered.setToken("");

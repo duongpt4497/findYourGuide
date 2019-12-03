@@ -17,13 +17,11 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.junit.runner.RunWith;
 
 import org.springframework.http.ResponseEntity;
-import services.GeneralServiceImpl;
 import services.account.AccountRepository;
-import services.security.AuthenProvider;
-import services.security.UserService;
+import security.AuthenProvider;
+import security.UserService;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
 import java.util.List;
 
 
