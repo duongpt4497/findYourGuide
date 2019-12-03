@@ -125,11 +125,9 @@ public class PaypalController {
                 webSocketNotificationController = new WebSocketNotificationController();
                 paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, true);
                 tripService.createTrip(order);
-                String email = accountRepository.getEmail(order.getTraveler_id());
-                String content = mailService.getMailContent(order, "UNCONFIRMED");
+
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 Date current = formatter.parse(formatter.format(new Date()));
-
                 String traveler_username= accountRepository.findAccountNameByAccountId(order.getTraveler_id());
                 String guider_username = accountRepository.findAccountNameByAccountId(order.getGuider_id());
                 Notification notification = new Notification();
@@ -140,6 +138,9 @@ public class PaypalController {
                 notification.setDateReceived(current);
                 notification.setContent("You have a booking reservation on tour "+ postService.findSpecificPost(order.getPost_id()).getTitle() +" from "+ traveler_username );
                 webSocketNotificationController.sendMessage(notification);
+
+                String email = accountRepository.getEmail(order.getTraveler_id());
+                String content = mailService.getMailContent(order, "UNCONFIRMED");
                 mailService.sendMail(email, "TravelWLocal Tour Information", content);
                 URI result = new URI(URL_ROOT_CLIENT + CHATBOX_PATH + order.getPost_id() + "/booking_success");
                 httpHeaders.setLocation(result);

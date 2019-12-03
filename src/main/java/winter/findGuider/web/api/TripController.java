@@ -198,10 +198,11 @@ public class TripController {
             notification.setSeen(false);
             notification.setDateReceived(current);
             notification.setContent("Your order on tour "+ postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() +" of guider "+guider_username+ " was canceled");
+            webSocketNotificationController.sendMessage(notification);
+
             Order order = tripService.findTripById(trip_id);
             String email = accountRepository.getEmail(order.getTraveler_id());
             String content = mailService.getMailContent(order, "CANCELLED");
-            webSocketNotificationController.sendMessage(notification);
             mailService.sendMail(email, "TravelWLocal Tour Cancelled", content);
             return new ResponseEntity<>("Cancel Success", HttpStatus.OK);
         } catch (PayPalRESTException e) {
