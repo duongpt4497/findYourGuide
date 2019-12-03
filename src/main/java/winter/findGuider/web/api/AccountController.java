@@ -30,7 +30,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(path = "/account")
-@CrossOrigin(origins = "http://23.94.188.212:3000")
+//@CrossOrigin(origins = "http://localhost:3000")
 public class AccountController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     private UserService userService;

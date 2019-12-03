@@ -2315,3 +2315,45 @@ Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No q
 2019-Dec-03 16:58:37 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
 2019-Dec-03 16:58:37 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
 >>>>>>> 1014982ec085b9c06e759e476f34284e0ea96f30
+2019-Dec-03 15:46:13 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-03 15:46:13 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-03 15:46:13 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-03 15:46:13 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-03 16:02:46 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-03 16:02:46 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-03 16:02:47 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-03 16:02:47 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-03 16:03:16 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-03 16:03:16 ERROR [http-nio-8080-exec-2] w.f.w.a.AccountController - org.springframework.dao.DuplicateKeyException: PreparedStatementCallback; ERROR: duplicate key value violates unique constraint "account_pkey"
+  Detail: Key (account_id)=(1) already exists.; nested exception is org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "account_pkey"
+  Detail: Key (account_id)=(1) already exists.
+2019-Dec-03 16:26:32 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-03 16:26:33 ERROR [http-nio-8080-exec-4] w.f.w.a.AccountController - org.springframework.dao.DuplicateKeyException: PreparedStatementCallback; ERROR: duplicate key value violates unique constraint "account_pkey"
+  Detail: Key (account_id)=(2) already exists.; nested exception is org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "account_pkey"
+  Detail: Key (account_id)=(2) already exists.
+2019-Dec-03 16:28:46 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-03 16:28:46 ERROR [http-nio-8080-exec-5] w.f.w.a.AccountController - org.springframework.dao.DuplicateKeyException: PreparedStatementCallback; ERROR: duplicate key value violates unique constraint "account_pkey"
+  Detail: Key (account_id)=(3) already exists.; nested exception is org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "account_pkey"
+  Detail: Key (account_id)=(3) already exists.
+2019-Dec-03 16:28:47 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-03 16:28:47 ERROR [http-nio-8080-exec-6] w.f.w.a.AccountController - org.springframework.dao.DuplicateKeyException: PreparedStatementCallback; ERROR: duplicate key value violates unique constraint "account_pkey"
+  Detail: Key (account_id)=(4) already exists.; nested exception is org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "account_pkey"
+  Detail: Key (account_id)=(4) already exists.
+2019-Dec-03 16:28:48 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-03 16:28:49 ERROR [http-nio-8080-exec-7] w.f.w.a.AccountController - org.springframework.dao.DuplicateKeyException: PreparedStatementCallback; ERROR: duplicate key value violates unique constraint "account_pkey"
+  Detail: Key (account_id)=(5) already exists.; nested exception is org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "account_pkey"
+  Detail: Key (account_id)=(5) already exists.
+2019-Dec-03 16:28:49 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-03 16:28:49 ERROR [http-nio-8080-exec-8] w.f.w.a.AccountController - org.springframework.dao.DuplicateKeyException: PreparedStatementCallback; ERROR: duplicate key value violates unique constraint "account_pkey"
+  Detail: Key (account_id)=(6) already exists.; nested exception is org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "account_pkey"
+  Detail: Key (account_id)=(6) already exists.
+2019-Dec-03 16:28:51 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-03 16:28:51 ERROR [http-nio-8080-exec-9] w.f.w.a.AccountController - org.springframework.dao.DuplicateKeyException: PreparedStatementCallback; ERROR: duplicate key value violates unique constraint "account_pkey"
+  Detail: Key (account_id)=(7) already exists.; nested exception is org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "account_pkey"
+  Detail: Key (account_id)=(7) already exists.
+2019-Dec-03 16:28:52 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-03 16:29:04 WARN  [http-nio-8080-exec-4] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-03 16:29:11 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-03 16:29:11 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-03 16:29:11 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-03 16:29:11 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException

@@ -464,7 +464,7 @@ public class TripServiceImpl implements TripService {
                 + " where extract (epoch from (now() - order_time))::integer "
                 + " < extract(epoch from TIMESTAMP '1970-1-1 05:00:00')::integer "
                 + " and status = 'UNCONFIRMED'; ";
-        lo = jdbcTemplate.queryForList(query);
+           lo = jdbcTemplate.queryForList(query);
 
         List<String> update = new ArrayList<>();
         for (Map m : lo) {
