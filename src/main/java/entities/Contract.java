@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Data
 public class Contract {
     private long contract_id;
+    private long guider_id;
     private String name;
     private String nationality;
 
@@ -28,8 +29,9 @@ public class Contract {
     public Contract() {
     }
 
-    public Contract(long contract_id, String name, String nationality, LocalDateTime date_of_birth, int gender, String hometown, String address, String identity_card_number, LocalDateTime card_issued_date, String card_issued_province, LocalDateTime account_active_date, LocalDateTime account_deactive_date) {
+    public Contract(long contract_id, long guider_id, String name, String nationality, LocalDateTime date_of_birth, int gender, String hometown, String address, String identity_card_number, LocalDateTime card_issued_date, String card_issued_province, LocalDateTime account_active_date, LocalDateTime account_deactive_date) {
         this.contract_id = contract_id;
+        this.guider_id = guider_id;
         this.name = name;
         this.nationality = nationality;
         this.date_of_birth = date_of_birth;
@@ -57,12 +59,34 @@ public class Contract {
         this.account_deactive_date = account_deactive_date;
     }
 
+    public Contract(long contract_id, long guider_id, String name, String nationality, LocalDateTime date_of_birth, int gender, String hometown, String address, String identity_card_number, LocalDateTime card_issued_date, String card_issued_province) {
+        this.contract_id = contract_id;
+        this.guider_id = guider_id;
+        this.name = name;
+        this.nationality = nationality;
+        this.date_of_birth = date_of_birth;
+        this.gender = gender;
+        this.hometown = hometown;
+        this.address = address;
+        this.identity_card_number = identity_card_number;
+        this.card_issued_date = card_issued_date;
+        this.card_issued_province = card_issued_province;
+    }
+
     public long getContract_id() {
         return contract_id;
     }
 
     public void setContract_id(long contract_id) {
         this.contract_id = contract_id;
+    }
+
+    public long getGuider_id() {
+        return guider_id;
+    }
+
+    public void setGuider_id(long guider_id) {
+        this.guider_id = guider_id;
     }
 
     public String getName() {

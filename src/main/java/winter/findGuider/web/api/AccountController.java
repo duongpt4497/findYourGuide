@@ -84,7 +84,7 @@ public class AccountController {
 
     @RequestMapping("/findAll")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<Account>> findAllCategory() {
+    public ResponseEntity<List<Account>> findAll() {
         try {
             return new ResponseEntity(repo.findAllAccount(), HttpStatus.OK);
         } catch (Exception e) {

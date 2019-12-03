@@ -71,8 +71,8 @@ public class GuiderServiceImpl implements GuiderService {
         result = jdbcTemplate.queryForObject(query, new RowMapper<Contract>() {
             @Override
             public Contract mapRow(ResultSet rs, int rowNum) throws SQLException {
-                Contract ct = new Contract(rs.getLong("contract_id"), rs.getString("name"),
-                        rs.getString("nationality"),
+                Contract ct = new Contract(rs.getLong("contract_id"), rs.getInt("guider_id"),
+                        rs.getString("name"), rs.getString("nationality"),
                         rs.getTimestamp("date_of_birth").toLocalDateTime(), rs.getInt("gender"),
                         rs.getString("hometown"),
                         rs.getString("address"), rs.getString("identity_card_number"),
@@ -99,8 +99,8 @@ public class GuiderServiceImpl implements GuiderService {
     @Override
     public long createGuiderContract(Contract contract) throws Exception {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        String query = "insert into contract_detail (name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,account_active_date)" +
-                "values (?,?,?,?,?,?,?,?,?,?)";
+        String query = "insert into contract_detail (name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province)" +
+                "values (?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection
                     .prepareStatement(query, new String[]{"contract_id"});
@@ -113,7 +113,6 @@ public class GuiderServiceImpl implements GuiderService {
             ps.setString(7, contract.getIdentity_card_number());
             ps.setTimestamp(8, Timestamp.valueOf(contract.getCard_issued_date()));
             ps.setString(9, contract.getCard_issued_province());
-            ps.setTimestamp(10, Timestamp.valueOf(LocalDateTime.now()));
             return ps;
         }, keyHolder);
         return (int) keyHolder.getKey();
@@ -207,11 +206,46 @@ public class GuiderServiceImpl implements GuiderService {
         String check = "select count(guider_id) from contract where guider_id = ?";
         int count = jdbcTemplate.queryForObject(check, new Object[]{guider_id}, int.class);
         if (count == 0) {
+            // if new guider with new contract
+            // link contract
             String query = "insert into contract (guider_id, contract_id) values (?,?)";
             jdbcTemplate.update(query, guider_id, contract_id);
+
+            // update active date
+            String query2 = "update contract_detail set account_active_date = ? where contract_id = ?";
+            jdbcTemplate.update(query2, Timestamp.valueOf(LocalDateTime.now()), contract_id);
         } else {
+            // if old guider update their contract
+            // de-active old contract
+            String getOldContractQuery = "select contract_id from contract where guider_id = ?";
+            int oldContractId = jdbcTemplate.queryForObject(getOldContractQuery, new Object[]{guider_id}, int.class);
+            String deactivateOldContractQuery = "update contract_detail set account_deactive_date = ? where contract_id = ?";
+            jdbcTemplate.update(deactivateOldContractQuery, Timestamp.valueOf(LocalDateTime.now()), oldContractId);
+
+            // link to new contract
             String query = "update contract set contract_id = ? where guider_id = ?";
             jdbcTemplate.update(query, contract_id, guider_id);
+
+            // update active date
+            String query2 = "update contract_detail set account_active_date = ? where contract_id = ?";
+            jdbcTemplate.update(query2, Timestamp.valueOf(LocalDateTime.now()), contract_id);
         }
+    }
+
+    @Override
+    public List<Contract> getAllContract() throws Exception {
+        List<Contract> list;
+        String query = "select * from contract_detail where account_active_date is null and contract_id not in (select contract_id from contract)";
+        list = jdbcTemplate.query(query, new RowMapper<Contract>() {
+            @Override
+            public Contract mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new Contract(rs.getInt("contract_id"), rs.getInt("guider_id"), rs.getString("name"),
+                        rs.getString("nationality"), rs.getTimestamp("date_of_birth").toLocalDateTime(),
+                        rs.getInt("gender"), rs.getString("hometown"), rs.getString("address"),
+                        rs.getString("identity_card_number"), rs.getTimestamp("card_issued_date").toLocalDateTime(),
+                        rs.getString("card_issued_province"));
+            }
+        });
+        return list;
     }
 }

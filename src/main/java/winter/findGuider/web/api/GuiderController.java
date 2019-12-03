@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import services.Mail.MailService;
 import services.guider.GuiderService;
 
 import java.util.List;
@@ -18,10 +19,12 @@ import java.util.List;
 public class GuiderController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     private GuiderService guiderService;
+    private MailService mailService;
 
     @Autowired
-    public GuiderController(GuiderService gs) {
+    public GuiderController(GuiderService gs, MailService ms) {
         this.guiderService = gs;
+        this.mailService = ms;
     }
 
     @RequestMapping("/Create")
@@ -129,11 +132,23 @@ public class GuiderController {
         }
     }
 
+    @RequestMapping("/getAllContract")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Contract>> getAllContract() {
+        try {
+            return new ResponseEntity<>(guiderService.getAllContract(), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
     @RequestMapping("/AcceptContract")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Boolean> acceptContract(@RequestParam("guider_id") long guider_id, @RequestParam("contract_id") long contract_id) {
         try {
             guiderService.linkGuiderWithContract(guider_id, contract_id);
+
             return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
