@@ -72,10 +72,6 @@ public class GeneralServiceImpl implements GeneralService {
                 Files.write(destinationFile, data);
                 imageUrls.add("./src/main/resources/static/images/" + uniqueIds.toString() + ".jpg");
             }
-            System.out.println(imageUrls.size());
-            for (String hihi : imageUrls) {
-                System.out.println(" @@ " + hihi);
-            }
         } catch (Exception e) {
             logger.error(e.getMessage());
         }

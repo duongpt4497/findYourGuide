@@ -18,7 +18,7 @@ public class Traveler {
 
     private int gender;
 
-    @JsonFormat(pattern = "MM/dd/yyyy HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime date_of_birth;
 
     private String street;
