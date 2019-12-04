@@ -45,7 +45,8 @@ public class Contract {
         this.account_deactive_date = account_deactive_date;
     }
 
-    public Contract(String name, String nationality, LocalDateTime date_of_birth, int gender, String hometown, String address, String identity_card_number, LocalDateTime card_issued_date, String card_issued_province, LocalDateTime account_active_date, LocalDateTime account_deactive_date) {
+    public Contract(long guider_id, String name, String nationality, LocalDateTime date_of_birth, int gender, String hometown, String address, String identity_card_number, LocalDateTime card_issued_date, String card_issued_province, LocalDateTime account_active_date, LocalDateTime account_deactive_date) {
+        this.guider_id = guider_id;
         this.name = name;
         this.nationality = nationality;
         this.date_of_birth = date_of_birth;

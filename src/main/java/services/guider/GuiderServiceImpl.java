@@ -77,7 +77,7 @@ public class GuiderServiceImpl implements GuiderService {
                         rs.getString("hometown"),
                         rs.getString("address"), rs.getString("identity_card_number"),
                         rs.getTimestamp("card_issued_date").toLocalDateTime(), rs.getString("card_issued_province"),
-                        rs.getTimestamp("account_active_date").toLocalDateTime(),
+                        (rs.getTimestamp("account_active_date") != null ? rs.getTimestamp("account_active_date").toLocalDateTime() : null),
                         (rs.getTimestamp("account_deactive_date") != null ? rs.getTimestamp("account_deactive_date").toLocalDateTime() : null));
                 return ct;
             }
