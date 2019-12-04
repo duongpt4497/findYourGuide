@@ -182,7 +182,7 @@ public class PaypalControllerUnitTest {
     }
 
     @Test(expected = AssertionError.class)
-    public void testSuccessPayWithException() throws Exception {
+    public void testSuccessPayWithPaypalRESRException() throws Exception {
         thrown.expect(AssertionError.class);
         Payment payment = new Payment();
         Transaction transaction = new Transaction();
@@ -196,5 +196,27 @@ public class PaypalControllerUnitTest {
         when(paypalService.executePayment("1", "1")).thenThrow(PayPalRESTException.class);
         ResponseEntity<Object> result = paypalController.successPay("1", "1", 1, 1, 1, 1, "2019-01-01T01:01:01", 1.2);
         Assert.assertEquals(303, result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testSuccessPayWithException() throws Exception{
+        Payment payment = new Payment();
+        Transaction transaction = new Transaction();
+        RelatedResources relatedResources = new RelatedResources();
+        Sale sale = new Sale();
+        sale.setId("asdhf123cjsd");
+        relatedResources.setSale(sale);
+        transaction.setRelatedResources(Collections.singletonList(relatedResources));
+        payment.setTransactions(Collections.singletonList(transaction));
+        payment.setState("approved");
+        Order order = new Order();
+        order.setTraveler_id(1);
+        when(orderTripService.checkTripExist(1)).thenReturn(1);
+        when(orderTripService.acceptTrip(0)).thenReturn(true);
+        when(orderTripService.findTripById(0)).thenReturn(order);
+        when(paypalService.executePayment("1", "1")).thenReturn(payment);
+        ReflectionTestUtils.setField(paypalController, "tripService", null);
+        ResponseEntity<Object> result = paypalController.successPay("1", "1", 1, 1, 1, 1, "2019-01-01T01:01:01", 1.2);
+
     }
 }

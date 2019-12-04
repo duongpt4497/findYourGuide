@@ -60,4 +60,15 @@ public class WebSocketChatControllerUnitTest {
 */
         webSocketChatController.getMessage("dung","ha",1,10);
     }
+
+    @Test
+    public void testSendSeenMessage(){
+        ChatMessage chatMessage = Mockito.mock(ChatMessage.class);
+        webSocketChatController.sendSeenMessage(chatMessage);
+    }
+
+    @Test
+    public void testGetMessageWithoutReceiver(){
+        webSocketChatController.getMessage("ha",1,10);
+    }
 }

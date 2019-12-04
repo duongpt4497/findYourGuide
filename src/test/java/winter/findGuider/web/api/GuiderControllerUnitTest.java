@@ -13,6 +13,8 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.util.ReflectionTestUtils;
+import services.Mail.MailService;
+import services.account.AccountRepository;
 import services.guider.GuiderService;
 
 import java.util.List;
@@ -28,6 +30,12 @@ public class GuiderControllerUnitTest {
     @Mock
     GuiderService guiderService;
 
+    @Mock
+    AccountRepository accountRepository;
+
+    @Mock
+    MailService mailService;
+
     @Before
     public void init() {
 
@@ -36,7 +44,6 @@ public class GuiderControllerUnitTest {
 
     @Test
     public void testCreateGuider() {
-        Guider guider = Mockito.mock(Guider.class);
         Contract Contract = Mockito.mock(Contract.class);
         guiderController.createGuider(Contract);
     }
@@ -45,10 +52,9 @@ public class GuiderControllerUnitTest {
     public void testCreateGuiderWithException() throws Exception {
         try {
             thrown.expect(AssertionError.class);
-            Guider guider = Mockito.mock(Guider.class);
-            Contract Contract = Mockito.mock(Contract.class);
-            when(guiderService.createGuider(guider)).thenThrow(Exception.class);
-            ResponseEntity<Boolean> responseEntity = guiderController.createGuider(Contract);
+            Contract contract = Mockito.mock(Contract.class);
+            when(guiderService.createGuiderContract(contract)).thenThrow(Exception.class);
+            ResponseEntity<Boolean> responseEntity = guiderController.createGuider(contract);
         } catch (Exception e) {
             Assert.assertThat(e.getMessage(), containsString("whatever"));
         }
@@ -179,6 +185,19 @@ public class GuiderControllerUnitTest {
         ReflectionTestUtils.setField(guiderController, "guiderService", null);
 
         ResponseEntity<Boolean> result = guiderController.acceptContract(1, 1);
+        Assert.assertEquals(404, result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testGetAllContract(){
+        ResponseEntity<List<Contract>> result = guiderController.getAllContract();
+        Assert.assertEquals(200, result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testGetAllContractWithException() throws Exception{
+        when(guiderService.getAllContract()).thenThrow(Exception.class);
+        ResponseEntity<List<Contract>> result = guiderController.getAllContract();
         Assert.assertEquals(404, result.getStatusCodeValue());
     }
 }

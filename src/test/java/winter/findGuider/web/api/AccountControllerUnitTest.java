@@ -17,6 +17,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.junit.runner.RunWith;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.util.ReflectionTestUtils;
 import services.account.AccountRepository;
 import security.AuthenProvider;
 import security.UserService;
@@ -56,6 +57,7 @@ public class AccountControllerUnitTest {
         Account acc = new Account();
         acc.setToken("123");
         HttpServletResponse httpServletResponse = Mockito.mock(HttpServletResponse.class);
+        ReflectionTestUtils.setField(accountController, "URL_ROOT_CLIENT_DOMAIN", "localhost");
         when(userService.registerNewUserAccount(account)).thenReturn(acc);
         ResponseEntity result = accountController.registerUserAccount(account,httpServletResponse);
         Assert.assertEquals(200,result.getStatusCodeValue());
