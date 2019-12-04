@@ -48,12 +48,13 @@ public class PaypalController {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    public PaypalController(PaypalService ps, TripService ots, MailService ms, AccountRepository ar,PostService postService) {
+    public PaypalController(PaypalService ps, TripService ots, MailService ms, AccountRepository ar,PostService postService,WebSocketNotificationController wsc) {
         this.paypalService = ps;
         this.tripService = ots;
         this.mailService = ms;
         this.accountRepository = ar;
         this.postService = postService;
+        this.webSocketNotificationController = wsc;
     }
 
     @RequestMapping("/Pay")
@@ -122,7 +123,7 @@ public class PaypalController {
             String transaction_id = payment.getTransactions().get(0).getRelatedResources().get(0).getSale().getId();
             order.setTransaction_id(transaction_id);
             if (payment.getState().equals("approved")) {
-                webSocketNotificationController = new WebSocketNotificationController();
+
                 paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, true);
                 tripService.createTrip(order);
                 // TODO notification
