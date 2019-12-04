@@ -1,6 +1,7 @@
 
 package services.trip;
 
+import com.paypal.base.rest.PayPalRESTException;
 import entities.Order;
 import org.junit.Assert;
 import org.junit.Before;
@@ -321,12 +322,22 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void orderFilter() throws Exception {
+    public void cancelTripFilter() throws Exception {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
                 "values (1,2,1,'2019-11-27T05:30','2019-11-22T07:00',1,1,150,'abc','UNCONFIRMED')");
         tripService.cancelTripFilter();
         Assert.assertEquals("CANCELLED", tripService.findTripById(1).getStatus());
+    }
+
+    @Test
+    public void finishTripFilter() throws Exception {
+        jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
+                "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
+        jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
+                "values (1,2,1,'2019-11-27T05:30',now() - INTERVAL '10 HOURS',1,1,150,'abc','ONGOING')");
+        tripService.finishTripFilter();
+        Assert.assertEquals("FINISHED", tripService.findTripById(1).getStatus());
     }
 }

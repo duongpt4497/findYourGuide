@@ -472,9 +472,11 @@ public class TripServiceImpl implements TripService {
             update.add("update trip set status = 'CANCELLED' where trip_id = " + m.get("trip_id"));
         }
         logger.warn(update.toString());
-        jdbcTemplate.batchUpdate(update.toArray(new String[0]));
+        if (!update.isEmpty()) {
+            jdbcTemplate.batchUpdate(update.toArray(new String[0]));
+        }
     }
-    
+
     //@Scheduled(cron = "0 0 * * * *")
     @Scheduled(cron = "0 0/5 * * * *")
     public void finishTripFilter() throws PayPalRESTException {
@@ -488,10 +490,11 @@ public class TripServiceImpl implements TripService {
 
         List<String> update = new ArrayList<>();
         for (Map m : lo) {
-            
             update.add("update trip set status = 'FINISHED' where trip_id = " + m.get("trip_id"));
         }
         logger.warn(update.toString());
-        jdbcTemplate.batchUpdate(update.toArray(new String[0]));
+        if (!update.isEmpty()) {
+            jdbcTemplate.batchUpdate(update.toArray(new String[0]));
+        }
     }
 }

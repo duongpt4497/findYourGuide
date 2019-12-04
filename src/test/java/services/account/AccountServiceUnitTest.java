@@ -64,4 +64,12 @@ public class AccountServiceUnitTest {
                 "values (3,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','TRAVELER')");
         Assert.assertEquals(3, accountService.findAllAccount().size());
     }
+
+    @Test
+    public void findAccountNameByAccountId() throws Exception {
+        jdbcTemplate.update("delete from account");
+        jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
+                "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','TRAVELER')");
+        Assert.assertEquals("Jacky", accountService.findAccountNameByAccountId(1));
+    }
 }

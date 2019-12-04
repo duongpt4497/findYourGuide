@@ -159,4 +159,29 @@ public class MailServiceImplTest {
                 "Sincerely,\n" +
                 "TravelWLocal", mailService.getMailContent(order, "FINISHED"));
     }
+
+    @Test
+    public void acceptContractMailContent() throws Exception {
+        Assert.assertEquals("Dear Mr/Ms John Doe\n" +
+                "\n" +
+                "Your contract to become a guider has been accepted !\n" +
+                "\n" +
+                "Here is the information you have given us upon setting up the contract\n" +
+                "Name: John Doe\n" +
+                "Nationality: Vietnamese\n" +
+                "Date of birth (MM/dd/yyyy): 06/05/1993\n" +
+                "Gender: Male\n" +
+                "Hometown: Hanoi\n" +
+                "Address: a\n" +
+                "Identity Card Number: 123456\n" +
+                "Identity Card Issued Date: 04/05/2000\n" +
+                "Identity Card Issued Province: Hanoi\n" +
+                "If any information were mistakenly given, please contact us immediately.\n" +
+                "We also recommend to update your profile if you have not done it, so the customers can have a better understanding about you !\n" +
+                "\n" +
+                "Thank your for using our service.\n" +
+                "\n" +
+                "Sincerely,\n" +
+                "TravelWLocal", mailService.acceptContractMailContent(1));
+    }
 }

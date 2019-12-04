@@ -32,5 +32,5 @@ public interface GuiderService {
 
     List<Contract> getAllContract() throws Exception;
 
-    void rejectContract(long contract_id);
+    void rejectContract(long contract_id) throws Exception;
 }

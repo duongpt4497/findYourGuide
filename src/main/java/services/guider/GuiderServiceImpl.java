@@ -252,7 +252,7 @@ public class GuiderServiceImpl implements GuiderService {
     }
 
     @Override
-    public void rejectContract(long contract_id) {
+    public void rejectContract(long contract_id) throws Exception {
         String query = "update contract_detail set account_deactive_date = now() where contract_id = ?";
         jdbcTemplate.update(query, contract_id);
     }

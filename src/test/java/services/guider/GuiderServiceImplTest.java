@@ -88,7 +88,7 @@ public class GuiderServiceImplTest {
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
                 "values (1,'John','Doe',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
-        Contract contract = new Contract(1,"test", "vietnamese", LocalDateTime.parse("1993-06-05T00:00"), 1,
+        Contract contract = new Contract(1, "test", "vietnamese", LocalDateTime.parse("1993-06-05T00:00"), 1,
                 "Hanoi", "a", "12345", LocalDateTime.parse("2001-05-07T00:00"),
                 "Hanoi", null, null);
         long id = guiderService.createGuiderContract(contract);
@@ -253,5 +253,32 @@ public class GuiderServiceImplTest {
         String check = "select contract_id from contract where guider_id = ?";
         int id = jdbcTemplate.queryForObject(check, new Object[]{1}, int.class);
         Assert.assertEquals(2, id);
+    }
+
+    @Test
+    public void getAllContract() throws Exception {
+        jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
+                "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
+        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
+                "values (1,'John','Doe',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
+        jdbcTemplate.update("insert into contract_detail (guider_id,contract_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province)" +
+                "values (1,1,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi')");
+        jdbcTemplate.update("insert into contract_detail (guider_id,contract_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province)" +
+                "values (1,2,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi')");
+        jdbcTemplate.update("insert into contract_detail (guider_id,contract_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province)" +
+                "values (1,3,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi')");
+        Assert.assertEquals(3, guiderService.getAllContract().size());
+    }
+
+    @Test
+    public void rejectContract() throws Exception {
+        jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
+                "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
+        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
+                "values (1,'John','Doe',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
+        jdbcTemplate.update("insert into contract_detail (guider_id,contract_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province)" +
+                "values (1,1,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi')");
+        guiderService.rejectContract(1);
+        Assert.assertEquals(0, guiderService.getAllContract().size());
     }
 }

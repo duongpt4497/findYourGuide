@@ -61,7 +61,7 @@ public class ChatMessageRepositoryImplTest {
 
         when(mongoTemplate.find(new Query(Criteria.where("user").is("abc")
                 .andOperator(Criteria.where("receiver").is("def"))).
-                with(new Sort(Sort.Direction.DESC, "dateReceived")), ChatMessage.class)).thenReturn(list);
+                with(new Sort(Sort.Direction.DESC, "dateReceived")), ChatMessage.class,"messageCollection")).thenReturn(list);
         Assert.assertEquals(6, chatMessageRepository.get("abc", "def", 1, 1).size());
     }
 
