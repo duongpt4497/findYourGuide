@@ -55,7 +55,7 @@ public class ContributionPointServiceImpl implements ContributionPointService {
     //calculate contribute increasing
     //update contribute to guider
     //@Scheduled(cron = "0 1 * * * *")
-    @Scheduled(cron = "0 0 0/1 1/1 * ? *")
+    @Scheduled(cron = "0 0 0/1 * * *")
     public void updateContributionbyDay() {
         List<Order> lo = new ArrayList<>();
         String query = "select o1.trip_id, o1.traveler_id, p3.guider_id, o1.fee_paid, r2.rated from trip as o1 "
@@ -104,7 +104,7 @@ public class ContributionPointServiceImpl implements ContributionPointService {
     //bonus or reduce contribute 
     //update to guider
     //@Scheduled(cron = "0 0 1 */30 * *")
-    @Scheduled(cron = "0 0 0/2 1/1 * ? *")
+    @Scheduled(cron = "0 0 0/2 * * *")
     public void updateContributionbyMonth() {
 
         String queryPositive = "select p3.guider_id, count(p3.guider_id) from trip as o1 "
