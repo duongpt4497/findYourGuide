@@ -1,6 +1,7 @@
 package services.Review;
 
 import entities.Review;
+import entities.TravelerReview;
 
 import java.util.List;
 
@@ -16,4 +17,8 @@ public interface ReviewService {
     boolean checkReviewExist(long trip_id) throws Exception;
 
     void showHideReview(long trip_id) throws Exception;
+
+    void createTravelerReview(TravelerReview review) throws Exception;
+
+    List<TravelerReview> findReviewOfATraveler(long traveler_id) throws Exception;
 }
