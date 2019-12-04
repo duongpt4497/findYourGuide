@@ -236,7 +236,8 @@ public class GuiderServiceImpl implements GuiderService {
     @Override
     public List<Contract> getAllContract() throws Exception {
         List<Contract> list;
-        String query = "select * from contract_detail where account_active_date is null and contract_id not in (select contract_id from contract)";
+        String query = "select * from contract_detail where account_active_date is null and account_deactive_date is null " +
+                "and contract_id not in (select contract_id from contract)";
         list = jdbcTemplate.query(query, new RowMapper<Contract>() {
             @Override
             public Contract mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -248,5 +249,11 @@ public class GuiderServiceImpl implements GuiderService {
             }
         });
         return list;
+    }
+
+    @Override
+    public void rejectContract(long contract_id) {
+        String query = "update contract_detail set account_deactive_date = now() where contract_id = ?";
+        jdbcTemplate.update(query, contract_id);
     }
 }
