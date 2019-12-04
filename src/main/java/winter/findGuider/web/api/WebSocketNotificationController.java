@@ -27,6 +27,9 @@ public class WebSocketNotificationController {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
+    public WebSocketNotificationController(){
+
+    }
 
     @MessageMapping("/exchange.sendNotification")
     public void sendMessage( @Payload Notification notification) {
