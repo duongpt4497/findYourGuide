@@ -128,7 +128,7 @@ public class MailServiceImpl implements MailService {
         content = content.concat("Identity Card Issued Date: " + contract.getCard_issued_date().format(formatter) + "\n");
         content = content.concat("Identity Card Issued Province: " + contract.getCard_issued_province() + "\n");
         content = content.concat("If any information were mistakenly given, please contact us immediately.\n");
-        content = content.concat("We also recommend to update your profile if you have not done it, so the customers can have" +
+        content = content.concat("We also recommend to update your profile if you have not done it, so the customers can have " +
                 "a better understanding about you !\n\n");
         content = content.concat("Thank your for using our service.\n\n");
         content = content.concat("Sincerely,\n");

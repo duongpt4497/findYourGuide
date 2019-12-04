@@ -31,4 +31,6 @@ public interface GuiderService {
     void linkGuiderWithContract(long guider_id, long contract_id) throws Exception;
 
     List<Contract> getAllContract() throws Exception;
+
+    void rejectContract(long contract_id) throws Exception;
 }

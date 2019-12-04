@@ -2,7 +2,6 @@ package winter.findGuider.web.api;
 
 import com.paypal.api.payments.Refund;
 import com.paypal.base.rest.PayPalRESTException;
-import entities.Notification;
 import entities.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +17,6 @@ import services.contributionPoint.ContributionPointService;
 import services.guider.GuiderService;
 import services.trip.TripService;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -95,9 +93,9 @@ public class TripController {
     @RequestMapping("/CancelOrderAsTraveler")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> cancelOrderAsTraveler(@RequestParam("trip_id") int trip_id) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         LocalDateTime rightNow = LocalDateTime.now();
-        rightNow.format(formatter);
+        rightNow = LocalDateTime.parse(rightNow.format(formatter));
         Order cancelOrder = new Order();
         try {
             cancelOrder = tripService.findTripById(trip_id);
@@ -137,14 +135,14 @@ public class TripController {
 //            webSocketNotificationController.sendMessage(notification);
             return new ResponseEntity<>("Cancel Success", HttpStatus.OK);
         } catch (PayPalRESTException e) {
-            String message = e.getDetails().getMessage();
             try {
+                String message = e.getDetails().getMessage();
                 paypalService.createRefundRecord(cancelOrder.getTransaction_id(), message);
+                return new ResponseEntity<>(message, HttpStatus.OK);
             } catch (Exception exc) {
                 logger.error(exc.getMessage());
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             }
-            return new ResponseEntity<>(message, HttpStatus.OK);
         } catch (Exception ex) {
             logger.error(ex.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -154,9 +152,9 @@ public class TripController {
     @RequestMapping("/CancelOrderAsGuider")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> cancelOrderAsGuider(@RequestParam("trip_id") int trip_id) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         LocalDateTime rightNow = LocalDateTime.now();
-        rightNow.format(formatter);
+        rightNow = LocalDateTime.parse(rightNow.format(formatter));
         Order cancelOrder = new Order();
         try {
             cancelOrder = tripService.findTripById(trip_id);
@@ -205,14 +203,14 @@ public class TripController {
             mailService.sendMail(email, "TravelWLocal Tour Cancelled", content);
             return new ResponseEntity<>("Cancel Success", HttpStatus.OK);
         } catch (PayPalRESTException e) {
-            String message = e.getDetails().getMessage();
             try {
+                String message = e.getDetails().getMessage();
                 paypalService.createRefundRecord(cancelOrder.getTransaction_id(), message);
+                return new ResponseEntity<>(message, HttpStatus.OK);
             } catch (Exception exc) {
                 logger.error(exc.getMessage());
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             }
-            return new ResponseEntity<>(message, HttpStatus.OK);
         } catch (Exception ex) {
             logger.error(ex.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

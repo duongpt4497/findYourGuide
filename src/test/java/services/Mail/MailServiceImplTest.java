@@ -61,8 +61,8 @@ public class MailServiceImplTest {
         jdbcTemplate.update("insert into category (category_id,name) values (1,'history')");
         jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
                 "values (1,'John','Doe',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
-        jdbcTemplate.update("insert into contract_detail (contract_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,account_active_date)" +
-                "values (1,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi','2016-10-15')");
+        jdbcTemplate.update("insert into contract_detail (contract_id,guider_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,account_active_date)" +
+                "values (1,1,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi','2016-10-15')");
         jdbcTemplate.update("insert into contract (guider_id,contract_id) values (1,1)");
         jdbcTemplate.update("insert into traveler (traveler_id, first_name, last_name, phone, gender, date_of_birth, street, house_number, postal_code, slogan, about_me, language, country, city, avatar_link)" +
                 "values (2,'Megan','Deo','123',2,'1996-02-13','a','12','12','a','a','{en,vi}','vietnam','hanoi','a')");
@@ -158,5 +158,30 @@ public class MailServiceImplTest {
                 "\n" +
                 "Sincerely,\n" +
                 "TravelWLocal", mailService.getMailContent(order, "FINISHED"));
+    }
+
+    @Test
+    public void acceptContractMailContent() throws Exception {
+        Assert.assertEquals("Dear Mr/Ms John Doe\n" +
+                "\n" +
+                "Your contract to become a guider has been accepted !\n" +
+                "\n" +
+                "Here is the information you have given us upon setting up the contract\n" +
+                "Name: John Doe\n" +
+                "Nationality: Vietnamese\n" +
+                "Date of birth (MM/dd/yyyy): 06/05/1993\n" +
+                "Gender: Male\n" +
+                "Hometown: Hanoi\n" +
+                "Address: a\n" +
+                "Identity Card Number: 123456\n" +
+                "Identity Card Issued Date: 04/05/2000\n" +
+                "Identity Card Issued Province: Hanoi\n" +
+                "If any information were mistakenly given, please contact us immediately.\n" +
+                "We also recommend to update your profile if you have not done it, so the customers can have a better understanding about you !\n" +
+                "\n" +
+                "Thank your for using our service.\n" +
+                "\n" +
+                "Sincerely,\n" +
+                "TravelWLocal", mailService.acceptContractMailContent(1));
     }
 }

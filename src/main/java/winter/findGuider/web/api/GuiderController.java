@@ -159,4 +159,16 @@ public class GuiderController {
             return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
         }
     }
+
+    @RequestMapping("/RejectContract")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Boolean> rejectContract(@RequestParam("contract_id") long contract_id) {
+        try {
+            guiderService.rejectContract(contract_id);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        }
+    }
 }

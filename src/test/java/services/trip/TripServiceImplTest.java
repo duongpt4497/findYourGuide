@@ -1,6 +1,7 @@
 
 package services.trip;
 
+import com.paypal.base.rest.PayPalRESTException;
 import entities.Order;
 import org.junit.Assert;
 import org.junit.Before;
@@ -46,8 +47,8 @@ public class TripServiceImplTest {
         jdbcTemplate.update("insert into category (category_id,name) values (1,'history')");
         jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
                 "values (1,'John','Doe',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
-        jdbcTemplate.update("insert into contract_detail (contract_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,account_active_date)" +
-                "values (1,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi','2016-10-15')");
+        jdbcTemplate.update("insert into contract_detail (contract_id,guider_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,account_active_date)" +
+                "values (1,1,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi','2016-10-15')");
         jdbcTemplate.update("insert into contract (guider_id,contract_id) values (1,1)");
         jdbcTemplate.update("insert into traveler (traveler_id, first_name, last_name, phone, gender, date_of_birth, street, house_number, postal_code, slogan, about_me, language, country, city, avatar_link)" +
                 "values (2,'Megan','Deo','123',2,'1996-02-13','a','12','12','a','a','{en,vi}','vietnam','hanoi','a')");
@@ -321,12 +322,22 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void orderFilter() throws Exception {
+    public void cancelTripFilter() throws Exception {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
                 "values (1,2,1,'2019-11-27T05:30','2019-11-22T07:00',1,1,150,'abc','UNCONFIRMED')");
         tripService.cancelTripFilter();
         Assert.assertEquals("CANCELLED", tripService.findTripById(1).getStatus());
+    }
+
+    @Test
+    public void finishTripFilter() throws Exception {
+        jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
+                "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
+        jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
+                "values (1,2,1,'2019-11-27T05:30',now() - INTERVAL '10 HOURS',1,1,150,'abc','ONGOING')");
+        tripService.finishTripFilter();
+        Assert.assertEquals("FINISHED", tripService.findTripById(1).getStatus());
     }
 }

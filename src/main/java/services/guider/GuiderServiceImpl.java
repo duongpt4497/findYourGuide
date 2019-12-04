@@ -77,7 +77,7 @@ public class GuiderServiceImpl implements GuiderService {
                         rs.getString("hometown"),
                         rs.getString("address"), rs.getString("identity_card_number"),
                         rs.getTimestamp("card_issued_date").toLocalDateTime(), rs.getString("card_issued_province"),
-                        rs.getTimestamp("account_active_date").toLocalDateTime(),
+                        (rs.getTimestamp("account_active_date") != null ? rs.getTimestamp("account_active_date").toLocalDateTime() : null),
                         (rs.getTimestamp("account_deactive_date") != null ? rs.getTimestamp("account_deactive_date").toLocalDateTime() : null));
                 return ct;
             }
@@ -99,8 +99,8 @@ public class GuiderServiceImpl implements GuiderService {
     @Override
     public long createGuiderContract(Contract contract) throws Exception {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        String query = "insert into contract_detail (name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province)" +
-                "values (?,?,?,?,?,?,?,?,?)";
+        String query = "insert into contract_detail (name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,guider_id)" +
+                "values (?,?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection
                     .prepareStatement(query, new String[]{"contract_id"});
@@ -113,6 +113,7 @@ public class GuiderServiceImpl implements GuiderService {
             ps.setString(7, contract.getIdentity_card_number());
             ps.setTimestamp(8, Timestamp.valueOf(contract.getCard_issued_date()));
             ps.setString(9, contract.getCard_issued_province());
+            ps.setLong(10, contract.getGuider_id());
             return ps;
         }, keyHolder);
         return (int) keyHolder.getKey();
@@ -235,7 +236,8 @@ public class GuiderServiceImpl implements GuiderService {
     @Override
     public List<Contract> getAllContract() throws Exception {
         List<Contract> list;
-        String query = "select * from contract_detail where account_active_date is null and contract_id not in (select contract_id from contract)";
+        String query = "select * from contract_detail where account_active_date is null and account_deactive_date is null " +
+                "and contract_id not in (select contract_id from contract)";
         list = jdbcTemplate.query(query, new RowMapper<Contract>() {
             @Override
             public Contract mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -247,5 +249,11 @@ public class GuiderServiceImpl implements GuiderService {
             }
         });
         return list;
+    }
+
+    @Override
+    public void rejectContract(long contract_id) throws Exception {
+        String query = "update contract_detail set account_deactive_date = now() where contract_id = ?";
+        jdbcTemplate.update(query, contract_id);
     }
 }

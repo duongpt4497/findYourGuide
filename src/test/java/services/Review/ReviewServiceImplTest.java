@@ -1,6 +1,7 @@
 package services.Review;
 
 import entities.Review;
+import entities.TravelerReview;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -86,5 +87,20 @@ public class ReviewServiceImplTest {
         reviewService.showHideReview(1);
         reviewService.showHideReview(1);
         Assert.assertEquals(true, reviewService.findReviewByOrderId(1).get(0).isVisible());
+    }
+
+    @Test
+    public void createTravelerReview() throws Exception {
+        TravelerReview review = new TravelerReview(2, 1, "abc");
+        reviewService.createTravelerReview(review);
+        int count = jdbcTemplate.queryForObject("select count(review_id) from travelerreviews where traveler_id = ?", new Object[]{2}, int.class);
+        Assert.assertEquals(1, count);
+    }
+
+    @Test
+    public void findReviewOfATraveler() throws Exception {
+        jdbcTemplate.update("insert into travelerreviews values (1,2,1,now(),'abc',true)");
+        jdbcTemplate.update("insert into travelerreviews values (2,2,1,now(),'abc',true)");
+        Assert.assertEquals(2, reviewService.findReviewOfATraveler(2).size());
     }
 }
