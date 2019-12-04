@@ -30,6 +30,7 @@ public class WebSocketNotificationController {
     private SimpMessagingTemplate simpMessagingTemplate;
 
 
+
     @MessageMapping("/exchange.sendNotification")
     public void sendMessage( @Payload Notification notification) {
         notificationRepositoryImpl.save(notification);
