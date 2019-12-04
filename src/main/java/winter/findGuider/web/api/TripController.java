@@ -43,7 +43,7 @@ public class TripController {
     @Autowired
     public TripController(TripService os, PaypalService ps, MailService ms,
                           ContributionPointService cps, GuiderService gs,
-                          AccountRepository ar, PostService postService) {
+                          AccountRepository ar, PostService postService,WebSocketNotificationController wsc) {
         this.tripService = os;
         this.paypalService = ps;
         this.mailService = ms;
@@ -51,6 +51,7 @@ public class TripController {
         this.guiderService = gs;
         this.accountRepository = ar;
         this.postService= postService;
+        this.webSocketNotificationController = wsc;
     }
 
     @RequestMapping("/GetAvailableHours")
@@ -121,7 +122,7 @@ public class TripController {
                     return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
                 }
             }
-            webSocketNotificationController = new WebSocketNotificationController();
+
             SimpleDateFormat formatter2nd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             Date current = formatter2nd.parse(formatter2nd.format(new Date()));
 
@@ -185,7 +186,7 @@ public class TripController {
                     return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
                 }
             }
-            webSocketNotificationController = new WebSocketNotificationController();
+
             SimpleDateFormat formatter2nd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             Date current = formatter2nd.parse(formatter2nd.format(new Date()));
 
@@ -231,7 +232,7 @@ public class TripController {
             }
             boolean result = tripService.acceptTrip(orderId);
             if (result) {
-                webSocketNotificationController = new WebSocketNotificationController();
+
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 Date current = formatter.parse(formatter.format(new Date()));
                 Order order = tripService.findTripById(orderId);
