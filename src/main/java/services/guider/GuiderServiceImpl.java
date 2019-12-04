@@ -99,8 +99,8 @@ public class GuiderServiceImpl implements GuiderService {
     @Override
     public long createGuiderContract(Contract contract) throws Exception {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        String query = "insert into contract_detail (name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province)" +
-                "values (?,?,?,?,?,?,?,?,?)";
+        String query = "insert into contract_detail (name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,guider_id)" +
+                "values (?,?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection
                     .prepareStatement(query, new String[]{"contract_id"});
@@ -113,6 +113,7 @@ public class GuiderServiceImpl implements GuiderService {
             ps.setString(7, contract.getIdentity_card_number());
             ps.setTimestamp(8, Timestamp.valueOf(contract.getCard_issued_date()));
             ps.setString(9, contract.getCard_issued_province());
+            ps.setLong(10, contract.getGuider_id());
             return ps;
         }, keyHolder);
         return (int) keyHolder.getKey();
