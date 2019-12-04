@@ -30,7 +30,7 @@ public class GuiderController {
         this.accountRepository = ar;
     }
 
-    @RequestMapping("/Create")
+    @RequestMapping("/CreateContract")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Boolean> createGuider(@RequestBody Contract newGuiderContract) {
         try {
