@@ -457,7 +457,7 @@ public class TripServiceImpl implements TripService {
     }
 
     //@Scheduled(cron = "0 0 * * * *")
-    @Scheduled(cron = "0 0/5 * 1/1 * ? *")
+    @Scheduled(cron = "0 0/5 * * * *")
     public void cancelTripFilter() throws PayPalRESTException {
         List<Map<String, Object>> lo = new ArrayList<>();
         String query = "select trip_id, transaction_id from trip "
@@ -476,7 +476,7 @@ public class TripServiceImpl implements TripService {
     }
     
     //@Scheduled(cron = "0 0 * * * *")
-    @Scheduled(cron = "0 0/5 * 1/1 * ? *")
+    @Scheduled(cron = "0 0/5 * * * *")
     public void finishTripFilter() throws PayPalRESTException {
         List<Map<String, Object>> lo = new ArrayList<>();
         String query = "select trip_id from trip "

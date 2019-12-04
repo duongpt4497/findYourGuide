@@ -76,7 +76,7 @@ public class ChatMessageRepositoryImpl implements ChatMessageRepositoryCus {
         return allChatMessages;
     }
 
-    @Scheduled(cron = "0 59 23 1/1 * ? *")
+    @Scheduled(cron = "0 59 23 * * *")
     public void putDataFromMongoToPostgres() throws ParseException {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:00");
         LocalDateTime now = LocalDateTime.now();
