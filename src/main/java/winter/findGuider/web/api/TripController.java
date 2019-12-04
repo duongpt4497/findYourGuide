@@ -122,6 +122,7 @@ public class TripController {
                     return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
                 }
             }
+
             SimpleDateFormat formatter2nd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             Date current = formatter2nd.parse(formatter2nd.format(new Date()));
 
@@ -185,6 +186,7 @@ public class TripController {
                     return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
                 }
             }
+
             SimpleDateFormat formatter2nd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             Date current = formatter2nd.parse(formatter2nd.format(new Date()));
 
