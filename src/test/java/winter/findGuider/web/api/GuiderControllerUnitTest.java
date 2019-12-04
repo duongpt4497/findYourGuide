@@ -200,4 +200,19 @@ public class GuiderControllerUnitTest {
         ResponseEntity<List<Contract>> result = guiderController.getAllContract();
         Assert.assertEquals(404, result.getStatusCodeValue());
     }
+
+    @Test
+    public void testRejectContract() {
+        ResponseEntity<Boolean> result = guiderController.rejectContract( 1);
+        Assert.assertEquals(200, result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testRejectContractWithException() throws Exception {
+        //when(guiderService.linkGuiderWithContract(1,1)).thenThrow(Exception.class);
+        ReflectionTestUtils.setField(guiderController, "guiderService", null);
+
+        ResponseEntity<Boolean> result = guiderController.rejectContract( 1);
+        Assert.assertEquals(404, result.getStatusCodeValue());
+    }
 }
