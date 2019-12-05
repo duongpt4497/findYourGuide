@@ -67,7 +67,8 @@ public class GuiderServiceImpl implements GuiderService {
     @Override
     public Contract findGuiderContract(long id) throws Exception {
         Contract result = new Contract();
-        String query = "select contract_detail.* from contract_detail inner join contract on contract.guider_id = ?";
+        String query = "select contract_detail.* from contract_detail, contract " +
+                "where contract_detail.guider_id = contract.guider_id and contract.guider_id = ?";
         result = jdbcTemplate.queryForObject(query, new RowMapper<Contract>() {
             @Override
             public Contract mapRow(ResultSet rs, int rowNum) throws SQLException {
