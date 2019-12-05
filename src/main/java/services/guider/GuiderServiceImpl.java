@@ -215,6 +215,10 @@ public class GuiderServiceImpl implements GuiderService {
             // update active date
             String query2 = "update contract_detail set account_active_date = ? where contract_id = ?";
             jdbcTemplate.update(query2, Timestamp.valueOf(LocalDateTime.now()), contract_id);
+
+            // activate guider
+            String query3 = "update guider set active = true where guider_id = ?";
+            jdbcTemplate.update(query3, guider_id);
         } else {
             // if old guider update their contract
             // de-active old contract
