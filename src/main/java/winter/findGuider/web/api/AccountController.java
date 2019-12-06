@@ -34,7 +34,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
  */
 @RestController
 @RequestMapping(path = "/account")
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001"})
+@CrossOrigin(origins = {"http://localhost:3000"})
 public class AccountController {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
@@ -76,8 +76,8 @@ public class AccountController {
     @PostMapping(path = "registrator", consumes = "application/json")
     public ResponseEntity registerUserAccount(@RequestBody Account acc, HttpServletResponse response
     ) {
-        response.setHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
-        response.setHeader("Access-Control-Allow-Credentials", "true");
+        //response.setHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
+        //response.setHeader("Access-Control-Allow-Credentials", "true");
         Account registered = null;
         acc.setToken("");
         acc.setExpired(new Date());
