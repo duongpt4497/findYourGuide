@@ -46,7 +46,7 @@ public class AccountRepository {
     }
 
     public String findAccountNameByAccountId(int account_id) throws Exception {
-        Account account =  jdbc.queryForObject("select * from account where account_id=?", new RowMapper<Account>() {
+        Account account = jdbc.queryForObject("select * from account where account_id=?", new RowMapper<Account>() {
             @Override
             public Account mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Account(
@@ -75,7 +75,7 @@ public class AccountRepository {
         }, keyHolder);
         return (int) keyHolder.getKey();
     }
-    
+
     public int changePassword(String name, String pass) throws Exception {
         String query = "update account set password = ? where user_name = ? ; ";
         return jdbc.update(query, pass, name);
@@ -88,12 +88,12 @@ public class AccountRepository {
 
     public List<Account> findAllAccount() throws Exception {
         List<Account> result = new ArrayList<>();
-        String query = "select account_id, user_name, email, role from account";
+        String query = "SELECT account_id, user_name, email, role, active FROM account left join guider on account_id = guider_id";
         result = jdbc.query(query, new RowMapper<Account>() {
             @Override
             public Account mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Account(rs.getInt("account_id"), rs.getString("user_name"),
-                        rs.getString("email"), rs.getString("role"));
+                        rs.getString("email"), rs.getString("role"), rs.getBoolean("status"));
             }
         });
         return result;

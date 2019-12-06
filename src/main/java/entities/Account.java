@@ -31,6 +31,8 @@ public class Account {
     private String token;
     private Date expired;
     private String rePassword;
+    private boolean status;
+
     public Account(long id, String userName, String password, String role, String token, Date expired) {
         this.id = id;
         this.userName = userName;
@@ -39,7 +41,7 @@ public class Account {
         this.token = token;
         this.expired = expired;
     }
-    
+
     public Account(String password, String rePassword) {
         this.password = password;
         this.rePassword = rePassword;
@@ -57,7 +59,6 @@ public class Account {
         this.id = id;
         this.userName = userName;
         this.role = role;
-
     }
 
     public Account() {
@@ -81,6 +82,14 @@ public class Account {
         this.userName = userName;
         this.email = email;
         this.role = role;
+    }
+
+    public Account(long id, String userName, String email, String role, boolean status) {
+        this.id = id;
+        this.userName = userName;
+        this.email = email;
+        this.role = role;
+        this.status = status;
     }
 
     public String getEmail() {
@@ -114,7 +123,7 @@ public class Account {
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     public String getRePassword() {
         return rePassword;
     }
@@ -145,5 +154,13 @@ public class Account {
 
     public void setExpired(Date expired) {
         this.expired = expired;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

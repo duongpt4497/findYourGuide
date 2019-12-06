@@ -2514,3 +2514,86 @@ java.lang.IllegalArgumentException: SQL array must not be empty
 2019-Dec-06 15:11:11 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
 2019-Dec-06 15:11:11 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
 2019-Dec-06 15:11:11 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 16:31:52 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 16:31:52 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 16:31:52 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 16:31:52 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 16:32:06 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-06 16:32:07 ERROR [http-nio-8080-exec-2] s.GeneralServiceImpl - createSqlArray0
+2019-Dec-06 16:35:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-06 16:35:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-06 16:39:01 WARN  [http-nio-8080-exec-6] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content type 'multipart/form-data;boundary=--------------------------502844217033762401071175;charset=UTF-8' not supported]
+2019-Dec-06 16:39:24 WARN  [http-nio-8080-exec-7] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content type 'multipart/form-data;boundary=--------------------------000385436204190504885114;charset=UTF-8' not supported]
+2019-Dec-06 16:40:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-06 16:40:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-06 16:45:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-06 16:45:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-06 16:50:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-06 16:50:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-06 16:55:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-06 16:55:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-06 17:00:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-06 17:00:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-06 17:00:00 WARN  [MessageBroker-4] s.c.ContributionPointServiceImpl - []
+2019-Dec-06 17:00:00 ERROR [MessageBroker-4] o.s.s.s.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task.
+java.lang.IllegalArgumentException: SQL array must not be empty
+	at org.springframework.util.Assert.notEmpty(Assert.java:372)
+	at org.springframework.jdbc.core.JdbcTemplate.batchUpdate(JdbcTemplate.java:528)
+	at services.contributionPoint.ContributionPointServiceImpl.updateContributionbyDay(ContributionPointServiceImpl.java:98)
+	at services.contributionPoint.ContributionPointServiceImpl$$FastClassBySpringCGLIB$$35d30e73.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:750)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:689)
+	at services.contributionPoint.ContributionPointServiceImpl$$EnhancerBySpringCGLIB$$782e54e1.updateContributionbyDay(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2019-Dec-06 17:12:32 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 17:12:32 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 17:12:33 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 17:12:33 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 17:12:51 WARN  [http-nio-8080-exec-3] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content type 'application/x-www-form-urlencoded;charset=UTF-8' not supported]
+2019-Dec-06 17:14:07 ERROR [http-nio-8080-exec-5] w.f.w.a.GuiderController - PreparedStatementCallback; ERROR: insert or update on table "contract_detail" violates foreign key constraint "fk_contractdetail_guider"
+  Detail: Key (guider_id)=(10) is not present in table "guider".; nested exception is org.postgresql.util.PSQLException: ERROR: insert or update on table "contract_detail" violates foreign key constraint "fk_contractdetail_guider"
+  Detail: Key (guider_id)=(10) is not present in table "guider".
+2019-Dec-06 17:15:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-06 17:15:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-06 17:15:02 WARN  [http-nio-8080-exec-8] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.multipart.support.MissingServletRequestPartException: Required request part 'file' is not present]
+2019-Dec-06 17:16:53 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 17:16:53 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 17:16:53 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 17:16:53 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 17:18:21 ERROR [http-nio-8080-exec-10] w.f.w.a.GuiderController - class path resource [src/main/resources/static/document/37589515592138752.pdf] cannot be resolved to URL because it does not exist
+2019-Dec-06 17:21:17 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 17:21:17 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 17:21:17 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 17:21:17 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 17:21:29 ERROR [http-nio-8080-exec-2] w.f.w.a.GuiderController - class path resource [localhost:8080/document/37589515592138752.pdf] cannot be resolved to URL because it does not exist
+2019-Dec-06 17:23:23 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 17:23:23 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 17:23:23 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 17:23:23 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 17:23:29 ERROR [http-nio-8080-exec-1] w.f.w.a.GuiderController - class path resource [src/main/resources/static/document//document/37589515592138752.pdf] cannot be resolved to URL because it does not exist
+2019-Dec-06 17:24:21 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 17:24:21 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 17:24:21 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 17:24:21 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-06 17:24:27 ERROR [http-nio-8080-exec-2] w.f.w.a.GuiderController - class path resource [http://localhost:8080/document/37589515592138752.pdf] cannot be resolved to URL because it does not exist
+2019-Dec-06 17:25:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-06 17:25:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-06 17:30:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-06 17:30:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
