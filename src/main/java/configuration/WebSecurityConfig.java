@@ -50,6 +50,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${order.client.root.url}")
     private String URL_ROOT_CLIENT;
 
+    @Value("${order.client.root.url2}")
+    private String URL_ROOT_CLIENT2;
 
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -76,7 +78,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     CorsConfigurationSource corsConfigurationSource() {
         System.out.println("to cors");
         CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
-        configuration.setAllowedOrigins(Arrays.asList(URL_ROOT_CLIENT));
+        configuration.setAllowedOrigins(Arrays.asList(URL_ROOT_CLIENT, URL_ROOT_CLIENT2));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "OPTION"));
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
