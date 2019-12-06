@@ -93,7 +93,7 @@ public class AccountRepository {
             @Override
             public Account mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Account(rs.getInt("account_id"), rs.getString("user_name"),
-                        rs.getString("email"), rs.getString("role"), rs.getBoolean("status"));
+                        rs.getString("email"), rs.getString("role"), rs.getBoolean("active"));
             }
         });
         return result;
