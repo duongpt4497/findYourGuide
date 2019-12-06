@@ -75,6 +75,11 @@ public class AccountRepository {
         }, keyHolder);
         return (int) keyHolder.getKey();
     }
+    
+    public int changePassword(String name, String pass) throws Exception {
+        String query = "update account set password = ? where user_name = ? ; ";
+        return jdbc.update(query, pass, name);
+    }
 
     public String getEmail(int account_id) throws Exception {
         String query = "select email from account where account_id = ?";

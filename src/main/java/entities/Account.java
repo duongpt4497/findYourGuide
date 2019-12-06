@@ -30,7 +30,7 @@ public class Account {
     private String role;
     private String token;
     private Date expired;
-
+    private String rePassword;
     public Account(long id, String userName, String password, String role, String token, Date expired) {
         this.id = id;
         this.userName = userName;
@@ -38,6 +38,11 @@ public class Account {
         this.role = role;
         this.token = token;
         this.expired = expired;
+    }
+    
+    public Account(String password, String rePassword) {
+        this.password = password;
+        this.rePassword = rePassword;
     }
 
     public Account(long id, String userName, String password, String email, String role) {
@@ -108,6 +113,14 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public String getRePassword() {
+        return rePassword;
+    }
+
+    public void setRePassword(String password) {
+        this.rePassword = password;
     }
 
     public String getRole() {

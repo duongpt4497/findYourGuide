@@ -24,7 +24,8 @@ public class LocationServiceImpl implements LocationService {
             public Location mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Location(
                         resultSet.getInt("location_id"),
-                        resultSet.getString("place")
+                        resultSet.getString("place"),
+                        resultSet.getString("city")
                 );
             }
         });

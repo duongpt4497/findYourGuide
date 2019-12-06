@@ -30,7 +30,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(path = "/account")
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000")
 public class AccountController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     private UserService userService;
@@ -52,7 +52,7 @@ public class AccountController {
 
     @PostMapping(path = "registrator", consumes = "application/json")
     public ResponseEntity registerUserAccount(@RequestBody Account acc, HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
+        response.setHeader("Access-Control-Allow-Origin", "http://" + URL_ROOT_CLIENT);
         response.setHeader("Access-Control-Allow-Credentials", "true");
         Account registered = null;
         acc.setToken("");

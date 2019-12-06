@@ -16,6 +16,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Value;
 
 @Repository
 public class GeneralServiceImpl implements GeneralService {
@@ -26,7 +27,8 @@ public class GeneralServiceImpl implements GeneralService {
     private static volatile long sequence = 0L;
     private Logger logger = LoggerFactory.getLogger(getClass());
     private JdbcTemplate jdbcTemplate;
-
+    @Value("${order.server.root.url}")
+    private String URL_ROOT_SERVER;
 
     @Autowired
     public GeneralServiceImpl(JdbcTemplate jdbcTemplate) {
@@ -38,10 +40,10 @@ public class GeneralServiceImpl implements GeneralService {
         java.sql.Array intArray = null;
         try {
             Connection conn = jdbcTemplate.getDataSource().getConnection();
-            System.out.println("Schema:  " + conn.getSchema());
+            System.out.println("Schema:  " + conn.getSchema() + list.get(0));
             intArray = conn.createArrayOf("text", list.toArray());
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.error("createSqlArray" + e.getMessage());
         }
         return intArray;
     }
@@ -70,7 +72,7 @@ public class GeneralServiceImpl implements GeneralService {
                 Long uniqueIds = generateLongId();
                 Path destinationFile = Paths.get("./src/main/resources/static/images/", uniqueIds.toString() + ".jpg");
                 Files.write(destinationFile, data);
-                imageUrls.add("./src/main/resources/static/images/" + uniqueIds.toString() + ".jpg");
+                imageUrls.add(URL_ROOT_SERVER+"/images/" + uniqueIds.toString() + ".jpg");
             }
         } catch (Exception e) {
             logger.error(e.getMessage());

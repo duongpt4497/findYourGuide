@@ -36,7 +36,7 @@ public class PlanController {
     @RequestMapping("/update")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Plan> updatePlan(@RequestBody Plan plan) {
-        try {
+        try {   
             planService.updatePlan(plan.getPost_id(), plan.getMeeting_point(), plan.getDetail());
             return new ResponseEntity<>(planService.searchPlanByPostId(plan.getPost_id()), HttpStatus.OK);
         } catch (Exception e) {

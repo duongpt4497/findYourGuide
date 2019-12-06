@@ -72,9 +72,10 @@ public class PostController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Integer> insertNewPost(@RequestParam("guider_id") long guider_id, @RequestBody Post post) {
         try {
+            System.out.println(post.getCategory());
             return new ResponseEntity(postService.insertNewPost(guider_id, post), HttpStatus.OK);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.error(post.getCategory()+e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }

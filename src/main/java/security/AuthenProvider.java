@@ -39,6 +39,13 @@ public class AuthenProvider implements AuthenticationProvider {
         this.userService = userService;
         this.encoder = encoder;
     }
+
+    public PasswordEncoder getEncoder() {
+        return encoder;
+    }
+
+    
+    
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         System.out.println("to AuthProvider");
