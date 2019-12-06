@@ -44,7 +44,6 @@ public class Post {
     }
 
     public Post(String title, String video_link, String[] picture_link, int total_hour, String description, String[] including_service, boolean active, String location, float price, float rated, String reasons,String category) {
-
         this.title = title;
         this.video_link = video_link;
         this.picture_link = picture_link;
@@ -102,7 +101,7 @@ public class Post {
         this.authorized = authorized;
     }
 
-    public Post(long post_id, String title, String video_link, @NotNull String[] picture_link, int total_hour, String description, String[] including_service, String location, String category, long price, long rated, String reasons) {
+    public Post(long post_id, String title, String video_link, @NotNull String[] picture_link, int total_hour, String description, String[] including_service, String location, String category, long price, long rated, String reasons, boolean authorized) {
         this.post_id = post_id;
         this.title = title;
         this.video_link = video_link;
@@ -115,6 +114,7 @@ public class Post {
         this.price = price;
         this.rated = rated;
         this.reasons = reasons;
+        this.authorized = authorized;
     }
 
     public Post() {
