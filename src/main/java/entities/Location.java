@@ -3,11 +3,14 @@ package entities;
 public class Location {
     private long location_id;
     private String location;
+    private String city;
 
-    public Location(long location_id, String location) {
+    public Location(long location_id, String location, String city) {
         this.location_id = location_id;
         this.location = location;
+        this.city = city;
     }
+    
 
     public long getLocation_id() {
         return location_id;

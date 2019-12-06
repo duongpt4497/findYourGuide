@@ -3,6 +3,7 @@ package winter.findGuider.web.api;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
+import entities.Notification;
 import entities.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,13 +15,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import services.Mail.MailService;
 import services.Paypal.PaypalService;
+import services.Post.PostService;
 import services.account.AccountRepository;
 import services.trip.TripService;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.logging.Level;
+import java.util.Date;
 
 @RestController
 @RequestMapping(path = "/Payment", produces = "application/json")
@@ -39,14 +42,18 @@ public class PaypalController {
     private TripService tripService;
     private MailService mailService;
     private AccountRepository accountRepository;
+
+    private PostService postService;
+    private WebSocketNotificationController webSocketNotificationController;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    public PaypalController(PaypalService ps, TripService ots, MailService ms, AccountRepository ar) {
+    public PaypalController(PaypalService ps, TripService ots, MailService ms, AccountRepository ar,PostService postService) {
         this.paypalService = ps;
         this.tripService = ots;
         this.mailService = ms;
         this.accountRepository = ar;
+        this.postService = postService;
     }
 
     @RequestMapping("/Pay")
@@ -115,10 +122,24 @@ public class PaypalController {
             String transaction_id = payment.getTransactions().get(0).getRelatedResources().get(0).getSale().getId();
             order.setTransaction_id(transaction_id);
             if (payment.getState().equals("approved")) {
+                webSocketNotificationController = new WebSocketNotificationController();
                 paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, true);
                 tripService.createTrip(order);
                 String email = accountRepository.getEmail(order.getTraveler_id());
                 String content = mailService.getMailContent(order, "UNCONFIRMED");
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                Date current = formatter.parse(formatter.format(new Date()));
+
+                String traveler_username= accountRepository.findAccountNameByAccountId(order.getTraveler_id());
+                String guider_username = accountRepository.findAccountNameByAccountId(order.getGuider_id());
+                Notification notification = new Notification();
+                notification.setUser(traveler_username);
+                notification.setReceiver(guider_username);
+                notification.setType("Notification");
+                notification.setSeen(false);
+                notification.setDateReceived(current);
+                notification.setContent("You have a booking reservation on tour "+ postService.findSpecificPost(order.getPost_id()).getTitle() +" from "+ traveler_username );
+                webSocketNotificationController.sendMessage(notification);
                 mailService.sendMail(email, "TravelWLocal Tour Information", content);
                 URI result = new URI(URL_ROOT_CLIENT + CHATBOX_PATH + order.getPost_id() + "/booking_success");
                 httpHeaders.setLocation(result);

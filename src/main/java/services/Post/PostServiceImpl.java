@@ -29,7 +29,9 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> findAllPostOfOneGuider(long guider_id) throws Exception {
-        return jdbcTemplate.query("select * from post where guider_id = ?", new RowMapper<Post>() {
+        return jdbcTemplate.query("select * from post "
+                +  " where active = true " 
+                + " and guider_id = ?", new RowMapper<Post>() {
             @Override
             public Post mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Post(
@@ -55,7 +57,9 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> findAllPostByCategoryId(long category_id) throws Exception {
-        return jdbcTemplate.query("select * from post where category_id = ?", new RowMapper<Post>() {
+        return jdbcTemplate.query("select * from post "
+                +  " where active = true " 
+                + " and category_id = ?", new RowMapper<Post>() {
             @Override
             public Post mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Post(
@@ -81,7 +85,10 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post findSpecificPost(long post_id) throws Exception {
-        return jdbcTemplate.queryForObject("select * from  post as p, locations as l,category as c where c.category_id = p.category_id and p.location_id = l.location_id and p.post_id = ?", new RowMapper<Post>() {
+        return jdbcTemplate.queryForObject("select * from  post as p, locations as l,category as c "
+                + " where c.category_id = p.category_id and "
+                +  " p.active = true  and " 
+                + " p.location_id = l.location_id and p.post_id = ?", new RowMapper<Post>() {
             @Override
             public Post mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Post(
@@ -114,7 +121,7 @@ public class PostServiceImpl implements PostService {
                 "inner join locations on post.location_id = locations.location_id " +
                 "inner join category on post.category_id = category.category_id " +
                 "inner join account on post.guider_id = account.account_id " +
-                "where post.active = true " +
+                " where post.active = true " +
                 "and (upper(first_name) like " + name +
                 " or upper(last_name) like " + name +
                 " or upper(user_name) like " + name + ")";
@@ -165,13 +172,13 @@ public class PostServiceImpl implements PostService {
     @Override
     public void updatePost(long post_id, Post post) throws Exception {
         String query = "update post set title = ?, picture_link = ?, video_link = ?, total_hour = ?, description = ?, " +
-                "including_service = ?, active = ?, location_id = ?, category_id = ?, rated = ?, price = ?, reasons = ? " +
+                "including_service = ?, active = ?, location_id = ?, category_id = ?,  price = ?, reasons = ? " +
                 "where post_id = ? and authorized = true";
         jdbcTemplate.update(query, post.getTitle(),
                 generalService.createSqlArray(generalService.convertBase64toImageAndChangeName(post.getPicture_link())),
                 post.getVideo_link(), post.getTotal_hour(), post.getDescription(),
                 generalService.createSqlArray(Arrays.asList(post.getIncluding_service())),
-                post.isActive(), post.getLocation_id(), post.getCategory_id(), post.getRated(),
+                post.isActive(), Integer.parseInt(post.getLocation()),Integer.parseInt(post.getCategory()), 
                 post.getPrice(), post.getReasons(), post_id);
     }
 
@@ -179,14 +186,14 @@ public class PostServiceImpl implements PostService {
     public int insertNewPost(long guider_id, Post post) throws Exception {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         String query = "INSERT INTO public.post(" +
-                "guider_id, location_id,category_id, title, video_link, picture_link, total_hour, description, including_service, active,price,rated,reasons)" +
+                "guider_id, location_id, category_id, title, video_link, picture_link, total_hour, description, including_service, active,price,rated,reasons)" +
                 "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?)";
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection
                     .prepareStatement(query, new String[]{"post_id"});
             ps.setLong(1, guider_id);
-            ps.setLong(2, post.getLocation_id());
-            ps.setLong(3, post.getCategory_id());
+            ps.setLong(2, Integer.parseInt(post.getLocation()));       
+            ps.setLong(3, Integer.parseInt(post.getCategory()));
             ps.setString(4, post.getTitle());
             ps.setString(5, post.getVideo_link());
             ps.setArray(6, generalService.createSqlArray(generalService.convertBase64toImageAndChangeName(post.getPicture_link())));
@@ -204,7 +211,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> getTopTour() throws Exception {
-        return jdbcTemplate.query("SELECT * FROM post order by rated desc limit 6", new RowMapper<Post>() {
+        return jdbcTemplate.query("SELECT * FROM post where active = true  order by rated desc limit 6", new RowMapper<Post>() {
             @Override
             public Post mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Post(

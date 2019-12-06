@@ -56,7 +56,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
         String token = TokenHelper.createToken(authResult.getPrincipal().toString());
-        response.addHeader("Access-Control-Allow-Origin", "http://" + URL_ROOT_CLIENT);
+        response.addHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
         response.addHeader("Access-Control-Allow-Credentials", "true");
         response.setStatus(HttpServletResponse.SC_OK);
         Cookie sidCookie = new Cookie("token", token);

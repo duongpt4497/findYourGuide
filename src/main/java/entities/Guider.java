@@ -18,6 +18,7 @@ public class Guider {
     private long rated;
     private String avatar;
     private String passion;
+    private String name;
 
     public Guider() {
     }
@@ -37,6 +38,25 @@ public class Guider {
         this.avatar = avatar;
         this.passion = passion;
     }
+
+    public Guider(long guider_id, String first_name, String last_name, int age, String phone, String about_me, long contribution, String city, String[] languages, boolean active, long rated, String avatar, String passion, String name) {
+        this.guider_id = guider_id;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.age = age;
+        this.phone = phone;
+        this.about_me = about_me;
+        this.contribution = contribution;
+        this.city = city;
+        this.languages = languages;
+        this.active = active;
+        this.rated = rated;
+        this.avatar = avatar;
+        this.passion = passion;
+        this.name = name;
+    }
+    
+    
 
     public long getGuider_id() {
         return guider_id;

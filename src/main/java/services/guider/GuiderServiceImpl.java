@@ -33,7 +33,9 @@ public class GuiderServiceImpl implements GuiderService {
     @Override
     public Guider findGuiderWithID(long id) throws Exception {
         Guider result = new Guider();
-        String query = "select * from guider where guider_id = ?";
+        String query = "select g1.*, a2.user_name from guider as g1 inner join "
+                + " account as a2 on g1.guider_id = a2.account_id "
+                + " where g1.guider_id = ? ";
         result = jdbcTemplate.queryForObject(query, new RowMapper<Guider>() {
             public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Guider(rs.getLong("guider_id"), rs.getString("first_name"),
@@ -42,7 +44,7 @@ public class GuiderServiceImpl implements GuiderService {
                         rs.getLong("contribution"), rs.getString("city"),
                         generalService.checkForNull(rs.getArray("languages")),
                         rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avatar"),
-                        rs.getString("passion"));
+                        rs.getString("passion"), rs.getString("user_name"));
             }
         }, id);
         return result;

@@ -67,7 +67,7 @@ public class TravelerServiceImpl implements TravelerService {
         jdbcTemplate.update(query, travelerNeedUpdate.getFirst_name(), travelerNeedUpdate.getLast_name(),
                 travelerNeedUpdate.getPhone(), travelerNeedUpdate.getGender(),
                 Timestamp.valueOf(travelerNeedUpdate.getDate_of_birth()), travelerNeedUpdate.getStreet(),
-                travelerNeedUpdate.getHouse_number(), travelerNeedUpdate.getPostal_code(), travelerNeedUpdate.getSlogan(),
+                travelerNeedUpdate.getHouse_number(), travelerNeedUpdate.getSlogan(), travelerNeedUpdate.getPostal_code(),
                 travelerNeedUpdate.getAbout_me(), generalService.createSqlArray(Arrays.asList(travelerNeedUpdate.getLanguage())),
                 travelerNeedUpdate.getCountry(), travelerNeedUpdate.getCity(), travelerNeedUpdate.getAvatar_link(),
                 travelerNeedUpdate.getTraveler_id());

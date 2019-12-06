@@ -45,6 +45,20 @@ public class AccountRepository {
         }, name);
     }
 
+    public String findAccountNameByAccountId(int account_id) throws Exception {
+        Account account =  jdbc.queryForObject("select * from account where account_id=?", new RowMapper<Account>() {
+            @Override
+            public Account mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new Account(
+                        rs.getLong("account_id"),
+                        rs.getString("user_name"),
+                        rs.getString("email"),
+                        rs.getString("role"));
+            }
+        }, account_id);
+        return account.getUserName();
+    }
+
     public int addAccount(Account acc) throws Exception {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         String query = " INSERT INTO public.account( "
@@ -60,6 +74,11 @@ public class AccountRepository {
             return ps;
         }, keyHolder);
         return (int) keyHolder.getKey();
+    }
+    
+    public int changePassword(String name, String pass) throws Exception {
+        String query = "update account set password = ? where user_name = ? ; ";
+        return jdbc.update(query, pass, name);
     }
 
     public String getEmail(int account_id) throws Exception {
