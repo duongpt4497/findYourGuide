@@ -5,6 +5,7 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +17,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Value;
 
 @Repository
 public class GeneralServiceImpl implements GeneralService {
@@ -72,7 +72,7 @@ public class GeneralServiceImpl implements GeneralService {
                 Long uniqueIds = generateLongId();
                 Path destinationFile = Paths.get("./src/main/resources/static/images/", uniqueIds.toString() + ".jpg");
                 Files.write(destinationFile, data);
-                imageUrls.add(URL_ROOT_SERVER+"/images/" + uniqueIds.toString() + ".jpg");
+                imageUrls.add(URL_ROOT_SERVER + "/images/" + uniqueIds.toString() + ".jpg");
             }
         } catch (Exception e) {
             logger.error(e.getMessage());
