@@ -29,4 +29,8 @@ public interface GuiderService {
     List<Guider> getTopGuiderByContribute() throws Exception;
 
     void linkGuiderWithContract(long guider_id, long contract_id) throws Exception;
+
+    List<Contract> getAllContract() throws Exception;
+
+    void rejectContract(long contract_id) throws Exception;
 }

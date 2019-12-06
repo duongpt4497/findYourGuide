@@ -3,7 +3,9 @@ package services.Mail;
 import entities.Order;
 
 public interface MailService {
-    public boolean sendMail(String email, String subject, String content) throws Exception;
+    boolean sendMail(String email, String subject, String content) throws Exception;
 
-    public String getMailContent(Order order, String orderStatus) throws Exception;
+    String getMailContent(Order order, String orderStatus) throws Exception;
+
+    String acceptContractMailContent(long guider_id) throws Exception;
 }

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import services.Mail.MailService;
+import services.account.AccountRepository;
 import services.guider.GuiderService;
 
 import java.util.List;
@@ -18,19 +20,22 @@ import java.util.List;
 public class GuiderController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     private GuiderService guiderService;
+    private MailService mailService;
+    private AccountRepository accountRepository;
 
     @Autowired
-    public GuiderController(GuiderService gs) {
+    public GuiderController(GuiderService gs, MailService ms, AccountRepository ar) {
         this.guiderService = gs;
+        this.mailService = ms;
+        this.accountRepository = ar;
     }
 
-    @RequestMapping("/Create")
+    @RequestMapping("/CreateContract")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Guider> createGuider(@RequestBody Guider newGuider, @RequestBody Contract newGuiderContract) {
+    public ResponseEntity<Boolean> createGuider(@RequestBody Contract newGuiderContract) {
         try {
-            long guider_id = guiderService.createGuider(newGuider);
-            long contract_id = guiderService.createGuiderContract(newGuiderContract);
-            return new ResponseEntity<>(guiderService.findGuiderWithID(guider_id), HttpStatus.OK);
+            guiderService.createGuiderContract(newGuiderContract);
+            return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -129,11 +134,37 @@ public class GuiderController {
         }
     }
 
+    @RequestMapping("/getAllContract")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Contract>> getAllContract() {
+        try {
+            return new ResponseEntity<>(guiderService.getAllContract(), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
     @RequestMapping("/AcceptContract")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Boolean> acceptContract(@RequestParam("guider_id") long guider_id, @RequestParam("contract_id") long contract_id) {
         try {
             guiderService.linkGuiderWithContract(guider_id, contract_id);
+            String email = accountRepository.getEmail((int) guider_id);
+            String content = mailService.acceptContractMailContent(guider_id);
+            mailService.sendMail(email, "Your TravelWLocal Contract Was Accepted", content);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/RejectContract")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Boolean> rejectContract(@RequestParam("contract_id") long contract_id) {
+        try {
+            guiderService.rejectContract(contract_id);
             return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());

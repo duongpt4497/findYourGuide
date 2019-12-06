@@ -1,6 +1,7 @@
 package winter.findGuider.web.api;
 
 import entities.Review;
+import entities.TravelerReview;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +82,29 @@ public class ReviewController {
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/createTravelerReview")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Boolean> createTravelerReview(@RequestBody TravelerReview review) {
+        try {
+            reviewService.createTravelerReview(review);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/showTravelerReview")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<TravelerReview>> showTravelerReview(@RequestParam("traveler_id") long traveler_id) {
+        try {
+            return new ResponseEntity<>(reviewService.findReviewOfATraveler(traveler_id), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 }

@@ -38,7 +38,7 @@ public class GuiderControllerUnitTest {
     public void testCreateGuider() {
         Guider guider = Mockito.mock(Guider.class);
         Contract Contract = Mockito.mock(Contract.class);
-        guiderController.createGuider(guider, Contract);
+        guiderController.createGuider(Contract);
     }
 
     @Test(expected = AssertionError.class)
@@ -48,7 +48,7 @@ public class GuiderControllerUnitTest {
             Guider guider = Mockito.mock(Guider.class);
             Contract Contract = Mockito.mock(Contract.class);
             when(guiderService.createGuider(guider)).thenThrow(Exception.class);
-            ResponseEntity<Guider> responseEntity = guiderController.createGuider(guider, Contract);
+            ResponseEntity<Boolean> responseEntity = guiderController.createGuider(Contract);
         } catch (Exception e) {
             Assert.assertThat(e.getMessage(), containsString("whatever"));
         }

@@ -24,9 +24,10 @@ public class TestDataSourceConfig {
         jdbcTemplate.update("delete from plan");
         jdbcTemplate.update("delete from favoritepost");
         jdbcTemplate.update("delete from post");
+        jdbcTemplate.update("delete from travelerreviews");
         jdbcTemplate.update("delete from contract");
-        jdbcTemplate.update("delete from guider");
         jdbcTemplate.update("delete from contract_detail");
+        jdbcTemplate.update("delete from guider");
         jdbcTemplate.update("delete from traveler");
         jdbcTemplate.update("delete from locations");
         jdbcTemplate.update("delete from category");

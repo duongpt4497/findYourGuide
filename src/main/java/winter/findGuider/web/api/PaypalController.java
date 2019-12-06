@@ -48,12 +48,13 @@ public class PaypalController {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    public PaypalController(PaypalService ps, TripService ots, MailService ms, AccountRepository ar,PostService postService) {
+    public PaypalController(PaypalService ps, TripService ots, MailService ms, AccountRepository ar,PostService postService,WebSocketNotificationController wsc) {
         this.paypalService = ps;
         this.tripService = ots;
         this.mailService = ms;
         this.accountRepository = ar;
         this.postService = postService;
+        this.webSocketNotificationController = wsc;
     }
 
     @RequestMapping("/Pay")
@@ -122,24 +123,25 @@ public class PaypalController {
             String transaction_id = payment.getTransactions().get(0).getRelatedResources().get(0).getSale().getId();
             order.setTransaction_id(transaction_id);
             if (payment.getState().equals("approved")) {
-                webSocketNotificationController = new WebSocketNotificationController();
+
                 paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, true);
                 tripService.createTrip(order);
+                // TODO notification
+//                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+//                Date current = formatter.parse(formatter.format(new Date()));
+//                String traveler_username= accountRepository.findAccountNameByAccountId(order.getTraveler_id());
+//                String guider_username = accountRepository.findAccountNameByAccountId(order.getGuider_id());
+//                Notification notification = new Notification();
+//                notification.setUser(traveler_username);
+//                notification.setReceiver(guider_username);
+//                notification.setType("Notification");
+//                notification.setSeen(false);
+//                notification.setDateReceived(current);
+//                notification.setContent("You have a booking reservation on tour "+ postService.findSpecificPost(order.getPost_id()).getTitle() +" from "+ traveler_username );
+//                webSocketNotificationController.sendMessage(notification);
+
                 String email = accountRepository.getEmail(order.getTraveler_id());
                 String content = mailService.getMailContent(order, "UNCONFIRMED");
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                Date current = formatter.parse(formatter.format(new Date()));
-
-                String traveler_username= accountRepository.findAccountNameByAccountId(order.getTraveler_id());
-                String guider_username = accountRepository.findAccountNameByAccountId(order.getGuider_id());
-                Notification notification = new Notification();
-                notification.setUser(traveler_username);
-                notification.setReceiver(guider_username);
-                notification.setType("Notification");
-                notification.setSeen(false);
-                notification.setDateReceived(current);
-                notification.setContent("You have a booking reservation on tour "+ postService.findSpecificPost(order.getPost_id()).getTitle() +" from "+ traveler_username );
-                webSocketNotificationController.sendMessage(notification);
                 mailService.sendMail(email, "TravelWLocal Tour Information", content);
                 URI result = new URI(URL_ROOT_CLIENT + CHATBOX_PATH + order.getPost_id() + "/booking_success");
                 httpHeaders.setLocation(result);

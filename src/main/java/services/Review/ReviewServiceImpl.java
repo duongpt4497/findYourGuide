@@ -1,8 +1,7 @@
 package services.Review;
 
 import entities.Review;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import entities.TravelerReview;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -98,5 +97,30 @@ public class ReviewServiceImpl implements ReviewService {
             query = "update review set visible = true where trip_id = ?";
         }
         jdbcTemplate.update(query, trip_id);
+    }
+
+    @Override
+    public void createTravelerReview(TravelerReview review) throws Exception {
+        String query = "insert into travelerreviews (traveler_id,guider_id,review) values (?,?,?)";
+        jdbcTemplate.update(query, review.getTraveler_id(), review.getGuider_id(), review.getReview());
+    }
+
+    @Override
+    public List<TravelerReview> findReviewOfATraveler(long traveler_id) throws Exception {
+        String query = "select review_id, " +
+                "concat(tra.first_name, ' ', tra.last_name) as tra_name, " +
+                "concat (gu.first_name, ' ', gu.last_name) as gu_name, " +
+                "post_date, review, visible from travelerreviews as tra_re " +
+                "inner join traveler as tra on tra_re.traveler_id = tra.traveler_id " +
+                "inner join guider as gu on tra_re.guider_id = gu.guider_id " +
+                "where tra_re.traveler_id = ? and visible = true";
+        return jdbcTemplate.query(query, new RowMapper<TravelerReview>() {
+            @Override
+            public TravelerReview mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new TravelerReview(rs.getLong("review_id"), rs.getTimestamp("post_date").toLocalDateTime(),
+                        rs.getString("review"), rs.getBoolean("visible"), rs.getString("tra_name"),
+                        rs.getString("gu_name"));
+            }
+        }, traveler_id);
     }
 }
