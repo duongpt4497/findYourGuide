@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import services.Mail.MailService;
 import services.account.AccountRepository;
 import services.guider.GuiderService;
@@ -32,10 +33,18 @@ public class GuiderController {
 
     @RequestMapping("/CreateContract")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> createGuider(@RequestBody Contract newGuiderContract) {
+    public ResponseEntity<String> createGuider(@RequestBody Contract newGuiderContract, @RequestParam("file") MultipartFile file) {
         try {
+            if (file.isEmpty()) {
+                return new ResponseEntity<>("Please select a file to upload", HttpStatus.OK);
+            }
+            if (!file.getOriginalFilename().contains(".pdf")) {
+                return new ResponseEntity<>("We only accept pdf file", HttpStatus.OK);
+            }
+            String fileName = guiderService.uploadContractDocument(file);
+            newGuiderContract.setFile_link(fileName);
             guiderService.createGuiderContract(newGuiderContract);
-            return new ResponseEntity<>(true, HttpStatus.OK);
+            return new ResponseEntity<>("Create success", HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

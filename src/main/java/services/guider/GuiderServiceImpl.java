@@ -8,8 +8,12 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 import services.GeneralService;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +25,7 @@ import java.util.List;
 
 @Repository
 public class GuiderServiceImpl implements GuiderService {
+    private final String UPLOADED_FOLDER = "./src/main/resources/static/document/";
     private JdbcTemplate jdbcTemplate;
     private GeneralService generalService;
 
@@ -102,8 +107,8 @@ public class GuiderServiceImpl implements GuiderService {
     @Override
     public long createGuiderContract(Contract contract) throws Exception {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        String query = "insert into contract_detail (name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,guider_id)" +
-                "values (?,?,?,?,?,?,?,?,?,?)";
+        String query = "insert into contract_detail (name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,guider_id,file_link)" +
+                "values (?,?,?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection
                     .prepareStatement(query, new String[]{"contract_id"});
@@ -117,6 +122,7 @@ public class GuiderServiceImpl implements GuiderService {
             ps.setTimestamp(8, Timestamp.valueOf(contract.getCard_issued_date()));
             ps.setString(9, contract.getCard_issued_province());
             ps.setLong(10, contract.getGuider_id());
+            ps.setString(11, contract.getFile_link());
             return ps;
         }, keyHolder);
         return (int) keyHolder.getKey();
@@ -252,7 +258,7 @@ public class GuiderServiceImpl implements GuiderService {
                         rs.getString("nationality"), rs.getTimestamp("date_of_birth").toLocalDateTime(),
                         rs.getInt("gender"), rs.getString("hometown"), rs.getString("address"),
                         rs.getString("identity_card_number"), rs.getTimestamp("card_issued_date").toLocalDateTime(),
-                        rs.getString("card_issued_province"));
+                        rs.getString("card_issued_province"), rs.getString("file_link"));
             }
         });
         return list;
@@ -262,5 +268,15 @@ public class GuiderServiceImpl implements GuiderService {
     public void rejectContract(long contract_id) throws Exception {
         String query = "update contract_detail set account_deactive_date = now() where contract_id = ?";
         jdbcTemplate.update(query, contract_id);
+    }
+
+    @Override
+    public String uploadContractDocument(MultipartFile file) throws Exception {
+        byte[] bytes = file.getBytes();
+        Long originalId = generalService.generateLongId();
+        String fileName = originalId.toString() + ".zip";
+        Path path = Paths.get(UPLOADED_FOLDER + fileName);
+        Files.write(path, bytes);
+        return fileName;
     }
 }

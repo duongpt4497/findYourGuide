@@ -2,7 +2,9 @@ package services.guider;
 
 import entities.Guider;
 import entities.Contract;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface GuiderService {
@@ -33,4 +35,6 @@ public interface GuiderService {
     List<Contract> getAllContract() throws Exception;
 
     void rejectContract(long contract_id) throws Exception;
+
+    String uploadContractDocument(MultipartFile file) throws Exception;
 }

@@ -80,7 +80,8 @@ public class GeneralServiceImpl implements GeneralService {
         return imageUrls;
     }
 
-    private Long generateLongId() throws Exception {
+    @Override
+    public Long generateLongId() throws Exception {
         long timestamp = System.currentTimeMillis();
         if (lastTimestamp == timestamp) {
             sequence = (sequence + 1) % sequenceMax;
