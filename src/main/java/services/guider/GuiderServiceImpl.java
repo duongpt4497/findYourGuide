@@ -3,6 +3,7 @@ package services.guider;
 import entities.Contract;
 import entities.Guider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 import services.GeneralService;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,7 +27,10 @@ import java.util.List;
 
 @Repository
 public class GuiderServiceImpl implements GuiderService {
-    private final String UPLOADED_FOLDER = "./src/main/resources/static/document/";
+
+    private final String DOCUMENT_FOLDER = "./src/main/resources/static/document/";
+    @Value("${order.server.root.url}")
+    private String URL_ROOT_SERVER;
     private JdbcTemplate jdbcTemplate;
     private GeneralService generalService;
 
@@ -271,12 +276,22 @@ public class GuiderServiceImpl implements GuiderService {
     }
 
     @Override
-    public String uploadContractDocument(MultipartFile file) throws Exception {
+    public void uploadContractDocument(MultipartFile file, long contract_id) throws Exception {
         byte[] bytes = file.getBytes();
         Long originalId = generalService.generateLongId();
-        String fileName = originalId.toString() + ".zip";
-        Path path = Paths.get(UPLOADED_FOLDER + fileName);
+        String fileName = originalId.toString() + ".pdf";
+        Path path = Paths.get(DOCUMENT_FOLDER + fileName);
         Files.write(path, bytes);
-        return fileName;
+        String query = "update contract_detail set file_link = ? where contract_id = ?";
+        jdbcTemplate.update(query, fileName, contract_id);
+    }
+
+    @Override
+    public File getDocumentToDownload(long contract_id) throws Exception {
+        String query = "select file_link from contract_detail where contract_id = ?";
+        String fileName = jdbcTemplate.queryForObject(query, new Object[]{contract_id}, String.class);
+        String filePath = DOCUMENT_FOLDER + fileName;
+        File pdfFile = Paths.get(filePath).toFile();
+        return pdfFile;
     }
 }
