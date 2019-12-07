@@ -75,7 +75,7 @@ public class PostServiceImplTest {
         jdbcTemplate.update("INSERT INTO post(post_id,guider_id, location_id,category_id, title, video_link, picture_link, total_hour, description, including_service, active,price,rated,reasons) " +
                 "VALUES (7,5,3,1,'Fooffy','a','{a}',2,'a','{a,b}',true,10,3,'abc')");
         jdbcTemplate.update("INSERT INTO post(post_id,guider_id, location_id,category_id, title, video_link, picture_link, total_hour, description, including_service, active,price,rated,reasons) " +
-                "VALUES (8,5,4,1,'Fuuffy','a','{a}',2,'a','{a,b}',true,10,20,'abc')");
+                "VALUES (8,5,4,1,'Fuuffy','a','{a}',2,'a','{a,b}',false,10,20,'abc')");
         MockitoAnnotations.initMocks(this);
     }
 
@@ -163,5 +163,10 @@ public class PostServiceImplTest {
         boolean authorized = jdbcTemplate.queryForObject("select authorized from post where post_id = ?", new Object[]{1}, boolean.class);
         Assert.assertEquals(false, active);
         Assert.assertEquals(true, authorized);
+    }
+
+    @Test
+    public void findAllPostOfOneGuiderAdmin() throws Exception {
+        Assert.assertEquals(3, postService.findAllPostOfOneGuiderAdmin(5).size());
     }
 }
