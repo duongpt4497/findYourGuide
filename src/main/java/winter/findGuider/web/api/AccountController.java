@@ -12,22 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import services.account.AccountRepository;
 import security.AuthenProvider;
 import security.UserService;
+import services.account.AccountRepository;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.web.bind.annotation.RequestBody;
-
 import java.util.Date;
 import java.util.List;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * @author dgdbp
@@ -70,7 +64,7 @@ public class AccountController {
             logger.error(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>("true", HttpStatus.OK); 
+        return new ResponseEntity<>("true", HttpStatus.OK);
     }
 
     @PostMapping(path = "registrator", consumes = "application/json")
@@ -108,8 +102,10 @@ public class AccountController {
 
     @RequestMapping("/findAll")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<Account>> findAll() {
+    public ResponseEntity<List<Account>> findAll(HttpServletResponse response) {
         try {
+            response.setHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
+            response.setHeader("Access-Control-Allow-Credentials", "true");
             return new ResponseEntity(repo.findAllAccount(), HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());

@@ -33,10 +33,12 @@ public class StatisticServiceImpl implements StatisticService {
                         rs.getInt("total_trip") + " },";
             }
         });
-        int size = result.size();
-        String lastItem = result.get(size - 1);
-        lastItem = lastItem.substring(0, lastItem.length() - 1);
-        result.set(size - 1, lastItem);
+        if (!result.isEmpty()) {
+            int size = result.size();
+            String lastItem = result.get(size - 1);
+            lastItem = lastItem.substring(0, lastItem.length() - 1);
+            result.set(size - 1, lastItem);
+        }
         return result;
     }
 
@@ -54,10 +56,12 @@ public class StatisticServiceImpl implements StatisticService {
                         rs.getDouble("revenue") + " },";
             }
         });
-        int size = result.size();
-        String lastItem = result.get(size - 1);
-        lastItem = lastItem.substring(0, lastItem.length() - 1);
-        result.set(size - 1, lastItem);
+        if (!result.isEmpty()) {
+            int size = result.size();
+            String lastItem = result.get(size - 1);
+            lastItem = lastItem.substring(0, lastItem.length() - 1);
+            result.set(size - 1, lastItem);
+        }
         return result;
     }
 }
