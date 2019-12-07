@@ -74,4 +74,10 @@ public class AccountServiceUnitTest {
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','TRAVELER')");
         Assert.assertEquals("Jacky", accountService.findAccountNameByAccountId(1));
     }
+
+    @Test
+    public void changePassword() throws Exception {
+        accountService.changePassword("Jacky", "abc");
+        Assert.assertEquals("abc", accountService.findAccountByName("Jacky").getPassword());
+    }
 }
