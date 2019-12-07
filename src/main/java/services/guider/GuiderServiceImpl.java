@@ -137,9 +137,17 @@ public class GuiderServiceImpl implements GuiderService {
     public long updateGuiderWithId(Guider guiderUpdate) throws Exception {
         String query = "update guider set first_name = ?, last_name = ?, age = ?, phone = ?, about_me = ?, city = ?, " +
                 "languages = ?, avatar = ?, passion = ? where guider_id = ?";
+        String[] images = new String[]{guiderUpdate.getAvatar()};
+        List<String> avatarList = generalService.convertBase64toImageAndChangeName(images);
+        String avatar;
+        if (avatarList.isEmpty()) {
+            avatar = "account.jpg";
+        } else {
+            avatar = avatarList.get(0);
+        }
         jdbcTemplate.update(query, guiderUpdate.getFirst_name(), guiderUpdate.getLast_name(),
                 guiderUpdate.getAge(), guiderUpdate.getPhone(), guiderUpdate.getAbout_me(), guiderUpdate.getCity(),
-                generalService.createSqlArray(Arrays.asList(guiderUpdate.getLanguages())), guiderUpdate.getAvatar(),
+                generalService.createSqlArray(Arrays.asList(guiderUpdate.getLanguages())), avatar,
                 guiderUpdate.getPassion(), guiderUpdate.getGuider_id());
         return guiderUpdate.getGuider_id();
     }
