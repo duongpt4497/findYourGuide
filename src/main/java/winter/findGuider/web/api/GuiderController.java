@@ -5,13 +5,19 @@ import entities.Guider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import services.Mail.MailService;
 import services.account.AccountRepository;
 import services.guider.GuiderService;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.List;
 
 @RestController
@@ -32,10 +38,10 @@ public class GuiderController {
 
     @RequestMapping("/CreateContract")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> createGuider(@RequestBody Contract newGuiderContract) {
+    public ResponseEntity<Long> createContract(@RequestBody Contract newGuiderContract) {
         try {
-            guiderService.createGuiderContract(newGuiderContract);
-            return new ResponseEntity<>(true, HttpStatus.OK);
+            long contractId = guiderService.createGuiderContract(newGuiderContract);
+            return new ResponseEntity<>(contractId, HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -169,6 +175,46 @@ public class GuiderController {
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/UploadDocument")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> UploadDocument(@RequestParam("file") MultipartFile file, @RequestParam("contract_id") long contract_id) {
+        try {
+            if (file.isEmpty()) {
+                return new ResponseEntity<>("Please select a file to upload", HttpStatus.OK);
+            }
+            if (!file.getOriginalFilename().contains(".pdf")) {
+                return new ResponseEntity<>("We only accept pdf file", HttpStatus.OK);
+            }
+            guiderService.uploadContractDocument(file, contract_id);
+            return new ResponseEntity<>("Upload Success", HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "/DownloadDocument", produces = "application/pdf")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<InputStreamResource> downloadDocument(@RequestParam("contract_id") long contract_id) {
+        try {
+            File pdfFile = guiderService.getDocumentToDownload(contract_id);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.parseMediaType("application/pdf"));
+            headers.add("Access-Control-Allow-Origin", "*");
+            headers.add("Access-Control-Allow-Methods", "GET, POST, PUT");
+            headers.add("Access-Control-Allow-Headers", "Content-Type");
+            headers.add("Content-Disposition", "filename=" + pdfFile.getName());
+            headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+            headers.add("Pragma", "no-cache");
+            headers.add("Expires", "0");
+            headers.setContentLength(pdfFile.length());
+            return new ResponseEntity<>(new InputStreamResource(new FileInputStream(pdfFile)), headers, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 }

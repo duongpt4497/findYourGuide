@@ -25,6 +25,7 @@ public class Contract {
     private String card_issued_province;
     private LocalDateTime account_active_date;
     private LocalDateTime account_deactive_date;
+    private String file_link;
 
     public Contract() {
     }
@@ -60,7 +61,7 @@ public class Contract {
         this.account_deactive_date = account_deactive_date;
     }
 
-    public Contract(long contract_id, long guider_id, String name, String nationality, LocalDateTime date_of_birth, int gender, String hometown, String address, String identity_card_number, LocalDateTime card_issued_date, String card_issued_province) {
+    public Contract(long contract_id, long guider_id, String name, String nationality, LocalDateTime date_of_birth, int gender, String hometown, String address, String identity_card_number, LocalDateTime card_issued_date, String card_issued_province, String file_link) {
         this.contract_id = contract_id;
         this.guider_id = guider_id;
         this.name = name;
@@ -72,6 +73,7 @@ public class Contract {
         this.identity_card_number = identity_card_number;
         this.card_issued_date = card_issued_date;
         this.card_issued_province = card_issued_province;
+        this.file_link = file_link;
     }
 
     public long getContract_id() {
@@ -176,5 +178,13 @@ public class Contract {
 
     public void setAccount_deactive_date(LocalDateTime account_deactive_date) {
         this.account_deactive_date = account_deactive_date;
+    }
+
+    public String getFile_link() {
+        return file_link;
+    }
+
+    public void setFile_link(String file_link) {
+        this.file_link = file_link;
     }
 }

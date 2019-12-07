@@ -457,14 +457,14 @@ public class TripServiceImpl implements TripService {
     }
 
     //@Scheduled(cron = "0 0 * * * *")
-    @Scheduled(cron = "0 0/5 * * * *")
+    @Scheduled(cron = "0 0/5 * 1/1 * *")
     public void cancelTripFilter() throws PayPalRESTException {
         List<Map<String, Object>> lo = new ArrayList<>();
         String query = "select trip_id, transaction_id from trip "
                 + " where extract (epoch from (now() - book_time))::integer "
                 + " < extract(epoch from TIMESTAMP '1970-1-1 05:00:00')::integer "
                 + " and status = 'UNCONFIRMED'; ";
-        lo = jdbcTemplate.queryForList(query);
+           lo = jdbcTemplate.queryForList(query);
 
         List<String> update = new ArrayList<>();
         for (Map m : lo) {
@@ -472,29 +472,34 @@ public class TripServiceImpl implements TripService {
             update.add("update trip set status = 'CANCELLED' where trip_id = " + m.get("trip_id"));
         }
         logger.warn(update.toString());
-        if (!update.isEmpty()) {
-            jdbcTemplate.batchUpdate(update.toArray(new String[0]));
+        
+        String[] updateList = update.toArray(new String[0]);
+        if (updateList.length > 0) {
+            jdbcTemplate.batchUpdate(updateList);
         }
     }
-
+    
     //@Scheduled(cron = "0 0 * * * *")
-    @Scheduled(cron = "0 0/5 * * * *")
-    public void finishTripFilter() throws PayPalRESTException {
+    @Scheduled(cron = "0 0/5 * 1/1 * *")
+    public void finishTripFilter()  {
         List<Map<String, Object>> lo = new ArrayList<>();
         String query = "select trip_id from trip "
                 + " where extract (epoch from (now() - finish_date))::integer "
-                + " < extract(epoch from TIMESTAMP '1970-1-2 00:00:00')::integer "
-                + " and now() > finish_date "
+                + " <= extract(epoch from TIMESTAMP '1970-1-2 00:00:00')::integer "
+                + " and now() > finish_date "   
                 + " and status = 'ONGOING'; ";
         lo = jdbcTemplate.queryForList(query);
 
         List<String> update = new ArrayList<>();
         for (Map m : lo) {
+            
             update.add("update trip set status = 'FINISHED' where trip_id = " + m.get("trip_id"));
         }
         logger.warn(update.toString());
-        if (!update.isEmpty()) {
-            jdbcTemplate.batchUpdate(update.toArray(new String[0]));
+        
+        String[] updateList = update.toArray(new String[0]);
+        if (updateList.length > 0) {
+            jdbcTemplate.batchUpdate(updateList);
         }
     }
 }

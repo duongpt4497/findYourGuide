@@ -50,6 +50,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${order.client.root.url}")
     private String URL_ROOT_CLIENT;
 
+    @Value("${order.client.root.url2}")
+    private String URL_ROOT_CLIENT2;
 
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -64,10 +66,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        System.out.println("to Simson");
+        System.out.println("to Simpson");
         auth
                 .inMemoryAuthentication()
-                .withUser("Simson").password("123").roles("GUIDER");
+                .withUser("Simpson").password("123@123").roles("ADMIN");
         auth.authenticationProvider(authProvide);
         auth.userDetailsService(principalService);
     }
@@ -76,7 +78,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     CorsConfigurationSource corsConfigurationSource() {
         System.out.println("to cors");
         CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
-        configuration.setAllowedOrigins(Arrays.asList(URL_ROOT_CLIENT));
+        //configuration.setAllowedOrigins(Arrays.asList(URL_ROOT_CLIENT));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "OPTION"));
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -124,7 +126,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers(
                 HttpMethod.POST,
-                "/account/**"
+                "/account/registrator"
         );
         web.ignoring().antMatchers(
                 HttpMethod.GET,
