@@ -129,14 +129,16 @@ public class PostServiceImplTest {
     @Test
     public void activeDeactivePost() throws Exception {
         postService.activeDeactivePostForGuider(1);
-        Assert.assertEquals(false, postService.findSpecificPost(1).isActive());
+        boolean active = jdbcTemplate.queryForObject("select active from post where post_id = ?", new Object[]{1}, boolean.class);
+        Assert.assertEquals(false, active);
     }
 
     @Test
     public void activeDeactivePost2() throws Exception {
         postService.activeDeactivePostForGuider(1);
         postService.activeDeactivePostForGuider(1);
-        Assert.assertEquals(true, postService.findSpecificPost(1).isActive());
+        boolean active = jdbcTemplate.queryForObject("select active from post where post_id = ?", new Object[]{1}, boolean.class);
+        Assert.assertEquals(true, active);
     }
 
     @Test
@@ -147,15 +149,19 @@ public class PostServiceImplTest {
     @Test
     public void authorizePost() throws Exception {
         postService.authorizePost(1);
-        Assert.assertEquals(false, postService.findSpecificPost(1).isActive());
-        Assert.assertEquals(false, postService.findSpecificPost(1).isAuthorized());
+        boolean active = jdbcTemplate.queryForObject("select active from post where post_id = ?", new Object[]{1}, boolean.class);
+        boolean authorized = jdbcTemplate.queryForObject("select authorized from post where post_id = ?", new Object[]{1}, boolean.class);
+        Assert.assertEquals(false, active);
+        Assert.assertEquals(false, authorized);
     }
 
     @Test
     public void authorizePost2() throws Exception {
         postService.authorizePost(1);
         postService.authorizePost(1);
-        Assert.assertEquals(false, postService.findSpecificPost(1).isActive());
-        Assert.assertEquals(true, postService.findSpecificPost(1).isAuthorized());
+        boolean active = jdbcTemplate.queryForObject("select active from post where post_id = ?", new Object[]{1}, boolean.class);
+        boolean authorized = jdbcTemplate.queryForObject("select authorized from post where post_id = ?", new Object[]{1}, boolean.class);
+        Assert.assertEquals(false, active);
+        Assert.assertEquals(true, authorized);
     }
 }
