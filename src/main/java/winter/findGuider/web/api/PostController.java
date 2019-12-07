@@ -34,6 +34,17 @@ public class PostController {
         }
     }
 
+    @RequestMapping("/postOfOneGuiderAdmin")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Post>> findAllPostOfOneGuiderAdmin(@RequestParam("guider_id") long guider_id) {
+        try {
+            return new ResponseEntity<>(postService.findAllPostOfOneGuiderAdmin(guider_id), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
     @RequestMapping("/allPostOfOneCategory")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Post>> findAllPostOfOneCategory(@RequestParam("category_id") long category_id) {
@@ -56,7 +67,7 @@ public class PostController {
         }
     }
 
-        @RequestMapping(consumes = "application/json", value = "/update/post")
+    @RequestMapping(consumes = "application/json", value = "/update/post")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Long> updatePost(@RequestBody Post post) {
         try {
@@ -75,7 +86,7 @@ public class PostController {
             System.out.println(post.getCategory());
             return new ResponseEntity(postService.insertNewPost(guider_id, post), HttpStatus.OK);
         } catch (Exception e) {
-            logger.error(post.getCategory()+e.getMessage());
+            logger.error(post.getCategory() + e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }

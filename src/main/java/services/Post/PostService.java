@@ -7,6 +7,8 @@ import java.util.List;
 public interface PostService {
     List<Post> findAllPostOfOneGuider(long guider_id) throws Exception;
 
+    List<Post> findAllPostOfOneGuiderAdmin(long guider_id) throws Exception;
+
     List<Post> findAllPostByCategoryId(long category_id) throws Exception;
 
     Post findSpecificPost(long post_id) throws Exception;

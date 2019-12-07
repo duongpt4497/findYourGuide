@@ -54,6 +54,32 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<Post> findAllPostOfOneGuiderAdmin(long guider_id) throws Exception {
+        return jdbcTemplate.query("select * from post where guider_id = ?", new RowMapper<Post>() {
+            @Override
+            public Post mapRow(ResultSet resultSet, int i) throws SQLException {
+                return new Post(
+                        resultSet.getLong("post_id"),
+                        resultSet.getLong("guider_id"),
+                        resultSet.getLong("location_id"),
+                        resultSet.getLong("category_id"),
+                        resultSet.getString("title"),
+                        resultSet.getString("video_link"),
+                        generalService.checkForNull(resultSet.getArray("picture_link")),
+                        resultSet.getInt("total_hour"),
+                        resultSet.getString("description"),
+                        generalService.checkForNull(resultSet.getArray("including_service")),
+                        resultSet.getBoolean("active"),
+                        resultSet.getFloat("price"),
+                        resultSet.getFloat("rated"),
+                        resultSet.getString("reasons"),
+                        resultSet.getBoolean("authorized")
+                );
+            }
+        }, guider_id);
+    }
+
+    @Override
     public List<Post> findAllPostByCategoryId(long category_id) throws Exception {
         return jdbcTemplate.query("select * from post "
                 + " where active = true "
