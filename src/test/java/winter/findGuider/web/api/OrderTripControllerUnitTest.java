@@ -141,7 +141,7 @@ public class OrderTripControllerUnitTest {
         when(orderTripService.findTripById(1)).thenThrow(Exception.class);
 
         ResponseEntity<String> result = orderTripController.cancelOrderAsTraveler(1);
-        // Assert.assertEquals(404,result.getStatusCodeValue());
+        Assert.assertEquals(404,result.getStatusCodeValue());
     }
 
     @Test
@@ -159,7 +159,7 @@ public class OrderTripControllerUnitTest {
         when(orderTripService.checkTripReach48Hours(order, rightNow2)).thenReturn(true);
         when(paypalService.refundPayment(order.getTransaction_id())).thenReturn(refund);
         ResponseEntity<String> result = orderTripController.cancelOrderAsTraveler(1);
-        // Assert.assertEquals(404,result.getStatusCodeValue());
+         Assert.assertEquals(200,result.getStatusCodeValue());
     }
 
     @Test
@@ -178,7 +178,7 @@ public class OrderTripControllerUnitTest {
         when(paypalService.refundPayment(order.getTransaction_id())).thenReturn(refund);
         when(orderTripService.cancelTrip(order.gettrip_id())).thenReturn(true);
         ResponseEntity<String> result = orderTripController.cancelOrderAsTraveler(1);
-        // Assert.assertEquals(404,result.getStatusCodeValue());
+         Assert.assertEquals(200,result.getStatusCodeValue());
     }
 
     @Test
@@ -196,7 +196,7 @@ public class OrderTripControllerUnitTest {
         when(orderTripService.checkTripReach48Hours(order, rightNow2)).thenReturn(true);
         when(paypalService.refundPayment(order.getTransaction_id())).thenReturn(refund);
         ResponseEntity<String> result = orderTripController.cancelOrderAsTraveler(1);
-        // Assert.assertEquals(404,result.getStatusCodeValue());
+         Assert.assertEquals(200,result.getStatusCodeValue());
     }
 
     @Test
@@ -218,7 +218,7 @@ public class OrderTripControllerUnitTest {
         when(paypalService.refundPayment(order.getTransaction_id())).thenThrow(payPalRESTException);
         when(payPalRESTException.getDetails()).thenReturn(error);
         ResponseEntity<String> result = orderTripController.cancelOrderAsTraveler(1);
-        // Assert.assertEquals(404,result.getStatusCodeValue());
+        Assert.assertEquals(200,result.getStatusCodeValue());
     }
 
     @Test
@@ -239,7 +239,7 @@ public class OrderTripControllerUnitTest {
         when(orderTripService.checkTripReach48Hours(order, rightNow2)).thenReturn(true);
         when(paypalService.refundPayment(order.getTransaction_id())).thenThrow(payPalRESTException);
         ResponseEntity<String> result = orderTripController.cancelOrderAsTraveler(1);
-        // Assert.assertEquals(404,result.getStatusCodeValue());
+        Assert.assertEquals(404,result.getStatusCodeValue());
     }
 
     @Test
@@ -403,6 +403,7 @@ public class OrderTripControllerUnitTest {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH");
         Date date = formatter.parse("12/12/2019 12");
         ResponseEntity<List<Order>> result = orderTripController.getOrderByWeek(1, date);
+        Assert.assertEquals(200,result.getStatusCodeValue());
     }
 
     @Test
@@ -425,6 +426,7 @@ public class OrderTripControllerUnitTest {
     public void testGetExpectedTourEnd() {
         Order order = Mockito.mock(Order.class);
         ResponseEntity<String> result = orderTripController.getExpectedTourEnd(order);
+        Assert.assertEquals(200,result.getStatusCodeValue());
     }
 
     @Test

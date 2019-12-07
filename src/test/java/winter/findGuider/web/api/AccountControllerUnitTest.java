@@ -17,6 +17,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.junit.runner.RunWith;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.util.ReflectionTestUtils;
 import services.account.AccountRepository;
 import security.AuthenProvider;
@@ -81,5 +82,15 @@ public class AccountControllerUnitTest {
     public void testFindAllCategory() throws Exception{
         when(accountRepository.findAllAccount()).thenThrow(Exception.class);
         ResponseEntity<List<Account>> result = accountController.findAll();
+        Assert.assertEquals(404,result.getStatusCodeValue());
     }
+
+    /*@Test
+    public void testChangePassword() throws Exception{
+        Account model = new Account();
+        model.setPassword("123@123a");
+        model.
+        when(accountRepository.findAccountByName(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString())).thenReturn(account);
+        ResponseEntity<String> result = accountController.changePassword(account);
+    }*/
 }

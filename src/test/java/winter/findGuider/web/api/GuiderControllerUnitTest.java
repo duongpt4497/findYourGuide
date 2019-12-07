@@ -11,12 +11,17 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.web.multipart.MultipartFile;
 import services.Mail.MailService;
 import services.account.AccountRepository;
 import services.guider.GuiderService;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
@@ -43,9 +48,9 @@ public class GuiderControllerUnitTest {
     }
 
     @Test
-    public void testCreateGuider() {
+    public void testCreateContract() {
         Contract Contract = Mockito.mock(Contract.class);
-        guiderController.createGuider(Contract);
+        guiderController.createContract(Contract);
     }
 
     @Test(expected = AssertionError.class)
@@ -54,7 +59,7 @@ public class GuiderControllerUnitTest {
             thrown.expect(AssertionError.class);
             Contract contract = Mockito.mock(Contract.class);
             when(guiderService.createGuiderContract(contract)).thenThrow(Exception.class);
-            ResponseEntity<Boolean> responseEntity = guiderController.createGuider(contract);
+            ResponseEntity<Long> responseEntity = guiderController.createContract(contract);
         } catch (Exception e) {
             Assert.assertThat(e.getMessage(), containsString("whatever"));
         }
@@ -86,7 +91,8 @@ public class GuiderControllerUnitTest {
     public void testActivateGuider() {
         Guider guider = Mockito.mock(Guider.class);
         Contract Contract = Mockito.mock(Contract.class);
-        guiderController.activateGuider(1);
+        ResponseEntity<Guider> result = guiderController.activateGuider(1);
+        Assert.assertEquals(200,result.getStatusCodeValue());
     }
 
     @Test(expected = AssertionError.class)
@@ -94,7 +100,8 @@ public class GuiderControllerUnitTest {
         try {
             thrown.expect(AssertionError.class);
             when(guiderService.activateGuider(1)).thenThrow(Exception.class);
-            ResponseEntity<Guider> responseEntity = guiderController.activateGuider(1);
+            ResponseEntity<Guider> result = guiderController.activateGuider(1);
+            Assert.assertEquals(404,result.getStatusCodeValue());
         } catch (Exception e) {
             Assert.assertThat(e.getMessage(), containsString("whatever"));
         }
@@ -105,7 +112,8 @@ public class GuiderControllerUnitTest {
     public void testDeactivateGuider() {
         Guider guider = Mockito.mock(Guider.class);
         Contract Contract = Mockito.mock(Contract.class);
-        guiderController.deactivateGuider(1);
+        ResponseEntity<Guider> result = guiderController.deactivateGuider(1);
+        Assert.assertEquals(200,result.getStatusCodeValue());
     }
 
     @Test(expected = AssertionError.class)
@@ -113,7 +121,8 @@ public class GuiderControllerUnitTest {
         try {
             thrown.expect(AssertionError.class);
             when(guiderService.deactivateGuider(1)).thenThrow(Exception.class);
-            ResponseEntity<Guider> responseEntity = guiderController.deactivateGuider(1);
+            ResponseEntity<Guider> result= guiderController.deactivateGuider(1);
+            Assert.assertEquals(404,result.getStatusCodeValue());
         } catch (Exception e) {
             Assert.assertThat(e.getMessage(), containsString("whatever"));
         }
@@ -215,4 +224,83 @@ public class GuiderControllerUnitTest {
         ResponseEntity<Boolean> result = guiderController.rejectContract( 1);
         Assert.assertEquals(404, result.getStatusCodeValue());
     }
+
+    @Test
+    public void testUploadDocumentWithPdfFile(){
+        MultipartFile file = Mockito.mock(MultipartFile.class);
+        when(file.getOriginalFilename()).thenReturn(".pdf");
+        ResponseEntity<String> result  = guiderController.UploadDocument(file,1);
+        Assert.assertEquals(200,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testUploadDocumentWithNonPdfFile(){
+        MultipartFile file = Mockito.mock(MultipartFile.class);
+        when(file.getOriginalFilename()).thenReturn(".zip");
+        ResponseEntity<String> result  = guiderController.UploadDocument(file,1);
+        Assert.assertEquals(200,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testUploadDocumentWithEmptyFile(){
+        MultipartFile file = new MultipartFile() {
+            @Override
+            public String getName() {
+                return null;
+            }
+
+            @Override
+            public String getOriginalFilename() {
+                return null;
+            }
+
+            @Override
+            public String getContentType() {
+                return null;
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return true;
+            }
+
+            @Override
+            public long getSize() {
+                return 0;
+            }
+
+            @Override
+            public byte[] getBytes() throws IOException {
+                return new byte[0];
+            }
+
+            @Override
+            public InputStream getInputStream() throws IOException {
+                return null;
+            }
+
+            @Override
+            public void transferTo(File file) throws IOException, IllegalStateException {
+
+            }
+        };
+        ResponseEntity<String> result  = guiderController.UploadDocument(file,1);
+        Assert.assertEquals(200,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testUploadFileWithException(){
+        MultipartFile file = Mockito.mock(MultipartFile.class);
+        ResponseEntity<String> result  = guiderController.UploadDocument(file,1);
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testDownloadFile() throws Exception{
+        File file = Mockito.mock(File.class);
+        when(guiderService.getDocumentToDownload(1)).thenReturn(file);
+        ResponseEntity<InputStreamResource> result = guiderController.downloadDocument(1);
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
+
 }
