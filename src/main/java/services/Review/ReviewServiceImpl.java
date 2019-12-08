@@ -50,8 +50,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public List<Review> findReviewsByPostId(long post_id) throws Exception {
-        String query = "select review.* from review " +
-                "inner join trip on trip.post_id = ?";
+        String query = "select review.* from review inner join trip on trip.trip_id = review.trip_id " +
+                "where trip.post_id = ? and visible = true";
         return jdbcTemplate.query(query, new RowMapper<Review>() {
             public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Review(rs.getLong("trip_id"), rs.getLong("rated"),
