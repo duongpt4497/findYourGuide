@@ -261,10 +261,25 @@ public class GuiderServiceImpl implements GuiderService {
 
     @Override
     public List<Contract> getAllContract() throws Exception {
-        List<Contract> list;
+        // Automatic reject contract without document
+        String getRejectList = "select contract_id from contract_detail where file_link is null and account_deactive_date is null";
+        List<Long> rejectList = jdbcTemplate.query(getRejectList, new RowMapper<Long>() {
+            @Override
+            public Long mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return rs.getLong("contract_id");
+            }
+        });
+        if (!rejectList.isEmpty()) {
+            for (long id : rejectList) {
+                this.rejectContract(id);
+            }
+        }
+
+        // Get waiting for acceptance contract list
+        List<Contract> contractList;
         String query = "select * from contract_detail where account_active_date is null and account_deactive_date is null " +
                 "and contract_id not in (select contract_id from contract)";
-        list = jdbcTemplate.query(query, new RowMapper<Contract>() {
+        contractList = jdbcTemplate.query(query, new RowMapper<Contract>() {
             @Override
             public Contract mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Contract(rs.getInt("contract_id"), rs.getInt("guider_id"), rs.getString("name"),
@@ -274,7 +289,7 @@ public class GuiderServiceImpl implements GuiderService {
                         rs.getString("card_issued_province"), rs.getString("file_link"));
             }
         });
-        return list;
+        return contractList;
     }
 
     @Override
