@@ -12,6 +12,8 @@ public interface ReviewService {
 
     List<Review> findReviewsByPostId(long post_id) throws Exception;
 
+    List<Review> findReviewsByPostIdAdmin(long post_id) throws Exception;
+
     boolean createReview(Review newReview) throws Exception;
 
     boolean checkReviewExist(long trip_id) throws Exception;

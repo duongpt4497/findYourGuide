@@ -62,6 +62,19 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
+    public List<Review> findReviewsByPostIdAdmin(long post_id) throws Exception {
+        String query = "select review.* from review " +
+                "inner join trip on trip.post_id = ?";
+        return jdbcTemplate.query(query, new RowMapper<Review>() {
+            public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new Review(rs.getLong("trip_id"), rs.getLong("rated"),
+                        rs.getDate("post_date"), rs.getString("review"),
+                        rs.getBoolean("visible"));
+            }
+        }, post_id);
+    }
+
+    @Override
     public boolean createReview(Review newReview) throws Exception {
         String query = "insert into review (trip_id, rated, post_date, review, visible)" +
                 "values (?,?,?,?,?)";

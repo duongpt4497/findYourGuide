@@ -46,6 +46,17 @@ public class ReviewController {
         }
     }
 
+    @RequestMapping("/reviewByPostIdAdmin")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Review>> findReviewByPostIdAdmin(@RequestParam("post_id") long post_id) {
+        try {
+            return new ResponseEntity<>(reviewService.findReviewsByPostIdAdmin(post_id), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
     @RequestMapping("/create")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Boolean> createReview(@RequestBody Review newReview) {
