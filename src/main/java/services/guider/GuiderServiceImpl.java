@@ -191,7 +191,7 @@ public class GuiderServiceImpl implements GuiderService {
     @Override
     public List<Guider> getTopGuiderByRate() throws Exception {
         List<Guider> result = new ArrayList<>();
-        String query = "SELECT * FROM guider order by rated desc limit 6";
+        String query = "SELECT * FROM guider where active = true order by rated desc limit 6";
         result = jdbcTemplate.query(query, new RowMapper<Guider>() {
             public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Guider(rs.getLong("guider_id"), rs.getString("first_name"),
@@ -209,7 +209,7 @@ public class GuiderServiceImpl implements GuiderService {
     @Override
     public List<Guider> getTopGuiderByContribute() throws Exception {
         List<Guider> result = new ArrayList<>();
-        String query = "SELECT * FROM guider order by contribution desc limit 6";
+        String query = "SELECT * FROM guider where active = true order by contribution desc limit 6";
         result = jdbcTemplate.query(query, new RowMapper<Guider>() {
             public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Guider(rs.getLong("guider_id"), rs.getString("first_name"),
