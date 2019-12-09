@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 
 @Repository
 public class MailServiceImpl implements MailService {
-    private static final String UNCONFIRMED = "UNCONFIRMED";
+    private static final String UNCONFIRMED = "WAITING";
     private static final String ONGOING = "ONGOING";
     private static final String FINISHED = "FINISHED";
     private static final String CANCELLED = "CANCELLED";

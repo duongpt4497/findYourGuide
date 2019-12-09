@@ -81,12 +81,12 @@ public class PostServiceImplTest {
 
     @Test
     public void findAllPostOfOneGuider() throws Exception {
-        Assert.assertEquals(3, postService.findAllPostOfOneGuider(1).size());
+        Assert.assertEquals(3, postService.findAllPostOfOneGuider(1, 0).size());
     }
 
     @Test
     public void findAllPostByCategoryId() throws Exception {
-        Assert.assertEquals(7, postService.findAllPostByCategoryId(1).size());
+        Assert.assertEquals(7, postService.findAllPostByCategoryId(1, 0).size());
     }
 
     @Test
@@ -123,7 +123,7 @@ public class PostServiceImplTest {
 
     @Test
     public void findAllPostWithGuiderName() throws Exception {
-        Assert.assertEquals(2, postService.findAllPostWithGuiderName("mi").size());
+        Assert.assertEquals(2, postService.findAllPostWithGuiderName("mi", 0).size());
     }
 
     @Test
@@ -143,7 +143,7 @@ public class PostServiceImplTest {
 
     @Test
     public void findAllPostWithLocationName() throws Exception {
-        Assert.assertEquals(5, postService.findAllPostWithLocationName("ho").size());
+        Assert.assertEquals(5, postService.findAllPostWithLocationName("ho", 0).size());
     }
 
     @Test

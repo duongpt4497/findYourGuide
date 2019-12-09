@@ -114,7 +114,7 @@ public class MailServiceImplTest {
                 "Thank your for using our service. We wish you a great trip and happy experience.\n" +
                 "\n" +
                 "Sincerely,\n" +
-                "TravelWLocal", mailService.getMailContent(order, "UNCONFIRMED"));
+                "TravelWLocal", mailService.getMailContent(order, "WAITING"));
     }
 
     @Test

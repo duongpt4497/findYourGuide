@@ -141,7 +141,7 @@ public class PaypalController {
 //                webSocketNotificationController.sendMessage(notification);
 
                 String email = accountRepository.getEmail(order.getTraveler_id());
-                String content = mailService.getMailContent(order, "UNCONFIRMED");
+                String content = mailService.getMailContent(order, "WAITING");
                 mailService.sendMail(email, "TravelWLocal Tour Information", content);
                 URI result = new URI(URL_ROOT_CLIENT + CHATBOX_PATH + order.getPost_id() + "/booking_success");
                 httpHeaders.setLocation(result);

@@ -83,8 +83,8 @@ public class TripServiceImplTest {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
-                "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','UNCONFIRMED')");
-        Assert.assertEquals(1, tripService.findTripByStatus("guider", 1, "UNCONFIRMED").get(0).gettrip_id());
+                "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','WAITING')");
+        Assert.assertEquals(1, tripService.findTripByStatus("guider", 1, "WAITING").get(0).gettrip_id());
     }
 
     @Test
@@ -92,8 +92,8 @@ public class TripServiceImplTest {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
-                "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','UNCONFIRMED')");
-        Assert.assertEquals(1, tripService.findTripByStatus("traveler", 2, "UNCONFIRMED").get(0).gettrip_id());
+                "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','WAITING')");
+        Assert.assertEquals(1, tripService.findTripByStatus("traveler", 2, "WAITING").get(0).gettrip_id());
     }
 
     @Test(expected = Exception.class)
@@ -101,8 +101,8 @@ public class TripServiceImplTest {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
-                "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','UNCONFIRMED')");
-        Assert.assertTrue(tripService.findTripByStatus("none", 1, "UNCONFIRMED").isEmpty());
+                "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','WAITING')");
+        Assert.assertTrue(tripService.findTripByStatus("none", 1, "WAITING").isEmpty());
     }
 
     @Test
@@ -110,7 +110,7 @@ public class TripServiceImplTest {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
-                "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','UNCONFIRMED')");
+                "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','WAITING')");
         Assert.assertEquals(true, tripService.acceptTrip(1));
     }
 
@@ -119,7 +119,7 @@ public class TripServiceImplTest {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
-                "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','UNCONFIRMED')");
+                "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','WAITING')");
         Assert.assertEquals(false, tripService.acceptTrip(2));
     }
 
@@ -128,7 +128,7 @@ public class TripServiceImplTest {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
-                "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','UNCONFIRMED')");
+                "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','WAITING')");
         Assert.assertEquals(true, tripService.cancelTrip(1));
     }
 
@@ -137,7 +137,7 @@ public class TripServiceImplTest {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
-                "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','UNCONFIRMED')");
+                "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','WAITING')");
         Assert.assertEquals(false, tripService.cancelTrip(2));
     }
 
@@ -154,7 +154,7 @@ public class TripServiceImplTest {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
-                "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','UNCONFIRMED')");
+                "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','WAITING')");
         Assert.assertEquals(false, tripService.finishTrip(1));
     }
 
@@ -178,7 +178,7 @@ public class TripServiceImplTest {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
-                "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','UNCONFIRMED')");
+                "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','WAITING')");
         Assert.assertEquals(1, tripService.checkTripExist(1));
     }
 
@@ -328,9 +328,9 @@ public class TripServiceImplTest {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
-                "values (1,2,1,'2019-11-27T05:30','2019-11-22T07:00',1,1,150,'abc','UNCONFIRMED')");
+                "values (1,2,1,'2019-11-27T05:30','2019-11-22T07:00',1,1,150,'abc','WAITING')");
         tripService.cancelTripFilter();
-        Assert.assertEquals("CANCELLED", tripService.findTripById(1).getStatus());
+        Assert.assertEquals("WAITING", tripService.findTripById(1).getStatus());
     }
 
     @Test

@@ -463,7 +463,7 @@ public class TripServiceImpl implements TripService {
         String query = "select trip_id, transaction_id from trip "
                 + " where extract (epoch from (now() - book_time))::integer "
                 + " > extract(epoch from TIMESTAMP '1970-1-1 05:00:00')::integer "
-                + " and status = 'UNCONFIRMED'; ";
+                + " and status = 'WAITING'; ";
            lo = jdbcTemplate.queryForList(query);
 
         List<String> update = new ArrayList<>();
