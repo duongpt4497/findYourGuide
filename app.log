@@ -1,3 +1,231 @@
+<<<<<<< HEAD
+2019-Dec-09 13:25:39 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-09 13:25:39 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-09 13:25:39 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-09 13:25:39 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-09 13:26:29 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:29 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:29 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:29 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:29 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:30 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:30 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:30 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:30 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:30 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:30 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:31 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:31 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:31 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:31 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:31 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:31 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:31 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:31 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:31 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:31 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:31 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:31 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:36 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:41 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:46 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:51 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:26:56 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 13:30:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 13:30:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 13:35:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 13:35:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 13:40:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 13:40:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 13:45:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 13:45:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 13:50:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 13:50:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 13:55:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 13:55:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 14:00:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 14:00:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 14:00:00 WARN  [MessageBroker-4] s.c.ContributionPointServiceImpl - []
+2019-Dec-09 14:00:00 WARN  [MessageBroker-3] s.c.ContributionPointServiceImpl - [update guider set contribution = contribution - 5000 where guider_id = 11, update guider set contribution = contribution - 5000 where guider_id = 8, update guider set contribution = contribution - 5000 where guider_id = 24, update guider set contribution = contribution - 5000 where guider_id = 19, update guider set contribution = contribution - 5000 where guider_id = 1, update guider set contribution = contribution - 5000 where guider_id = 4, update guider set contribution = contribution - 5000 where guider_id = 2, update guider set contribution = contribution - 5000 where guider_id = 12, update guider set contribution = contribution - 5000 where guider_id = 3]
+2019-Dec-09 14:05:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 14:05:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 14:06:20 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:06:20 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:06:20 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:06:20 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:06:20 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:06:20 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:10:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 14:10:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 14:10:43 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:10:43 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:10:43 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:10:43 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:10:44 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:10:44 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:10:44 ERROR [http-nio-8080-exec-4] w.f.w.a.PostController - PreparedStatementCallback; bad SQL grammar [select * from post  where active = true  and category_id = ?  order by post_id limit = ? offset = ? ;]; nested exception is org.postgresql.util.PSQLException: ERROR: syntax error at or near "="
+  Position: 87
+2019-Dec-09 14:14:55 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-09 14:14:55 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-09 14:14:55 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-09 14:14:55 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-09 14:15:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 14:15:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 14:16:10 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:10 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:10 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:10 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:10 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:10 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:10 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:10 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:10 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:10 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:10 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:10 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:10 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:10 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:10 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:17 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:17 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:17 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:17 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:17 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:17 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:17 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:17 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:17 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:17 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:17 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:17 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:17 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:17 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:16:17 ERROR [http-nio-8080-exec-3] w.f.w.a.PlanController - Incorrect result size: expected 1, actual 0
+2019-Dec-09 14:20:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 14:20:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 14:25:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 14:25:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 14:25:00 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:00 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:00 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:00 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:00 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:00 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:00 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:00 ERROR [http-nio-8080-exec-8] w.f.w.a.PlanController - Incorrect result size: expected 1, actual 0
+2019-Dec-09 14:25:01 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:01 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:01 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:01 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:01 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:01 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:01 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:01 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:01 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:01 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:01 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:15 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:15 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:15 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:15 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:15 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:15 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:15 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:15 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:15 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:24 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:25:24 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:43 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:43 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:43 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:43 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:44 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:44 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:48 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:48 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:48 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:48 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:48 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:48 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:48 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:48 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:48 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:48 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:58 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:58 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:58 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:58 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:58 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:58 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:58 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:58 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:26:58 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:00 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:00 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:00 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:00 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:00 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:00 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:00 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:00 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:00 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:00 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:02 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:02 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:02 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:02 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:02 ERROR [http-nio-8080-exec-8] w.f.w.a.PlanController - Incorrect result size: expected 1, actual 0
+2019-Dec-09 14:27:02 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:02 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:02 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:02 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:02 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:02 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:02 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:02 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:02 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:02 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:02 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:02 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:04 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:04 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:04 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:04 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:04 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:04 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:04 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:04 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:04 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:27:04 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:28:19 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:28:19 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:30:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 14:30:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 14:35:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 14:35:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 14:39:25 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:39:25 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:39:25 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:39:25 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:39:25 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:39:25 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:39:25 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:39:25 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:39:25 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:39:25 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:39:47 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:39:47 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:39:51 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:39:51 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:39:51 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:39:51 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:39:51 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:39:52 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:39:52 ERROR [http-nio-8080-exec-6] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
+	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
+=======
 2019-Dec-03 00:02:31 WARN  [http-nio-8080-exec-3] c.HttpHandshakeInterceptor - Call beforeHandshake
 2019-Dec-03 00:03:08 WARN  [http-nio-8080-exec-6] c.HttpHandshakeInterceptor - Call beforeHandshake
 2019-Dec-03 00:03:17 WARN  [http-nio-8080-exec-8] c.HttpHandshakeInterceptor - Call beforeHandshake
@@ -2025,6 +2253,7 @@ org.springframework.security.core.userdetails.UsernameNotFoundException: tung
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
 	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:209)
+>>>>>>> 695d6815392af3ef61511196c33fabdd2f8bfa41
 	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
 	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
 	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
@@ -2062,15 +2291,95 @@ org.springframework.security.core.userdetails.UsernameNotFoundException: tung
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
-2019-Dec-03 15:07:50 ERROR [http-nio-8080-exec-4] s.s.PrincipalService - Incorrect result size: expected 1, actual 0
-2019-Dec-03 15:07:50 ERROR [http-nio-8080-exec-4] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
-org.springframework.security.core.userdetails.UsernameNotFoundException: tung
-	at services.security.PrincipalService.loadUserByUsername(PrincipalService.java:42)
-	at services.security.TokenAuthenFilter.doFilterInternal(TokenAuthenFilter.java:50)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:209)
+2019-Dec-09 14:40:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 14:40:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 14:43:13 WARN  [http-nio-8080-exec-2] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 14:43:18 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:43:18 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:43:28 WARN  [http-nio-8080-exec-8] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 14:43:33 WARN  [http-nio-8080-exec-8] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 14:43:33 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:43:33 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:44:55 WARN  [http-nio-8080-exec-6] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 14:44:56 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:44:56 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:44:56 WARN  [http-nio-8080-exec-6] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 14:45:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 14:45:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 14:50:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 14:50:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 14:55:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 14:55:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 14:56:29 WARN  [http-nio-8080-exec-6] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 14:56:29 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:56:29 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:56:29 WARN  [http-nio-8080-exec-6] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 14:59:22 WARN  [http-nio-8080-exec-8] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 14:59:52 WARN  [http-nio-8080-exec-3] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: "undefined"]
+2019-Dec-09 14:59:52 WARN  [http-nio-8080-exec-1] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 14:59:52 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:59:52 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 14:59:52 WARN  [http-nio-8080-exec-1] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:00:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 15:00:00 WARN  [MessageBroker-2] s.c.ContributionPointServiceImpl - []
+2019-Dec-09 15:00:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 15:00:14 WARN  [http-nio-8080-exec-8] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: "undefined"]
+2019-Dec-09 15:00:32 WARN  [http-nio-8080-exec-3] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:00:32 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 15:00:32 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 15:00:32 WARN  [http-nio-8080-exec-3] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:02:41 WARN  [http-nio-8080-exec-10] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:02:41 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 15:02:41 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 15:05:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 15:05:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 15:05:54 WARN  [http-nio-8080-exec-10] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:05:54 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 15:05:54 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 15:06:49 WARN  [http-nio-8080-exec-2] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:06:49 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 15:06:49 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 15:06:49 WARN  [http-nio-8080-exec-2] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:09:30 WARN  [http-nio-8080-exec-10] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:09:30 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 15:09:30 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 15:09:30 WARN  [http-nio-8080-exec-10] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:10:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 15:10:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 15:11:32 WARN  [http-nio-8080-exec-10] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:11:32 WARN  [http-nio-8080-exec-7] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:12:39 WARN  [http-nio-8080-exec-6] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:12:40 WARN  [http-nio-8080-exec-1] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:12:45 WARN  [http-nio-8080-exec-9] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:12:47 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 15:12:47 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 15:14:20 WARN  [http-nio-8080-exec-10] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:14:21 WARN  [http-nio-8080-exec-9] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:14:41 WARN  [http-nio-8080-exec-2] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:14:42 WARN  [http-nio-8080-exec-5] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:15:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 15:15:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 15:17:30 WARN  [http-nio-8080-exec-5] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:17:31 WARN  [http-nio-8080-exec-2] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:18:24 WARN  [http-nio-8080-exec-6] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:18:25 WARN  [http-nio-8080-exec-1] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:19:36 WARN  [http-nio-8080-exec-3] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:19:36 WARN  [http-nio-8080-exec-8] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:20:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 15:20:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 15:20:04 WARN  [http-nio-8080-exec-9] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:20:04 WARN  [http-nio-8080-exec-4] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:25:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 15:25:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 15:28:34 WARN  [http-nio-8080-exec-2] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:28:34 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 15:28:34 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 15:30:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 15:30:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 15:31:10 ERROR [http-nio-8080-exec-8] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
+	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
 	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
 	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
 	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
@@ -2108,6 +2417,14 @@ org.springframework.security.core.userdetails.UsernameNotFoundException: tung
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
+<<<<<<< HEAD
+2019-Dec-09 15:31:13 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 15:31:13 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 15:31:21 ERROR [http-nio-8080-exec-6] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
+	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
+=======
 2019-Dec-03 12:31:52 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
 2019-Dec-03 12:31:52 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
 2019-Dec-03 12:31:52 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
@@ -2438,6 +2755,7 @@ org.postgresql.util.PSQLException: FATAL: password authentication failed for use
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
 	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:209)
+>>>>>>> 695d6815392af3ef61511196c33fabdd2f8bfa41
 	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
 	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
 	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
@@ -2475,15 +2793,10 @@ org.postgresql.util.PSQLException: FATAL: password authentication failed for use
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
-2019-Dec-06 12:21:30 ERROR [http-nio-8080-exec-2] s.PrincipalService - Failed to obtain JDBC Connection; nested exception is org.postgresql.util.PSQLException: FATAL: password authentication failed for user "postgres"
-2019-Dec-06 12:21:30 ERROR [http-nio-8080-exec-2] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
-org.springframework.security.core.userdetails.UsernameNotFoundException: tung
-	at security.PrincipalService.loadUserByUsername(PrincipalService.java:40)
-	at security.TokenAuthenFilter.doFilterInternal(TokenAuthenFilter.java:49)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:209)
+2019-Dec-09 15:31:24 ERROR [http-nio-8080-exec-7] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
+	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
 	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
 	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
 	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
@@ -2521,53 +2834,10 @@ org.springframework.security.core.userdetails.UsernameNotFoundException: tung
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
-2019-Dec-06 12:22:29 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
-2019-Dec-06 12:22:29 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
-2019-Dec-06 12:22:29 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
-2019-Dec-06 12:22:29 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
-2019-Dec-06 12:23:53 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
-2019-Dec-06 12:23:53 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
-2019-Dec-06 12:23:53 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
-2019-Dec-06 12:23:53 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
-2019-Dec-06 12:24:13 ERROR [http-nio-8080-exec-1] c.z.h.p.HikariPool - HikariPool-1 - Exception during pool initialization.
-org.postgresql.util.PSQLException: FATAL: password authentication failed for user "postgres"
-	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:520)
-	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:141)
-	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:192)
-	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:49)
-	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:195)
-	at org.postgresql.Driver.makeConnection(Driver.java:458)
-	at org.postgresql.Driver.connect(Driver.java:260)
-	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:136)
-	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:369)
-	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:198)
-	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:467)
-	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:541)
-	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
-	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
-	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:158)
-	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:116)
-	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:79)
-	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:612)
-	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:669)
-	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:700)
-	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:712)
-	at org.springframework.jdbc.core.JdbcTemplate.queryForObject(JdbcTemplate.java:790)
-	at services.account.AccountRepository.findAccountByName(AccountRepository.java:35)
-	at services.account.AccountRepository$$FastClassBySpringCGLIB$$31406e26.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:750)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:689)
-	at services.account.AccountRepository$$EnhancerBySpringCGLIB$$ab40ecae.findAccountByName(<generated>)
-	at security.PrincipalService.loadUserByUsername(PrincipalService.java:33)
-	at security.TokenAuthenFilter.doFilterInternal(TokenAuthenFilter.java:49)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:209)
+2019-Dec-09 15:31:24 ERROR [http-nio-8080-exec-1] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
+	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
 	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
 	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
 	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
@@ -2605,15 +2875,10 @@ org.postgresql.util.PSQLException: FATAL: password authentication failed for use
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
-2019-Dec-06 12:24:13 ERROR [http-nio-8080-exec-1] s.PrincipalService - Failed to obtain JDBC Connection; nested exception is org.postgresql.util.PSQLException: FATAL: password authentication failed for user "postgres"
-2019-Dec-06 12:24:13 ERROR [http-nio-8080-exec-1] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
-org.springframework.security.core.userdetails.UsernameNotFoundException: tung
-	at security.PrincipalService.loadUserByUsername(PrincipalService.java:40)
-	at security.TokenAuthenFilter.doFilterInternal(TokenAuthenFilter.java:49)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:209)
+2019-Dec-09 15:31:33 ERROR [http-nio-8080-exec-8] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
+	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
 	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
 	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
 	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
@@ -2651,45 +2916,33 @@ org.springframework.security.core.userdetails.UsernameNotFoundException: tung
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
-2019-Dec-06 12:24:37 ERROR [http-nio-8080-exec-2] c.z.h.p.HikariPool - HikariPool-1 - Exception during pool initialization.
-org.postgresql.util.PSQLException: FATAL: password authentication failed for user "postgres"
-	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:520)
-	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:141)
-	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:192)
-	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:49)
-	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:195)
-	at org.postgresql.Driver.makeConnection(Driver.java:458)
-	at org.postgresql.Driver.connect(Driver.java:260)
-	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:136)
-	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:369)
-	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:198)
-	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:467)
-	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:541)
-	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
-	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
-	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:158)
-	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:116)
-	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:79)
-	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:612)
-	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:669)
-	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:700)
-	at org.springframework.jdbc.core.JdbcTemplate.query(JdbcTemplate.java:712)
-	at org.springframework.jdbc.core.JdbcTemplate.queryForObject(JdbcTemplate.java:790)
-	at services.account.AccountRepository.findAccountByName(AccountRepository.java:35)
-	at services.account.AccountRepository$$FastClassBySpringCGLIB$$31406e26.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:750)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:689)
-	at services.account.AccountRepository$$EnhancerBySpringCGLIB$$ab40ecae.findAccountByName(<generated>)
-	at security.PrincipalService.loadUserByUsername(PrincipalService.java:33)
-	at security.TokenAuthenFilter.doFilterInternal(TokenAuthenFilter.java:49)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:209)
+2019-Dec-09 15:31:33 WARN  [http-nio-8080-exec-9] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:32:37 WARN  [http-nio-8080-exec-10] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 15:35:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 15:35:04 WARN  [MessageBroker-3] s.t.TripServiceImpl - [update trip set status = 'CANCELLED' where trip_id = 4]
+2019-Dec-09 15:40:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 15:40:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 15:45:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 15:45:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 15:50:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 15:50:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 15:55:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 15:55:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 16:00:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 16:00:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 16:00:00 WARN  [MessageBroker-2] s.c.ContributionPointServiceImpl - [update guider set contribution = contribution - 5000 where guider_id = 24, update guider set contribution = contribution - 5000 where guider_id = 8, update guider set contribution = contribution - 5000 where guider_id = 11, update guider set contribution = contribution - 5000 where guider_id = 19, update guider set contribution = contribution - 5000 where guider_id = 1, update guider set contribution = contribution - 5000 where guider_id = 2, update guider set contribution = contribution - 5000 where guider_id = 4, update guider set contribution = contribution - 5000 where guider_id = 12, update guider set contribution = contribution - 5000 where guider_id = 3]
+2019-Dec-09 16:00:00 WARN  [MessageBroker-3] s.c.ContributionPointServiceImpl - []
+2019-Dec-09 16:05:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 16:05:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 16:10:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 16:10:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 16:15:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 16:15:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 16:15:57 WARN  [http-nio-8080-exec-4] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 16:15:57 ERROR [http-nio-8080-exec-9] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
+	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
 	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
 	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
 	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
@@ -2727,15 +2980,25 @@ org.postgresql.util.PSQLException: FATAL: password authentication failed for use
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
-2019-Dec-06 12:24:37 ERROR [http-nio-8080-exec-2] s.PrincipalService - Failed to obtain JDBC Connection; nested exception is org.postgresql.util.PSQLException: FATAL: password authentication failed for user "postgres"
-2019-Dec-06 12:24:37 ERROR [http-nio-8080-exec-2] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
-org.springframework.security.core.userdetails.UsernameNotFoundException: tung
-	at security.PrincipalService.loadUserByUsername(PrincipalService.java:40)
-	at security.TokenAuthenFilter.doFilterInternal(TokenAuthenFilter.java:49)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:209)
+2019-Dec-09 16:26:05 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-09 16:26:05 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-09 16:26:05 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-09 16:26:05 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-09 16:30:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 16:30:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 16:31:09 WARN  [http-nio-8080-exec-4] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 16:34:04 WARN  [http-nio-8080-exec-2] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 16:34:04 WARN  [http-nio-8080-exec-3] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 16:35:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 16:35:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 16:35:37 WARN  [http-nio-8080-exec-1] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 16:35:37 WARN  [http-nio-8080-exec-10] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 16:36:19 WARN  [http-nio-8080-exec-7] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 16:36:20 WARN  [http-nio-8080-exec-6] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 16:38:35 ERROR [http-nio-8080-exec-3] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
+	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
 	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
 	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
 	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
@@ -2773,6 +3036,14 @@ org.springframework.security.core.userdetails.UsernameNotFoundException: tung
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
+<<<<<<< HEAD
+2019-Dec-09 16:38:35 WARN  [http-nio-8080-exec-4] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 16:38:36 WARN  [http-nio-8080-exec-2] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 16:38:39 ERROR [http-nio-8080-exec-6] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
+	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
+=======
 2019-Dec-06 12:25:01 ERROR [MessageBroker-2] c.z.h.p.HikariPool - HikariPool-1 - Exception during pool initialization.
 org.postgresql.util.PSQLException: FATAL: password authentication failed for user "postgres"
 	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:520)
@@ -3084,6 +3355,7 @@ org.postgresql.util.PSQLException: FATAL: password authentication failed for use
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
 	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:209)
+>>>>>>> 695d6815392af3ef61511196c33fabdd2f8bfa41
 	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
 	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
 	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
@@ -3121,15 +3393,10 @@ org.postgresql.util.PSQLException: FATAL: password authentication failed for use
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
-2019-Dec-06 12:25:28 ERROR [http-nio-8080-exec-3] s.PrincipalService - Failed to obtain JDBC Connection; nested exception is org.postgresql.util.PSQLException: FATAL: password authentication failed for user "postgres"
-2019-Dec-06 12:25:28 ERROR [http-nio-8080-exec-3] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
-org.springframework.security.core.userdetails.UsernameNotFoundException: tung
-	at security.PrincipalService.loadUserByUsername(PrincipalService.java:40)
-	at security.TokenAuthenFilter.doFilterInternal(TokenAuthenFilter.java:49)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:209)
+2019-Dec-09 16:38:40 ERROR [http-nio-8080-exec-7] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
+	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
 	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
 	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
 	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
@@ -3167,6 +3434,134 @@ org.springframework.security.core.userdetails.UsernameNotFoundException: tung
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
+<<<<<<< HEAD
+2019-Dec-09 16:39:32 WARN  [http-nio-8080-exec-3] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 16:39:32 WARN  [http-nio-8080-exec-1] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 16:40:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 16:40:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 16:40:15 WARN  [http-nio-8080-exec-8] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 16:45:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 16:45:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:15Z, a difference of 287149 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:15Z, a difference of 287151 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-8] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:15Z, a difference of 287254 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-8] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:15Z, a difference of 287831 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:15Z, a difference of 287832 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-10] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:15Z, a difference of 287858 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-10] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-10] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:15Z, a difference of 287859 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-10] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-1] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:15Z, a difference of 287885 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-1] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-1] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:15Z, a difference of 287886 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-1] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-3] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:15Z, a difference of 287935 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-3] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-3] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:15Z, a difference of 287936 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-3] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-2] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:15Z, a difference of 287944 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-2] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:15Z, a difference of 287959 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:15Z, a difference of 287959 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:15 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:26 ERROR [http-nio-8080-exec-5] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:26Z, a difference of 298557 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:26 ERROR [http-nio-8080-exec-5] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:26 ERROR [http-nio-8080-exec-5] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:26Z, a difference of 298557 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:26 ERROR [http-nio-8080-exec-5] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:30 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:30Z, a difference of 302484 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:30 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:30 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:30Z, a difference of 302486 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:30 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:41 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:41Z, a difference of 313402 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:41 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:41 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:41Z, a difference of 313403 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:41 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:42 ERROR [http-nio-8080-exec-8] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:42Z, a difference of 314466 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:42 ERROR [http-nio-8080-exec-8] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:42 ERROR [http-nio-8080-exec-8] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:42Z, a difference of 314467 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:42 ERROR [http-nio-8080-exec-8] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:44 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:44Z, a difference of 316641 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:44 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:44 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:44Z, a difference of 316643 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:44 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:45 ERROR [http-nio-8080-exec-10] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:45Z, a difference of 317330 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:45 ERROR [http-nio-8080-exec-10] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:45 ERROR [http-nio-8080-exec-10] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:45Z, a difference of 317331 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:45 ERROR [http-nio-8080-exec-10] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:45 ERROR [http-nio-8080-exec-1] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:45Z, a difference of 317818 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:45 ERROR [http-nio-8080-exec-1] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:45 ERROR [http-nio-8080-exec-1] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:45Z, a difference of 317819 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:45 ERROR [http-nio-8080-exec-1] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:46 ERROR [http-nio-8080-exec-3] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:46Z, a difference of 318451 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:46 ERROR [http-nio-8080-exec-3] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:48:46 ERROR [http-nio-8080-exec-3] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:48:46Z, a difference of 318452 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:48:46 ERROR [http-nio-8080-exec-3] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:50:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 16:50:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 16:51:21 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:21Z, a difference of 473035 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:21 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:21 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:21Z, a difference of 473037 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:21 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:22 ERROR [http-nio-8080-exec-5] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:22Z, a difference of 474010 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:22 ERROR [http-nio-8080-exec-5] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:22 ERROR [http-nio-8080-exec-5] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:22Z, a difference of 474011 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:22 ERROR [http-nio-8080-exec-5] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:22 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:22Z, a difference of 474650 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:22 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:22 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:22Z, a difference of 474651 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:22 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:23 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:23Z, a difference of 475345 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:23 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:23 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:23Z, a difference of 475346 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:23 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:23 ERROR [http-nio-8080-exec-8] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:23Z, a difference of 475730 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:23 ERROR [http-nio-8080-exec-8] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:23 ERROR [http-nio-8080-exec-8] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:23Z, a difference of 475731 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:23 ERROR [http-nio-8080-exec-8] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:24 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:24Z, a difference of 476106 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:24 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:24 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:24Z, a difference of 476107 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:24 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:42 ERROR [http-nio-8080-exec-1] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:42Z, a difference of 494157 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:42 ERROR [http-nio-8080-exec-1] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:42 ERROR [http-nio-8080-exec-1] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:42Z, a difference of 494159 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:42 ERROR [http-nio-8080-exec-1] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:42 ERROR [http-nio-8080-exec-3] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:42Z, a difference of 494189 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:42 ERROR [http-nio-8080-exec-3] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:42 ERROR [http-nio-8080-exec-3] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:42Z, a difference of 494189 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:42 ERROR [http-nio-8080-exec-3] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-2] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:48Z, a difference of 500573 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-2] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-2] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:48Z, a difference of 500575 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-2] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-5] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:48Z, a difference of 500577 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-5] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:48Z, a difference of 500575 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-5] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:48Z, a difference of 500577 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-5] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:48Z, a difference of 500578 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:48Z, a difference of 500630 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:48Z, a difference of 500631 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:48Z, a difference of 500631 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-8] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:48Z, a difference of 500762 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-8] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:48Z, a difference of 500803 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-10] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:48Z, a difference of 500854 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-10] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-1] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+=======
 2019-Dec-06 12:25:51 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
 2019-Dec-06 12:25:51 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
 2019-Dec-06 12:25:52 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
@@ -3366,6 +3761,7 @@ java.lang.IllegalArgumentException: SQL array must not be empty
 2019-Dec-06 19:35:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
 2019-Dec-06 14:00:00 WARN  [MessageBroker-1] s.c.ContributionPointServiceImpl - [update guider set contribution = contribution - 5000 where guider_id = 1, update guider set contribution = contribution - 5000 where guider_id = 12, update guider set contribution = contribution - 5000 where guider_id = 3, update guider set contribution = contribution - 5000 where guider_id = 2, update guider set contribution = contribution - 5000 where guider_id = 4, update guider set contribution = contribution - 5000 where guider_id = 11, update guider set contribution = contribution - 5000 where guider_id = 8]
 2019-Dec-06 14:00:19 ERROR [http-nio-8080-exec-4] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+>>>>>>> 695d6815392af3ef61511196c33fabdd2f8bfa41
 org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
 	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
 	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
@@ -3406,9 +3802,164 @@ org.springframework.security.web.firewall.RequestRejectedException: The request 
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
-2019-Dec-06 14:00:21 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-06 14:00:21 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-06 14:00:31 ERROR [http-nio-8080-exec-5] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-10] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:48Z, a difference of 500855 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:48 ERROR [http-nio-8080-exec-10] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:53 ERROR [http-nio-8080-exec-5] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:53Z, a difference of 505085 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:53 ERROR [http-nio-8080-exec-5] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:51:53 ERROR [http-nio-8080-exec-5] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:51:53Z, a difference of 505086 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:51:53 ERROR [http-nio-8080-exec-5] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:14 ERROR [http-nio-8080-exec-2] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:14Z, a difference of 526314 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:14 ERROR [http-nio-8080-exec-2] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:14 ERROR [http-nio-8080-exec-2] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:14Z, a difference of 526315 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:14 ERROR [http-nio-8080-exec-2] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:31 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:31Z, a difference of 543424 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:31 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:31 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:31Z, a difference of 543426 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:31 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:38 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:38Z, a difference of 550162 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:38 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:38 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:38Z, a difference of 550163 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:38 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:38 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:38Z, a difference of 550188 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:38 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:38 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:38Z, a difference of 550189 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:38 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:38 ERROR [http-nio-8080-exec-8] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:38Z, a difference of 550283 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:38 ERROR [http-nio-8080-exec-8] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:38 ERROR [http-nio-8080-exec-1] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:38Z, a difference of 550330 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:38 ERROR [http-nio-8080-exec-1] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:38 ERROR [http-nio-8080-exec-1] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:38Z, a difference of 550331 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:38 ERROR [http-nio-8080-exec-1] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:38 ERROR [http-nio-8080-exec-3] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:38Z, a difference of 550342 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:38 ERROR [http-nio-8080-exec-3] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:38 ERROR [http-nio-8080-exec-3] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:38Z, a difference of 550343 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:38 ERROR [http-nio-8080-exec-3] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:38 WARN  [http-nio-8080-exec-3] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11
+ at [Source: (PushbackInputStream); line: 1, column: 46] (through reference chain: entities.Order["begin_date"])]
+2019-Dec-09 16:52:38 ERROR [http-nio-8080-exec-5] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:38Z, a difference of 550368 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:38 ERROR [http-nio-8080-exec-5] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:38 ERROR [http-nio-8080-exec-5] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:38Z, a difference of 550369 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:38 ERROR [http-nio-8080-exec-5] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:51 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:51Z, a difference of 563611 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:51 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:51 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:51Z, a difference of 563612 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:51 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:53 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:53Z, a difference of 565441 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:53 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:53 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:53Z, a difference of 565442 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:53 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:54 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:54Z, a difference of 566161 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:54 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:54 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:54Z, a difference of 566162 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:54 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:55 ERROR [http-nio-8080-exec-8] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:55Z, a difference of 567434 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:55 ERROR [http-nio-8080-exec-8] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:52:55 ERROR [http-nio-8080-exec-8] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:52:55Z, a difference of 567435 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:52:55 ERROR [http-nio-8080-exec-8] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:53:01 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:53:01Z, a difference of 573138 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:53:01 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:53:01 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:53:01Z, a difference of 573139 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:53:01 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:53:16 ERROR [http-nio-8080-exec-1] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:53:16Z, a difference of 588858 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:53:16 ERROR [http-nio-8080-exec-1] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:53:16 ERROR [http-nio-8080-exec-1] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T16:53:16Z, a difference of 588859 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 16:53:16 ERROR [http-nio-8080-exec-1] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 16:55:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 16:55:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 17:00:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 17:00:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 17:00:00 WARN  [MessageBroker-1] s.c.ContributionPointServiceImpl - []
+2019-Dec-09 17:05:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 17:05:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 17:09:24 ERROR [http-nio-8080-exec-5] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:09:24Z, a difference of 1556620 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:09:24 ERROR [http-nio-8080-exec-5] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:09:24 ERROR [http-nio-8080-exec-5] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:09:24Z, a difference of 1556621 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:09:24 ERROR [http-nio-8080-exec-5] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:09:24 ERROR [http-nio-8080-exec-2] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:09:24Z, a difference of 1556646 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:09:24 ERROR [http-nio-8080-exec-2] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:09:24 ERROR [http-nio-8080-exec-2] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:09:24Z, a difference of 1556647 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:09:24 ERROR [http-nio-8080-exec-2] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:09:24 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:09:24Z, a difference of 1556795 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:09:24 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:09:24 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:09:24Z, a difference of 1556846 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:09:24 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:09:24 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:09:24Z, a difference of 1556847 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:09:24 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:09:24 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:09:24Z, a difference of 1556863 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:09:24 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:09:24 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:09:24Z, a difference of 1556864 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:09:24 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:09:24 WARN  [http-nio-8080-exec-9] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11
+ at [Source: (PushbackInputStream); line: 1, column: 46] (through reference chain: entities.Order["begin_date"])]
+2019-Dec-09 17:09:24 ERROR [http-nio-8080-exec-1] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:09:24Z, a difference of 1556881 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:09:24 ERROR [http-nio-8080-exec-1] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:09:24 ERROR [http-nio-8080-exec-1] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:09:24Z, a difference of 1556882 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:09:24 ERROR [http-nio-8080-exec-1] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:09:39 ERROR [http-nio-8080-exec-10] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:09:39Z, a difference of 1571638 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:09:39 ERROR [http-nio-8080-exec-10] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:09:39 ERROR [http-nio-8080-exec-10] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:09:39Z, a difference of 1571640 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:09:39 ERROR [http-nio-8080-exec-10] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:09:39 ERROR [http-nio-8080-exec-3] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:09:39Z, a difference of 1571666 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:09:39 ERROR [http-nio-8080-exec-3] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:09:39 ERROR [http-nio-8080-exec-3] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:09:39Z, a difference of 1571667 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:09:39 ERROR [http-nio-8080-exec-3] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:09:39 ERROR [http-nio-8080-exec-5] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:09:39Z, a difference of 1571702 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:09:39 ERROR [http-nio-8080-exec-5] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:09:39 ERROR [http-nio-8080-exec-2] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:09:39Z, a difference of 1571717 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:09:39 ERROR [http-nio-8080-exec-2] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:09:39 ERROR [http-nio-8080-exec-2] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:09:39Z, a difference of 1571718 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:09:39 ERROR [http-nio-8080-exec-2] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:09:39 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:09:39Z, a difference of 1571744 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:09:39 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:09:39 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:09:39Z, a difference of 1571745 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:09:39 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:09:39 WARN  [http-nio-8080-exec-4] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11
+ at [Source: (PushbackInputStream); line: 1, column: 46] (through reference chain: entities.Order["begin_date"])]
+2019-Dec-09 17:09:39 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:09:39Z, a difference of 1571761 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:09:39 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:09:39 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:09:39Z, a difference of 1571762 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:09:39 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 17:10:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-8] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:16Z, a difference of 1608630 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:16Z, a difference of 1608630 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-8] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-8] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:16Z, a difference of 1608631 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:16Z, a difference of 1608631 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-8] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:16Z, a difference of 1608662 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:16Z, a difference of 1608663 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-1] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:16Z, a difference of 1608691 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-1] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-1] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:16Z, a difference of 1608692 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-1] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-10] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:16Z, a difference of 1608710 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-10] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-3] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:16Z, a difference of 1608719 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-3] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-3] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:16Z, a difference of 1608721 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-3] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 17:10:16 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 17:10:23 ERROR [http-nio-8080-exec-2] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:23Z, a difference of 1615378 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:23 ERROR [http-nio-8080-exec-2] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:23 ERROR [http-nio-8080-exec-2] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:23Z, a difference of 1615380 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:23 ERROR [http-nio-8080-exec-2] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:24 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:24Z, a difference of 1616752 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:24 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:24 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:24Z, a difference of 1616753 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:24 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:24 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:24Z, a difference of 1616774 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:24 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:24 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:24Z, a difference of 1616774 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:24 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:24 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:24Z, a difference of 1616775 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:24 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:24 ERROR [http-nio-8080-exec-8] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
 org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
 	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
 	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
@@ -3449,7 +4000,43 @@ org.springframework.security.web.firewall.RequestRejectedException: The request 
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
-2019-Dec-06 14:00:35 ERROR [http-nio-8080-exec-8] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+2019-Dec-09 17:10:24 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:24Z, a difference of 1616800 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:24 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-1] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:26Z, a difference of 1618643 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-1] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-10] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:26Z, a difference of 1618643 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-10] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-1] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:26Z, a difference of 1618644 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-1] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-10] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:26Z, a difference of 1618645 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-10] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-3] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:26Z, a difference of 1618658 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-3] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-3] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:26Z, a difference of 1618659 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-3] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-5] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:26Z, a difference of 1618661 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-5] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-8] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:26Z, a difference of 1618684 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-8] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-2] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:26Z, a difference of 1618684 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-2] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-2] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:26Z, a difference of 1618685 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-2] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:26Z, a difference of 1618684 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:26Z, a difference of 1618689 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:26Z, a difference of 1618698 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:26Z, a difference of 1618700 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:26Z, a difference of 1618702 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:26Z, a difference of 1618708 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:26Z, a difference of 1618709 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-1] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
 org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
 	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
 	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
@@ -3490,7 +4077,9 @@ org.springframework.security.web.firewall.RequestRejectedException: The request 
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
-2019-Dec-06 14:00:35 ERROR [http-nio-8080-exec-9] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-10] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:26Z, a difference of 1618749 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-10] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:26 ERROR [http-nio-8080-exec-3] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
 org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
 	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
 	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
@@ -3531,18 +4120,81 @@ org.springframework.security.web.firewall.RequestRejectedException: The request 
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
-2019-Dec-06 14:04:29 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
-2019-Dec-06 14:04:29 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
-2019-Dec-06 14:04:29 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
-2019-Dec-06 14:04:29 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
-2019-Dec-06 14:04:48 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-06 14:04:48 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-06 14:05:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
-2019-Dec-06 14:05:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
-2019-Dec-06 14:05:24 ERROR [http-nio-8080-exec-6] s.GeneralServiceImpl - createSqlArray0
-2019-Dec-06 14:10:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
-2019-Dec-06 14:10:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
-2019-Dec-06 14:13:21 ERROR [http-nio-8080-exec-3] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+2019-Dec-09 17:10:28 ERROR [http-nio-8080-exec-5] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:28Z, a difference of 1620507 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:28 ERROR [http-nio-8080-exec-5] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:28 ERROR [http-nio-8080-exec-5] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:28Z, a difference of 1620509 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:28 ERROR [http-nio-8080-exec-5] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:28 ERROR [http-nio-8080-exec-2] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:28Z, a difference of 1620523 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:28 ERROR [http-nio-8080-exec-2] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:28 ERROR [http-nio-8080-exec-2] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:28Z, a difference of 1620525 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:28 ERROR [http-nio-8080-exec-2] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:28 ERROR [http-nio-8080-exec-8] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:28Z, a difference of 1620556 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:28 ERROR [http-nio-8080-exec-8] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:28 ERROR [http-nio-8080-exec-8] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:28Z, a difference of 1620557 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:28 ERROR [http-nio-8080-exec-8] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:28 WARN  [http-nio-8080-exec-8] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11
+ at [Source: (PushbackInputStream); line: 1, column: 46] (through reference chain: entities.Order["begin_date"])]
+2019-Dec-09 17:10:28 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:28Z, a difference of 1620574 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:28 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:28 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:28Z, a difference of 1620574 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:28 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:45 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:45Z, a difference of 1637928 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:45 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:45 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:45Z, a difference of 1637929 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:45 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:45 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:45Z, a difference of 1637942 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:45 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:45 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:45Z, a difference of 1637943 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:45 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:46 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:46Z, a difference of 1638045 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:46 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:46 ERROR [http-nio-8080-exec-1] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:46Z, a difference of 1638047 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:46 ERROR [http-nio-8080-exec-1] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:46 ERROR [http-nio-8080-exec-1] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:46Z, a difference of 1638050 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:46 ERROR [http-nio-8080-exec-1] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:46 ERROR [http-nio-8080-exec-3] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:46Z, a difference of 1638124 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:46 ERROR [http-nio-8080-exec-3] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:46 ERROR [http-nio-8080-exec-3] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:46Z, a difference of 1638127 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:46 ERROR [http-nio-8080-exec-3] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:46 WARN  [http-nio-8080-exec-3] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11
+ at [Source: (PushbackInputStream); line: 1, column: 46] (through reference chain: entities.Order["begin_date"])]
+2019-Dec-09 17:10:46 ERROR [http-nio-8080-exec-10] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:46Z, a difference of 1638146 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:46 ERROR [http-nio-8080-exec-10] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:10:46 ERROR [http-nio-8080-exec-10] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:46Z, a difference of 1638147 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:10:46 ERROR [http-nio-8080-exec-10] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-2] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674552 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-2] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-8] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674553 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-8] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-2] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674553 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-2] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-8] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674554 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-8] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674564 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674565 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674572 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674601 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674602 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674607 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674608 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-1] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674622 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-1] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-1] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674624 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-1] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-3] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674644 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-3] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-10] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674653 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-10] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-10] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674654 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-10] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-5] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
 org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
 	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
 	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
@@ -3583,7 +4235,9 @@ org.springframework.security.web.firewall.RequestRejectedException: The request 
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
-2019-Dec-06 14:13:23 ERROR [http-nio-8080-exec-6] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-2] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674703 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-2] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-8] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
 org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
 	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
 	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
@@ -3624,7 +4278,29 @@ org.springframework.security.web.firewall.RequestRejectedException: The request 
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
-2019-Dec-06 14:13:23 ERROR [http-nio-8080-exec-7] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:27Z, a difference of 1679888 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:27Z, a difference of 1679889 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:27Z, a difference of 1679905 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:27Z, a difference of 1679906 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:27Z, a difference of 1679960 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:27Z, a difference of 1679961 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:27Z, a difference of 1679994 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:27Z, a difference of 1679995 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:28 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 17:11:28 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 17:11:44 WARN  [http-nio-8080-exec-2] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 17:11:56 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 17:11:56 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 17:12:16 WARN  [http-nio-8080-exec-4] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 17:12:39 ERROR [http-nio-8080-exec-9] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
 org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
 	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
 	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
@@ -3665,7 +4341,7 @@ org.springframework.security.web.firewall.RequestRejectedException: The request 
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
-2019-Dec-06 14:14:20 ERROR [http-nio-8080-exec-9] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+2019-Dec-09 17:12:42 ERROR [http-nio-8080-exec-10] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
 org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
 	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
 	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
@@ -3706,7 +4382,7 @@ org.springframework.security.web.firewall.RequestRejectedException: The request 
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
-2019-Dec-06 14:14:20 ERROR [http-nio-8080-exec-10] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+2019-Dec-09 17:12:42 ERROR [http-nio-8080-exec-5] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
 org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
 	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
 	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
@@ -3747,6 +4423,49 @@ org.springframework.security.web.firewall.RequestRejectedException: The request 
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
+<<<<<<< HEAD
+2019-Dec-09 17:12:43 WARN  [http-nio-8080-exec-4] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11
+ at [Source: (PushbackInputStream); line: 1, column: 46] (through reference chain: entities.Order["begin_date"])]
+2019-Dec-09 17:15:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 17:15:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 17:15:00 ERROR [clientInboundChannel-48] w.f.w.a.WebSocketChatController - User must not be null
+2019-Dec-09 17:15:30 ERROR [clientInboundChannel-47] w.f.w.a.WebSocketChatController - User must not be null
+2019-Dec-09 17:16:05 WARN  [http-nio-8080-exec-4] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11
+ at [Source: (PushbackInputStream); line: 1, column: 46] (through reference chain: entities.Order["begin_date"])]
+2019-Dec-09 17:16:07 WARN  [http-nio-8080-exec-9] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11
+ at [Source: (PushbackInputStream); line: 1, column: 46] (through reference chain: entities.Order["begin_date"])]
+2019-Dec-09 17:16:08 WARN  [http-nio-8080-exec-1] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/10/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/10/2019 undefined' could not be parsed at index 11; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/10/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/10/2019 undefined' could not be parsed at index 11
+ at [Source: (PushbackInputStream); line: 1, column: 46] (through reference chain: entities.Order["begin_date"])]
+2019-Dec-09 17:16:13 WARN  [http-nio-8080-exec-8] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11
+ at [Source: (PushbackInputStream); line: 1, column: 46] (through reference chain: entities.Order["begin_date"])]
+2019-Dec-09 17:18:14 WARN  [http-nio-8080-exec-6] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 17:18:21 WARN  [http-nio-8080-exec-5] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 17:20:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 17:20:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 17:25:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 17:25:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 17:30:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 17:30:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 17:35:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 17:35:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 17:40:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 17:40:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 17:45:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 17:45:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 17:50:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 17:50:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 17:53:04 WARN  [http-nio-8080-exec-4] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public org.springframework.http.ResponseEntity<java.lang.String> winter.findGuider.web.api.TripController.getExpectedTourEnd(entities.Order)]
+2019-Dec-09 17:55:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 17:55:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 18:00:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 18:00:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 18:00:00 WARN  [MessageBroker-4] s.c.ContributionPointServiceImpl - []
+2019-Dec-09 18:00:00 WARN  [MessageBroker-2] s.c.ContributionPointServiceImpl - []
+2019-Dec-09 18:05:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 18:05:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 18:10:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 18:10:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+=======
 2019-Dec-06 14:15:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
 2019-Dec-06 14:15:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
 2019-Dec-06 14:15:48 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
@@ -3833,3 +4552,4 @@ org.springframework.security.web.firewall.RequestRejectedException: The request 
 2019-Dec-07 15:13:56 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
 2019-Dec-07 15:13:56 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
 2019-Dec-07 15:13:56 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+>>>>>>> 695d6815392af3ef61511196c33fabdd2f8bfa41

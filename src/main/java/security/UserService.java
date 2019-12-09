@@ -54,15 +54,15 @@ public class UserService {
                     "There is an account with that user name: "
                     + acc.getUserName());
         }
-
         acc.setToken(TokenHelper.createToken(acc.getUserName()));
         acc.setPassword(passwordEncoder.encode(acc.getPassword()));
         long id = repo.addAccount(acc);
         if (acc.getRole().equalsIgnoreCase("GUIDER")) {
-            gs.createGuider(new Guider(id, "", "", 0, "", "", 0, "", new String[]{}, false, 0, "account.jpg", ""));
+            gs.createGuider(new Guider(id, "", "", 0, "", "", 0, "", new String[]{}, false, 0,
+                    "http://localhost:8080/images/account.jpg", ""));
         } else if (acc.getRole().equalsIgnoreCase("TRAVELER")) {
             ts.createTraveler(new Traveler(id, "", "", "", 0, new java.sql.Timestamp(
-                    new Date().getTime()).toLocalDateTime(), "", "", "", "", "", new String[]{}, "", "", "account.jpg"));
+                    new Date().getTime()).toLocalDateTime(), "", "", "", "", "", new String[]{}, "", "", "http://localhost:8080/images/account.jpg"));
         }
         // the rest of the registration operation
         return acc;

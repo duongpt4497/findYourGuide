@@ -24,7 +24,7 @@ public interface GuiderService {
 
     long deactivateGuider(long id) throws Exception;
 
-    List<Guider> searchGuiderByName(String key) throws Exception;
+    List<Guider> searchGuiderByName(String key, int page) throws Exception;
 
     List<Guider> getTopGuiderByRate() throws Exception;
 

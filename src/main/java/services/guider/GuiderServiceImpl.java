@@ -33,6 +33,7 @@ public class GuiderServiceImpl implements GuiderService {
     private String URL_ROOT_SERVER;
     private JdbcTemplate jdbcTemplate;
     private GeneralService generalService;
+    private int LIMIT = 10;
 
     @Autowired
     public GuiderServiceImpl(JdbcTemplate jdbcTemplate, GeneralService generalService) {
@@ -168,12 +169,13 @@ public class GuiderServiceImpl implements GuiderService {
 
 
     @Override
-    public List<Guider> searchGuiderByName(String key) throws Exception {
+    public List<Guider> searchGuiderByName(String key, int page) throws Exception {
         List<Guider> result = new ArrayList<>();
         String query = "select g.* from guider as g "
                 + " inner join account as a on g.guider_id = a.account_id "
                 + " where g.first_name like '%" + key + "%' "
-                + " or g.last_name like '%" + key + "%'  or a.user_name like '%" + key + "%' ; ";
+                + " or g.last_name like '%" + key + "%'  or a.user_name like '%" + key + "%'"
+                + " order by g.guider_id limit ? offset ? ; ";
         result = jdbcTemplate.query(query, new RowMapper<Guider>() {
             public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Guider(rs.getLong("guider_id"), rs.getString("first_name"),
@@ -184,7 +186,7 @@ public class GuiderServiceImpl implements GuiderService {
                         rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avatar"),
                         rs.getString("passion"));
             }
-        });
+        }, LIMIT, LIMIT*page);
         return result;
     }
 

@@ -23,7 +23,7 @@ import java.util.*;
 
 @Repository
 public class TripServiceImpl implements TripService {
-    private static final String UNCONFIRMED = "UNCONFIRMED";
+    private static final String UNCONFIRMED = "WAITING";
     private static final String ONGOING = "ONGOING";
     private static final String FINISHED = "FINISHED";
     private static final String CANCELLED = "CANCELLED";
@@ -117,7 +117,7 @@ public class TripServiceImpl implements TripService {
                         rs.getString("first_name") + " " + rs.getString("last_name"));
             }
         }, id, status);
-        System.out.println(query + id + status + result.size());
+        //System.out.println(query + id + status + result.size());
         return result;
     }
 
@@ -462,7 +462,7 @@ public class TripServiceImpl implements TripService {
         List<Map<String, Object>> lo = new ArrayList<>();
         String query = "select trip_id, transaction_id from trip "
                 + " where extract (epoch from (now() - book_time))::integer "
-                + " < extract(epoch from TIMESTAMP '1970-1-1 05:00:00')::integer "
+                + " > extract(epoch from TIMESTAMP '1970-1-1 05:00:00')::integer "
                 + " and status = 'UNCONFIRMED'; ";
            lo = jdbcTemplate.queryForList(query);
 

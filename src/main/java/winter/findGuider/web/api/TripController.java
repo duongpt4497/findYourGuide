@@ -262,10 +262,10 @@ public class TripController {
             cal.setTime(order);
             cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
             Date start = cal.getTime();
-            System.out.println("Start of this week:       " + start);
+            //System.out.println("Start of this week:       " + start);
             cal.add(Calendar.WEEK_OF_YEAR, 1);
             Date end = cal.getTime();
-            System.out.println("Start of the next week:   " + end);
+            //System.out.println("Start of the next week:   " + end);
             return new ResponseEntity<>(tripService.getTripByWeek(id, start, end
             ), HttpStatus.OK);
         } catch (Exception e) {
