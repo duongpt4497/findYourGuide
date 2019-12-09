@@ -264,13 +264,13 @@ public class GuiderServiceImplTest {
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
                 "values (1,'John','Doe',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
-        jdbcTemplate.update("insert into contract_detail (guider_id,contract_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province)" +
-                "values (1,1,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi')");
+        jdbcTemplate.update("insert into contract_detail (guider_id,contract_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,file_link)" +
+                "values (1,1,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi','abc.pdf')");
         jdbcTemplate.update("insert into contract_detail (guider_id,contract_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province)" +
                 "values (1,2,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi')");
         jdbcTemplate.update("insert into contract_detail (guider_id,contract_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province)" +
                 "values (1,3,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi')");
-        Assert.assertEquals(3, guiderService.getAllContract().size());
+        Assert.assertEquals(1, guiderService.getAllContract().size());
     }
 
     @Test

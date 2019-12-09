@@ -86,7 +86,7 @@ public class PostServiceImplTest {
 
     @Test
     public void findAllPostByCategoryId() throws Exception {
-        Assert.assertEquals(8, postService.findAllPostByCategoryId(1).size());
+        Assert.assertEquals(7, postService.findAllPostByCategoryId(1).size());
     }
 
     @Test
@@ -113,12 +113,12 @@ public class PostServiceImplTest {
     public void getTopTour() throws Exception {
         List<Post> result = postService.getTopTour();
         Assert.assertEquals(6, result.size());
-        Assert.assertEquals(8, result.get(0).getPost_id());
-        Assert.assertEquals(5, result.get(1).getPost_id());
-        Assert.assertEquals(3, result.get(2).getPost_id());
-        Assert.assertEquals(4, result.get(3).getPost_id());
-        Assert.assertEquals(2, result.get(4).getPost_id());
-        Assert.assertEquals(1, result.get(5).getPost_id());
+        Assert.assertEquals(5, result.get(0).getPost_id());
+        Assert.assertEquals(3, result.get(1).getPost_id());
+        Assert.assertEquals(4, result.get(2).getPost_id());
+        Assert.assertEquals(2, result.get(3).getPost_id());
+        Assert.assertEquals(1, result.get(4).getPost_id());
+        Assert.assertEquals(7, result.get(5).getPost_id());
     }
 
     @Test
@@ -143,7 +143,7 @@ public class PostServiceImplTest {
 
     @Test
     public void findAllPostWithLocationName() throws Exception {
-        Assert.assertEquals(6, postService.findAllPostWithLocationName("ho").size());
+        Assert.assertEquals(5, postService.findAllPostWithLocationName("ho").size());
     }
 
     @Test

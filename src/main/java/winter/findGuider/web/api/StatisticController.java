@@ -1,5 +1,6 @@
 package winter.findGuider.web.api;
 
+import entities.Statistic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class StatisticController {
 
     @RequestMapping("/completedTrip")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<String>> getStatisticCompletedTrip(HttpServletResponse response) {
+    public ResponseEntity<List<Statistic>> getStatisticCompletedTrip(HttpServletResponse response) {
         try {
             response.setHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
             response.setHeader("Access-Control-Allow-Credentials", "true");
@@ -46,7 +47,7 @@ public class StatisticController {
 
     @RequestMapping("/totalRevenue")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<String>> getStatisticTotalRevenue(HttpServletResponse response) {
+    public ResponseEntity<List<Statistic>> getStatisticTotalRevenue(HttpServletResponse response) {
         try {
             response.setHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
             response.setHeader("Access-Control-Allow-Credentials", "true");
