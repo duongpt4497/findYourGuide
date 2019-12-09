@@ -58,7 +58,7 @@ public class AccountController {
     public ResponseEntity<String> changePassword(@RequestBody Account acc) {
         Account model = null;
         try {
-            acc = repo.findAccountByName(
+            model = repo.findAccountByName(
                     SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
 
             if (auth.getEncoder().matches(model.getPassword(), acc.getPassword())) {
@@ -76,8 +76,8 @@ public class AccountController {
     @PostMapping(path = "registrator", consumes = "application/json")
     public ResponseEntity registerUserAccount(@RequestBody Account acc, HttpServletResponse response
     ) {
-        //response.setHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
-        //response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.setHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
+        response.setHeader("Access-Control-Allow-Credentials", "true");
         Account registered = null;
         acc.setToken("");
         acc.setExpired(new Date());

@@ -27,13 +27,12 @@ public class TravelerServiceImpl implements TravelerService {
     public boolean createTraveler(Traveler newTraveler) throws Exception {
         String insertQuery = "insert into traveler (traveler_id, first_name, last_name, phone, gender, date_of_birth, street, house_number, postal_code, slogan, about_me, language, country, city, avatar_link) " +
                 "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        String[] images = new String[]{newTraveler.getAvatar_link()};
         jdbcTemplate.update(insertQuery, newTraveler.getTraveler_id(), newTraveler.getFirst_name(), newTraveler.getLast_name(),
                 newTraveler.getPhone(), newTraveler.getGender(), Timestamp.valueOf(newTraveler.getDate_of_birth()),
                 newTraveler.getStreet(), newTraveler.getHouse_number(), newTraveler.getSlogan(),
                 newTraveler.getPostal_code(), newTraveler.getAbout_me(),
                 generalService.createSqlArray(Arrays.asList(newTraveler.getLanguage())),
-                newTraveler.getCountry(), newTraveler.getCity(), generalService.convertBase64toImageAndChangeName(images));
+                newTraveler.getCountry(), newTraveler.getCity(), newTraveler.getAvatar_link());
         return true;
     }
 

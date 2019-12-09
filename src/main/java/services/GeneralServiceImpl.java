@@ -40,7 +40,7 @@ public class GeneralServiceImpl implements GeneralService {
         java.sql.Array intArray = null;
         try {
             Connection conn = jdbcTemplate.getDataSource().getConnection();
-            System.out.println("Schema:  " + conn.getSchema() + list.get(0));
+            System.out.println("Schema:  " + conn.getSchema());
             intArray = conn.createArrayOf("text", list.toArray());
         } catch (Exception e) {
             logger.error("createSqlArray" + e.getMessage());
@@ -62,7 +62,7 @@ public class GeneralServiceImpl implements GeneralService {
     }
 
     @Override
-    public List<String> convertBase64toImageAndChangeName(String[] base64array) {
+        public List<String> convertBase64toImageAndChangeName(String[] base64array) {
         List<String> base64List = Arrays.asList(base64array);
         List<String> imageUrls = new ArrayList<>();
         try {
@@ -75,7 +75,7 @@ public class GeneralServiceImpl implements GeneralService {
                 imageUrls.add(URL_ROOT_SERVER+"/images/" + uniqueIds.toString() + ".jpg");
             }
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.error("convertbase64: "+e.toString());
         }
         return imageUrls;
     }

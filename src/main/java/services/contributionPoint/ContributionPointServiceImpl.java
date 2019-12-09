@@ -95,7 +95,10 @@ public class ContributionPointServiceImpl implements ContributionPointService {
                     + " where guider_id = " + o.gettrip_id());
         }
         log.warn(update.toString());
-        jdbcTemplate.batchUpdate(update.toArray(new String[0]));
+        String[] updateList = update.toArray(new String[0]);
+        if (updateList.length > 0) {
+            jdbcTemplate.batchUpdate(updateList);
+        }
 
     }
 
@@ -112,7 +115,7 @@ public class ContributionPointServiceImpl implements ContributionPointService {
                 + " <= extract(epoch from TIMESTAMP '1970-1-31 00:00:00')::integer and  "
                 + " o1.status = 'FINISHED' group by p3.guider_id ; ";
         List<Map<String, Object>> positiveGuider = jdbcTemplate.queryForList(queryPositive);
-        String queryNegative = " select guider_id from guider where contribution < ? except "
+        String queryNegative = " select guider_id from guider where contribution > ? except "
                 + " select p3.guider_id from trip as o1 " 
                  + " inner join post as p3 on o1.post_id = p3.post_id where "
                 + "  extract(epoch from (now() - o1.finish_date))::integer "
@@ -160,7 +163,10 @@ public class ContributionPointServiceImpl implements ContributionPointService {
                     + minus + " where guider_id = " + m.get("guider_id"));
         }
         log.warn(update.toString());
-        jdbcTemplate.batchUpdate(update.toArray(new String[0]));
+        String[] updateList = update.toArray(new String[0]);
+        if (updateList.length > 0) {
+            jdbcTemplate.batchUpdate(updateList);
+        }
     }
 
     @Override

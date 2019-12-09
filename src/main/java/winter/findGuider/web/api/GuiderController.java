@@ -79,11 +79,11 @@ public class GuiderController {
         }
     }
 
-    @GetMapping("/Search/{key}")
+    @GetMapping("/Search/{key}/{page}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<Guider>> searchGuider(@PathVariable("key") String key) {
+    public ResponseEntity<List<Guider>> searchGuider(@PathVariable("key") String key, @PathVariable("page") int page) {
         try {
-            return new ResponseEntity<>(guiderService.searchGuiderByName(key), HttpStatus.OK);
+            return new ResponseEntity<>(guiderService.searchGuiderByName(key,page), HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
