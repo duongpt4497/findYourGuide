@@ -1283,3 +1283,305 @@ org.springframework.security.web.firewall.RequestRejectedException: The request 
 2019-Dec-09 17:10:46 ERROR [http-nio-8080-exec-10] s.TokenAuthenFilter - Something is wrong with Token.
 2019-Dec-09 17:10:46 ERROR [http-nio-8080-exec-10] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:10:46Z, a difference of 1638147 milliseconds.  Allowed clock skew: 0 milliseconds.
 2019-Dec-09 17:10:46 ERROR [http-nio-8080-exec-10] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-2] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674552 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-2] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-8] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674553 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-8] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-2] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674553 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-2] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-8] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674554 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-8] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674564 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674565 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674572 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674601 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674602 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674607 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674608 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-1] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674622 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-1] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-1] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674624 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-1] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-3] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674644 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-3] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-10] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674653 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-10] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-10] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674654 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-10] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-5] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
+	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:94)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1589)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-2] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:22Z, a difference of 1674703 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-2] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:22 ERROR [http-nio-8080-exec-8] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
+	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:94)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1589)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:27Z, a difference of 1679888 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-4] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:27Z, a difference of 1679889 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-4] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:27Z, a difference of 1679905 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-6] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:27Z, a difference of 1679906 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-6] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:27Z, a difference of 1679960 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-7] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:27Z, a difference of 1679961 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-7] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:27Z, a difference of 1679994 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-9] s.TokenHelper - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-09T16:43:28Z. Current time: 2019-12-09T17:11:27Z, a difference of 1679995 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-09 17:11:27 ERROR [http-nio-8080-exec-9] s.TokenAuthenFilter - Something is wrong with Token.
+2019-Dec-09 17:11:28 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 17:11:28 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 17:11:44 WARN  [http-nio-8080-exec-2] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 17:11:56 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 17:11:56 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-09 17:12:16 WARN  [http-nio-8080-exec-4] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 17:12:39 ERROR [http-nio-8080-exec-9] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
+	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:94)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1589)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+2019-Dec-09 17:12:42 ERROR [http-nio-8080-exec-10] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
+	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:94)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1589)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+2019-Dec-09 17:12:42 ERROR [http-nio-8080-exec-5] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
+	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:94)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1589)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+2019-Dec-09 17:12:43 WARN  [http-nio-8080-exec-4] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11
+ at [Source: (PushbackInputStream); line: 1, column: 46] (through reference chain: entities.Order["begin_date"])]
+2019-Dec-09 17:15:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 17:15:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 17:15:00 ERROR [clientInboundChannel-48] w.f.w.a.WebSocketChatController - User must not be null
+2019-Dec-09 17:15:30 ERROR [clientInboundChannel-47] w.f.w.a.WebSocketChatController - User must not be null
+2019-Dec-09 17:16:05 WARN  [http-nio-8080-exec-4] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11
+ at [Source: (PushbackInputStream); line: 1, column: 46] (through reference chain: entities.Order["begin_date"])]
+2019-Dec-09 17:16:07 WARN  [http-nio-8080-exec-9] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11
+ at [Source: (PushbackInputStream); line: 1, column: 46] (through reference chain: entities.Order["begin_date"])]
+2019-Dec-09 17:16:08 WARN  [http-nio-8080-exec-1] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/10/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/10/2019 undefined' could not be parsed at index 11; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/10/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/10/2019 undefined' could not be parsed at index 11
+ at [Source: (PushbackInputStream); line: 1, column: 46] (through reference chain: entities.Order["begin_date"])]
+2019-Dec-09 17:16:13 WARN  [http-nio-8080-exec-8] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.time.LocalDateTime` from String "12/09/2019 undefined": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '12/09/2019 undefined' could not be parsed at index 11
+ at [Source: (PushbackInputStream); line: 1, column: 46] (through reference chain: entities.Order["begin_date"])]
+2019-Dec-09 17:18:14 WARN  [http-nio-8080-exec-6] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 17:18:21 WARN  [http-nio-8080-exec-5] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-09 17:20:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 17:20:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 17:25:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 17:25:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 17:30:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 17:30:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 17:35:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 17:35:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 17:40:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 17:40:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 17:45:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 17:45:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 17:50:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 17:50:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 17:53:04 WARN  [http-nio-8080-exec-4] o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public org.springframework.http.ResponseEntity<java.lang.String> winter.findGuider.web.api.TripController.getExpectedTourEnd(entities.Order)]
+2019-Dec-09 17:55:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 17:55:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 18:00:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-09 18:00:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 18:00:00 WARN  [MessageBroker-4] s.c.ContributionPointServiceImpl - []
+2019-Dec-09 18:00:00 WARN  [MessageBroker-2] s.c.ContributionPointServiceImpl - []
+2019-Dec-09 18:05:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-09 18:05:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-09 18:10:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-09 18:10:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
