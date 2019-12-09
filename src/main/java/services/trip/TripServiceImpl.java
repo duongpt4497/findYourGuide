@@ -316,12 +316,12 @@ public class TripServiceImpl implements TripService {
 
     private List<Order> getGuiderSchedule(int guider_id, LocalDate date) throws Exception {
         List<Order> guiderSchedule = new ArrayList<>();
-        String query = "SELECT begin_date, finish_date FROM trip "
-                + "inner join post on guider_id = ? "
-                + "where status = ? "
-                + "and Date(begin_date) = ? "
-                + "or Date(finish_date) = ? "
-                + "order by begin_date";
+        String query = "SELECT trip_id, begin_date, finish_date FROM trip " +
+                "inner join post on trip.post_id = post.post_id " +
+                "where post.guider_id = ? and status = ? " +
+                "and (Date(begin_date) = ? " +
+                "or Date(finish_date) = ?) " +
+                "order by begin_date";
         guiderSchedule = jdbcTemplate.query(query, new RowMapper<Order>() {
             @Override
             public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -472,7 +472,7 @@ public class TripServiceImpl implements TripService {
             update.add("update trip set status = 'CANCELLED' where trip_id = " + m.get("trip_id"));
         }
         logger.warn(update.toString());
-        
+
         String[] updateList = update.toArray(new String[0]);
         if (updateList.length > 0) {
             jdbcTemplate.batchUpdate(updateList);
@@ -486,17 +486,17 @@ public class TripServiceImpl implements TripService {
         String query = "select trip_id from trip "
                 + " where extract (epoch from (now() - finish_date))::integer "
                 + " <= extract(epoch from TIMESTAMP '1970-1-2 00:00:00')::integer "
-                + " and now() > finish_date "   
+                + " and now() > finish_date "
                 + " and status = 'ONGOING'; ";
         lo = jdbcTemplate.queryForList(query);
 
         List<String> update = new ArrayList<>();
         for (Map m : lo) {
-            
+
             update.add("update trip set status = 'FINISHED' where trip_id = " + m.get("trip_id"));
         }
         logger.warn(update.toString());
-        
+
         String[] updateList = update.toArray(new String[0]);
         if (updateList.length > 0) {
             jdbcTemplate.batchUpdate(updateList);

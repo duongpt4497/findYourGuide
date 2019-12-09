@@ -1,6 +1,7 @@
 package services.traveler;
 
 import entities.Traveler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -18,6 +19,7 @@ public class TravelerServiceImpl implements TravelerService {
     private JdbcTemplate jdbcTemplate;
     private GeneralService generalService;
 
+    @Autowired
     public TravelerServiceImpl(JdbcTemplate jdbcTemplate, GeneralService gs) {
         this.jdbcTemplate = jdbcTemplate;
         this.generalService = gs;
@@ -65,14 +67,19 @@ public class TravelerServiceImpl implements TravelerService {
                 "date_of_birth = ?, street = ?, house_number = ?, postal_code = ?, slogan = ?, about_me = ?," +
                 "language = ?, country = ?, city = ?, avatar_link = ? where traveler_id = ?";
         String[] images = new String[]{travelerNeedUpdate.getAvatar_link()};
+        List<String> avatarList = generalService.convertBase64toImageAndChangeName(images);
+        String avatar;
+        if (avatarList.isEmpty()) {
+            avatar = "account.jpg";
+        } else {
+            avatar = avatarList.get(0);
+        }
         jdbcTemplate.update(query, travelerNeedUpdate.getFirst_name(), travelerNeedUpdate.getLast_name(),
                 travelerNeedUpdate.getPhone(), travelerNeedUpdate.getGender(),
                 Timestamp.valueOf(travelerNeedUpdate.getDate_of_birth()), travelerNeedUpdate.getStreet(),
                 travelerNeedUpdate.getHouse_number(), travelerNeedUpdate.getSlogan(), travelerNeedUpdate.getPostal_code(),
                 travelerNeedUpdate.getAbout_me(), generalService.createSqlArray(Arrays.asList(travelerNeedUpdate.getLanguage())),
-                travelerNeedUpdate.getCountry(), travelerNeedUpdate.getCity(),
-                generalService.convertBase64toImageAndChangeName(images),
-                travelerNeedUpdate.getTraveler_id());
+                travelerNeedUpdate.getCountry(), travelerNeedUpdate.getCity(), avatar, travelerNeedUpdate.getTraveler_id());
     }
 
     @Override

@@ -75,7 +75,7 @@ public class PostServiceImplTest {
         jdbcTemplate.update("INSERT INTO post(post_id,guider_id, location_id,category_id, title, video_link, picture_link, total_hour, description, including_service, active,price,rated,reasons) " +
                 "VALUES (7,5,3,1,'Fooffy','a','{a}',2,'a','{a,b}',true,10,3,'abc')");
         jdbcTemplate.update("INSERT INTO post(post_id,guider_id, location_id,category_id, title, video_link, picture_link, total_hour, description, including_service, active,price,rated,reasons) " +
-                "VALUES (8,5,4,1,'Fuuffy','a','{a}',2,'a','{a,b}',true,10,20,'abc')");
+                "VALUES (8,5,4,1,'Fuuffy','a','{a}',2,'a','{a,b}',false,10,20,'abc')");
         MockitoAnnotations.initMocks(this);
     }
 
@@ -86,7 +86,7 @@ public class PostServiceImplTest {
 
     @Test
     public void findAllPostByCategoryId() throws Exception {
-        Assert.assertEquals(8, postService.findAllPostByCategoryId(1).size());
+        Assert.assertEquals(7, postService.findAllPostByCategoryId(1).size());
     }
 
     @Test
@@ -96,7 +96,7 @@ public class PostServiceImplTest {
 
     @Test
     public void updatePost() throws Exception {
-        Post post = new Post(1, 1, "test", "a", new String[]{"a"}, 2, "a", new String[]{"a", "b"}, true, 10, 5, "a", true);
+        Post post = new Post("test", "a", new String[]{"a"}, 2, "a", new String[]{"a", "b"}, true, "1", 10, 5, "a", "1");
         postService.updatePost(1, post);
         Assert.assertEquals("test", postService.findSpecificPost(1).getTitle());
     }
@@ -104,7 +104,7 @@ public class PostServiceImplTest {
     @Test
     public void insertNewPost() throws Exception {
         jdbcTemplate.update("delete from post");
-        Post post = new Post(1, 1, "test new", "a", new String[]{"a"}, 2, "a", new String[]{"a", "b"}, true, 10, 5, "a", true);
+        Post post = new Post("test new", "a", new String[]{"a"}, 2, "a", new String[]{"a", "b"}, true, "1", 10, 5, "a", "1");
         int id = postService.insertNewPost(1, post);
         Assert.assertEquals("test new", postService.findSpecificPost(id).getTitle());
     }
@@ -113,12 +113,12 @@ public class PostServiceImplTest {
     public void getTopTour() throws Exception {
         List<Post> result = postService.getTopTour();
         Assert.assertEquals(6, result.size());
-        Assert.assertEquals(8, result.get(0).getPost_id());
-        Assert.assertEquals(5, result.get(1).getPost_id());
-        Assert.assertEquals(3, result.get(2).getPost_id());
-        Assert.assertEquals(4, result.get(3).getPost_id());
-        Assert.assertEquals(2, result.get(4).getPost_id());
-        Assert.assertEquals(1, result.get(5).getPost_id());
+        Assert.assertEquals(5, result.get(0).getPost_id());
+        Assert.assertEquals(3, result.get(1).getPost_id());
+        Assert.assertEquals(4, result.get(2).getPost_id());
+        Assert.assertEquals(2, result.get(3).getPost_id());
+        Assert.assertEquals(1, result.get(4).getPost_id());
+        Assert.assertEquals(7, result.get(5).getPost_id());
     }
 
     @Test
@@ -129,33 +129,44 @@ public class PostServiceImplTest {
     @Test
     public void activeDeactivePost() throws Exception {
         postService.activeDeactivePostForGuider(1);
-        Assert.assertEquals(false, postService.findSpecificPost(1).isActive());
+        boolean active = jdbcTemplate.queryForObject("select active from post where post_id = ?", new Object[]{1}, boolean.class);
+        Assert.assertEquals(false, active);
     }
 
     @Test
     public void activeDeactivePost2() throws Exception {
         postService.activeDeactivePostForGuider(1);
         postService.activeDeactivePostForGuider(1);
-        Assert.assertEquals(true, postService.findSpecificPost(1).isActive());
+        boolean active = jdbcTemplate.queryForObject("select active from post where post_id = ?", new Object[]{1}, boolean.class);
+        Assert.assertEquals(true, active);
     }
 
     @Test
     public void findAllPostWithLocationName() throws Exception {
-        Assert.assertEquals(6, postService.findAllPostWithLocationName("ho").size());
+        Assert.assertEquals(5, postService.findAllPostWithLocationName("ho").size());
     }
 
     @Test
     public void authorizePost() throws Exception {
         postService.authorizePost(1);
-        Assert.assertEquals(false, postService.findSpecificPost(1).isActive());
-        Assert.assertEquals(false, postService.findSpecificPost(1).isAuthorized());
+        boolean active = jdbcTemplate.queryForObject("select active from post where post_id = ?", new Object[]{1}, boolean.class);
+        boolean authorized = jdbcTemplate.queryForObject("select authorized from post where post_id = ?", new Object[]{1}, boolean.class);
+        Assert.assertEquals(false, active);
+        Assert.assertEquals(false, authorized);
     }
 
     @Test
     public void authorizePost2() throws Exception {
         postService.authorizePost(1);
         postService.authorizePost(1);
-        Assert.assertEquals(false, postService.findSpecificPost(1).isActive());
-        Assert.assertEquals(true, postService.findSpecificPost(1).isAuthorized());
+        boolean active = jdbcTemplate.queryForObject("select active from post where post_id = ?", new Object[]{1}, boolean.class);
+        boolean authorized = jdbcTemplate.queryForObject("select authorized from post where post_id = ?", new Object[]{1}, boolean.class);
+        Assert.assertEquals(false, active);
+        Assert.assertEquals(true, authorized);
+    }
+
+    @Test
+    public void findAllPostOfOneGuiderAdmin() throws Exception {
+        Assert.assertEquals(3, postService.findAllPostOfOneGuiderAdmin(5).size());
     }
 }

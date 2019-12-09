@@ -110,6 +110,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/plan/**").permitAll()
                 .antMatchers("/review/**").permitAll()
                 .antMatchers("/Traveler/**").permitAll()
+                .antMatchers("/statistic/**").permitAll()
                 .anyRequest().authenticated().and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/account/logout")).and()
                 .addFilter(getAuthenticationFilter())

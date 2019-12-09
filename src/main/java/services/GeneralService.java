@@ -10,4 +10,6 @@ public interface GeneralService {
     String[] checkForNull(Array checkArray);
 
     List<String> convertBase64toImageAndChangeName(String[] base64array);
+
+    Long generateLongId() throws Exception;
 }

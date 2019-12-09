@@ -39,7 +39,10 @@ public class ReviewServiceImplTest {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
                 "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','FINISHED')");
+        jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
+                "values (2,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','FINISHED')");
         jdbcTemplate.update("insert into review (trip_id,rated,post_date,review,visible) values (1,5,'2019-11-25','abc',true)");
+        jdbcTemplate.update("insert into review (trip_id,rated,post_date,review,visible) values (2,5,'2019-11-25','abc',false)");
         MockitoAnnotations.initMocks(this);
     }
 
@@ -55,14 +58,19 @@ public class ReviewServiceImplTest {
 
     @Test
     public void findReviewsByPostId() throws Exception {
-        Assert.assertEquals("abc", reviewService.findReviewsByPostId(1).get(0).getReview());
+        Assert.assertEquals(1, reviewService.findReviewsByPostId(1).size());
+    }
+
+    @Test
+    public void findReviewsByPostIdAdmin() throws Exception {
+        Assert.assertEquals(2, reviewService.findReviewsByPostIdAdmin(1).size());
     }
 
     @Test
     public void createReview() throws Exception {
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
-                "values (2,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','FINISHED')");
-        Review review = new Review(2, 5, "abc");
+                "values (3,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','FINISHED')");
+        Review review = new Review(3, 5, "abc");
         Assert.assertEquals(true, reviewService.createReview(review));
     }
 
@@ -73,7 +81,7 @@ public class ReviewServiceImplTest {
 
     @Test
     public void checkReviewExist2() throws Exception {
-        Assert.assertEquals(false, reviewService.checkReviewExist(2));
+        Assert.assertEquals(false, reviewService.checkReviewExist(3));
     }
 
     @Test

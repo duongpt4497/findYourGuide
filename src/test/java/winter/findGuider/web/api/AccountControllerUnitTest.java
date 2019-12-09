@@ -43,6 +43,9 @@ public class AccountControllerUnitTest {
     @Mock
     AuthenProvider authenProvider;
 
+    @Mock
+    HttpServletResponse response;
+
     @Rule
     public ExpectedException thrown= ExpectedException.none();
     @Before
@@ -78,6 +81,6 @@ public class AccountControllerUnitTest {
     @Test
     public void testFindAllCategory() throws Exception{
         when(accountRepository.findAllAccount()).thenThrow(Exception.class);
-        ResponseEntity<List<Account>> result = accountController.findAll();
+        ResponseEntity<List<Account>> result = accountController.findAll(response);
     }
 }

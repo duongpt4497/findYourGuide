@@ -3,13 +3,19 @@ package services.guider;
 import entities.Contract;
 import entities.Guider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 import services.GeneralService;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +27,10 @@ import java.util.List;
 
 @Repository
 public class GuiderServiceImpl implements GuiderService {
+
+    private final String DOCUMENT_FOLDER = "./src/main/resources/static/document/";
+    @Value("${order.server.root.url}")
+    private String URL_ROOT_SERVER;
     private JdbcTemplate jdbcTemplate;
     private GeneralService generalService;
     private int LIMIT = 10;
@@ -69,9 +79,9 @@ public class GuiderServiceImpl implements GuiderService {
 
     @Override
     public Contract findGuiderContract(long id) throws Exception {
-        Contract result = new Contract();
-        String query = "select contract_detail.* from contract_detail, contract " +
-                "where contract_detail.guider_id = contract.guider_id and contract.guider_id = ?";
+        Contract result;
+        String query = "select con_de.* from contract_detail as con_de " +
+                "where con_de.contract_id = (select contract_id from contract where guider_id = ?)";
         result = jdbcTemplate.queryForObject(query, new RowMapper<Contract>() {
             @Override
             public Contract mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -103,8 +113,8 @@ public class GuiderServiceImpl implements GuiderService {
     @Override
     public long createGuiderContract(Contract contract) throws Exception {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        String query = "insert into contract_detail (name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,guider_id)" +
-                "values (?,?,?,?,?,?,?,?,?,?)";
+        String query = "insert into contract_detail (name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,guider_id,file_link)" +
+                "values (?,?,?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection
                     .prepareStatement(query, new String[]{"contract_id"});
@@ -118,6 +128,7 @@ public class GuiderServiceImpl implements GuiderService {
             ps.setTimestamp(8, Timestamp.valueOf(contract.getCard_issued_date()));
             ps.setString(9, contract.getCard_issued_province());
             ps.setLong(10, contract.getGuider_id());
+            ps.setString(11, contract.getFile_link());
             return ps;
         }, keyHolder);
         return (int) keyHolder.getKey();
@@ -127,9 +138,17 @@ public class GuiderServiceImpl implements GuiderService {
     public long updateGuiderWithId(Guider guiderUpdate) throws Exception {
         String query = "update guider set first_name = ?, last_name = ?, age = ?, phone = ?, about_me = ?, city = ?, " +
                 "languages = ?, avatar = ?, passion = ? where guider_id = ?";
+        String[] images = new String[]{guiderUpdate.getAvatar()};
+        List<String> avatarList = generalService.convertBase64toImageAndChangeName(images);
+        String avatar;
+        if (avatarList.isEmpty()) {
+            avatar = "account.jpg";
+        } else {
+            avatar = avatarList.get(0);
+        }
         jdbcTemplate.update(query, guiderUpdate.getFirst_name(), guiderUpdate.getLast_name(),
                 guiderUpdate.getAge(), guiderUpdate.getPhone(), guiderUpdate.getAbout_me(), guiderUpdate.getCity(),
-                generalService.createSqlArray(Arrays.asList(guiderUpdate.getLanguages())), guiderUpdate.getAvatar(),
+                generalService.createSqlArray(Arrays.asList(guiderUpdate.getLanguages())), avatar,
                 guiderUpdate.getPassion(), guiderUpdate.getGuider_id());
         return guiderUpdate.getGuider_id();
     }
@@ -174,7 +193,7 @@ public class GuiderServiceImpl implements GuiderService {
     @Override
     public List<Guider> getTopGuiderByRate() throws Exception {
         List<Guider> result = new ArrayList<>();
-        String query = "SELECT * FROM guider order by rated desc limit 6";
+        String query = "SELECT * FROM guider where active = true order by rated desc limit 6";
         result = jdbcTemplate.query(query, new RowMapper<Guider>() {
             public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Guider(rs.getLong("guider_id"), rs.getString("first_name"),
@@ -192,7 +211,7 @@ public class GuiderServiceImpl implements GuiderService {
     @Override
     public List<Guider> getTopGuiderByContribute() throws Exception {
         List<Guider> result = new ArrayList<>();
-        String query = "SELECT * FROM guider order by contribution desc limit 6";
+        String query = "SELECT * FROM guider where active = true order by contribution desc limit 6";
         result = jdbcTemplate.query(query, new RowMapper<Guider>() {
             public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Guider(rs.getLong("guider_id"), rs.getString("first_name"),
@@ -244,25 +263,60 @@ public class GuiderServiceImpl implements GuiderService {
 
     @Override
     public List<Contract> getAllContract() throws Exception {
-        List<Contract> list;
+        // Automatic reject contract without document
+        String getRejectList = "select contract_id from contract_detail where file_link is null and account_deactive_date is null";
+        List<Long> rejectList = jdbcTemplate.query(getRejectList, new RowMapper<Long>() {
+            @Override
+            public Long mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return rs.getLong("contract_id");
+            }
+        });
+        if (!rejectList.isEmpty()) {
+            for (long id : rejectList) {
+                this.rejectContract(id);
+            }
+        }
+
+        // Get waiting for acceptance contract list
+        List<Contract> contractList;
         String query = "select * from contract_detail where account_active_date is null and account_deactive_date is null " +
                 "and contract_id not in (select contract_id from contract)";
-        list = jdbcTemplate.query(query, new RowMapper<Contract>() {
+        contractList = jdbcTemplate.query(query, new RowMapper<Contract>() {
             @Override
             public Contract mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Contract(rs.getInt("contract_id"), rs.getInt("guider_id"), rs.getString("name"),
                         rs.getString("nationality"), rs.getTimestamp("date_of_birth").toLocalDateTime(),
                         rs.getInt("gender"), rs.getString("hometown"), rs.getString("address"),
                         rs.getString("identity_card_number"), rs.getTimestamp("card_issued_date").toLocalDateTime(),
-                        rs.getString("card_issued_province"));
+                        rs.getString("card_issued_province"), rs.getString("file_link"));
             }
         });
-        return list;
+        return contractList;
     }
 
     @Override
     public void rejectContract(long contract_id) throws Exception {
         String query = "update contract_detail set account_deactive_date = now() where contract_id = ?";
         jdbcTemplate.update(query, contract_id);
+    }
+
+    @Override
+    public void uploadContractDocument(MultipartFile file, long contract_id) throws Exception {
+        byte[] bytes = file.getBytes();
+        Long originalId = generalService.generateLongId();
+        String fileName = originalId.toString() + ".pdf";
+        Path path = Paths.get(DOCUMENT_FOLDER + fileName);
+        Files.write(path, bytes);
+        String query = "update contract_detail set file_link = ? where contract_id = ?";
+        jdbcTemplate.update(query, fileName, contract_id);
+    }
+
+    @Override
+    public File getDocumentToDownload(long contract_id) throws Exception {
+        String query = "select file_link from contract_detail where contract_id = ?";
+        String fileName = jdbcTemplate.queryForObject(query, new Object[]{contract_id}, String.class);
+        String filePath = DOCUMENT_FOLDER + fileName;
+        File pdfFile = Paths.get(filePath).toFile();
+        return pdfFile;
     }
 }

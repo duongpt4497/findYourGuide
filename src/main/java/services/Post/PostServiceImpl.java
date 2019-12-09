@@ -1,8 +1,6 @@
 package services.Post;
 
 import entities.Post;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -35,6 +33,7 @@ public class PostServiceImpl implements PostService {
                 + " and guider_id = ? "
                 + " order by post_id limit ? offset ? ;"
                 , new RowMapper<Post>() {
+
             @Override
             public Post mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Post(
@@ -56,6 +55,31 @@ public class PostServiceImpl implements PostService {
                 );
             }
         }, guider_id, LIMIT, LIMIT*page);
+    }
+
+    public List<Post> findAllPostOfOneGuiderAdmin(long guider_id) throws Exception {
+        return jdbcTemplate.query("select * from post where guider_id = ?", new RowMapper<Post>() {
+            @Override
+            public Post mapRow(ResultSet resultSet, int i) throws SQLException {
+                return new Post(
+                        resultSet.getLong("post_id"),
+                        resultSet.getLong("guider_id"),
+                        resultSet.getLong("location_id"),
+                        resultSet.getLong("category_id"),
+                        resultSet.getString("title"),
+                        resultSet.getString("video_link"),
+                        generalService.checkForNull(resultSet.getArray("picture_link")),
+                        resultSet.getInt("total_hour"),
+                        resultSet.getString("description"),
+                        generalService.checkForNull(resultSet.getArray("including_service")),
+                        resultSet.getBoolean("active"),
+                        resultSet.getFloat("price"),
+                        resultSet.getFloat("rated"),
+                        resultSet.getString("reasons"),
+                        resultSet.getBoolean("authorized")
+                );
+            }
+        }, guider_id);
     }
 
     @Override
@@ -95,6 +119,7 @@ public class PostServiceImpl implements PostService {
                 +  " p.active = true  and " 
                 + " p.location_id = l.location_id and p.post_id = ? "
                 , new RowMapper<Post>() {
+
             @Override
             public Post mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Post(
@@ -122,7 +147,7 @@ public class PostServiceImpl implements PostService {
         List<Post> result = new ArrayList<>();
         name = "'%" + name.toUpperCase() + "%'";
         String query = "select post_id, title, video_link, picture_link, total_hour, description, including_service, " +
-                "price, post.rated, reasons, locations.city, place, category.name " +
+                "price, post.rated, reasons, locations.city, place, category.name, authorized " +
                 "from post inner join guider on post.guider_id = guider.guider_id " +
                 "inner join locations on post.location_id = locations.location_id " +
                 "inner join category on post.category_id = category.category_id " +
@@ -146,7 +171,8 @@ public class PostServiceImpl implements PostService {
                         rs.getString("name"),
                         rs.getLong("price"),
                         rs.getLong("rated"),
-                        rs.getString("reasons"));
+                        rs.getString("reasons"),
+                        rs.getBoolean("authorized"));
             }
         }, LIMIT, LIMIT*page);
         return result;
@@ -171,7 +197,8 @@ public class PostServiceImpl implements PostService {
                         generalService.checkForNull(rs.getArray("picture_link")), rs.getInt("total_hour"),
                         rs.getString("description"), generalService.checkForNull(rs.getArray("including_service")),
                         rs.getString("city") + " " + rs.getString("place"), rs.getString("name"),
-                        rs.getLong("price"), rs.getLong("rated"), rs.getString("reasons"));
+                        rs.getLong("price"), rs.getLong("rated"), rs.getString("reasons"),
+                        rs.getBoolean("authorized"));
             }
         }, LIMIT, LIMIT*page);
         return result;
@@ -186,7 +213,7 @@ public class PostServiceImpl implements PostService {
                 generalService.createSqlArray(generalService.convertBase64toImageAndChangeName(post.getPicture_link())),
                 post.getVideo_link(), post.getTotal_hour(), post.getDescription(),
                 generalService.createSqlArray(Arrays.asList(post.getIncluding_service())),
-                post.isActive(), Integer.parseInt(post.getLocation()),Integer.parseInt(post.getCategory()), 
+                post.isActive(), Integer.parseInt(post.getLocation()), Integer.parseInt(post.getCategory()),
                 post.getPrice(), post.getReasons(), post_id);
     }
 
@@ -200,7 +227,7 @@ public class PostServiceImpl implements PostService {
             PreparedStatement ps = connection
                     .prepareStatement(query, new String[]{"post_id"});
             ps.setLong(1, guider_id);
-            ps.setLong(2, Integer.parseInt(post.getLocation()));       
+            ps.setLong(2, Integer.parseInt(post.getLocation()));
             ps.setLong(3, Integer.parseInt(post.getCategory()));
             ps.setString(4, post.getTitle());
             ps.setString(5, post.getVideo_link());
