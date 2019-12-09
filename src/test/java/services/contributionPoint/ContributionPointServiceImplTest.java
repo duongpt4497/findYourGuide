@@ -250,4 +250,25 @@ public class ContributionPointServiceImplTest {
         int result = jdbcTemplate.queryForObject("select contribution from guider where guider_id = ?", new Object[]{4}, int.class);
         Assert.assertEquals(0, result);
     }
+
+    @Test
+    public void calculatePostAndGuiderRating() throws Exception {
+        jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
+                "values (2,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','FINISHED')");
+        jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
+                "values (3,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','FINISHED')");
+        jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
+                "values (4,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','FINISHED')");
+        jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
+                "values (5,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','FINISHED')");
+        jdbcTemplate.update("insert into review (trip_id,rated,post_date,review,visible) values (2,5,'2019-11-25','abc',true)");
+        jdbcTemplate.update("insert into review (trip_id,rated,post_date,review,visible) values (3,4,'2019-11-25','abc',true)");
+        jdbcTemplate.update("insert into review (trip_id,rated,post_date,review,visible) values (4,4,'2019-11-25','abc',true)");
+        jdbcTemplate.update("insert into review (trip_id,rated,post_date,review,visible) values (5,3,'2019-11-25','abc',true)");
+        contributionPointService.calculatePostAndGuiderRating(1);
+        float postRate = jdbcTemplate.queryForObject("select round(rated,1) from post where post_id = ?", new Object[]{1}, float.class);
+        float guiderRate = jdbcTemplate.queryForObject("select round(rated,1) from guider where guider_id = ?", new Object[]{1}, float.class);
+        Assert.assertEquals(4.2, postRate, 0.0002);
+        Assert.assertEquals(4.2, guiderRate, 0.0002);
+    }
 }
