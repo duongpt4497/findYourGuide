@@ -29,8 +29,8 @@ public class StatisticServiceImpl implements StatisticService {
             @Override
             public String mapRow(ResultSet rs, int rowNum) throws SQLException {
                 LocalDateTime fin_month = rs.getTimestamp("fin_month").toLocalDateTime();
-                return "{ x: new Date(" + fin_month.getYear() + ", " + fin_month.getMonthValue() + "), y: " +
-                        rs.getInt("total_trip") + " },";
+                return "{ x:{year:" + fin_month.getYear() + ", month:" + fin_month.getMonthValue() + "}, y:" +
+                        rs.getInt("total_trip") + "},";
             }
         });
         if (!result.isEmpty()) {
@@ -52,8 +52,8 @@ public class StatisticServiceImpl implements StatisticService {
             @Override
             public String mapRow(ResultSet rs, int rowNum) throws SQLException {
                 LocalDateTime fin_month = rs.getTimestamp("fin_month").toLocalDateTime();
-                return "{ x: new Date(" + fin_month.getYear() + ", " + fin_month.getMonthValue() + "), y: " +
-                        rs.getDouble("revenue") + " },";
+                return "{ x:{year:" + fin_month.getYear() + ", month:" + fin_month.getMonthValue() + "}, y:" +
+                        rs.getInt("revenue") + "},";
             }
         });
         if (!result.isEmpty()) {
