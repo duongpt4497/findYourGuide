@@ -190,8 +190,8 @@ public class TripServiceImpl implements TripService {
     public int checkAvailabilityOfTrip(Order newOrder) throws Exception {
         int count = 0;
         String query = "SELECT count (trip_id) FROM trip " +
-                "inner join post on guider_id = ? " +
-                "where (status = ?) " +
+                "inner join post on post.post_id = trip.post_id " +
+                "where (post.guider_id = ?) and (status = ?) " +
                 "and ((begin_date between ? and ?) " +
                 "or (finish_date between ? and ?))";
         int guider_id = newOrder.getGuider_id();
@@ -231,12 +231,12 @@ public class TripServiceImpl implements TripService {
     @Override
     public String getClosestTripFinishDate(LocalDate date, int guider_id) throws Exception {
         String closestFinishDate = "";
-        String query = "SELECT finish_date FROM trip "
-                + "inner join post on guider_id = ? "
-                + "where finish_date < ? "
-                + "and status = ? "
-                + "order by finish_date desc "
-                + "limit 1";
+        String query = "SELECT finish_date FROM trip " +
+                "inner join post on post.post_id = trip.post_id " +
+                "where post.guider_id = ? and finish_date < ? " +
+                "and status = ? " +
+                "order by finish_date desc " +
+                "limit 1";
         List<String> result = jdbcTemplate.query(query, new RowMapper<String>() {
             @Override
             public String mapRow(ResultSet rs, int rowNum) throws SQLException {
