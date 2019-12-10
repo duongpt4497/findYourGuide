@@ -50,12 +50,12 @@ public class GuiderServiceImpl implements GuiderService {
         result = jdbcTemplate.queryForObject(query, new RowMapper<Guider>() {
             public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Guider(rs.getLong("guider_id"), rs.getString("first_name"),
-                        rs.getString("last_name"), rs.getInt("age"), rs.getString("phone"),
+                        rs.getString("last_name"), rs.getTimestamp("date_of_birth").toLocalDateTime(), rs.getString("phone"),
                         rs.getString("about_me"),
                         rs.getLong("contribution"), rs.getString("city"),
                         generalService.checkForNull(rs.getArray("languages")),
                         rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avatar"),
-                        rs.getString("passion"), rs.getString("user_name"));
+                        rs.getString("passion"), rs.getString("user_name"),rs.getString("profile_video"));
             }
         }, id);
         return result;
@@ -67,12 +67,12 @@ public class GuiderServiceImpl implements GuiderService {
         return jdbcTemplate.queryForObject(query, new RowMapper<Guider>() {
             public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Guider(rs.getLong("guider_id"), rs.getString("first_name"),
-                        rs.getString("last_name"), rs.getInt("age"), rs.getString("phone"),
+                        rs.getString("last_name"), rs.getTimestamp("date_of_birth").toLocalDateTime(), rs.getString("phone"),
                         rs.getString("about_me"),
                         rs.getLong("contribution"), rs.getString("city"),
                         generalService.checkForNull(rs.getArray("languages")),
                         rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avatar"),
-                        rs.getString("passion"));
+                        rs.getString("passion"),rs.getString("profile_video"));
             }
         }, id);
     }
@@ -101,12 +101,12 @@ public class GuiderServiceImpl implements GuiderService {
 
     @Override
     public long createGuider(Guider newGuider) throws Exception {
-        String query = "insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
-                "values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String query = "insert into guider (guider_id,first_name,last_name,date_of_birth,phone,about_me,contribution,city,languages,active,rated,avatar,passion,profile_video)" +
+                "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(query, newGuider.getGuider_id(), newGuider.getFirst_name(), newGuider.getLast_name(),
-                newGuider.getAge(), newGuider.getPhone(), newGuider.getAbout_me(), newGuider.getContribution(),
+                Timestamp.valueOf(newGuider.getDate_of_birth()), newGuider.getPhone(), newGuider.getAbout_me(), newGuider.getContribution(),
                 newGuider.getCity(), generalService.createSqlArray(Arrays.asList(newGuider.getLanguages())), newGuider.isActive(),
-                newGuider.getRated(), newGuider.getAvatar(), newGuider.getPassion());
+                newGuider.getRated(), newGuider.getAvatar(), newGuider.getPassion(),newGuider.getProfile_video());
         return newGuider.getGuider_id();
     }
 
@@ -136,8 +136,8 @@ public class GuiderServiceImpl implements GuiderService {
 
     @Override
     public long updateGuiderWithId(Guider guiderUpdate) throws Exception {
-        String query = "update guider set first_name = ?, last_name = ?, age = ?, phone = ?, about_me = ?, city = ?, " +
-                "languages = ?, avatar = ?, passion = ? where guider_id = ?";
+        String query = "update guider set first_name = ?, last_name = ?, date_of_birth = ?, phone = ?, about_me = ?, city = ?, " +
+                "languages = ?, avatar = ?, passion = ?, profile_video =? where guider_id = ?";
         String[] images = new String[]{guiderUpdate.getAvatar()};
         List<String> avatarList = generalService.convertBase64toImageAndChangeName(images);
         String avatar;
@@ -147,9 +147,9 @@ public class GuiderServiceImpl implements GuiderService {
             avatar = avatarList.get(0);
         }
         jdbcTemplate.update(query, guiderUpdate.getFirst_name(), guiderUpdate.getLast_name(),
-                guiderUpdate.getAge(), guiderUpdate.getPhone(), guiderUpdate.getAbout_me(), guiderUpdate.getCity(),
+                Timestamp.valueOf(guiderUpdate.getDate_of_birth()), guiderUpdate.getPhone(), guiderUpdate.getAbout_me(), guiderUpdate.getCity(),
                 generalService.createSqlArray(Arrays.asList(guiderUpdate.getLanguages())), avatar,
-                guiderUpdate.getPassion(), guiderUpdate.getGuider_id());
+                guiderUpdate.getPassion(), guiderUpdate.getGuider_id(),guiderUpdate.getProfile_video());
         return guiderUpdate.getGuider_id();
     }
 
@@ -179,12 +179,12 @@ public class GuiderServiceImpl implements GuiderService {
         result = jdbcTemplate.query(query, new RowMapper<Guider>() {
             public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Guider(rs.getLong("guider_id"), rs.getString("first_name"),
-                        rs.getString("last_name"), rs.getInt("age"), rs.getString("phone"),
+                        rs.getString("last_name"), rs.getTimestamp("date_of_birth").toLocalDateTime(), rs.getString("phone"),
                         rs.getString("about_me"),
                         rs.getLong("contribution"), rs.getString("city"),
                         generalService.checkForNull(rs.getArray("languages")),
                         rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avatar"),
-                        rs.getString("passion"));
+                        rs.getString("passion"),rs.getString("profile_video"));
             }
         }, LIMIT, LIMIT*page);
         return result;
@@ -197,12 +197,12 @@ public class GuiderServiceImpl implements GuiderService {
         result = jdbcTemplate.query(query, new RowMapper<Guider>() {
             public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Guider(rs.getLong("guider_id"), rs.getString("first_name"),
-                        rs.getString("last_name"), rs.getInt("age"), rs.getString("phone"),
+                        rs.getString("last_name"), rs.getTimestamp("date_of_birth").toLocalDateTime(), rs.getString("phone"),
                         rs.getString("about_me"),
                         rs.getLong("contribution"), rs.getString("city"),
                         generalService.checkForNull(rs.getArray("languages")),
                         rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avatar"),
-                        rs.getString("passion"));
+                        rs.getString("passion"),rs.getString("profile_video"));
             }
         });
         return result;
@@ -215,12 +215,12 @@ public class GuiderServiceImpl implements GuiderService {
         result = jdbcTemplate.query(query, new RowMapper<Guider>() {
             public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Guider(rs.getLong("guider_id"), rs.getString("first_name"),
-                        rs.getString("last_name"), rs.getInt("age"), rs.getString("phone"),
+                        rs.getString("last_name"), rs.getTimestamp("date_of_birth").toLocalDateTime(), rs.getString("phone"),
                         rs.getString("about_me"),
                         rs.getLong("contribution"), rs.getString("city"),
                         generalService.checkForNull(rs.getArray("languages")),
                         rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avatar"),
-                        rs.getString("passion"));
+                        rs.getString("passion"),rs.getString("profile_video"));
             }
         });
         return result;
