@@ -101,10 +101,10 @@ public class GuiderServiceImpl implements GuiderService {
 
     @Override
     public long createGuider(Guider newGuider) throws Exception {
-        String query = "insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
+        String query = "insert into guider (guider_id,first_name,last_name,date_of_birth,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
                 "values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(query, newGuider.getGuider_id(), newGuider.getFirst_name(), newGuider.getLast_name(),
-                newGuider.getDate_of_birth(), newGuider.getPhone(), newGuider.getAbout_me(), newGuider.getContribution(),
+                Timestamp.valueOf(newGuider.getDate_of_birth()), newGuider.getPhone(), newGuider.getAbout_me(), newGuider.getContribution(),
                 newGuider.getCity(), generalService.createSqlArray(Arrays.asList(newGuider.getLanguages())), newGuider.isActive(),
                 newGuider.getRated(), newGuider.getAvatar(), newGuider.getPassion(),newGuider.getProfile_video());
         return newGuider.getGuider_id();
@@ -136,7 +136,7 @@ public class GuiderServiceImpl implements GuiderService {
 
     @Override
     public long updateGuiderWithId(Guider guiderUpdate) throws Exception {
-        String query = "update guider set first_name = ?, last_name = ?, age = ?, phone = ?, about_me = ?, city = ?, " +
+        String query = "update guider set first_name = ?, last_name = ?, date_of_birth = ?, phone = ?, about_me = ?, city = ?, " +
                 "languages = ?, avatar = ?, passion = ?, profile_video =? where guider_id = ?";
         String[] images = new String[]{guiderUpdate.getAvatar()};
         List<String> avatarList = generalService.convertBase64toImageAndChangeName(images);
@@ -147,7 +147,7 @@ public class GuiderServiceImpl implements GuiderService {
             avatar = avatarList.get(0);
         }
         jdbcTemplate.update(query, guiderUpdate.getFirst_name(), guiderUpdate.getLast_name(),
-                guiderUpdate.getDate_of_birth(), guiderUpdate.getPhone(), guiderUpdate.getAbout_me(), guiderUpdate.getCity(),
+                Timestamp.valueOf(guiderUpdate.getDate_of_birth()), guiderUpdate.getPhone(), guiderUpdate.getAbout_me(), guiderUpdate.getCity(),
                 generalService.createSqlArray(Arrays.asList(guiderUpdate.getLanguages())), avatar,
                 guiderUpdate.getPassion(), guiderUpdate.getGuider_id(),guiderUpdate.getProfile_video());
         return guiderUpdate.getGuider_id();
