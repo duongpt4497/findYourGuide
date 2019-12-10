@@ -64,7 +64,7 @@ public class TravelerServiceImpl implements TravelerService {
     @Override
     public void updateTraveler(Traveler travelerNeedUpdate) throws Exception {
         String query = "update traveler set first_name = ?, last_name = ?, phone = ?, gender = ?," +
-                "date_of_birth = ?, street = ?, house_number = ?, postal_code = ?, slogan = ?, about_me = ?," +
+                "date_of_birth = ?, street = ?, house_number = ?, slogan = ?, postal_code = ?, about_me = ?," +
                 "language = ?, country = ?, city = ?, avatar_link = ? where traveler_id = ?";
         String[] images = new String[]{travelerNeedUpdate.getAvatar_link()};
         List<String> avatarList = generalService.convertBase64toImageAndChangeName(images);
