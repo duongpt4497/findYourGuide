@@ -28,8 +28,8 @@ public class ReviewServiceImplTest {
         config.cleanTestDb(jdbcTemplate);
         jdbcTemplate.update("insert into account(account_id,user_name,password,email,role) values (1,'John','123','John@gmail.com','GUIDER')");
         jdbcTemplate.update("insert into account(account_id,user_name,password,email,role) values (2,'Jack','123','Jack@gmail.com','TRAVELER')");
-        jdbcTemplate.update("insert into guider(guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
-                "values (1,'John','Doe',21,'12345678','abc',150,'Hanoi','{vi,en}',true,5,'a','a')");
+        jdbcTemplate.update("insert into guider(guider_id,first_name,last_name,date_of_birth,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
+                "values (1,'John','Doe',now(),'12345678','abc',150,'Hanoi','{vi,en}',true,5,'a','a')");
         jdbcTemplate.update("insert into traveler(traveler_id, first_name, last_name, phone, gender, date_of_birth, street, house_number, postal_code, slogan, about_me, language, country, city, avatar_link)" +
                 "values (2,'Jack','Smith','123456',1,'1993-06-02','a','12','12','a','a','{vi}','vietnam','hanoi','a')");
         jdbcTemplate.update("insert into locations (location_id,country,city,place) values (1,'Vietnam','Hanoi','Hoan Kiem')");
