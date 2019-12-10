@@ -149,7 +149,7 @@ public class GuiderServiceImpl implements GuiderService {
         jdbcTemplate.update(query, guiderUpdate.getFirst_name(), guiderUpdate.getLast_name(),
                 Timestamp.valueOf(guiderUpdate.getDate_of_birth()), guiderUpdate.getPhone(), guiderUpdate.getAbout_me(), guiderUpdate.getCity(),
                 generalService.createSqlArray(Arrays.asList(guiderUpdate.getLanguages())), avatar,
-                guiderUpdate.getPassion(), guiderUpdate.getGuider_id(),guiderUpdate.getProfile_video());
+                guiderUpdate.getPassion(), guiderUpdate.getProfile_video(), guiderUpdate.getGuider_id());
         return guiderUpdate.getGuider_id();
     }
 
