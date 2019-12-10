@@ -101,8 +101,8 @@ public class GuiderServiceImpl implements GuiderService {
 
     @Override
     public long createGuider(Guider newGuider) throws Exception {
-        String query = "insert into guider (guider_id,first_name,last_name,date_of_birth,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
-                "values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String query = "insert into guider (guider_id,first_name,last_name,date_of_birth,phone,about_me,contribution,city,languages,active,rated,avatar,passion,profile_video)" +
+                "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(query, newGuider.getGuider_id(), newGuider.getFirst_name(), newGuider.getLast_name(),
                 Timestamp.valueOf(newGuider.getDate_of_birth()), newGuider.getPhone(), newGuider.getAbout_me(), newGuider.getContribution(),
                 newGuider.getCity(), generalService.createSqlArray(Arrays.asList(newGuider.getLanguages())), newGuider.isActive(),
