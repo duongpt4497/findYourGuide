@@ -1,6 +1,9 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Data
 public class Guider {
@@ -8,8 +11,11 @@ public class Guider {
     //private long contract_id;
     private String first_name;
     private String last_name;
-    private int age;
+
+    @JsonFormat(pattern = "MM/dd/yyyy HH:mm")
+    private LocalDateTime date_of_birth;
     private String phone;
+    private String profile_video;
     private String about_me;
     private long contribution;
     private String city;
@@ -23,11 +29,27 @@ public class Guider {
     public Guider() {
     }
 
-    public Guider(long guider_id, String first_name, String last_name, int age, String phone, String about_me, long contribution, String city, String[] languages, boolean active, long rated, String avatar, String passion) {
+    public String getProfile_video() {
+        return profile_video;
+    }
+
+    public void setProfile_video(String profile_video) {
+        this.profile_video = profile_video;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Guider(long guider_id, String first_name, String last_name, LocalDateTime date_of_birth, String phone, String about_me, long contribution, String city, String[] languages, boolean active, long rated, String avatar, String passion, String profile_video) {
         this.guider_id = guider_id;
         this.first_name = first_name;
         this.last_name = last_name;
-        this.age = age;
+        this.date_of_birth = date_of_birth;
         this.phone = phone;
         this.about_me = about_me;
         this.contribution = contribution;
@@ -37,13 +59,13 @@ public class Guider {
         this.rated = rated;
         this.avatar = avatar;
         this.passion = passion;
+        this.profile_video = profile_video;
     }
-
-    public Guider(long guider_id, String first_name, String last_name, int age, String phone, String about_me, long contribution, String city, String[] languages, boolean active, long rated, String avatar, String passion, String name) {
+    public Guider(long guider_id, String first_name, String last_name, LocalDateTime date_of_birth, String phone, String about_me, long contribution, String city, String[] languages, boolean active, long rated, String avatar, String passion, String name,String profile_video) {
         this.guider_id = guider_id;
         this.first_name = first_name;
         this.last_name = last_name;
-        this.age = age;
+        this.date_of_birth = date_of_birth;
         this.phone = phone;
         this.about_me = about_me;
         this.contribution = contribution;
@@ -54,6 +76,7 @@ public class Guider {
         this.avatar = avatar;
         this.passion = passion;
         this.name = name;
+        this.profile_video = profile_video;
     }
     
     
@@ -82,12 +105,12 @@ public class Guider {
         this.last_name = last_name;
     }
 
-    public int getAge() {
-        return age;
+    public LocalDateTime getDate_of_birth() {
+        return date_of_birth;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setDate_of_birth(LocalDateTime date_of_birth) {
+        this.date_of_birth = date_of_birth;
     }
 
     public String getAbout_me() {

@@ -11,6 +11,8 @@ import entities.Account;
 import entities.Guider;
 import entities.Traveler;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,8 +60,8 @@ public class UserService {
         acc.setPassword(passwordEncoder.encode(acc.getPassword()));
         long id = repo.addAccount(acc);
         if (acc.getRole().equalsIgnoreCase("GUIDER")) {
-            gs.createGuider(new Guider(id, "", "", 0, "", "", 0, "", new String[]{}, false, 0,
-                    "http://localhost:8080/images/account.jpg", ""));
+            gs.createGuider(new Guider(id, "", "", LocalDateTime.now(), "", "", 0, "", new String[]{}, false, 0,
+                    "http://localhost:8080/images/account.jpg", "",""));
         } else if (acc.getRole().equalsIgnoreCase("TRAVELER")) {
             ts.createTraveler(new Traveler(id, "", "", "", 0, new java.sql.Timestamp(
                     new Date().getTime()).toLocalDateTime(), "", "", "", "", "", new String[]{}, "", "", "http://localhost:8080/images/account.jpg"));
