@@ -135,4 +135,21 @@ public class MailServiceImpl implements MailService {
         content = content.concat("TravelWLocal");
         return content;
     }
+
+    @Override
+    public String rejectContractMailContent(long guider_id) throws Exception {
+        String content = "";
+        Contract contract = guiderService.findGuiderContract(guider_id);
+        content = content.concat("Dear Mr/Ms " + contract.getName() + "\n\n");
+        content = content.concat("Thank you for your application for the position of tour guider at our TravelWLocal website. " +
+                "As you can imagine, we received a large number of applications. " +
+                "I am sorry to inform you that you have not been selected for this position.\n\n");
+        content = content.concat("We at TravelWLocal thanks you for the time you invested in applying for the position. " +
+                "We encourage you to apply for future openings for which you qualify.\n\n");
+        content = content.concat("Best wishes for a successful job search. Thank you, again, for your interest in our company.\n\n");
+        content = content.concat("Thank your for using our service.\n\n");
+        content = content.concat("Sincerely,\n");
+        content = content.concat("TravelWLocal");
+        return content;
+    }
 }

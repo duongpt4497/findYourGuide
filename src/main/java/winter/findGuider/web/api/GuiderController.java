@@ -89,7 +89,7 @@ public class GuiderController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Guider>> searchGuider(@PathVariable("key") String key, @PathVariable("page") int page) {
         try {
-            return new ResponseEntity<>(guiderService.searchGuiderByName(key,page), HttpStatus.OK);
+            return new ResponseEntity<>(guiderService.searchGuiderByName(key, page), HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
@@ -168,9 +168,12 @@ public class GuiderController {
 
     @RequestMapping("/RejectContract")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> rejectContract(@RequestParam("contract_id") long contract_id) {
+    public ResponseEntity<Boolean> rejectContract(@RequestParam("guider_id") long guider_id, @RequestParam("contract_id") long contract_id) {
         try {
             guiderService.rejectContract(contract_id);
+            String email = accountRepository.getEmail((int) guider_id);
+            String content = mailService.rejectContractMailContent(guider_id);
+            mailService.sendMail(email, "Your TravelWLocal Contract Was Refuse", content);
             return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
