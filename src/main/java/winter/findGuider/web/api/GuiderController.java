@@ -156,9 +156,12 @@ public class GuiderController {
     public ResponseEntity<Boolean> acceptContract(@RequestParam("guider_id") long guider_id, @RequestParam("contract_id") long contract_id) {
         try {
             guiderService.linkGuiderWithContract(guider_id, contract_id);
-            String email = accountRepository.getEmail((int) guider_id);
-            String content = mailService.acceptContractMailContent(guider_id);
-            mailService.sendMail(email, "Your TravelWLocal Contract Was Accepted", content);
+            boolean isMailVerified = accountRepository.isMailVerified(guider_id);
+            if (isMailVerified) {
+                String email = accountRepository.getEmail((int) guider_id);
+                String content = mailService.acceptContractMailContent(guider_id);
+                mailService.sendMail(email, "Your TravelWLocal Contract Was Accepted", content);
+            }
             return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
@@ -171,9 +174,12 @@ public class GuiderController {
     public ResponseEntity<Boolean> rejectContract(@RequestParam("guider_id") long guider_id, @RequestParam("contract_id") long contract_id) {
         try {
             guiderService.rejectContract(contract_id);
-            String email = accountRepository.getEmail((int) guider_id);
-            String content = mailService.rejectContractMailContent(guider_id);
-            mailService.sendMail(email, "Your TravelWLocal Contract Was Refuse", content);
+            boolean isMailVerified = accountRepository.isMailVerified(guider_id);
+            if (isMailVerified) {
+                String email = accountRepository.getEmail((int) guider_id);
+                String content = mailService.rejectContractMailContent(guider_id);
+                mailService.sendMail(email, "Your TravelWLocal Contract Was Refuse", content);
+            }
             return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());

@@ -90,6 +90,11 @@ public class AccountRepository {
         return jdbc.queryForObject(query, new Object[]{account_id}, String.class);
     }
 
+    public boolean isMailVerified(long account_id) throws Exception {
+        String query = "select email_verified from account where account_id = ?";
+        return jdbc.queryForObject(query, new Object[]{account_id}, boolean.class);
+    }
+
     public List<Account> findAllAccount() throws Exception {
         List<Account> result = new ArrayList<>();
         String query = "SELECT account_id, user_name, email, role, active FROM account left join guider on account_id = guider_id";
