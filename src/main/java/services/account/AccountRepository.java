@@ -12,12 +12,14 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import services.Mail.MailService;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author dgdbp
@@ -25,10 +27,12 @@ import java.util.List;
 @Repository
 public class AccountRepository {
     private JdbcTemplate jdbc;
+    private MailService mailService;
 
     @Autowired
-    public AccountRepository(JdbcTemplate jdbc) {
+    public AccountRepository(JdbcTemplate jdbc, MailService ms) {
         this.jdbc = jdbc;
+        this.mailService = ms;
     }
 
     public Account findAccountByName(String name) throws Exception {
@@ -97,5 +101,45 @@ public class AccountRepository {
             }
         });
         return result;
+    }
+
+    public String insertEmailConfirmToken(long account_id) throws Exception {
+        int leftLimit = 97; // letter 'a'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = (int) (Math.random() * ((50 - 20) + 1)) + 20;
+        Random random = new Random();
+        StringBuilder buffer = new StringBuilder(targetStringLength);
+        for (int i = 0; i < targetStringLength; i++) {
+            int randomLimitedInt = leftLimit + (int)
+                    (random.nextFloat() * (rightLimit - leftLimit + 1));
+            buffer.append((char) randomLimitedInt);
+        }
+        String token = buffer.toString();
+        jdbc.update("update account set email_token = ? where account_id = ?", token, account_id);
+        return account_id + "e" + token;
+    }
+
+    public void confirmEmail(String token) throws Exception {
+        String[] data = token.split("e", 2);
+        int account_id = Integer.parseInt(data[0]);
+        String checkToken = data[1];
+        String query = "select email_token from account where account_id = ?";
+        String email_token = jdbc.queryForObject(query, new Object[]{account_id}, String.class);
+        String content = "";
+        if (email_token.equals(checkToken)) {
+            // Change verified status
+            jdbc.update("update account set email_verified = true where account_id = ?", account_id);
+            // Mail content
+            content = "Your email has been verified !\n" +
+                    "Have a nice day\n\n";
+            content = content.concat("Sincerely,\nTravelWLocal");
+        } else {
+            content = "Your email has not been verified !\n" + "Please try again later !" +
+                    "Have a nice day\n\n";
+            content = content.concat("Sincerely,\nTravelWLocal");
+        }
+        // Send result email
+        String email = this.getEmail(account_id);
+        mailService.sendMail(email, "TravelWLocal Email Confirmation", content);
     }
 }

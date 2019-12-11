@@ -6,9 +6,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
+import services.Mail.MailService;
 import winter.findGuider.TestDataSourceConfig;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -18,11 +20,14 @@ public class AccountServiceUnitTest {
 
     private JdbcTemplate jdbcTemplate = new JdbcTemplate();
 
+    @Mock
+    MailService mailService;
+
     @Before
     public void init() {
         TestDataSourceConfig config = new TestDataSourceConfig();
         jdbcTemplate.setDataSource(config.setupDatasource());
-        accountService = new AccountRepository(jdbcTemplate);
+        accountService = new AccountRepository(jdbcTemplate, mailService);
         config.cleanTestDb(jdbcTemplate);
         jdbcTemplate.update("insert into account (user_name, password, email ,role) " +
                 "values ('Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");

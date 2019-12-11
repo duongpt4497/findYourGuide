@@ -32,6 +32,8 @@ public class Account {
     private Date expired;
     private String rePassword;
     private boolean status;
+    private String email_token;
+    private boolean email_verified;
 
     public Account(long id, String userName, String password, String role, String token, Date expired) {
         this.id = id;
@@ -90,6 +92,13 @@ public class Account {
         this.email = email;
         this.role = role;
         this.status = status;
+    }
+
+    public Account(long id, String email, String email_token, boolean email_verified) {
+        this.id = id;
+        this.email = email;
+        this.email_token = email_token;
+        this.email_verified = email_verified;
     }
 
     public String getEmail() {
@@ -162,5 +171,21 @@ public class Account {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public String getEmail_token() {
+        return email_token;
+    }
+
+    public void setEmail_token(String email_token) {
+        this.email_token = email_token;
+    }
+
+    public boolean isEmail_verified() {
+        return email_verified;
+    }
+
+    public void setEmail_verified(boolean email_verified) {
+        this.email_verified = email_verified;
     }
 }
