@@ -2,6 +2,7 @@ E:\counter\master\src\main\java\services\feedback\FeedbackServiceImpl.java
 E:\counter\master\src\main\java\services\chatMessage\ChatMessageRepositoryImpl.java
 E:\counter\master\src\main\java\services\notification\NotificationRepositoryImpl.java
 E:\counter\master\src\main\java\configuration\WebSocketConfig.java
+E:\counter\master\src\main\java\entities\Statistic.java
 E:\counter\master\src\main\java\services\trip\TripService.java
 E:\counter\master\src\main\java\entities\TravelerReview.java
 E:\counter\master\src\main\java\services\Review\ReviewServiceImpl.java
@@ -39,6 +40,7 @@ E:\counter\master\src\main\java\services\Paypal\PaypalServiceImpl.java
 E:\counter\master\src\main\java\winter\findGuider\web\api\TravelerController.java
 E:\counter\master\src\main\java\entities\Order.java
 E:\counter\master\src\main\java\services\Paypal\PaypalPaymentIntent.java
+E:\counter\master\src\main\java\winter\findGuider\web\api\StatisticController.java
 E:\counter\master\src\main\java\entities\Post.java
 E:\counter\master\src\main\java\services\guider\GuiderService.java
 E:\counter\master\src\main\java\services\Location\LocationServiceImpl.java
@@ -67,6 +69,7 @@ E:\counter\master\src\main\java\security\TokenBaseAuthentication.java
 E:\counter\master\src\main\java\services\account\AccountRepository.java
 E:\counter\master\src\main\java\configuration\MailConfig.java
 E:\counter\master\src\main\java\winter\findGuider\web\api\WebSocketChatController.java
+E:\counter\master\src\main\java\entities\InDayTrip.java
 E:\counter\master\src\main\java\services\Statistic\StatisticServiceImpl.java
 E:\counter\master\src\main\java\entities\TransactionRecord.java
 E:\counter\master\src\main\java\services\Category\CategoryService.java

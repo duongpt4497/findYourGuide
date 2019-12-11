@@ -42,7 +42,6 @@ services\Review\ReviewServiceImpl.class
 services\guider\GuiderServiceImpl$3.class
 services\traveler\TravelerService.class
 winter\findGuider\web\api\TripController.class
-services\trip\TripServiceImpl$7.class
 winter\findGuider\web\api\ReviewController.class
 winter\findGuider\web\api\AccountController.class
 services\Category\CategoryService.class

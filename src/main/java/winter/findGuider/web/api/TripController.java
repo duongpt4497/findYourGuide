@@ -3,6 +3,7 @@ package winter.findGuider.web.api;
 import com.paypal.api.payments.Refund;
 import com.paypal.base.rest.PayPalRESTException;
 import entities.Order;
+import entities.InDayTrip;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +17,21 @@ import services.account.AccountRepository;
 import services.contributionPoint.ContributionPointService;
 import services.guider.GuiderService;
 import services.trip.TripService;
-
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Value;
 
 @RestController
 @RequestMapping(path = "/Order", produces = "application/json")
 @CrossOrigin(origins = "*")
 public class TripController {
+
     private Logger logger = LoggerFactory.getLogger(getClass());
     private TripService tripService;
     private PaypalService paypalService;
@@ -37,11 +41,13 @@ public class TripController {
     private AccountRepository accountRepository;
     private PostService postService;
     private WebSocketNotificationController webSocketNotificationController;
+    @Value("${order.buffer}")
+    private String bufferPercent;
 
     @Autowired
     public TripController(TripService os, PaypalService ps, MailService ms,
-                          ContributionPointService cps, GuiderService gs,
-                          AccountRepository ar, PostService postService, WebSocketNotificationController wsc) {
+            ContributionPointService cps, GuiderService gs,
+            AccountRepository ar, PostService postService, WebSocketNotificationController wsc) {
         this.tripService = os;
         this.paypalService = ps;
         this.mailService = ms;
@@ -68,7 +74,7 @@ public class TripController {
     @RequestMapping("/GetOrderByStatus")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Order>> getOrderByStatus(@RequestParam("role") String role, @RequestParam("id") int id,
-                                                        @RequestParam("status") String status) {
+            @RequestParam("status") String status) {
         try {
             return new ResponseEntity<>(tripService.findTripByStatus(role, id, status), HttpStatus.OK);
         } catch (Exception e) {
@@ -86,6 +92,58 @@ public class TripController {
             return new ResponseEntity<>(finishDate, HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/refuseTrip/{trip_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> refuseTrip(@PathVariable("trip_id") long trip_id) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        LocalDateTime rightNow = LocalDateTime.now();
+        rightNow = LocalDateTime.parse(rightNow.format(formatter));
+        Order cancelOrder = new Order();
+        try {
+            cancelOrder = tripService.findTripById(trip_id);
+            // start cancel order
+            boolean cancelSuccess;
+
+            Refund refund = paypalService.refundPayment(cancelOrder.getTransaction_id());
+            if (refund.getState().equals("completed")) {
+                paypalService.createRefundRecord(cancelOrder.getTransaction_id(), "success");
+                cancelSuccess = tripService.cancelTrip(cancelOrder.gettrip_id());
+                if (!cancelSuccess) {
+                    return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
+                }
+            } else {
+                return new ResponseEntity<>("Refund fail", HttpStatus.OK);
+            }
+
+            // TODO notification
+//            SimpleDateFormat formatter2nd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+//            Date current = formatter2nd.parse(formatter2nd.format(new Date()));
+//            String traveler_username = accountRepository.findAccountNameByAccountId(cancelOrder.getTraveler_id());
+//            String guider_username = accountRepository.findAccountNameByAccountId(cancelOrder.getGuider_id());
+//            Notification notification = new Notification();
+//            notification.setUser(traveler_username);
+//            notification.setReceiver(guider_username);
+//            notification.setType("Notification");
+//            notification.setSeen(false);
+//            notification.setDateReceived(current);
+//            notification.setContent("The order on tour " + postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() + " was canceled by traveler " + traveler_username);
+//            webSocketNotificationController.sendMessage(notification);
+            return new ResponseEntity<>("Cancel Success", HttpStatus.OK);
+        } catch (PayPalRESTException e) {
+            try {
+                String message = e.getDetails().getMessage();
+                paypalService.createRefundRecord(cancelOrder.getTransaction_id(), message);
+                return new ResponseEntity<>(message, HttpStatus.OK);
+            } catch (Exception exc) {
+                logger.error(exc.getMessage());
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
@@ -217,6 +275,23 @@ public class TripController {
         }
     }
 
+    @PostMapping("/checktime")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Boolean> checkTime(@RequestBody Order order) {
+        try {
+            int count = tripService.checkAvailabilityOfTrip(order);
+            if (count > 0) {
+                throw new Exception("Booking: there is intersection in time");
+            } else {
+                return new ResponseEntity<>(true, HttpStatus.OK);
+            }
+
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        }
+    }
+
     @RequestMapping("/AcceptOrder/{trip_id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Boolean> acceptOrder(@PathVariable("trip_id") int orderId) {
@@ -256,21 +331,117 @@ public class TripController {
 
     @PostMapping("/getOrderByWeek/{guider_id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<Order>> getOrderByWeek(@PathVariable("guider_id") int id, @RequestBody Date order) {
+    public ResponseEntity<List<List<InDayTrip>>> getOrderByWeek(@PathVariable("guider_id") int id, @RequestBody Date order) {
         try {
             Calendar cal = Calendar.getInstance();
             cal.setTime(order);
+            cal.set(Calendar.HOUR_OF_DAY, 0); // ! clear would not reset the hour of day !
+            cal.clear(Calendar.MINUTE);
+            cal.clear(Calendar.SECOND);
+            cal.clear(Calendar.MILLISECOND);
             cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
             Date start = cal.getTime();
             //System.out.println("Start of this week:       " + start);
             cal.add(Calendar.WEEK_OF_YEAR, 1);
             Date end = cal.getTime();
             //System.out.println("Start of the next week:   " + end);
-            return new ResponseEntity<>(tripService.getTripByWeek(id, start, end
-            ), HttpStatus.OK);
+            List<Order> lo = tripService.getTripByWeek(id, start, end);
+            List<List<InDayTrip>> lli = new ArrayList();
+            for (long dayStart = start.getTime(); dayStart < end.getTime(); dayStart = dayStart + 86400000) {
+                List<InDayTrip> li = new ArrayList();
+                long dayEnd = dayStart + 86400000;
+                for (Order o : lo) {
+                    if (Timestamp.valueOf(o.getBegin_date()).getTime() >= dayEnd
+                            || Timestamp.valueOf(o.getFinish_date()).getTime() <= dayStart) {
+                        continue;
+                    } // trip not include this day
+                    else if (Timestamp.valueOf(o.getBegin_date()).getTime() <= dayStart
+                            && Timestamp.valueOf(o.getFinish_date()).getTime() <= dayEnd) {
+                        //a trip not start but end within this day
+                        li.add(new InDayTrip(o.getTraveler_id(), o.getPost_id(),
+                                "00:00", o.getFinish_date().getHour() + ":" + o.getFinish_date().getMinute(),
+                                o.getPostTitle(), o.getObject()));
+                    } else if (Timestamp.valueOf(o.getBegin_date()).getTime() >= dayStart
+                            && Timestamp.valueOf(o.getFinish_date()).getTime() <= dayEnd) {
+                        //a trip take place within this day
+                        li.add(new InDayTrip(o.getTraveler_id(), o.getPost_id(),
+                                o.getBegin_date().getHour() + ":" + o.getBegin_date().getMinute(),
+                                o.getFinish_date().getHour() + ":" + o.getFinish_date().getMinute(),
+                                o.getPostTitle(), o.getObject()));
+                    } else if (Timestamp.valueOf(o.getBegin_date()).getTime() >= dayStart
+                            && Timestamp.valueOf(o.getFinish_date()).getTime() >= dayEnd) {
+                        //a trip start but not end within this day
+                        li.add(new InDayTrip(o.getTraveler_id(), o.getPost_id(),
+                                o.getBegin_date().getHour() + ":" + o.getBegin_date().getMinute(), "24:00",
+                                o.getPostTitle(), o.getObject()));
+                    }
+                    if (Timestamp.valueOf(o.getBegin_date()).getTime() <= dayStart
+                            && Timestamp.valueOf(o.getFinish_date()).getTime() >= dayEnd) {
+                        //a trip start include this day
+                        li.add(new InDayTrip(o.getTraveler_id(), o.getPost_id(),
+                                "00:00", "24:00",
+                                o.getPostTitle(), o.getObject()));
+                    }
+                }
+                lli.add(li);
+            }
+            return new ResponseEntity<>(lli, HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/GetPossibleDayInMonth/{guider_id}/{duration}")
+    public ResponseEntity<List<Long>> GetPossibleDayInMonth(@PathVariable("guider_id") int id,
+            @PathVariable("duration") long duration, @RequestBody Date order) {
+        List<Long> ll = new ArrayList();
+        duration = (long) Math.ceil(duration * 60 * 60 * 1000 * (double) ((100 + Integer.parseInt(bufferPercent)) / 100));
+        try {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(order);
+            cal.set(Calendar.HOUR_OF_DAY, 0); // ! clear would not reset the hour of day !
+            cal.clear(Calendar.MINUTE);
+            cal.clear(Calendar.SECOND);
+            cal.clear(Calendar.MILLISECOND);
+            cal.set(Calendar.DAY_OF_MONTH, 1);
+            Date start = cal.getTime();
+            cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+            Date end = cal.getTime();
+            List<Order> lo = tripService.getTripByWeek(id, start, end);
+            List<java.util.Map.Entry<Long, Long>> avaiDuration = new ArrayList();
+            avaiDuration.add(new AbstractMap.SimpleEntry<>(new Long(start.getTime()), new Long(end.getTime())));
+            //lo already order by begin_date
+            //remove occupied period
+            for (Order o : lo) {
+                java.util.Map.Entry<Long, Long> entry = avaiDuration.get(avaiDuration.size() - 1);
+                long startPoint = entry.getKey().longValue();
+                long endPoint = entry.getValue().longValue();
+                avaiDuration.remove(entry);
+                long orderStart = Timestamp.valueOf(o.getBegin_date()).getTime();
+                long orderFinish = Timestamp.valueOf(o.getFinish_date()).getTime();
+                avaiDuration.add(new AbstractMap.SimpleEntry<>(
+                        startPoint,
+                        (startPoint <  orderStart) ? orderStart: startPoint));
+                avaiDuration.add(new AbstractMap.SimpleEntry<>(
+                        (endPoint < orderFinish) ? endPoint : orderStart,
+                        endPoint));
+            }
+            //filter period that qualified
+            //get date from those perid
+            for (java.util.Map.Entry<Long, Long> entry : avaiDuration) {
+                long startPoint = entry.getKey().longValue();
+                long endPoint = entry.getValue().longValue();
+                if(endPoint - startPoint > duration) {
+                    for(long i = startPoint%86400000; i <= endPoint%86400000; i++ ) {
+                        ll.add(new Long(i*86400000));
+                    }
+                }
+            }
+            return new ResponseEntity<>(ll, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(new ArrayList(), HttpStatus.NOT_FOUND);
         }
     }
 

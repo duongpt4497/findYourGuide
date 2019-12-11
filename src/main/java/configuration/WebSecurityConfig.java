@@ -112,7 +112,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/Traveler/**").permitAll()
                 .antMatchers("/statistic/**").permitAll()
                 .anyRequest().authenticated().and()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/account/logout")).and()
                 .addFilter(getAuthenticationFilter())
                 .addFilterBefore(new TokenAuthenFilter(tokenHelper, principalService), BasicAuthenticationFilter.class)
         ;

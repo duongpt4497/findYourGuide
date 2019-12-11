@@ -217,4 +217,16 @@ public class GuiderController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+    @RequestMapping("/getGuider/{guider_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Guider> getGuider(@PathVariable("guider_id") long guider_id) {
+        try {
+            
+            
+            return new ResponseEntity<>(guiderService.findGuiderWithID(guider_id), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 }

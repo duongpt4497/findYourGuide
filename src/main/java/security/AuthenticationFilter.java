@@ -65,6 +65,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         sidCookie.setHttpOnly(true);
         sidCookie.setDomain(URL_ROOT_CLIENT_DOMAIN);
         response.addCookie(sidCookie);
+        System.out.println(authResult.getCredentials().toString());
         Account res = new Account(Integer.parseInt(authResult.getCredentials().toString())
                 , authResult.getPrincipal().toString(), authResult.getAuthorities().toArray()[0].toString());
         response.getWriter().write(new Gson().toJson(res));

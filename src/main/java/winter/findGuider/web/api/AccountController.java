@@ -96,8 +96,18 @@ public class AccountController {
 
     }
 
-    @PostMapping("/logout")
-    public void logout() {
+    @RequestMapping("/logout")
+    public ResponseEntity logout(HttpServletResponse response) {
+        response.addHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
+        response.addHeader("Access-Control-Allow-Credentials", "true");
+        Cookie sidCookie = new Cookie("token", "");
+        System.out.println("tell me why?"+ response.toString());
+        sidCookie.setPath("/");
+        sidCookie.setHttpOnly(true);
+        sidCookie.setDomain(URL_ROOT_CLIENT_DOMAIN);
+        sidCookie.setMaxAge(0);
+        response.addCookie(sidCookie);
+        return new ResponseEntity("bye",HttpStatus.OK);
     }
 
     @RequestMapping("/findAll")

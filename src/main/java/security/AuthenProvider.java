@@ -53,8 +53,6 @@ public class AuthenProvider implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
         
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
-        System.out.println("auth name:  " + username);
-        System.out.println("auth pass:  " + password);
         Account acc = null;
         try {
             acc = userService.findAccountByName(username);
@@ -63,8 +61,6 @@ public class AuthenProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Authentication failed");
         }
         grantedAuths.add(new SimpleGrantedAuthority(acc.getRole()));
-        System.out.println("db name:  " + acc.getUserName());
-        System.out.println("db pass:  " + acc.getPassword());
         if (acc != null && acc.getUserName().equals(username) && encoder.matches(password, acc.getPassword())) {
             return new UsernamePasswordAuthenticationToken(username, acc.getId(),grantedAuths);
         } else {

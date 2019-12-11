@@ -11,17 +11,17 @@ import java.util.List;
 public interface TripService {
     void createTrip(Order newOrder) throws Exception;
 
-    int checkTripExist(int id) throws Exception;
+    int checkTripExist(long id) throws Exception;
 
-    Order findTripById(int trip_id) throws Exception;
+    Order findTripById(long trip_id) throws Exception;
 
     List<Order> findTripByStatus(String role, int id, String status) throws Exception;
 
-    boolean acceptTrip(int trip_id) throws Exception;
+    boolean acceptTrip(long trip_id) throws Exception;
 
-    boolean cancelTrip(int trip_id) throws Exception;
+    boolean cancelTrip(long trip_id) throws Exception;
 
-    boolean finishTrip(int trip_id) throws Exception;
+    boolean finishTrip(long trip_id) throws Exception;
 
     void getTripGuiderId_FinishDate(Order newOrder) throws Exception;
 
