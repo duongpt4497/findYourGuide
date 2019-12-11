@@ -2,6 +2,7 @@ package services.traveler;
 
 import entities.Traveler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -18,6 +19,9 @@ import java.util.List;
 public class TravelerServiceImpl implements TravelerService {
     private JdbcTemplate jdbcTemplate;
     private GeneralService generalService;
+
+    @Value("${order.server.root.url}")
+    private String URL_ROOT_SERVER;
 
     @Autowired
     public TravelerServiceImpl(JdbcTemplate jdbcTemplate, GeneralService gs) {
@@ -70,7 +74,7 @@ public class TravelerServiceImpl implements TravelerService {
         List<String> avatarList = generalService.convertBase64toImageAndChangeName(images);
         String avatar;
         if (avatarList.isEmpty()) {
-            avatar = "account.jpg";
+            avatar = URL_ROOT_SERVER + "/images/account.jpg";
         } else {
             avatar = avatarList.get(0);
         }

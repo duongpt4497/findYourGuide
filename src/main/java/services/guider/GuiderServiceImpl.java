@@ -142,7 +142,7 @@ public class GuiderServiceImpl implements GuiderService {
         List<String> avatarList = generalService.convertBase64toImageAndChangeName(images);
         String avatar;
         if (avatarList.isEmpty()) {
-            avatar = "account.jpg";
+            avatar = URL_ROOT_SERVER + "/images/account.jpg";
         } else {
             avatar = avatarList.get(0);
         }

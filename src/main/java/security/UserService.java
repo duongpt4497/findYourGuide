@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,9 @@ public class UserService {
     @Autowired
     private TravelerService ts;
 
+    @Value("${order.server.root.url}")
+    private String URL_ROOT_SERVER;
+
     @Autowired
     public UserService(AccountRepository repo, PasswordEncoder passwordEncoder, TokenHelper tokenService) {
         this.repo = repo;
@@ -61,10 +65,10 @@ public class UserService {
         long id = repo.addAccount(acc);
         if (acc.getRole().equalsIgnoreCase("GUIDER")) {
             gs.createGuider(new Guider(id, "", "", LocalDateTime.now(), "", "", 0, "", new String[]{}, false, 0,
-                    "http://localhost:8080/images/account.jpg", "",""));
+                    URL_ROOT_SERVER + "/images/account.jpg", "",""));
         } else if (acc.getRole().equalsIgnoreCase("TRAVELER")) {
             ts.createTraveler(new Traveler(id, "", "", "", 0, new java.sql.Timestamp(
-                    new Date().getTime()).toLocalDateTime(), "", "", "", "", "", new String[]{}, "", "", "http://localhost:8080/images/account.jpg"));
+                    new Date().getTime()).toLocalDateTime(), "", "", "", "", "", new String[]{}, "", "", URL_ROOT_SERVER + "/images/account.jpg"));
         }
         // the rest of the registration operation
         return acc;

@@ -34,9 +34,9 @@ public class CategoryController {
 
     @RequestMapping("/create")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> createCategory(@RequestParam("name") String name) {
+    public ResponseEntity<Boolean> createCategory(@RequestBody Category category) {
         try {
-            categoryService.createCategory(name);
+            categoryService.createCategory(category.getCategory(), category.getImage());
             return new ResponseEntity(true, HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
