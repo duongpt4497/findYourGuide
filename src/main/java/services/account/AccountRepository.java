@@ -109,23 +109,20 @@ public class AccountRepository {
     }
 
     public String insertEmailConfirmToken(long account_id) throws Exception {
-        int leftLimit = 97; // letter 'a'
-        int rightLimit = 122; // letter 'z'
-        int targetStringLength = (int) (Math.random() * ((50 - 20) + 1)) + 20;
-        Random random = new Random();
-        StringBuilder buffer = new StringBuilder(targetStringLength);
-        for (int i = 0; i < targetStringLength; i++) {
-            int randomLimitedInt = leftLimit + (int)
-                    (random.nextFloat() * (rightLimit - leftLimit + 1));
-            buffer.append((char) randomLimitedInt);
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 50) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
         }
-        String token = buffer.toString();
+        String token = salt.toString();
         jdbc.update("update account set email_token = ? where account_id = ?", token, account_id);
-        return account_id + "e" + token;
+        return account_id + "E" + token;
     }
 
     public void confirmEmail(String token) throws Exception {
-        String[] data = token.split("e", 2);
+        String[] data = token.split("E", 2);
         int account_id = Integer.parseInt(data[0]);
         String checkToken = data[1];
         String query = "select email_token from account where account_id = ?";

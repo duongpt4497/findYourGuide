@@ -74,8 +74,9 @@ public class UserService {
         // the rest of the registration operation
         String token = repo.insertEmailConfirmToken(id);
         String email = acc.getEmail();
-        String content = "To verify your email, please click here : " + URL_ROOT_SERVER +
-                "/account/emailConfirm?token=" + token;
+        String content = "Hello " + acc.getUserName() + "\n\n";
+        content = content.concat("To verify your email, please click here : ");
+        content = content.concat(URL_ROOT_SERVER + "/account/emailConfirm?token=" + token);
         mailService.sendMail(email, "TravelWLocal Email Confirmation", content);
         return acc;
     }
