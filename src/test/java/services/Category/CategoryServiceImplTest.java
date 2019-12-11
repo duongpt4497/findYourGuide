@@ -6,10 +6,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import services.GeneralService;
 import winter.findGuider.TestDataSourceConfig;
 
 import java.sql.ResultSet;
@@ -25,17 +27,20 @@ public class CategoryServiceImplTest {
 
     private JdbcTemplate jdbcTemplate = new JdbcTemplate();
 
+    @Mock
+    GeneralService generalService;
+
     @Before
     public void init() {
         TestDataSourceConfig config = new TestDataSourceConfig();
         jdbcTemplate.setDataSource(config.setupDatasource());
-        categoryService = new CategoryServiceImpl(jdbcTemplate);
+        categoryService = new CategoryServiceImpl(jdbcTemplate, generalService);
         config.cleanTestDb(jdbcTemplate);
-        jdbcTemplate.update("insert into category (name) values ('Food')");
-        jdbcTemplate.update("insert into category (name) values ('History')");
-        jdbcTemplate.update("insert into category (name) values ('Culture')");
-        jdbcTemplate.update("insert into category (name) values ('Night Tour')");
-        jdbcTemplate.update("insert into category (name) values ('Art')");
+        jdbcTemplate.update("insert into category (name,image) values ('Food','Food.jpg')");
+        jdbcTemplate.update("insert into category (name,image) values ('History','History.jpg')");
+        jdbcTemplate.update("insert into category (name,image) values ('Culture','Culture.jpg')");
+        jdbcTemplate.update("insert into category (name,image) values ('Night Tour','Night Tour.jpg')");
+        jdbcTemplate.update("insert into category (name,image) values ('Art','Art.jpg')");
         MockitoAnnotations.initMocks(this);
     }
 
@@ -47,7 +52,8 @@ public class CategoryServiceImplTest {
     @Test
     public void createCategory() throws Exception {
         jdbcTemplate.update("delete from category");
-        categoryService.createCategory("test");
+        Category category = new Category(1,"test","test.jpg");
+        categoryService.createCategory(category);
         Assert.assertEquals(1, categoryService.findAllCategory().size());
     }
 }
