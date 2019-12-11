@@ -1,6 +1,9 @@
 package services;
 
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+import configuration.CloudinaryConfig;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +20,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class GeneralServiceImpl implements GeneralService {
@@ -65,14 +69,20 @@ public class GeneralServiceImpl implements GeneralService {
         public List<String> convertBase64toImageAndChangeName(String[] base64array) {
         List<String> base64List = Arrays.asList(base64array);
         List<String> imageUrls = new ArrayList<>();
+        CloudinaryConfig cloudinaryConfig = new CloudinaryConfig();
+        Cloudinary cloudinary = cloudinaryConfig.getCloudinary();
         try {
             for (String base64 : base64List) {
-                long now = System.currentTimeMillis();
-                byte[] data = Base64.decodeBase64(base64.split(",")[1]);
                 Long uniqueIds = generateLongId();
+                Map uploadResult = cloudinary.uploader().upload(base64,
+                        ObjectUtils.asMap("public_id",uniqueIds.toString()));
+                String imageUrl = (String) uploadResult.get("url");
+                imageUrls.add(imageUrl);
+                /*byte[] data = Base64.decodeBase64(base64.split(",")[1]);
+
                 Path destinationFile = Paths.get("./src/main/resources/static/images/", uniqueIds.toString() + ".jpg");
-                Files.write(destinationFile, data);
-                imageUrls.add(URL_ROOT_SERVER + "/images/" + uniqueIds.toString() + ".jpg");
+                Files.write(destinationFile, data);*/
+
             }
         } catch (Exception e) {
             logger.error("convertbase64: "+e.toString());
