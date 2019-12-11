@@ -36,7 +36,7 @@ public class CategoryController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Boolean> createCategory(@RequestBody Category category) {
         try {
-            categoryService.createCategory(category.getCategory(), category.getImage());
+            categoryService.createCategory(category);
             return new ResponseEntity(true, HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
