@@ -146,7 +146,7 @@ public class MailServiceImpl implements MailService {
                 "I am sorry to inform you that you have not been selected for this position.\n\n");
         content = content.concat("We at TravelWLocal thanks you for the time you invested in applying for the position. " +
                 "We encourage you to apply for future openings for which you qualify.\n\n");
-        content = content.concat("Best wishes for a successful job search. Thank you, again, for your interest in our company.\n\n");
+        content = content.concat("Best wishes for successful in life. Thank you, again, for your interest in our website.\n\n");
         content = content.concat("Thank your for using our service.\n\n");
         content = content.concat("Sincerely,\n");
         content = content.concat("TravelWLocal");

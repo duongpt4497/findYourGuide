@@ -254,4 +254,20 @@ public class MailServiceImplTest {
                 "Sincerely,\n" +
                 "TravelWLocal", mailService.acceptContractMailContent(4));
     }
+
+    @Test
+    public void rejectContractMailContent() throws Exception {
+        Assert.assertEquals("Dear Mr/Ms John Doe\n" +
+                "\n" +
+                "Thank you for your application for the position of tour guider at our TravelWLocal website. As you can imagine, we received a large number of applications. I am sorry to inform you that you have not been selected for this position.\n" +
+                "\n" +
+                "We at TravelWLocal thanks you for the time you invested in applying for the position. We encourage you to apply for future openings for which you qualify.\n" +
+                "\n" +
+                "Best wishes for successful in life. Thank you, again, for your interest in our website.\n" +
+                "\n" +
+                "Thank your for using our service.\n" +
+                "\n" +
+                "Sincerely,\n" +
+                "TravelWLocal", mailService.rejectContractMailContent(1));
+    }
 }
