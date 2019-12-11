@@ -17,11 +17,9 @@ import winter.findGuider.TestDataSourceConfig;
 public class AccountServiceUnitTest {
     @InjectMocks
     AccountRepository accountService;
-
-    private JdbcTemplate jdbcTemplate = new JdbcTemplate();
-
     @Mock
     MailService mailService;
+    private JdbcTemplate jdbcTemplate = new JdbcTemplate();
 
     @Before
     public void init() {
@@ -29,8 +27,8 @@ public class AccountServiceUnitTest {
         jdbcTemplate.setDataSource(config.setupDatasource());
         accountService = new AccountRepository(jdbcTemplate, mailService);
         config.cleanTestDb(jdbcTemplate);
-        jdbcTemplate.update("insert into account (user_name, password, email ,role) " +
-                "values ('Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
+        jdbcTemplate.update("insert into account (user_name, password, email ,role, email_verified) " +
+                "values ('Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER',false)");
         MockitoAnnotations.initMocks(this);
     }
 
@@ -84,5 +82,36 @@ public class AccountServiceUnitTest {
     public void changePassword() throws Exception {
         accountService.changePassword("Jacky", "abc");
         Assert.assertEquals("abc", accountService.findAccountByName("Jacky").getPassword());
+    }
+
+    @Test
+    public void isMailVerified() throws Exception {
+        Assert.assertEquals(false, accountService.isMailVerified(accountService.findAccountByName("Jacky").getId()));
+    }
+
+    @Test
+    public void insertEmailConfirmToken() throws Exception {
+        Account jacky = accountService.findAccountByName("Jacky");
+        String token = accountService.insertEmailConfirmToken(jacky.getId());
+        String[] data = token.split("E", 2);
+        Assert.assertEquals(String.valueOf(jacky.getId()), data[0]);
+    }
+
+    @Test
+    public void confirmEmail() throws Exception {
+        Account jacky = accountService.findAccountByName("Jacky");
+        jdbcTemplate.update("update account set email_token = 'abcde' where account_id = ?", jacky.getId());
+        String token = jacky.getId() + "Eabcde";
+        accountService.confirmEmail(token);
+        Assert.assertEquals(true, accountService.isMailVerified(jacky.getId()));
+    }
+
+    @Test
+    public void confirmEmail2() throws Exception {
+        Account jacky = accountService.findAccountByName("Jacky");
+        jdbcTemplate.update("update account set email_token = 'abcde' where account_id = ?", jacky.getId());
+        String token = jacky.getId() + "Eabcd";
+        accountService.confirmEmail(token);
+        Assert.assertEquals(false, accountService.isMailVerified(jacky.getId()));
     }
 }
