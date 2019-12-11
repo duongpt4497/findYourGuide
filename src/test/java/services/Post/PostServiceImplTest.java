@@ -46,7 +46,7 @@ public class PostServiceImplTest {
         jdbcTemplate.update("insert into locations (location_id,country,city,place) values (2,'Vietnam','Hanoi','Trang Tien')");
         jdbcTemplate.update("insert into locations (location_id,country,city,place) values (3,'Vietnam','Hanoi','Ho Tay')");
         jdbcTemplate.update("insert into locations (location_id,country,city,place) values (4,'Vietnam','Hanoi','Pho Co')");
-        jdbcTemplate.update("insert into category (category_id,name) values (1,'history')");
+        jdbcTemplate.update("insert into category (category_id,name,image) values (1,'history','a.jpg')");
         jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,date_of_birth,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
                 "values (1,'John','Doe',now(),'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
         jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,date_of_birth,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +

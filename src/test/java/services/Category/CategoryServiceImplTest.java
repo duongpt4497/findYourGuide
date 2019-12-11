@@ -16,6 +16,8 @@ import winter.findGuider.TestDataSourceConfig;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.when;
 
@@ -53,6 +55,19 @@ public class CategoryServiceImplTest {
     public void createCategory() throws Exception {
         jdbcTemplate.update("delete from category");
         Category category = new Category(1,"test","test.jpg");
+        String[] x = new String[]{"test.jpg"};
+        List<String> temp = new ArrayList<>();
+        temp.add("test.jpg");
+
+        when(generalService.convertBase64toImageAndChangeName(x)).thenReturn(temp);
+        categoryService.createCategory(category);
+        Assert.assertEquals(1, categoryService.findAllCategory().size());
+    }
+
+    @Test(expected = Exception.class)
+    public void createCategory2() throws Exception {
+        jdbcTemplate.update("delete from category");
+        Category category = new Category();
         categoryService.createCategory(category);
         Assert.assertEquals(1, categoryService.findAllCategory().size());
     }
