@@ -175,8 +175,6 @@ public class TripServiceImpl implements TripService {
     @Override
     public int checkTripExist(long id) throws Exception {
         int count = 0;
-        //?
-
         String query = "SELECT t1.begin_date , t1.finish_date, p2.guider_id FROM trip as t1"
                 + " inner join post as p2 on t1.post_id = p2.post_id "
                 + " where t1.trip_id = ? ";
@@ -188,15 +186,15 @@ public class TripServiceImpl implements TripService {
                 + "and ((t1.begin_date between ? and ?) "
                 + "or (t1.finish_date between ? and ?))";
         count = jdbcTemplate.queryForObject(query, new Object[]{times.get("guider_id"), ONGOING,
-            times.get("begin_date"), times.get("finish_date"),
-            times.get("begin_date"), times.get("finish_date")}, int.class);
+                times.get("begin_date"), times.get("finish_date"),
+                times.get("begin_date"), times.get("finish_date")}, int.class);
         return count;
     }
 
     @Override
     public int checkAvailabilityOfTrip(Order newOrder) throws Exception {
         int count = 0;
-    String query = "SELECT count (trip_id) FROM trip "
+        String query = "SELECT count (trip_id) FROM trip "
                 + "inner join post on post.post_id = trip.post_id "
                 + "where (post.guider_id = ?) and (status = ?) "
                 + "and ((begin_date between ? and ?) "
@@ -205,7 +203,7 @@ public class TripServiceImpl implements TripService {
         Timestamp acceptableBeginDate = Timestamp.valueOf(newOrder.getBegin_date());
         Timestamp acceptableFinishDate = Timestamp.valueOf(newOrder.getFinish_date());
         count = jdbcTemplate.queryForObject(query, new Object[]{guider_id, ONGOING, acceptableBeginDate,
-            acceptableFinishDate, acceptableBeginDate, acceptableFinishDate}, int.class);
+                acceptableFinishDate, acceptableBeginDate, acceptableFinishDate}, int.class);
         return count;
     }
 
@@ -402,7 +400,7 @@ public class TripServiceImpl implements TripService {
     }
 
     private ArrayList<String> getUnacceptableHours(int post_id, ArrayList<String> availableHours,
-            LocalDate chosenDate) throws Exception {
+                                                   LocalDate chosenDate) throws Exception {
 
         ArrayList<String> unacceptableHours = new ArrayList<>();
         double totalHour = this.getTourTotalHour(post_id);

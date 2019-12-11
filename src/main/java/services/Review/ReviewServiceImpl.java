@@ -49,16 +49,19 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<Review> findReviewsByPostId(long post_id) throws Exception {
-        String query = "select review.* from review inner join trip on trip.trip_id = review.trip_id " +
-                "where trip.post_id = ? and visible = true";
+    public List<Review> findReviewsByPostId(long post_id, long page) throws Exception {
+        String query = "select review.*, avatar_link from review " +
+                "inner join trip on trip.trip_id = review.trip_id " +
+                "inner join traveler on trip.traveler_id = traveler.traveler_id " +
+                "where trip.post_id = ? and visible = true " +
+                "limit 5 offset ?";
         return jdbcTemplate.query(query, new RowMapper<Review>() {
             public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Review(rs.getLong("trip_id"), rs.getLong("rated"),
                         rs.getDate("post_date"), rs.getString("review"),
-                        rs.getBoolean("visible"));
+                        rs.getBoolean("visible"), rs.getString("avatar_link"));
             }
-        }, post_id);
+        }, post_id, page * 5);
     }
 
     @Override
@@ -119,21 +122,23 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<TravelerReview> findReviewOfATraveler(long traveler_id) throws Exception {
+    public List<TravelerReview> findReviewOfATraveler(long traveler_id, long page) throws Exception {
         String query = "select review_id, " +
-                "concat(tra.first_name, ' ', tra.last_name) as tra_name, " +
                 "concat (gu.first_name, ' ', gu.last_name) as gu_name, " +
-                "post_date, review, visible from travelerreviews as tra_re " +
+                "post_date, review, gu.avatar from travelerreviews as tra_re " +
                 "inner join traveler as tra on tra_re.traveler_id = tra.traveler_id " +
                 "inner join guider as gu on tra_re.guider_id = gu.guider_id " +
-                "where tra_re.traveler_id = ? and visible = true";
+                "where tra_re.traveler_id = ? and visible = true " +
+                "limit 5 offset ?";
         return jdbcTemplate.query(query, new RowMapper<TravelerReview>() {
             @Override
             public TravelerReview mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return new TravelerReview(rs.getLong("review_id"), rs.getTimestamp("post_date").toLocalDateTime(),
-                        rs.getString("review"), rs.getBoolean("visible"), rs.getString("tra_name"),
-                        rs.getString("gu_name"));
+                return new TravelerReview(rs.getLong("review_id"),
+                        rs.getTimestamp("post_date").toLocalDateTime(),
+                        rs.getString("review"),
+                        rs.getString("gu_name"),
+                        rs.getString("avatar"));
             }
-        }, traveler_id);
+        }, traveler_id, page * 5);
     }
 }

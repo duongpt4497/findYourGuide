@@ -11,6 +11,7 @@ public class Review {
     private Date post_date;
     private String review;
     private boolean visible;
+    private String traveler_image;
 
     public Review() {
     }
@@ -27,6 +28,15 @@ public class Review {
         this.trip_id = trip_id;
         this.rated = rated;
         this.review = review;
+    }
+
+    public Review(long trip_id, long rated, Date post_date, String review, boolean visible, String traveler_image) {
+        this.trip_id = trip_id;
+        this.rated = rated;
+        this.post_date = post_date;
+        this.review = review;
+        this.visible = visible;
+        this.traveler_image = traveler_image;
     }
 
     public long getTrip_id() {
@@ -67,5 +77,13 @@ public class Review {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    public String getTraveler_image() {
+        return traveler_image;
+    }
+
+    public void setTraveler_image(String traveler_image) {
+        this.traveler_image = traveler_image;
     }
 }

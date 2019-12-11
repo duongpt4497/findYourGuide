@@ -10,7 +10,7 @@ public interface ReviewService {
 
     List<Review> findReviewsByGuiderId(long guider_id) throws Exception;
 
-    List<Review> findReviewsByPostId(long post_id) throws Exception;
+    List<Review> findReviewsByPostId(long post_id, long page) throws Exception;
 
     List<Review> findReviewsByPostIdAdmin(long post_id) throws Exception;
 
@@ -22,5 +22,5 @@ public interface ReviewService {
 
     void createTravelerReview(TravelerReview review) throws Exception;
 
-    List<TravelerReview> findReviewOfATraveler(long traveler_id) throws Exception;
+    List<TravelerReview> findReviewOfATraveler(long traveler_id, long page) throws Exception;
 }
