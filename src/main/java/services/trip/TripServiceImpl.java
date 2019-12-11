@@ -264,8 +264,8 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public boolean checkTripReach48Hours(Order cancelOrder, LocalDateTime rightNow) throws Exception {
-        int dayCheck = rightNow.toLocalDate().compareTo(cancelOrder.getBegin_date().toLocalDate().minusDays(2));
+    public boolean checkTripReach24Hours(Order cancelOrder, LocalDateTime rightNow) throws Exception {
+        int dayCheck = rightNow.toLocalDate().compareTo(cancelOrder.getBegin_date().toLocalDate().minusDays(1));
         // check day
         if (dayCheck == 0) {
             // check hour

@@ -1,7 +1,6 @@
 
 package services.trip;
 
-import com.paypal.base.rest.PayPalRESTException;
 import entities.Order;
 import org.junit.Assert;
 import org.junit.Before;
@@ -20,8 +19,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
-
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TripServiceImplTest {
@@ -255,7 +252,7 @@ public class TripServiceImplTest {
         Order order = new Order();
         order.setBegin_date(LocalDateTime.parse("2019-11-29T00:00"));
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T00:30");
-        Assert.assertEquals(false, tripService.checkTripReach48Hours(order, rightNow));
+        Assert.assertEquals(false, tripService.checkTripReach24Hours(order, rightNow));
     }
 
     @Test
@@ -263,7 +260,7 @@ public class TripServiceImplTest {
         Order order = new Order();
         order.setBegin_date(LocalDateTime.parse("2019-11-27T00:00"));
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T00:30");
-        Assert.assertEquals(true, tripService.checkTripReach48Hours(order, rightNow));
+        Assert.assertEquals(true, tripService.checkTripReach24Hours(order, rightNow));
     }
 
     @Test
@@ -271,7 +268,7 @@ public class TripServiceImplTest {
         Order order = new Order();
         order.setBegin_date(LocalDateTime.parse("2019-11-28T01:00"));
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T00:00");
-        Assert.assertEquals(false, tripService.checkTripReach48Hours(order, rightNow));
+        Assert.assertEquals(false, tripService.checkTripReach24Hours(order, rightNow));
     }
 
     @Test
@@ -279,7 +276,7 @@ public class TripServiceImplTest {
         Order order = new Order();
         order.setBegin_date(LocalDateTime.parse("2019-11-28T01:00"));
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T02:00");
-        Assert.assertEquals(true, tripService.checkTripReach48Hours(order, rightNow));
+        Assert.assertEquals(true, tripService.checkTripReach24Hours(order, rightNow));
     }
 
     @Test
@@ -287,7 +284,7 @@ public class TripServiceImplTest {
         Order order = new Order();
         order.setBegin_date(LocalDateTime.parse("2019-11-28T01:30"));
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T01:00");
-        Assert.assertEquals(false, tripService.checkTripReach48Hours(order, rightNow));
+        Assert.assertEquals(false, tripService.checkTripReach24Hours(order, rightNow));
     }
 
     @Test
@@ -295,7 +292,7 @@ public class TripServiceImplTest {
         Order order = new Order();
         order.setBegin_date(LocalDateTime.parse("2019-11-28T01:30"));
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T01:50");
-        Assert.assertEquals(true, tripService.checkTripReach48Hours(order, rightNow));
+        Assert.assertEquals(true, tripService.checkTripReach24Hours(order, rightNow));
     }
 
     @Test
@@ -303,7 +300,7 @@ public class TripServiceImplTest {
         Order order = new Order();
         order.setBegin_date(LocalDateTime.parse("2019-11-28T01:30"));
         LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T01:30");
-        Assert.assertEquals(true, tripService.checkTripReach48Hours(order, rightNow));
+        Assert.assertEquals(true, tripService.checkTripReach24Hours(order, rightNow));
     }
 
     @Test

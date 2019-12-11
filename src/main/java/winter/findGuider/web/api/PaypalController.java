@@ -65,11 +65,6 @@ public class PaypalController {
             tripService.getTripGuiderId_FinishDate(order);
             order.setFee_paid(paypalService.getTransactionFee(order));
             successUrl += "&fee=" + order.getFee_paid();
-            // Check for availability of order
-            int count = tripService.checkAvailabilityOfTrip(order);
-            if (count != 0) {
-                return URL_ROOT_CLIENT + CHATBOX_PATH + order.getPost_id() + "/booking_time_not_available";
-            }
             String description = paypalService.getTransactionDescription(order);
             Payment payment = paypalService.createPayment(order.getFee_paid(), "USD", description, cancelUrl, successUrl);
             for (Links links : payment.getLinks()) {

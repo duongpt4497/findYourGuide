@@ -2,11 +2,12 @@ package winter.findGuider.web.api;
 
 import com.paypal.api.payments.Refund;
 import com.paypal.base.rest.PayPalRESTException;
-import entities.Order;
 import entities.InDayTrip;
+import entities.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,15 +18,11 @@ import services.account.AccountRepository;
 import services.contributionPoint.ContributionPointService;
 import services.guider.GuiderService;
 import services.trip.TripService;
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Value;
+import java.util.*;
 
 @RestController
 @RequestMapping(path = "/Order", produces = "application/json")
@@ -46,8 +43,8 @@ public class TripController {
 
     @Autowired
     public TripController(TripService os, PaypalService ps, MailService ms,
-            ContributionPointService cps, GuiderService gs,
-            AccountRepository ar, PostService postService, WebSocketNotificationController wsc) {
+                          ContributionPointService cps, GuiderService gs,
+                          AccountRepository ar, PostService postService, WebSocketNotificationController wsc) {
         this.tripService = os;
         this.paypalService = ps;
         this.mailService = ms;
@@ -74,7 +71,7 @@ public class TripController {
     @RequestMapping("/GetOrderByStatus")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Order>> getOrderByStatus(@RequestParam("role") String role, @RequestParam("id") int id,
-            @RequestParam("status") String status) {
+                                                        @RequestParam("status") String status) {
         try {
             return new ResponseEntity<>(tripService.findTripByStatus(role, id, status), HttpStatus.OK);
         } catch (Exception e) {
@@ -90,6 +87,25 @@ public class TripController {
             String finishDate = tripService.getClosestTripFinishDate(newOrder.getBegin_date().toLocalDate(),
                     newOrder.getGuider_id());
             return new ResponseEntity<>(finishDate, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/checkCanBookTrip")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Boolean> CheckCanBookTrip(@RequestBody Order newOrder) {
+        try {
+            // Check for availability of order
+            boolean canBook;
+            int count = tripService.checkAvailabilityOfTrip(newOrder);
+            if (count != 0) {
+                canBook = false;
+            } else {
+                canBook = true;
+            }
+            return new ResponseEntity<>(canBook, HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -158,7 +174,7 @@ public class TripController {
         try {
             cancelOrder = tripService.findTripById(trip_id);
             // check if refund is needed
-            boolean isRefund = tripService.checkTripReach48Hours(cancelOrder, rightNow);
+            boolean isRefund = tripService.checkTripReach24Hours(cancelOrder, rightNow);
             // start cancel order
             boolean cancelSuccess;
             if (isRefund) {
@@ -217,7 +233,7 @@ public class TripController {
         try {
             cancelOrder = tripService.findTripById(trip_id);
             // check if penalty is needed
-            boolean isPenalty = tripService.checkTripReach48Hours(cancelOrder, rightNow);
+            boolean isPenalty = tripService.checkTripReach24Hours(cancelOrder, rightNow);
             // start cancel order
             boolean cancelSuccess;
             // refund traveler
@@ -400,7 +416,7 @@ public class TripController {
 
     @RequestMapping("/GetPossibleDayInMonth/{guider_id}/{duration}")
     public ResponseEntity<List<Long>> GetPossibleDayInMonth(@PathVariable("guider_id") int id,
-            @PathVariable("duration") long duration, @RequestBody Date order) {
+                                                            @PathVariable("duration") long duration, @RequestBody Date order) {
         List<Long> ll = new ArrayList();
         duration = (long) Math.ceil(duration * 60 * 60 * 1000 * (double) ((100 + Integer.parseInt(bufferPercent)) / 100));
         try {
@@ -428,7 +444,7 @@ public class TripController {
                 long orderFinish = Timestamp.valueOf(o.getFinish_date()).getTime();
                 avaiDuration.add(new AbstractMap.SimpleEntry<>(
                         startPoint,
-                        (startPoint <  orderStart) ? orderStart: startPoint));
+                        (startPoint < orderStart) ? orderStart : startPoint));
                 avaiDuration.add(new AbstractMap.SimpleEntry<>(
                         (endPoint < orderFinish) ? endPoint : orderStart,
                         endPoint));
@@ -438,9 +454,9 @@ public class TripController {
             for (java.util.Map.Entry<Long, Long> entry : avaiDuration) {
                 long startPoint = entry.getKey().longValue();
                 long endPoint = entry.getValue().longValue();
-                if(endPoint - startPoint > duration) {
-                    for(long i = startPoint%86400000; i <= endPoint%86400000; i++ ) {
-                        ll.add(new Long(i*86400000));
+                if (endPoint - startPoint > duration) {
+                    for (long i = startPoint % 86400000; i <= endPoint % 86400000; i++) {
+                        ll.add(new Long(i * 86400000));
                     }
                 }
             }
