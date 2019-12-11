@@ -8,5 +8,5 @@ public interface CategoryService {
 
     List<Category> findAllCategory() throws Exception;
 
-    void createCategory(String name) throws Exception;
+    void createCategory(Category category) throws Exception;
 }

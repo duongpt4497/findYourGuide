@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +21,7 @@ import services.account.AccountRepository;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URI;
 import java.util.Date;
 import java.util.List;
 
@@ -36,6 +38,8 @@ public class AccountController {
     private AccountRepository repo;
     private AuthenProvider auth;
 
+    @Value("${order.server.root.url}")
+    private String URL_ROOT_SERVER;
     @Value("${order.client.root.url}")
     private String URL_ROOT_CLIENT;
     @Value("${order.client.root.url.domain}")
@@ -117,6 +121,21 @@ public class AccountController {
             response.setHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
             response.setHeader("Access-Control-Allow-Credentials", "true");
             return new ResponseEntity(repo.findAllAccount(), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/emailConfirm")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Object> confirmEmail(@RequestParam("token") String token) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        try {
+            repo.confirmEmail(token);
+            URI home = new URI(URL_ROOT_CLIENT);
+            httpHeaders.setLocation(home);
+            return new ResponseEntity(httpHeaders, HttpStatus.SEE_OTHER);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity(null, HttpStatus.NOT_FOUND);

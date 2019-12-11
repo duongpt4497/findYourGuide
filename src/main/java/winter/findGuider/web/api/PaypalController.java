@@ -3,7 +3,6 @@ package winter.findGuider.web.api;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
-import entities.Notification;
 import entities.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,9 +20,7 @@ import services.trip.TripService;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @RestController
 @RequestMapping(path = "/Payment", produces = "application/json")
@@ -48,7 +45,7 @@ public class PaypalController {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    public PaypalController(PaypalService ps, TripService ots, MailService ms, AccountRepository ar,PostService postService,WebSocketNotificationController wsc) {
+    public PaypalController(PaypalService ps, TripService ots, MailService ms, AccountRepository ar, PostService postService, WebSocketNotificationController wsc) {
         this.paypalService = ps;
         this.tripService = ots;
         this.mailService = ms;
@@ -139,10 +136,12 @@ public class PaypalController {
 //                notification.setDateReceived(current);
 //                notification.setContent("You have a booking reservation on tour "+ postService.findSpecificPost(order.getPost_id()).getTitle() +" from "+ traveler_username );
 //                webSocketNotificationController.sendMessage(notification);
-
-                String email = accountRepository.getEmail(order.getTraveler_id());
-                String content = mailService.getMailContent(order, "UNCONFIRMED");
-                mailService.sendMail(email, "TravelWLocal Tour Information", content);
+                boolean isMailVerified = accountRepository.isMailVerified(order.getTraveler_id());
+                if (isMailVerified) {
+                    String email = accountRepository.getEmail(order.getTraveler_id());
+                    String content = mailService.getMailContent(order, "WAITING");
+                    mailService.sendMail(email, "TravelWLocal Tour Information", content);
+                }
                 URI result = new URI(URL_ROOT_CLIENT + CHATBOX_PATH + order.getPost_id() + "/booking_success");
                 httpHeaders.setLocation(result);
             } else {

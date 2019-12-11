@@ -184,4 +184,20 @@ public class ContributionPointServiceImpl implements ContributionPointService {
         String queryUpdate = "update guider set contribution = ? where guider_id = ?";
         jdbcTemplate.update(queryUpdate, point, guider_id);
     }
+
+    @Override
+    public void calculatePostAndGuiderRating(long post_id) throws Exception {
+        // Update post rating
+        String postRating = "select round(sum(rated) / count(review.trip_id),1) " +
+                "from review inner join trip on review.trip_id = trip.trip_id where trip.post_id = ?";
+        float postRated = jdbcTemplate.queryForObject(postRating, new Object[]{post_id}, float.class);
+        jdbcTemplate.update("update post set rated = ? where post_id = ?", postRated, post_id);
+
+        // Update guider rating
+        String guiderRating = "SELECT round(sum(rated) / count(post_id),1) " +
+                "FROM post where guider_id = (select guider_id from post where post_id = ?)";
+        float guiderRated = jdbcTemplate.queryForObject(guiderRating, new Object[]{post_id}, float.class);
+        jdbcTemplate.update("update guider set rated = ? " +
+                "where guider_id = (select guider_id from post where post_id = ?)", guiderRated, post_id);
+    }
 }

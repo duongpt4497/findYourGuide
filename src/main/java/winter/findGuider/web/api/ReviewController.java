@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import services.Review.ReviewService;
+import services.contributionPoint.ContributionPointService;
+import services.trip.TripService;
 
 import java.util.List;
 
@@ -18,10 +20,14 @@ import java.util.List;
 public class ReviewController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     private ReviewService reviewService;
+    private ContributionPointService contributionPointService;
+    private TripService tripService;
 
     @Autowired
-    public ReviewController(ReviewService rs) {
+    public ReviewController(ReviewService rs, ContributionPointService cps, TripService ts) {
         this.reviewService = rs;
+        this.contributionPointService = cps;
+        this.tripService = ts;
     }
 
     @RequestMapping("/reviewByGuiderId")
@@ -61,7 +67,12 @@ public class ReviewController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Boolean> createReview(@RequestBody Review newReview) {
         try {
-            return new ResponseEntity<>(reviewService.createReview(newReview), HttpStatus.OK);
+            boolean result = reviewService.createReview(newReview);
+            if (result) {
+                long post_id = tripService.findTripById((int) newReview.getTrip_id()).getPost_id();
+                contributionPointService.calculatePostAndGuiderRating(post_id);
+            }
+            return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

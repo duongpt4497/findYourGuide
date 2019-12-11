@@ -6,26 +6,29 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
+import services.Mail.MailService;
 import winter.findGuider.TestDataSourceConfig;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AccountServiceUnitTest {
     @InjectMocks
     AccountRepository accountService;
-
+    @Mock
+    MailService mailService;
     private JdbcTemplate jdbcTemplate = new JdbcTemplate();
 
     @Before
     public void init() {
         TestDataSourceConfig config = new TestDataSourceConfig();
         jdbcTemplate.setDataSource(config.setupDatasource());
-        accountService = new AccountRepository(jdbcTemplate);
+        accountService = new AccountRepository(jdbcTemplate, mailService);
         config.cleanTestDb(jdbcTemplate);
-        jdbcTemplate.update("insert into account (user_name, password, email ,role) " +
-                "values ('Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
+        jdbcTemplate.update("insert into account (user_name, password, email ,role, email_verified) " +
+                "values ('Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER',false)");
         MockitoAnnotations.initMocks(this);
     }
 
@@ -58,8 +61,8 @@ public class AccountServiceUnitTest {
         jdbcTemplate.update("delete from account");
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
-        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
-                "values (1,'John','Doe',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
+        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,date_of_birth,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
+                "values (1,'John','Doe',now(),'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
                 "values (2,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','TRAVELER')");
         jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
@@ -79,5 +82,36 @@ public class AccountServiceUnitTest {
     public void changePassword() throws Exception {
         accountService.changePassword("Jacky", "abc");
         Assert.assertEquals("abc", accountService.findAccountByName("Jacky").getPassword());
+    }
+
+    @Test
+    public void isMailVerified() throws Exception {
+        Assert.assertEquals(false, accountService.isMailVerified(accountService.findAccountByName("Jacky").getId()));
+    }
+
+    @Test
+    public void insertEmailConfirmToken() throws Exception {
+        Account jacky = accountService.findAccountByName("Jacky");
+        String token = accountService.insertEmailConfirmToken(jacky.getId());
+        String[] data = token.split("E", 2);
+        Assert.assertEquals(String.valueOf(jacky.getId()), data[0]);
+    }
+
+    @Test
+    public void confirmEmail() throws Exception {
+        Account jacky = accountService.findAccountByName("Jacky");
+        jdbcTemplate.update("update account set email_token = 'abcde' where account_id = ?", jacky.getId());
+        String token = jacky.getId() + "Eabcde";
+        accountService.confirmEmail(token);
+        Assert.assertEquals(true, accountService.isMailVerified(jacky.getId()));
+    }
+
+    @Test
+    public void confirmEmail2() throws Exception {
+        Account jacky = accountService.findAccountByName("Jacky");
+        jdbcTemplate.update("update account set email_token = 'abcde' where account_id = ?", jacky.getId());
+        String token = jacky.getId() + "Eabcd";
+        accountService.confirmEmail(token);
+        Assert.assertEquals(false, accountService.isMailVerified(jacky.getId()));
     }
 }

@@ -46,15 +46,15 @@ public class PostServiceImplTest {
         jdbcTemplate.update("insert into locations (location_id,country,city,place) values (2,'Vietnam','Hanoi','Trang Tien')");
         jdbcTemplate.update("insert into locations (location_id,country,city,place) values (3,'Vietnam','Hanoi','Ho Tay')");
         jdbcTemplate.update("insert into locations (location_id,country,city,place) values (4,'Vietnam','Hanoi','Pho Co')");
-        jdbcTemplate.update("insert into category (category_id,name) values (1,'history')");
-        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
-                "values (1,'John','Doe',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
-        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
-                "values (3,'Midrian','Lomi',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
-        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
-                "values (4,'Jack','Mike',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
-        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
-                "values (5,'Larry','Teddy',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
+        jdbcTemplate.update("insert into category (category_id,name,image) values (1,'history','a.jpg')");
+        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,date_of_birth,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
+                "values (1,'John','Doe',now(),'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
+        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,date_of_birth,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
+                "values (3,'Midrian','Lomi',now(),'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
+        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,date_of_birth,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
+                "values (4,'Jack','Mike',now(),'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
+        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,date_of_birth,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
+                "values (5,'Larry','Teddy',now(),'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
         jdbcTemplate.update("insert into contract_detail (contract_id,guider_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,account_active_date)" +
                 "values (1,1,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi','2016-10-15')");
         jdbcTemplate.update("insert into contract (guider_id,contract_id) values (1,1)");
@@ -81,12 +81,12 @@ public class PostServiceImplTest {
 
     @Test
     public void findAllPostOfOneGuider() throws Exception {
-        Assert.assertEquals(3, postService.findAllPostOfOneGuider(1).size());
+        Assert.assertEquals(3, postService.findAllPostOfOneGuider(1, 0).size());
     }
 
     @Test
     public void findAllPostByCategoryId() throws Exception {
-        Assert.assertEquals(7, postService.findAllPostByCategoryId(1).size());
+        Assert.assertEquals(7, postService.findAllPostByCategoryId(1, 0).size());
     }
 
     @Test
@@ -123,7 +123,7 @@ public class PostServiceImplTest {
 
     @Test
     public void findAllPostWithGuiderName() throws Exception {
-        Assert.assertEquals(2, postService.findAllPostWithGuiderName("mi").size());
+        Assert.assertEquals(2, postService.findAllPostWithGuiderName("mi", 0).size());
     }
 
     @Test
@@ -143,7 +143,7 @@ public class PostServiceImplTest {
 
     @Test
     public void findAllPostWithLocationName() throws Exception {
-        Assert.assertEquals(5, postService.findAllPostWithLocationName("ho").size());
+        Assert.assertEquals(5, postService.findAllPostWithLocationName("ho", 0).size());
     }
 
     @Test

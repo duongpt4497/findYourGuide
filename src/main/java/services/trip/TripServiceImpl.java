@@ -192,14 +192,13 @@ public class TripServiceImpl implements TripService {
             times.get("begin_date"), times.get("finish_date")}, int.class);
         return count;
     }
-    
 
     @Override
     public int checkAvailabilityOfTrip(Order newOrder) throws Exception {
         int count = 0;
-        String query = "SELECT count (trip_id) FROM trip "
-                + "inner join post on guider_id = ? "
-                + "where (status = ?) "
+    String query = "SELECT count (trip_id) FROM trip "
+                + "inner join post on post.post_id = trip.post_id "
+                + "where (post.guider_id = ?) and (status = ?) "
                 + "and ((begin_date between ? and ?) "
                 + "or (finish_date between ? and ?))";
         int guider_id = newOrder.getGuider_id();
@@ -211,28 +210,33 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public ArrayList<String> getGuiderAvailableHours(LocalDate date, int post_id, int guider_id) throws Exception {
+    public ArrayList<String> getGuiderAvailableHours(LocalDate chosenDate, int post_id, int guider_id) throws Exception {
         // Create default available hours
         ArrayList<String> availableHours = new ArrayList<>();
         this.createHourArray(availableHours, 0, 24);
 
+        // check if day in mid tour
+        boolean isMidTour = this.checkDayInMidTour(guider_id, chosenDate);
+        if (isMidTour) {
+            availableHours.clear();
+            return availableHours;
+        }
+
         // Get guider schedule
-        List<Order> guiderSchedule = this.getGuiderSchedule(guider_id, date);
+        List<Order> guiderSchedule = this.getGuiderSchedule(guider_id, chosenDate);
         if (!guiderSchedule.isEmpty()) {
             // Get occupy hours
-            ArrayList<String> occupyHour = this.getOccupyHours(guiderSchedule, date);
+            ArrayList<String> occupyHour = this.getOccupyHours(guiderSchedule, chosenDate);
             // Clear out occupy hours from available hours
             availableHours.removeAll(occupyHour);
         }
 
         // Get unacceptable hours
-        List<Order> guiderScheduleNextDay = this.getGuiderSchedule(guider_id, date.plusDays(1));
-        ArrayList<String> nextDayOccupyHour = this.getOccupyHours(guiderScheduleNextDay, date.plusDays(1));
-        ArrayList<String> unacceptableHours = this.getUnacceptableHours(post_id, availableHours, nextDayOccupyHour, date);
+        ArrayList<String> unacceptableHours = this.getUnacceptableHours(post_id, availableHours, chosenDate);
         if (!unacceptableHours.isEmpty()) {
-            // Clear out unacceptable hours
             availableHours.removeAll(unacceptableHours);
         }
+
         return availableHours;
     }
 
@@ -240,8 +244,8 @@ public class TripServiceImpl implements TripService {
     public String getClosestTripFinishDate(LocalDate date, int guider_id) throws Exception {
         String closestFinishDate = "";
         String query = "SELECT finish_date FROM trip "
-                + "inner join post on guider_id = ? "
-                + "where finish_date < ? "
+                + "inner join post on post.post_id = trip.post_id "
+                + "where post.guider_id = ? and finish_date < ? "
                 + "and status = ? "
                 + "order by finish_date desc "
                 + "limit 1";
@@ -322,6 +326,19 @@ public class TripServiceImpl implements TripService {
         }
     }
 
+    private boolean checkDayInMidTour(long guider_id, LocalDate date) throws Exception {
+        String query = "SELECT count(trip_id) FROM trip "
+                + "inner join post on trip.post_id = post.post_id "
+                + "where post.guider_id = ? and status = ? "
+                + "and date(begin_date) < ? and date(finish_date) > ? ";
+        int count = jdbcTemplate.queryForObject(query, new Object[]{guider_id, ONGOING, date, date}, int.class);
+        if (count != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     private List<Order> getGuiderSchedule(int guider_id, LocalDate date) throws Exception {
         List<Order> guiderSchedule = new ArrayList<>();
         String query = "SELECT trip_id, begin_date, finish_date FROM trip "
@@ -385,28 +402,22 @@ public class TripServiceImpl implements TripService {
     }
 
     private ArrayList<String> getUnacceptableHours(int post_id, ArrayList<String> availableHours,
-            ArrayList<String> nextDayOccupyHour, LocalDate date) throws Exception {
+            LocalDate chosenDate) throws Exception {
+
         ArrayList<String> unacceptableHours = new ArrayList<>();
         double totalHour = this.getTourTotalHour(post_id);
         long bufferHour = (long) java.lang.Math.ceil(totalHour / 100 * Integer.parseInt(bufferPercent));
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        long duration = (long) totalHour + bufferHour;
         for (String hour : availableHours) {
-            Date temp = format.parse(date + " " + hour);
-            calendar.setTime(temp);
-            calendar.add(Calendar.HOUR_OF_DAY, (int) totalHour);
-            calendar.add(Calendar.HOUR_OF_DAY, (int) bufferHour);
-            calendar.add(Calendar.MINUTE, -30);
-            String checkTime = String.format("%02d", calendar.get(Calendar.HOUR_OF_DAY)) + ":"
-                    + String.format("%02d", calendar.get(Calendar.MINUTE));
-            if (calendar.get(Calendar.DAY_OF_MONTH) > date.getDayOfMonth()) {
-                if (nextDayOccupyHour.contains(checkTime)) {
-                    unacceptableHours.add(hour);
-                }
-            } else {
-                if (!availableHours.contains(checkTime)) {
-                    unacceptableHours.add(hour);
-                }
+            LocalDateTime checkDate = LocalDateTime.parse(chosenDate + "T" + hour);
+            checkDate = checkDate.plusHours(duration);
+            String query = "SELECT count(trip_id) FROM trip "
+                    + "where post_id = ? and status = ? "
+                    + "and (begin_date <= ? "
+                    + "and finish_date >= ?)";
+            int count = jdbcTemplate.queryForObject(query, new Object[]{post_id, ONGOING, checkDate, checkDate}, int.class);
+            if (count != 0) {
+                unacceptableHours.add(hour);
             }
         }
         return unacceptableHours;
@@ -442,8 +453,7 @@ public class TripServiceImpl implements TripService {
                 + " where p.guider_id = ? and (o.status = 'ONGOING') "
                 + " and ((o.begin_date between ? and ?) or (o.finish_date between ? and ?) )"
                 + " order by o.begin_date ; ";
-        
-        
+
         result = jdbcTemplate.query(query, new RowMapper<Order>() {
             @Override
             public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -462,8 +472,7 @@ public class TripServiceImpl implements TripService {
                         rs.getString("first_name") + " " + rs.getString("last_name"));
             }
         }, id, new Timestamp(start.getTime()), new Timestamp(end.getTime()), new Timestamp(start.getTime()), new Timestamp(end.getTime()));
-    
-        
+
         return result;
     }
 
@@ -474,7 +483,7 @@ public class TripServiceImpl implements TripService {
         String query = "select trip_id, transaction_id from trip "
                 + " where extract (epoch from (now() - book_time))::integer "
                 + " > extract(epoch from TIMESTAMP '1970-1-1 05:00:00')::integer "
-                + " and status = 'UNCONFIRMED'; ";
+                + " and status = 'WAITING'; ";
         lo = jdbcTemplate.queryForList(query);
 
         List<String> update = new ArrayList<>();
@@ -513,5 +522,5 @@ public class TripServiceImpl implements TripService {
             jdbcTemplate.batchUpdate(updateList);
         }
     }
-    
+
 }

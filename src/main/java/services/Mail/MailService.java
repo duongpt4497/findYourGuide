@@ -8,4 +8,6 @@ public interface MailService {
     String getMailContent(Order order, String orderStatus) throws Exception;
 
     String acceptContractMailContent(long guider_id) throws Exception;
+
+    String rejectContractMailContent(long guider_id) throws Exception;
 }

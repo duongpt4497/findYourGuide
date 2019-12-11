@@ -256,9 +256,12 @@ public class TripController {
 //            webSocketNotificationController.sendMessage(notification);
 
             Order order = tripService.findTripById(trip_id);
-            String email = accountRepository.getEmail(order.getTraveler_id());
-            String content = mailService.getMailContent(order, "CANCELLED");
-            mailService.sendMail(email, "TravelWLocal Tour Cancelled", content);
+            boolean isMailVerified = accountRepository.isMailVerified(order.getTraveler_id());
+            if (isMailVerified) {
+                String email = accountRepository.getEmail(order.getTraveler_id());
+                String content = mailService.getMailContent(order, "CANCELLED");
+                mailService.sendMail(email, "TravelWLocal Tour Cancelled", content);
+            }
             return new ResponseEntity<>("Cancel Success", HttpStatus.OK);
         } catch (PayPalRESTException e) {
             try {
@@ -305,9 +308,12 @@ public class TripController {
             if (result) {
                 // TODO notification
                 Order order = tripService.findTripById(orderId);
-                String email = accountRepository.getEmail(order.getTraveler_id());
-                String content = mailService.getMailContent(order, "ONGOING");
-                mailService.sendMail(email, "TravelWLocal Tour Accepted", content);
+                boolean isMailVerified = accountRepository.isMailVerified(order.getTraveler_id());
+                if (isMailVerified) {
+                    String email = accountRepository.getEmail(order.getTraveler_id());
+                    String content = mailService.getMailContent(order, "ONGOING");
+                    mailService.sendMail(email, "TravelWLocal Tour Accepted", content);
+                }
 
 //                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 //                Date current = formatter.parse(formatter.format(new Date()));

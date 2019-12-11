@@ -63,14 +63,14 @@ public class MailServiceImplTest {
                 "values (2,'Megan','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','TRAVELER')");
 
         jdbcTemplate.update("insert into locations (location_id,country,city,place) values (1,'Vietnam','Hanoi','Hoan Kiem')");
-        jdbcTemplate.update("insert into category (category_id,name) values (1,'history')");
+        jdbcTemplate.update("insert into category (category_id,name,image) values (1,'history','a.jpg')");
 
-        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
-                "values (1,'John','Doe',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
-        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
-                "values (3,'John','Doe',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
-        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,age,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
-                "values (4,'John','Doe',21,'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
+        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,date_of_birth,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
+                "values (1,'John','Doe',now(),'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
+        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,date_of_birth,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
+                "values (3,'John','Doe',now(),'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
+        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,date_of_birth,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
+                "values (4,'John','Doe',now(),'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
 
         jdbcTemplate.update("insert into contract_detail (contract_id,guider_id,name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,account_active_date)" +
                 "values (1,1,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi','2016-10-15')");
@@ -114,7 +114,7 @@ public class MailServiceImplTest {
                 "Thank your for using our service. We wish you a great trip and happy experience.\n" +
                 "\n" +
                 "Sincerely,\n" +
-                "TravelWLocal", mailService.getMailContent(order, "UNCONFIRMED"));
+                "TravelWLocal", mailService.getMailContent(order, "WAITING"));
     }
 
     @Test
@@ -253,5 +253,21 @@ public class MailServiceImplTest {
                 "\n" +
                 "Sincerely,\n" +
                 "TravelWLocal", mailService.acceptContractMailContent(4));
+    }
+
+    @Test
+    public void rejectContractMailContent() throws Exception {
+        Assert.assertEquals("Dear Mr/Ms John Doe\n" +
+                "\n" +
+                "Thank you for your application for the position of tour guider at our TravelWLocal website. As you can imagine, we received a large number of applications. I am sorry to inform you that you have not been selected for this position.\n" +
+                "\n" +
+                "We at TravelWLocal thanks you for the time you invested in applying for the position. We encourage you to apply for future openings for which you qualify.\n" +
+                "\n" +
+                "Best wishes for successful in life. Thank you, again, for your interest in our website.\n" +
+                "\n" +
+                "Thank your for using our service.\n" +
+                "\n" +
+                "Sincerely,\n" +
+                "TravelWLocal", mailService.rejectContractMailContent(1));
     }
 }

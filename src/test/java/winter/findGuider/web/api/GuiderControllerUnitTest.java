@@ -116,14 +116,14 @@ public class GuiderControllerUnitTest {
 
     @Test
     public void testSearchGuider() {
-        ResponseEntity<List<Guider>> result = guiderController.searchGuider("ha");
+        ResponseEntity<List<Guider>> result = guiderController.searchGuider("ha",1);
         Assert.assertEquals(200, result.getStatusCodeValue());
     }
 
     @Test
     public void testSearchGuiderWithException() throws Exception {
-        when(guiderService.searchGuiderByName("ha")).thenThrow(Exception.class);
-        ResponseEntity<List<Guider>> result = guiderController.searchGuider("ha");
+        when(guiderService.searchGuiderByName("ha",1)).thenThrow(Exception.class);
+        ResponseEntity<List<Guider>> result = guiderController.searchGuider("ha",1);
         Assert.assertEquals(204, result.getStatusCodeValue());
     }
 

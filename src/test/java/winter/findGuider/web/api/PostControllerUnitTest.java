@@ -36,29 +36,29 @@ public class PostControllerUnitTest {
 
     @Test
     public void testFindAllPostOfOneGuider(){
-        ResponseEntity<List<Post>> result = postController.findAllPostOfOneGuider(1);
+        ResponseEntity<List<Post>> result = postController.findAllPostOfOneGuider(1,1);
         Assert.assertEquals(200,result.getStatusCodeValue());
     }
 
     @Test
     public void testFindAllPostOFOneGuiderWithException() throws Exception{
 
-        when(postService.findAllPostOfOneGuider(1)).thenThrow(Exception.class);
-        ResponseEntity<List<Post>> result = postController.findAllPostOfOneGuider(1);
+        when(postService.findAllPostOfOneGuider(1,1)).thenThrow(Exception.class);
+        ResponseEntity<List<Post>> result = postController.findAllPostOfOneGuider(1,1);
         Assert.assertEquals(404,result.getStatusCodeValue());
     }
 
     @Test
     public void testFindAllPostOfOneCategory(){
-        ResponseEntity<List<Post>> result = postController.findAllPostOfOneCategory(1);
+        ResponseEntity<List<Post>> result = postController.findAllPostOfOneCategory(1,1);
         Assert.assertEquals(200,result.getStatusCodeValue());
     }
 
     @Test(expected = AssertionError.class)
     public void testFindAllPostOFOneCategoryWithException() throws Exception{
         thrown.expect(AssertionError.class);
-        when(postService.findAllPostByCategoryId(1)).thenThrow(Exception.class);
-        ResponseEntity<List<Post>> result = postController.findAllPostOfOneCategory(1);
+        when(postService.findAllPostByCategoryId(1,1)).thenThrow(Exception.class);
+        ResponseEntity<List<Post>> result = postController.findAllPostOfOneCategory(1,1);
         Assert.assertEquals(404,result.getStatusCodeValue());
     }
 
@@ -116,15 +116,15 @@ public class PostControllerUnitTest {
 
     @Test
     public void testFindAllPostWithGuiderNameWithException() throws Exception{
-        when(postService.findAllPostWithGuiderName("ha")).thenThrow(Exception.class);
-        ResponseEntity<List<Post>> result = postController.findAllPostWithGuiderName("ha");
+        when(postService.findAllPostWithGuiderName("ha",1)).thenThrow(Exception.class);
+        ResponseEntity<List<Post>> result = postController.findAllPostWithGuiderName("ha",1);
         Assert.assertEquals(404,result.getStatusCodeValue());
     }
 
     @Test
     public void testFindAllPostWithLocationNameWithException() throws Exception{
-        when(postService.findAllPostWithLocationName("ha")).thenThrow(Exception.class);
-        ResponseEntity<List<Post>> result = postController.findAllPostWithLocationName("ha");
+        when(postService.findAllPostWithLocationName("ha",1)).thenThrow(Exception.class);
+        ResponseEntity<List<Post>> result = postController.findAllPostWithLocationName("ha",1);
         Assert.assertEquals(404,result.getStatusCodeValue());
     }
 
