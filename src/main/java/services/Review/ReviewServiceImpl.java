@@ -5,8 +5,11 @@ import entities.TravelerReview;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -116,9 +119,18 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public void createTravelerReview(TravelerReview review) throws Exception {
+    public int createTravelerReview(TravelerReview review) throws Exception {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
         String query = "insert into travelerreviews (traveler_id,guider_id,review) values (?,?,?)";
-        jdbcTemplate.update(query, review.getTraveler_id(), review.getGuider_id(), review.getReview());
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection
+                    .prepareStatement(query, new String[]{"review_id"});
+            ps.setLong(1, review.getTraveler_id());
+            ps.setLong(2, review.getGuider_id());
+            ps.setString(3, review.getReview());
+            return ps;
+        }, keyHolder);
+        return (int) keyHolder.getKey();
     }
 
     @Override
@@ -140,5 +152,25 @@ public class ReviewServiceImpl implements ReviewService {
                         rs.getString("avatar"));
             }
         }, traveler_id, page * 5);
+    }
+
+    @Override
+    public TravelerReview findTravelerReviewById(long review_id) throws Exception {
+        String query = "select review_id, user_name as gu_name, " +
+                "post_date, review, gu.avatar from travelerreviews as tra_re " +
+                "inner join traveler as tra on tra_re.traveler_id = tra.traveler_id " +
+                "inner join guider as gu on tra_re.guider_id = gu.guider_id " +
+                "inner join account as acc on tra_re.guider_id = acc.account_id " +
+                "where tra_re.review_id = ? and visible = true ";
+        return jdbcTemplate.queryForObject(query, new RowMapper<TravelerReview>() {
+            @Override
+            public TravelerReview mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new TravelerReview(rs.getLong("review_id"),
+                        rs.getTimestamp("post_date").toLocalDateTime(),
+                        rs.getString("review"),
+                        rs.getString("gu_name"),
+                        rs.getString("avatar"));
+            }
+        }, review_id);
     }
 }

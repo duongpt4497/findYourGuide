@@ -104,19 +104,19 @@ public class ReviewController {
             return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
-            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
     @RequestMapping("/createTravelerReview")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> createTravelerReview(@RequestBody TravelerReview review) {
+    public ResponseEntity<TravelerReview> createTravelerReview(@RequestBody TravelerReview review) {
         try {
-            reviewService.createTravelerReview(review);
-            return new ResponseEntity<>(true, HttpStatus.OK);
+            long id = reviewService.createTravelerReview(review);
+            return new ResponseEntity<>(reviewService.findTravelerReviewById(id), HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
-            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 

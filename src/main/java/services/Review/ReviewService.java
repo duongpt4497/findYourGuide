@@ -20,7 +20,9 @@ public interface ReviewService {
 
     void showHideReview(long trip_id) throws Exception;
 
-    void createTravelerReview(TravelerReview review) throws Exception;
+    int createTravelerReview(TravelerReview review) throws Exception;
 
     List<TravelerReview> findReviewOfATraveler(long traveler_id, long page) throws Exception;
+
+    TravelerReview findTravelerReviewById(long review_id) throws Exception;
 }
