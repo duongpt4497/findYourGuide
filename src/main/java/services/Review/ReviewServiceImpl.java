@@ -123,11 +123,11 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public List<TravelerReview> findReviewOfATraveler(long traveler_id, long page) throws Exception {
-        String query = "select review_id, " +
-                "concat (gu.first_name, ' ', gu.last_name) as gu_name, " +
+        String query = "select review_id, user_name as gu_name, " +
                 "post_date, review, gu.avatar from travelerreviews as tra_re " +
                 "inner join traveler as tra on tra_re.traveler_id = tra.traveler_id " +
                 "inner join guider as gu on tra_re.guider_id = gu.guider_id " +
+                "inner join account as acc on tra_re.guider_id = acc.account_id " +
                 "where tra_re.traveler_id = ? and visible = true " +
                 "limit 5 offset ?";
         return jdbcTemplate.query(query, new RowMapper<TravelerReview>() {
