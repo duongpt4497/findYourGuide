@@ -319,21 +319,4 @@ public class GuiderServiceImpl implements GuiderService {
         File pdfFile = Paths.get(filePath).toFile();
         return pdfFile;
     }
-    @Override
-    public Guider getGuider(long id) {
-        Guider result = new Guider();
-        String query = "select * from guider where guider_id = ? ";
-        result = jdbcTemplate.queryForObject(query, new RowMapper<Guider>() {
-            public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return new Guider(rs.getLong("guider_id"), rs.getString("first_name"),
-                        rs.getString("last_name"), rs.getTimestamp("date_of_birth").toLocalDateTime(), rs.getString("phone"),
-                        rs.getString("about_me"),
-                        rs.getLong("contribution"), rs.getString("city"),
-                        generalService.checkForNull(rs.getArray("languages")),
-                        rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avatar"),
-                        rs.getString("passion"), rs.getString("user_name"));
-            }
-        }, id);
-        return result;
-    }
 }
