@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import security.AuthenProvider;
 import security.UserService;
+import services.Mail.MailService;
 import services.account.AccountRepository;
 
 import javax.servlet.http.Cookie;
@@ -37,6 +38,7 @@ public class AccountController {
     private UserService userService;
     private AccountRepository repo;
     private AuthenProvider auth;
+    private MailService mailService;
 
     @Value("${order.server.root.url}")
     private String URL_ROOT_SERVER;
@@ -46,10 +48,11 @@ public class AccountController {
     private String URL_ROOT_CLIENT_DOMAIN;
 
     @Autowired
-    public AccountController(AccountRepository repo, UserService userService, AuthenProvider auth) {
+    public AccountController(AccountRepository repo, UserService userService, AuthenProvider auth, MailService ms) {
         this.userService = userService;
         this.repo = repo;
         this.auth = auth;
+        this.mailService = ms;
     }
 
     @PostMapping(path = "change", consumes = "application/json")
@@ -105,13 +108,13 @@ public class AccountController {
         response.addHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
         response.addHeader("Access-Control-Allow-Credentials", "true");
         Cookie sidCookie = new Cookie("token", "");
-        System.out.println("tell me why?"+ response.toString());
+        System.out.println("tell me why?" + response.toString());
         sidCookie.setPath("/");
         sidCookie.setHttpOnly(true);
         sidCookie.setDomain(URL_ROOT_CLIENT_DOMAIN);
         sidCookie.setMaxAge(0);
         response.addCookie(sidCookie);
-        return new ResponseEntity("bye",HttpStatus.OK);
+        return new ResponseEntity("bye", HttpStatus.OK);
     }
 
     @RequestMapping("/findAll")
@@ -136,6 +139,23 @@ public class AccountController {
             URI home = new URI(URL_ROOT_CLIENT);
             httpHeaders.setLocation(home);
             return new ResponseEntity(httpHeaders, HttpStatus.SEE_OTHER);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/resendEmailConfirmation")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Boolean> resendEmailConfirmation(@RequestParam("account_id") long account_id) {
+        try {
+            String token = repo.insertEmailConfirmToken(account_id);
+            String email = repo.getEmail((int) account_id);
+            String content = "Hello " + repo.findAccountNameByAccountId((int) account_id) + "\n\n";
+            content = content.concat("To verify your email, please click here : ");
+            content = content.concat(URL_ROOT_SERVER + "/account/emailConfirm?token=" + token);
+            mailService.sendMail(email, "TravelWLocal Email Confirmation", content);
+            return new ResponseEntity(true, HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity(null, HttpStatus.NOT_FOUND);
