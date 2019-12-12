@@ -26,6 +26,8 @@ public interface GuiderService {
 
     List<Guider> searchGuiderByName(String key, int page) throws Exception;
 
+    int searchGuiderByNamePageCount(String key) throws Exception;
+
     List<Guider> getTopGuiderByRate() throws Exception;
 
     List<Guider> getTopGuiderByContribute() throws Exception;
