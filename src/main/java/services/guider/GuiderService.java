@@ -39,6 +39,4 @@ public interface GuiderService {
     void uploadContractDocument(MultipartFile file, long contract_id) throws Exception;
 
     File getDocumentToDownload(long contract_id) throws Exception;
-    
-    Guider getGuider(long guiderId) throws Exception;
 }
