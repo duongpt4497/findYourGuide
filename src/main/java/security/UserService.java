@@ -61,7 +61,7 @@ public class UserService {
                     "There is an account with that user name: "
                             + acc.getUserName());
         }
-        acc.setToken(TokenHelper.createToken(acc.getUserName()));
+        //acc.setToken(TokenHelper.createToken(acc.getUserName()));
         acc.setPassword(passwordEncoder.encode(acc.getPassword()));
         long id = repo.addAccount(acc);
         if (acc.getRole().equalsIgnoreCase("GUIDER")) {

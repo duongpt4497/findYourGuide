@@ -80,13 +80,13 @@ public class AccountController {
         acc.setToken("");
         acc.setExpired(new Date());
         try {
-            System.out.println(acc.getPassword() + "/" + acc.getUserName() + "/" + acc.getRole());
+            //System.out.println(acc.getPassword() + "/" + acc.getUserName() + "/" + acc.getRole());
             registered = userService.registerNewUserAccount(acc);
-            Cookie sidCookie = new Cookie("token", registered.getToken());
-            sidCookie.setPath("/");
-            sidCookie.setHttpOnly(true);
-            sidCookie.setDomain(URL_ROOT_CLIENT_DOMAIN);
-            response.addCookie(sidCookie);
+//            Cookie sidCookie = new Cookie("token", registered.getToken());
+//            sidCookie.setPath("/");
+//            sidCookie.setHttpOnly(true);
+//            sidCookie.setDomain(URL_ROOT_CLIENT_DOMAIN);
+//            response.addCookie(sidCookie);
             registered.setPassword("");
             registered.setToken("");
         } catch (Exception e) {
@@ -105,7 +105,6 @@ public class AccountController {
         response.addHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
         response.addHeader("Access-Control-Allow-Credentials", "true");
         Cookie sidCookie = new Cookie("token", "");
-        System.out.println("tell me why?"+ response.toString());
         sidCookie.setPath("/");
         sidCookie.setHttpOnly(true);
         sidCookie.setDomain(URL_ROOT_CLIENT_DOMAIN);

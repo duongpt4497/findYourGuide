@@ -76,16 +76,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
-        System.out.println("to cors");
         CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
-        //configuration.setAllowedOrigins(Arrays.asList(URL_ROOT_CLIENT));
+        configuration.setAllowedOrigins(Arrays.asList(URL_ROOT_CLIENT));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "OPTION"));
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
+        System.out.println(source.toString());
         return source;
     }
-
+    
+    
+        
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         System.out.println("to http configure");
@@ -98,7 +100,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/location/**").hasAuthority("TRAVELER")
                 .antMatchers("/location/**").permitAll()
                 .antMatchers("/**/*.jpg").permitAll()
-                .antMatchers("/images/**").permitAll()
+                .antMatchers("/images/**").permitAll()  
                 .antMatchers("/account/**").permitAll()
                 .antMatchers("/category/**").permitAll()
                 .antMatchers("/guiderpost/**").permitAll()
