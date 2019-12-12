@@ -49,15 +49,15 @@ public class ReviewControllerUnitTest {
 
     @Test
     public void testFindReviewByPostId(){
-        ResponseEntity<List<Review>>  result = reviewController.findReviewByPostId(1);
+        ResponseEntity<List<Review>>  result = reviewController.findReviewByPostId(1, 0);
         Assert.assertEquals(200,result.getStatusCodeValue());
     }
 
     @Test(expected = AssertionError.class)
     public void testFindReviewByPostIdWithException() throws Exception {
         thrown.expect(AssertionError.class);
-        when(reviewService.findReviewsByPostId(1)).thenThrow(Exception.class);
-        ResponseEntity<List<Review>>  result = reviewController.findReviewByPostId(1);
+        when(reviewService.findReviewsByPostId(1, 0)).thenThrow(Exception.class);
+        ResponseEntity<List<Review>>  result = reviewController.findReviewByPostId(1, 0);
         Assert.assertEquals(404,result.getStatusCodeValue());
     }
 

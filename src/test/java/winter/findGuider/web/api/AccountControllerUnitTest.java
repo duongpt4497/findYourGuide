@@ -75,7 +75,7 @@ public class AccountControllerUnitTest {
 
     @Test
     public void testLogout(){
-         accountController.logout();
+         accountController.logout(response);
     }
 
     @Test

@@ -175,7 +175,7 @@ public class TripServiceImplTest {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
-                "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','WAITING')");
+                "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','ONGOING')");
         Assert.assertEquals(1, tripService.checkTripExist(1));
     }
 
@@ -248,58 +248,50 @@ public class TripServiceImplTest {
     }
 
     @Test
-    public void checkOrderReach48Hours() throws Exception {
+    public void checkOrderReach24Hours() throws Exception {
         Order order = new Order();
         order.setBegin_date(LocalDateTime.parse("2019-11-29T00:00"));
-        LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T00:30");
+        LocalDateTime rightNow = LocalDateTime.parse("2019-11-27T00:30");
         Assert.assertEquals(false, tripService.checkTripReach24Hours(order, rightNow));
     }
 
     @Test
-    public void checkOrderReach48Hours2() throws Exception {
+    public void checkOrderReach24Hours2() throws Exception {
         Order order = new Order();
-        order.setBegin_date(LocalDateTime.parse("2019-11-27T00:00"));
-        LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T00:30");
+        order.setBegin_date(LocalDateTime.parse("2019-11-29T00:00"));
+        LocalDateTime rightNow = LocalDateTime.parse("2019-11-29T00:30");
         Assert.assertEquals(true, tripService.checkTripReach24Hours(order, rightNow));
     }
 
     @Test
-    public void checkOrderReach48Hours3() throws Exception {
+    public void checkOrderReach24Hours3() throws Exception {
         Order order = new Order();
-        order.setBegin_date(LocalDateTime.parse("2019-11-28T01:00"));
-        LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T00:00");
+        order.setBegin_date(LocalDateTime.parse("2019-11-29T05:30"));
+        LocalDateTime rightNow = LocalDateTime.parse("2019-11-28T04:30");
         Assert.assertEquals(false, tripService.checkTripReach24Hours(order, rightNow));
     }
 
     @Test
-    public void checkOrderReach48Hours4() throws Exception {
+    public void checkOrderReach24Hours4() throws Exception {
         Order order = new Order();
-        order.setBegin_date(LocalDateTime.parse("2019-11-28T01:00"));
-        LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T02:00");
+        order.setBegin_date(LocalDateTime.parse("2019-11-29T05:30"));
+        LocalDateTime rightNow = LocalDateTime.parse("2019-11-28T06:30");
         Assert.assertEquals(true, tripService.checkTripReach24Hours(order, rightNow));
     }
 
     @Test
-    public void checkOrderReach48Hours5() throws Exception {
+    public void checkOrderReach24Hours5() throws Exception {
         Order order = new Order();
-        order.setBegin_date(LocalDateTime.parse("2019-11-28T01:30"));
-        LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T01:00");
+        order.setBegin_date(LocalDateTime.parse("2019-11-29T05:30"));
+        LocalDateTime rightNow = LocalDateTime.parse("2019-11-28T05:15");
         Assert.assertEquals(false, tripService.checkTripReach24Hours(order, rightNow));
     }
 
     @Test
-    public void checkOrderReach48Hours6() throws Exception {
+    public void checkOrderReach24Hours6() throws Exception {
         Order order = new Order();
-        order.setBegin_date(LocalDateTime.parse("2019-11-28T01:30"));
-        LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T01:50");
-        Assert.assertEquals(true, tripService.checkTripReach24Hours(order, rightNow));
-    }
-
-    @Test
-    public void checkOrderReach48Hours7() throws Exception {
-        Order order = new Order();
-        order.setBegin_date(LocalDateTime.parse("2019-11-28T01:30"));
-        LocalDateTime rightNow = LocalDateTime.parse("2019-11-26T01:30");
+        order.setBegin_date(LocalDateTime.parse("2019-11-29T05:30"));
+        LocalDateTime rightNow = LocalDateTime.parse("2019-11-28T05:40");
         Assert.assertEquals(true, tripService.checkTripReach24Hours(order, rightNow));
     }
 

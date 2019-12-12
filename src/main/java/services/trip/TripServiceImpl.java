@@ -265,30 +265,24 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public boolean checkTripReach24Hours(Order cancelOrder, LocalDateTime rightNow) throws Exception {
-        int dayCheck = rightNow.toLocalDate().compareTo(cancelOrder.getBegin_date().toLocalDate().minusDays(1));
+        LocalDateTime boundaryDay = cancelOrder.getBegin_date().minusDays(1);
         // check day
-        if (dayCheck == 0) {
-            // check hour
-            int beginHour = cancelOrder.getBegin_date().getHour();
-            int hourCheck = Integer.compare(beginHour, rightNow.getHour());
-            if (hourCheck < 0) {
-                return true;
-            } else if (hourCheck > 0) {
+        if (rightNow.getDayOfMonth() < boundaryDay.getDayOfMonth()) {
+            return false;
+        } else if (rightNow.getDayOfMonth() > boundaryDay.getDayOfMonth()) {
+            return true;
+        } else {
+            if (rightNow.getHour() < boundaryDay.getHour()) {
                 return false;
+            } else if (rightNow.getHour() > boundaryDay.getHour()) {
+                return true;
             } else {
-                // check minute
-                int beginMinute = cancelOrder.getBegin_date().getMinute();
-                int minuteCheck = Integer.compare(beginMinute, rightNow.getMinute());
-                if (minuteCheck <= 0) {
-                    return true;
-                } else {
+                if (rightNow.getMinute() < boundaryDay.getMinute()) {
                     return false;
+                } else {
+                    return true;
                 }
             }
-        } else if (dayCheck < 0) {
-            return false;
-        } else {
-            return true;
         }
     }
 
