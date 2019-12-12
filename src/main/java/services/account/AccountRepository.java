@@ -80,6 +80,11 @@ public class AccountRepository {
         return (int) keyHolder.getKey();
     }
 
+    public boolean canGuiderLogin(long guider_id) {
+        String query = "select active from guider where guider_id = ?";
+        return jdbc.queryForObject(query, new Object[]{guider_id}, boolean.class);
+    }
+
     public int changePassword(String name, String pass) throws Exception {
         String query = "update account set password = ? where user_name = ? ; ";
         return jdbc.update(query, pass, name);

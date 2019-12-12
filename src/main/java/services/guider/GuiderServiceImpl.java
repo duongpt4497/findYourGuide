@@ -112,6 +112,12 @@ public class GuiderServiceImpl implements GuiderService {
 
     @Override
     public long createGuiderContract(Contract contract) throws Exception {
+        String check = "select count(contract_id) from contract where guider_id = ?";
+        int count = jdbcTemplate.queryForObject(check, new Object[]{contract.getGuider_id()}, int.class);
+        if (count != 0) {
+            jdbcTemplate.update("update guider set active = false where guider_id = ?", contract.getGuider_id());
+        }
+
         KeyHolder keyHolder = new GeneratedKeyHolder();
         String query = "insert into contract_detail (name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,guider_id,file_link)" +
                 "values (?,?,?,?,?,?,?,?,?,?,?)";
