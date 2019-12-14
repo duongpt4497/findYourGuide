@@ -183,7 +183,8 @@ public class GuiderControllerUnitTest {
     }
 
     @Test
-    public void testAcceptContract() {
+    public void testAcceptContract() throws Exception{
+        when(accountRepository.isMailVerified(1)).thenReturn(true);
         ResponseEntity<Boolean> result = guiderController.acceptContract(1, 1);
         Assert.assertEquals(200, result.getStatusCodeValue());
     }
@@ -194,6 +195,36 @@ public class GuiderControllerUnitTest {
         ReflectionTestUtils.setField(guiderController, "guiderService", null);
 
         ResponseEntity<Boolean> result = guiderController.acceptContract(1, 1);
+        Assert.assertEquals(404, result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testSearchGuiderPageCount() throws Exception{
+
+        ResponseEntity<Integer> result = guiderController.searchGuiderPageCount("as");
+        Assert.assertEquals(200, result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testSearchGuiderPageCountWithException() throws Exception {
+        //when(guiderService.linkGuiderWithContract(1,1)).thenThrow(Exception.class);
+        ReflectionTestUtils.setField(guiderController, "guiderService", null);
+
+        ResponseEntity<Integer> result = guiderController.searchGuiderPageCount("as");
+        Assert.assertEquals(204, result.getStatusCodeValue());
+    }
+    @Test
+    public void testgetGuider() {
+        ResponseEntity<Guider> result = guiderController.getGuider(1);
+        Assert.assertEquals(200, result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testGetGuiderWithException() throws Exception {
+        //when(guiderService.linkGuiderWithContract(1,1)).thenThrow(Exception.class);
+        ReflectionTestUtils.setField(guiderController, "guiderService", null);
+
+        ResponseEntity<Guider> result = guiderController.getGuider(1);
         Assert.assertEquals(404, result.getStatusCodeValue());
     }
 
@@ -211,8 +242,9 @@ public class GuiderControllerUnitTest {
     }
 
     @Test
-    public void testRejectContract() {
-        ResponseEntity<Boolean> result = guiderController.rejectContract( 1);
+    public void testRejectContract() throws Exception{
+        when(accountRepository.isMailVerified(1)).thenReturn(true);
+        ResponseEntity<Boolean> result = guiderController.rejectContract( 1, 1);
         Assert.assertEquals(200, result.getStatusCodeValue());
     }
 
@@ -221,7 +253,7 @@ public class GuiderControllerUnitTest {
         //when(guiderService.linkGuiderWithContract(1,1)).thenThrow(Exception.class);
         ReflectionTestUtils.setField(guiderController, "guiderService", null);
 
-        ResponseEntity<Boolean> result = guiderController.rejectContract( 1);
+        ResponseEntity<Boolean> result = guiderController.rejectContract( 1, 1);
         Assert.assertEquals(404, result.getStatusCodeValue());
     }
 

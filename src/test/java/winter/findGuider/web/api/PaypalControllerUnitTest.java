@@ -90,7 +90,7 @@ public class PaypalControllerUnitTest {
         when(paypalService.createPayment(order.getFee_paid(), "USD", "successful", cancelUrl, successUrl)).thenReturn(payment);
         ReflectionTestUtils.setField(paypalController, "URL_ROOT_CLIENT", "http://localhost:3000");
         String result = paypalController.payment(order);
-        Assert.assertEquals("http://localhost:3000/chatbox/1/booking_time_not_available",result);
+        Assert.assertEquals(null,result);
     }
 
     @Test
@@ -173,6 +173,7 @@ public class PaypalControllerUnitTest {
         when(orderTripService.acceptTrip(0)).thenReturn(true);
         when(orderTripService.findTripById(0)).thenReturn(order);
         when(paypalService.executePayment("1", "1")).thenReturn(payment);
+        when(accountRepository.isMailVerified(order.getTraveler_id())).thenReturn(true);
         ResponseEntity<Object> result = paypalController.successPay("1", "1", 1, 1, 1, 1, "2019-01-01T01:01:01", 1.2);
         Assert.assertEquals(303,result.getStatusCodeValue());
     }

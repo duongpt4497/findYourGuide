@@ -1,8 +1,6 @@
 package winter.findGuider.web.api;
 
-import entities.Review;
-import entities.Traveler;
-import entities.TravelerReview;
+import entities.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -15,6 +13,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.util.ReflectionTestUtils;
 import services.Review.ReviewService;
+import services.contributionPoint.ContributionPointService;
+import services.trip.TripService;
 
 import java.util.List;
 
@@ -26,6 +26,12 @@ public class ReviewControllerUnitTest {
 
     @Mock
     ReviewService reviewService;
+
+    @Mock
+    TripService tripService;
+
+    @Mock
+    ContributionPointService contributionPointService;
 
     @Rule
     public ExpectedException thrown= ExpectedException.none();
@@ -64,8 +70,14 @@ public class ReviewControllerUnitTest {
     }
 
     @Test
-    public void testCreateReview(){
-        Review review = Mockito.mock(Review.class);
+    public void testCreateReview() throws Exception{
+        Review review = new Review();
+        Order order = new Order();
+        order.setPost_id(1);
+        review.setTrip_id(1);
+        when(reviewService.createReview(review)).thenReturn(true);
+
+        when(tripService.findTripById((int) review.getTrip_id())).thenReturn(order);
         ResponseEntity<Boolean>  result = reviewController.createReview(review);
         Assert.assertEquals(200,result.getStatusCodeValue());
     }
@@ -117,29 +129,40 @@ public class ReviewControllerUnitTest {
     @Test
     public void testCreateTravelerReview(){
         TravelerReview review = Mockito.mock(TravelerReview.class);
-        ResponseEntity<Boolean> result = reviewController.createTravelerReview(review);
+        ResponseEntity<TravelerReview> result = reviewController.createTravelerReview(review);
         Assert.assertEquals(200,result.getStatusCodeValue());
     }
     @Test
     public void testCreateTravelerReviewWithException() throws Exception {
         ReflectionTestUtils.setField(reviewController, "reviewService", null);
         TravelerReview review = Mockito.mock(TravelerReview.class);
-        ResponseEntity<Boolean> result = reviewController.createTravelerReview(review);
+        ResponseEntity<TravelerReview> result = reviewController.createTravelerReview(review);
         Assert.assertEquals(404,result.getStatusCodeValue());
     }
 
     @Test
     public void testShowTravelerReview(){
 
-        ResponseEntity<List<TravelerReview>> result = reviewController.showTravelerReview(1);
+        ResponseEntity<List<TravelerReview>> result = reviewController.showTravelerReview(1,1);
         Assert.assertEquals(200,result.getStatusCodeValue());
     }
     @Test
     public void testShowTravelerReviewWithException() throws Exception {
         ReflectionTestUtils.setField(reviewController, "reviewService", null);
-        ResponseEntity<List<TravelerReview>> result = reviewController.showTravelerReview(1);
+        ResponseEntity<List<TravelerReview>> result = reviewController.showTravelerReview(1,1);
         Assert.assertEquals(404,result.getStatusCodeValue());
     }
 
+    @Test
+    public void testfindReviewByAdmin(){
 
+        ResponseEntity<List<Review>> result = reviewController.findReviewByPostIdAdmin(1);
+        Assert.assertEquals(200,result.getStatusCodeValue());
+    }
+    @Test
+    public void testfindReviewByAdminwWithException() throws Exception {
+        ReflectionTestUtils.setField(reviewController, "reviewService", null);
+        ResponseEntity<List<Review>> result = reviewController.findReviewByPostIdAdmin(1);
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
 }

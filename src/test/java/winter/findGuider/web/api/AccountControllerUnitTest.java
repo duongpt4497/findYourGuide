@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.util.ReflectionTestUtils;
+import services.Mail.MailService;
 import services.account.AccountRepository;
 import security.AuthenProvider;
 import security.UserService;
@@ -44,6 +45,9 @@ public class AccountControllerUnitTest {
 
     @Mock
     AuthenProvider authenProvider;
+
+    @Mock
+    MailService mailService;
 
     @Rule
     public ExpectedException thrown= ExpectedException.none();
@@ -75,22 +79,52 @@ public class AccountControllerUnitTest {
 
     @Test
     public void testLogout(){
-         accountController.logout();
+        ReflectionTestUtils.setField(accountController, "URL_ROOT_CLIENT_DOMAIN", "localhost");
+        HttpServletResponse httpServletResponse = Mockito.mock(HttpServletResponse.class);
+         accountController.logout(httpServletResponse);
     }
 
     @Test
     public void testFindAllCategory() throws Exception{
         when(accountRepository.findAllAccount()).thenThrow(Exception.class);
-        ResponseEntity<List<Account>> result = accountController.findAll();
+        HttpServletResponse httpServletResponse = Mockito.mock(HttpServletResponse.class);
+        ResponseEntity<List<Account>> result = accountController.findAll(httpServletResponse);
         Assert.assertEquals(404,result.getStatusCodeValue());
     }
 
-    /*@Test
+    @Test
+    public void testResendEmailConfirmation(){
+        ResponseEntity<Boolean> result = accountController.resendEmailConfirmation(1);
+        Assert.assertEquals(200,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testResendEmailConfirmationWithException(){
+        ReflectionTestUtils.setField(accountController, "mailService", null);
+        ResponseEntity<Boolean> result = accountController.resendEmailConfirmation(1);
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testConfirmEmail(){
+        ReflectionTestUtils.setField(accountController, "URL_ROOT_CLIENT", "localhost");
+        ResponseEntity<Object> result = accountController.confirmEmail("sdsd");
+        Assert.assertEquals(303,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testConfirmEmailWithException(){
+        //ReflectionTestUtils.setField(accountController, "mailService", null);
+        ResponseEntity<Object> result = accountController.confirmEmail("asas");
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
+    @Test
     public void testChangePassword() throws Exception{
         Account model = new Account();
         model.setPassword("123@123a");
-        model.
-        when(accountRepository.findAccountByName(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString())).thenReturn(account);
-        ResponseEntity<String> result = accountController.changePassword(account);
-    }*/
+
+        //when(accountRepository.findAccountByName(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString())).thenReturn(model);
+        ResponseEntity<String> result = accountController.changePassword(model);
+        Assert.assertEquals(500,result.getStatusCodeValue());
+    }
 }

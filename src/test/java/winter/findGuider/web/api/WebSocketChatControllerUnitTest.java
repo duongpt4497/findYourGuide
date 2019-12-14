@@ -62,6 +62,6 @@ public class WebSocketChatControllerUnitTest {
 
     @Test
     public void testGetMessageWithoutReceiver(){
-        webSocketChatController.getMessage("ha",1,10);
+        webSocketChatController.getReceiver("ha",1,10);
     }
 }
