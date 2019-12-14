@@ -1,6 +1,7 @@
 package winter.findGuider.web.api;
 
 import entities.Plan;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -35,6 +36,7 @@ public class PlanControllerUnitTest {
         Plan plan = new Plan();
         when(planService.createPlan(plan)).thenReturn(1);
         ResponseEntity<Integer> result = planController.createPlan(plan);
+        Assert.assertEquals(200,result.getStatusCodeValue());
     }
     @Test
     public void testCreatePlanWithException() throws Exception{
@@ -44,12 +46,14 @@ public class PlanControllerUnitTest {
         ReflectionTestUtils.setField(planController, "planService", null);
 
         ResponseEntity<Integer> result = planController.createPlan(plan);
+        Assert.assertEquals(404,result.getStatusCodeValue());
     }
     @Test
     public void testUpdatePlan(){
         Plan plan = Mockito.mock(Plan.class);
         //when(planService.createPlan(plan)).thenReturn(1);
         ResponseEntity<Plan> result = planController.updatePlan(plan);
+        Assert.assertEquals(200,result.getStatusCodeValue());
     }
     @Test(expected = AssertionError.class)
     public void testUpdatePlanWithException() throws Exception{
@@ -58,6 +62,7 @@ public class PlanControllerUnitTest {
         ReflectionTestUtils.setField(planController, "planService", null);
 
         ResponseEntity<Plan> result = planController.updatePlan(plan);
+        Assert.assertEquals(404,result.getStatusCodeValue());
     }
 
     @Test
@@ -65,6 +70,7 @@ public class PlanControllerUnitTest {
         Plan plan = Mockito.mock(Plan.class);
         //when(planService.createPlan(plan)).thenReturn(1);
         ResponseEntity<Plan> result = planController.findPlan(1);
+        Assert.assertEquals(200,result.getStatusCodeValue());
     }
     @Test
     public void testFindPlanWithException() throws Exception{
@@ -72,5 +78,6 @@ public class PlanControllerUnitTest {
         Plan plan = Mockito.mock(Plan.class);
         when(planService.searchPlanByPostId(1)).thenThrow(Exception.class);
         ResponseEntity<Plan> result = planController.findPlan(1);
+        Assert.assertEquals(404,result.getStatusCodeValue());
     }
 }

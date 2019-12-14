@@ -17,6 +17,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.junit.runner.RunWith;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.test.util.ReflectionTestUtils;
 import services.account.AccountRepository;
 import security.AuthenProvider;
 import security.UserService;
@@ -43,9 +45,6 @@ public class AccountControllerUnitTest {
     @Mock
     AuthenProvider authenProvider;
 
-    @Mock
-    HttpServletResponse response;
-
     @Rule
     public ExpectedException thrown= ExpectedException.none();
     @Before
@@ -59,6 +58,7 @@ public class AccountControllerUnitTest {
         Account acc = new Account();
         acc.setToken("123");
         HttpServletResponse httpServletResponse = Mockito.mock(HttpServletResponse.class);
+        ReflectionTestUtils.setField(accountController, "URL_ROOT_CLIENT_DOMAIN", "localhost");
         when(userService.registerNewUserAccount(account)).thenReturn(acc);
         ResponseEntity result = accountController.registerUserAccount(account,httpServletResponse);
         Assert.assertEquals(200,result.getStatusCodeValue());
@@ -75,12 +75,22 @@ public class AccountControllerUnitTest {
 
     @Test
     public void testLogout(){
-         accountController.logout(response);
+         accountController.logout();
     }
 
     @Test
     public void testFindAllCategory() throws Exception{
         when(accountRepository.findAllAccount()).thenThrow(Exception.class);
-        ResponseEntity<List<Account>> result = accountController.findAll(response);
+        ResponseEntity<List<Account>> result = accountController.findAll();
+        Assert.assertEquals(404,result.getStatusCodeValue());
     }
+
+    /*@Test
+    public void testChangePassword() throws Exception{
+        Account model = new Account();
+        model.setPassword("123@123a");
+        model.
+        when(accountRepository.findAccountByName(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString())).thenReturn(account);
+        ResponseEntity<String> result = accountController.changePassword(account);
+    }*/
 }

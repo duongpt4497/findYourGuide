@@ -78,8 +78,59 @@ public class ChatMessageRepositoryImplTest {
 
         when(mongoTemplate.find(new Query(Criteria.where("user").is("abc")
                 .andOperator(Criteria.where("receiver").is("def"))).
-                with(new Sort(Sort.Direction.DESC, "dateReceived")), ChatMessage.class)).thenReturn(list);
+                with(new Sort(Sort.Direction.DESC, "dateReceived")), ChatMessage.class,"messageCollection")).thenReturn(list);
         Assert.assertEquals(6, chatMessageRepository.get("abc", "def", 1, 9).size());
+    }
+
+    @Test
+    public void testGetReceiver(){
+        List<ChatMessage> list = new ArrayList<>();
+        ChatMessage msg = new ChatMessage();
+        msg.setUser("abc");
+        msg.setReceiver("xyz");
+        list.add(msg);
+        list.add(msg);
+        list.add(msg);
+        list.add(msg);
+        list.add(msg);
+        list.add(msg);
+        when(mongoTemplate.findDistinct(new Query(Criteria.where("user").is("abc")).
+                with(new Sort(Sort.Direction.DESC, "dateReceived")),"receiver","messageCollection",ChatMessage.class)).thenReturn(list);
+        List<ChatMessage> result = chatMessageRepository.getReceiver("abc",0,9);
+        Assert.assertEquals(6,result.size());
+    }
+
+    @Test
+    public void testGetReceiverWithCountBiggerThanLastElement(){
+        List<ChatMessage> list = new ArrayList<>();
+        ChatMessage msg = new ChatMessage();
+        msg.setUser("abc");
+        msg.setReceiver("xyz");
+        list.add(msg);
+        list.add(msg);
+        list.add(msg);
+        list.add(msg);
+        list.add(msg);
+        list.add(msg);
+        when(mongoTemplate.findDistinct(new Query(Criteria.where("user").is("abc")).
+                with(new Sort(Sort.Direction.DESC, "dateReceived")),"receiver","messageCollection",ChatMessage.class)).thenReturn(list);
+        List<ChatMessage> result = chatMessageRepository.getReceiver("abc",0,5);
+        Assert.assertEquals(6,result.size());
+    }
+
+    @Test
+    public void testGetReceiverWithCountEqualLastElement(){
+        List<ChatMessage> list = new ArrayList<>();
+
+        when(mongoTemplate.findDistinct(new Query(Criteria.where("user").is("abc")).
+                with(new Sort(Sort.Direction.DESC, "dateReceived")),"receiver","messageCollection",ChatMessage.class)).thenReturn(list);
+        List<ChatMessage> result = chatMessageRepository.getReceiver("abc",0,6);
+        Assert.assertEquals(null,result);
+    }
+
+    @Test
+    public void testUpdateSeen(){
+        chatMessageRepository.updateSeen("abc","xyz");
     }
 
     @Test

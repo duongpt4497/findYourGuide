@@ -1,8 +1,9 @@
 package winter.findGuider.web.api;
 
+import com.paypal.api.payments.Error;
 import com.paypal.api.payments.Refund;
 import com.paypal.base.rest.PayPalRESTException;
-import entities.InDayTrip;
+import entities.Guider;
 import entities.Order;
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,12 +18,15 @@ import org.springframework.http.ResponseEntity;
 import services.Mail.MailService;
 import services.Paypal.PaypalService;
 import services.account.AccountRepository;
+import services.contributionPoint.ContributionPointService;
+import services.guider.GuiderService;
 import services.trip.TripService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -44,6 +48,11 @@ public class OrderTripControllerUnitTest {
     @Mock
     MailService mailService;
 
+    @Mock
+    GuiderService guiderService;
+
+    @Mock
+    ContributionPointService contributionPointService;
     @Before
     public void init() {
 
@@ -132,17 +141,105 @@ public class OrderTripControllerUnitTest {
         when(orderTripService.findTripById(1)).thenThrow(Exception.class);
 
         ResponseEntity<String> result = orderTripController.cancelOrderAsTraveler(1);
-        // Assert.assertEquals(404,result.getStatusCodeValue());
+        Assert.assertEquals(404,result.getStatusCodeValue());
     }
 
-    @Test(expected = AssertionError.class)
-    public void testCancelOrderAsTravelerWithPaypalException() throws Exception {
-        thrown.expect(AssertionError.class);
+    @Test
+    public void testCancelOrderAsTraveler3() throws Exception {
+
         Order order = new Order(1, 1, 1, 1, LocalDateTime.parse("2019-01-01T01:01:01"), LocalDateTime.parse("2019-01-01T10:01:01"), 1, 1, 1, "1", "false");
-        //ocalDateTime rightNow = LocalDateTime.now();
-        //when()
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        Refund refund = new Refund();
+        refund.setState("completed");
+        LocalDateTime rightNow = LocalDateTime.now();
+        rightNow.format(formatter);
+        String si = rightNow.format(formatter);
+        LocalDateTime rightNow2 = LocalDateTime.parse(si);
+        when(orderTripService.findTripById(1)).thenReturn(order);
+        when(orderTripService.checkTripReach48Hours(order, rightNow2)).thenReturn(true);
+        when(paypalService.refundPayment(order.getTransaction_id())).thenReturn(refund);
         ResponseEntity<String> result = orderTripController.cancelOrderAsTraveler(1);
-        // Assert.assertEquals(404,result.getStatusCodeValue());
+         Assert.assertEquals(200,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testCancelOrderAsTraveler4() throws Exception {
+
+        Order order = new Order(1, 1, 1, 1, LocalDateTime.parse("2019-01-01T01:01:01"), LocalDateTime.parse("2019-01-01T10:01:01"), 1, 1, 1, "1", "false");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        Refund refund = new Refund();
+        refund.setState("completed");
+        LocalDateTime rightNow = LocalDateTime.now();
+        rightNow.format(formatter);
+        String si = rightNow.format(formatter);
+        LocalDateTime rightNow2 = LocalDateTime.parse(si);
+        when(orderTripService.findTripById(1)).thenReturn(order);
+        when(orderTripService.checkTripReach48Hours(order, rightNow2)).thenReturn(true);
+        when(paypalService.refundPayment(order.getTransaction_id())).thenReturn(refund);
+        when(orderTripService.cancelTrip(order.gettrip_id())).thenReturn(true);
+        ResponseEntity<String> result = orderTripController.cancelOrderAsTraveler(1);
+         Assert.assertEquals(200,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testCancelOrderAsTraveler5() throws Exception {
+
+        Order order = new Order(1, 1, 1, 1, LocalDateTime.parse("2019-01-01T01:01:01"), LocalDateTime.parse("2019-01-01T10:01:01"), 1, 1, 1, "1", "false");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        Refund refund = new Refund();
+        refund.setState("processing");
+        LocalDateTime rightNow = LocalDateTime.now();
+        rightNow.format(formatter);
+        String si = rightNow.format(formatter);
+        LocalDateTime rightNow2 = LocalDateTime.parse(si);
+        when(orderTripService.findTripById(1)).thenReturn(order);
+        when(orderTripService.checkTripReach48Hours(order, rightNow2)).thenReturn(true);
+        when(paypalService.refundPayment(order.getTransaction_id())).thenReturn(refund);
+        ResponseEntity<String> result = orderTripController.cancelOrderAsTraveler(1);
+         Assert.assertEquals(200,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testCancelOrderAsTravelerWithPayPalRESRException() throws Exception {
+
+        Order order = new Order(1, 1, 1, 1, LocalDateTime.parse("2019-01-01T01:01:01"), LocalDateTime.parse("2019-01-01T10:01:01"), 1, 1, 1, "1", "false");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        Refund refund = new Refund();
+        refund.setState("processing");
+        LocalDateTime rightNow = LocalDateTime.now();
+        rightNow.format(formatter);
+        String si = rightNow.format(formatter);
+        LocalDateTime rightNow2 = LocalDateTime.parse(si);
+        PayPalRESTException payPalRESTException = Mockito.mock(PayPalRESTException.class);
+        Error error = new Error();
+        error.setMessage("payment fail");
+        when(orderTripService.findTripById(1)).thenReturn(order);
+        when(orderTripService.checkTripReach48Hours(order, rightNow2)).thenReturn(true);
+        when(paypalService.refundPayment(order.getTransaction_id())).thenThrow(payPalRESTException);
+        when(payPalRESTException.getDetails()).thenReturn(error);
+        ResponseEntity<String> result = orderTripController.cancelOrderAsTraveler(1);
+        Assert.assertEquals(200,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testCancelOrderAsTravelerWithExceptionNestedInPayPalRESRException() throws Exception {
+
+        Order order = new Order(1, 1, 1, 1, LocalDateTime.parse("2019-01-01T01:01:01"), LocalDateTime.parse("2019-01-01T10:01:01"), 1, 1, 1, "1", "false");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        Refund refund = new Refund();
+        refund.setState("processing");
+        LocalDateTime rightNow = LocalDateTime.now();
+        rightNow.format(formatter);
+        String si = rightNow.format(formatter);
+        LocalDateTime rightNow2 = LocalDateTime.parse(si);
+        PayPalRESTException payPalRESTException = Mockito.mock(PayPalRESTException.class);
+        Error error = new Error();
+        error.setMessage("payment fail");
+        when(orderTripService.findTripById(1)).thenReturn(order);
+        when(orderTripService.checkTripReach48Hours(order, rightNow2)).thenReturn(true);
+        when(paypalService.refundPayment(order.getTransaction_id())).thenThrow(payPalRESTException);
+        ResponseEntity<String> result = orderTripController.cancelOrderAsTraveler(1);
+        Assert.assertEquals(404,result.getStatusCodeValue());
     }
 
     @Test
@@ -183,16 +280,81 @@ public class OrderTripControllerUnitTest {
     }
 
     @Test
+    public void testCancelOrderAsGuider4() throws Exception {
+        Order order = new Order(1, 1, 1, 1, LocalDateTime.parse("2019-01-01T01:01:01"), LocalDateTime.parse("2019-01-01T10:01:01"), 1, 1, 1, "1", "false");
+        Guider guider = Mockito.mock(Guider.class);
+        Refund refund = new Refund();
+        refund.setState("completed");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        LocalDateTime rightNow = LocalDateTime.now();
+        rightNow.format(formatter);
+        String si = rightNow.format(formatter);
+        LocalDateTime rightNow2 = LocalDateTime.parse(si);
+        when(orderTripService.findTripById(1)).thenReturn(order);
+        //when(orderTripService.cancelOrder(order.getOrder_id())).thenReturn(true);
+        when(paypalService.refundPayment(order.getTransaction_id())).thenReturn(refund);
+        when(orderTripService.checkTripReach48Hours(order,rightNow2)).thenReturn(true);
+        when(guiderService.findGuiderWithPostId(order.getPost_id())).thenReturn(guider);
+        when(orderTripService.cancelTrip(order.gettrip_id())).thenReturn(true);
+        ResponseEntity<String> result = orderTripController.cancelOrderAsGuider(1);
+        Assert.assertEquals(200, result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testCancelOrderAsGuider5() throws Exception {
+        Order order = new Order(1, 1, 1, 1, LocalDateTime.parse("2019-01-01T01:01:01"), LocalDateTime.parse("2019-01-01T10:01:01"), 1, 1, 1, "1", "false");
+        Guider guider = Mockito.mock(Guider.class);
+        Refund refund = new Refund();
+        refund.setState("completed");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        LocalDateTime rightNow = LocalDateTime.now();
+        rightNow.format(formatter);
+        String si = rightNow.format(formatter);
+        LocalDateTime rightNow2 = LocalDateTime.parse(si);
+        when(orderTripService.findTripById(1)).thenReturn(order);
+        //when(orderTripService.cancelOrder(order.getOrder_id())).thenReturn(true);
+        when(paypalService.refundPayment(order.getTransaction_id())).thenReturn(refund);
+        when(orderTripService.checkTripReach48Hours(order,rightNow2)).thenReturn(true);
+        when(guiderService.findGuiderWithPostId(order.getPost_id())).thenReturn(guider);
+        when(orderTripService.cancelTrip(order.gettrip_id())).thenReturn(false);
+        ResponseEntity<String> result = orderTripController.cancelOrderAsGuider(1);
+        Assert.assertEquals(200, result.getStatusCodeValue());
+    }
+
+    @Test
     public void testCancelOrderAsGuiderWithPaypalRESTExceptionException() throws Exception, PayPalRESTException {
         Order order = new Order(1, 1, 1, 1, LocalDateTime.parse("2019-01-01T01:01:01"), LocalDateTime.parse("2019-01-01T10:01:01"), 1, 1, 1, "1", "false");
         Refund refund = new Refund();
         refund.setState("completed");
         when(orderTripService.findTripById(1)).thenReturn(order);
         //when(orderTripService.cancelOrder(order.getOrder_id())).thenReturn(true);
-        when(paypalService.refundPayment(order.getTransaction_id())).thenThrow(PayPalRESTException.class);
+        PayPalRESTException payPalRESTException = Mockito.mock(PayPalRESTException.class);
+        Error error = new Error();
+        error.setMessage("payment fail");
+        when(paypalService.refundPayment(order.getTransaction_id())).thenThrow(payPalRESTException);
+        when(payPalRESTException.getDetails()).thenReturn(error);
         when(orderTripService.cancelTrip(1)).thenReturn(true);
         ResponseEntity<String> result = orderTripController.cancelOrderAsGuider(1);
         Assert.assertEquals(200, result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testCancelOrderAsGuiderWithExceptionNestedInPaypalRESTException() throws Exception, PayPalRESTException {
+        Order order = Mockito.mock(Order.class);
+        Refund refund = new Refund();
+        refund.setState("completed");
+        when(orderTripService.findTripById(1)).thenReturn(order);
+        //when(orderTripService.cancelOrder(order.getOrder_id())).thenReturn(true);
+        PayPalRESTException payPalRESTException = Mockito.mock(PayPalRESTException.class);
+        Error error = new Error();
+        error.setMessage("payment fail");
+
+        when(paypalService.refundPayment(order.getTransaction_id())).thenThrow(payPalRESTException);
+
+        when(orderTripService.cancelTrip(1)).thenReturn(true);
+
+        ResponseEntity<String> result = orderTripController.cancelOrderAsGuider(1);
+        Assert.assertEquals(404, result.getStatusCodeValue());
     }
 
     @Test
@@ -240,7 +402,8 @@ public class OrderTripControllerUnitTest {
     public void testGetOrderByWeek() throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH");
         Date date = formatter.parse("12/12/2019 12");
-        ResponseEntity<List<List<InDayTrip>>> result = orderTripController.getOrderByWeek(1, date);
+        ResponseEntity<List<Order>> result = orderTripController.getOrderByWeek(1, date);
+        Assert.assertEquals(200,result.getStatusCodeValue());
     }
 
     @Test
@@ -255,7 +418,7 @@ public class OrderTripControllerUnitTest {
         cal.add(Calendar.WEEK_OF_YEAR, 1);
         Date end = cal.getTime();
         when(orderTripService.getTripByWeek(1, start, end)).thenThrow(Exception.class);
-        ResponseEntity<List<List<InDayTrip>>> result = orderTripController.getOrderByWeek(1, date);
+        ResponseEntity<List<Order>> result = orderTripController.getOrderByWeek(1, date);
         Assert.assertEquals(404, result.getStatusCodeValue());
     }
 
@@ -263,6 +426,7 @@ public class OrderTripControllerUnitTest {
     public void testGetExpectedTourEnd() {
         Order order = Mockito.mock(Order.class);
         ResponseEntity<String> result = orderTripController.getExpectedTourEnd(order);
+        Assert.assertEquals(200,result.getStatusCodeValue());
     }
 
     @Test

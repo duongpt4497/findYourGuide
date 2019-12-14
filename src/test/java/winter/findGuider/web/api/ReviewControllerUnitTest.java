@@ -1,6 +1,8 @@
 package winter.findGuider.web.api;
 
 import entities.Review;
+import entities.Traveler;
+import entities.TravelerReview;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -105,10 +107,37 @@ public class ReviewControllerUnitTest {
         Assert.assertEquals(200,result.getStatusCodeValue());
     }
     @Test
-    public void testActivatePostWithException() throws Exception {
+    public void testShowHideReviewWithException() throws Exception {
         ReflectionTestUtils.setField(reviewController, "reviewService", null);
 
         ResponseEntity<Boolean> result = reviewController.showHideReview(1);
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testCreateTravelerReview(){
+        TravelerReview review = Mockito.mock(TravelerReview.class);
+        ResponseEntity<Boolean> result = reviewController.createTravelerReview(review);
+        Assert.assertEquals(200,result.getStatusCodeValue());
+    }
+    @Test
+    public void testCreateTravelerReviewWithException() throws Exception {
+        ReflectionTestUtils.setField(reviewController, "reviewService", null);
+        TravelerReview review = Mockito.mock(TravelerReview.class);
+        ResponseEntity<Boolean> result = reviewController.createTravelerReview(review);
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testShowTravelerReview(){
+
+        ResponseEntity<List<TravelerReview>> result = reviewController.showTravelerReview(1);
+        Assert.assertEquals(200,result.getStatusCodeValue());
+    }
+    @Test
+    public void testShowTravelerReviewWithException() throws Exception {
+        ReflectionTestUtils.setField(reviewController, "reviewService", null);
+        ResponseEntity<List<TravelerReview>> result = reviewController.showTravelerReview(1);
         Assert.assertEquals(404,result.getStatusCodeValue());
     }
 
