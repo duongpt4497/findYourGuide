@@ -18,6 +18,7 @@ import java.util.List;
 
 @Repository
 public class ReviewServiceImpl implements ReviewService {
+    private final int LIMIT = 5;
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -57,14 +58,14 @@ public class ReviewServiceImpl implements ReviewService {
                 "inner join trip on trip.trip_id = review.trip_id " +
                 "inner join traveler on trip.traveler_id = traveler.traveler_id " +
                 "where trip.post_id = ? and visible = true " +
-                "limit 5 offset ?";
+                "limit ? offset ?";
         return jdbcTemplate.query(query, new RowMapper<Review>() {
             public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Review(rs.getLong("trip_id"), rs.getLong("rated"),
                         rs.getDate("post_date"), rs.getString("review"),
                         rs.getBoolean("visible"), rs.getString("avatar_link"));
             }
-        }, post_id, page * 5);
+        }, post_id, LIMIT, page * LIMIT);
     }
 
     @Override
@@ -141,7 +142,7 @@ public class ReviewServiceImpl implements ReviewService {
                 "inner join guider as gu on tra_re.guider_id = gu.guider_id " +
                 "inner join account as acc on tra_re.guider_id = acc.account_id " +
                 "where tra_re.traveler_id = ? and visible = true " +
-                "limit 5 offset ?";
+                "limit ? offset ?";
         return jdbcTemplate.query(query, new RowMapper<TravelerReview>() {
             @Override
             public TravelerReview mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -151,7 +152,7 @@ public class ReviewServiceImpl implements ReviewService {
                         rs.getString("gu_name"),
                         rs.getString("avatar"));
             }
-        }, traveler_id, page * 5);
+        }, traveler_id, LIMIT, page * LIMIT);
     }
 
     @Override

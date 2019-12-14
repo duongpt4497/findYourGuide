@@ -96,6 +96,17 @@ public class GuiderController {
         }
     }
 
+    @RequestMapping("/SearchPageCount/{key}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Integer> searchGuiderPageCount(@PathVariable("key") String key) {
+        try {
+            return new ResponseEntity<>(guiderService.searchGuiderByNamePageCount(key), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+    }
+
     @RequestMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Guider> findGuider(@PathVariable("id") long id) {
@@ -226,12 +237,13 @@ public class GuiderController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+
     @RequestMapping("/getGuider/{guider_id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Guider> getGuider(@PathVariable("guider_id") long guider_id) {
         try {
-            
-            
+
+
             return new ResponseEntity<>(guiderService.findGuiderWithID(guider_id), HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());

@@ -34,11 +34,6 @@ public class WebSocketEventListener {
         if(username != null) {
             logger.info("User Disconnected : " + username);
 
-            ChatMessage chatMessage = new ChatMessage();
-            //chatMessage.setType(ChatMessage.MessageType.LEAVE);
-            chatMessage.setUser(username);
-
-            messagingTemplate.convertAndSend("/queue/reply", chatMessage);
         }
     }
 

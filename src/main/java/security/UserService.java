@@ -88,10 +88,7 @@ public class UserService {
     private boolean nameExisted(String name) throws Exception {
         Account user = null;
         try {
-
             user = repo.findAccountByName(name);
-
-
             if (user != null) {
                 return true;
             }
@@ -99,5 +96,9 @@ public class UserService {
             return false;
         }
         return false;
+    }
+
+    public boolean canGuiderLogin(long guider_id) {
+        return repo.canGuiderLogin(guider_id);
     }
 }

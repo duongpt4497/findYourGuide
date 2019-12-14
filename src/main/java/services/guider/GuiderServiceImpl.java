@@ -55,7 +55,7 @@ public class GuiderServiceImpl implements GuiderService {
                         rs.getLong("contribution"), rs.getString("city"),
                         generalService.checkForNull(rs.getArray("languages")),
                         rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avatar"),
-                        rs.getString("passion"), rs.getString("user_name"),rs.getString("profile_video"));
+                        rs.getString("passion"), rs.getString("user_name"), rs.getString("profile_video"));
             }
         }, id);
         return result;
@@ -72,7 +72,7 @@ public class GuiderServiceImpl implements GuiderService {
                         rs.getLong("contribution"), rs.getString("city"),
                         generalService.checkForNull(rs.getArray("languages")),
                         rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avatar"),
-                        rs.getString("passion"),rs.getString("profile_video"));
+                        rs.getString("passion"), rs.getString("profile_video"));
             }
         }, id);
     }
@@ -106,12 +106,18 @@ public class GuiderServiceImpl implements GuiderService {
         jdbcTemplate.update(query, newGuider.getGuider_id(), newGuider.getFirst_name(), newGuider.getLast_name(),
                 Timestamp.valueOf(newGuider.getDate_of_birth()), newGuider.getPhone(), newGuider.getAbout_me(), newGuider.getContribution(),
                 newGuider.getCity(), generalService.createSqlArray(Arrays.asList(newGuider.getLanguages())), newGuider.isActive(),
-                newGuider.getRated(), newGuider.getAvatar(), newGuider.getPassion(),newGuider.getProfile_video());
+                newGuider.getRated(), newGuider.getAvatar(), newGuider.getPassion(), newGuider.getProfile_video());
         return newGuider.getGuider_id();
     }
 
     @Override
     public long createGuiderContract(Contract contract) throws Exception {
+        String check = "select count(contract_id) from contract where guider_id = ?";
+        int count = jdbcTemplate.queryForObject(check, new Object[]{contract.getGuider_id()}, int.class);
+        if (count != 0) {
+            jdbcTemplate.update("update guider set active = false where guider_id = ?", contract.getGuider_id());
+        }
+
         KeyHolder keyHolder = new GeneratedKeyHolder();
         String query = "insert into contract_detail (name,nationality,date_of_birth,gender,hometown,address,identity_card_number,card_issued_date,card_issued_province,guider_id,file_link)" +
                 "values (?,?,?,?,?,?,?,?,?,?,?)";
@@ -184,10 +190,21 @@ public class GuiderServiceImpl implements GuiderService {
                         rs.getLong("contribution"), rs.getString("city"),
                         generalService.checkForNull(rs.getArray("languages")),
                         rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avatar"),
-                        rs.getString("passion"),rs.getString("profile_video"));
+                        rs.getString("passion"), rs.getString("profile_video"));
             }
-        }, LIMIT, LIMIT*page);
+        }, LIMIT, LIMIT * page);
         return result;
+    }
+
+    @Override
+    public int searchGuiderByNamePageCount(String key) throws Exception {
+        String query = "select count(guider_id) from guider as g "
+                + " inner join account as a on g.guider_id = a.account_id "
+                + " where g.first_name like '%" + key + "%' "
+                + " or g.last_name like '%" + key + "%'  or a.user_name like '%" + key + "%'";
+        int count = jdbcTemplate.queryForObject(query, new Object[]{}, int.class);
+        int page = (int) Math.ceil(count / LIMIT);
+        return page;
     }
 
     @Override
@@ -202,7 +219,7 @@ public class GuiderServiceImpl implements GuiderService {
                         rs.getLong("contribution"), rs.getString("city"),
                         generalService.checkForNull(rs.getArray("languages")),
                         rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avatar"),
-                        rs.getString("passion"),rs.getString("profile_video"));
+                        rs.getString("passion"), rs.getString("profile_video"));
             }
         });
         return result;
@@ -220,7 +237,7 @@ public class GuiderServiceImpl implements GuiderService {
                         rs.getLong("contribution"), rs.getString("city"),
                         generalService.checkForNull(rs.getArray("languages")),
                         rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avatar"),
-                        rs.getString("passion"),rs.getString("profile_video"));
+                        rs.getString("passion"), rs.getString("profile_video"));
             }
         });
         return result;

@@ -6,9 +6,6 @@
 package security;
 
 import entities.Account;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,23 +14,25 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.stereotype.Component;
-import org.springframework.security.core.*;
-
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 import services.account.AccountRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- *
  * @author dgdbp
  */
 @Component
 public class AuthenProvider implements AuthenticationProvider {
+    private static final Logger log = LoggerFactory.getLogger(AuthenProvider.class);
     private Logger logger = LoggerFactory.getLogger(getClass());
     private PasswordEncoder encoder;
     private AccountRepository userService;
-    private static final Logger log = LoggerFactory.getLogger(AuthenProvider.class);
+
     @Autowired
     public AuthenProvider(AccountRepository userService, PasswordEncoder encoder) {
         this.userService = userService;
@@ -44,14 +43,13 @@ public class AuthenProvider implements AuthenticationProvider {
         return encoder;
     }
 
-    
-    
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         System.out.println("to AuthProvider");
         String username = authentication.getPrincipal().toString();
         String password = authentication.getCredentials().toString();
-        
+
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
         Account acc = null;
         try {
@@ -62,7 +60,10 @@ public class AuthenProvider implements AuthenticationProvider {
         }
         grantedAuths.add(new SimpleGrantedAuthority(acc.getRole()));
         if (acc != null && acc.getUserName().equals(username) && encoder.matches(password, acc.getPassword())) {
-            return new UsernamePasswordAuthenticationToken(username, acc.getId(),grantedAuths);
+            if (acc.getRole().equalsIgnoreCase("guider") && userService.canGuiderLogin(acc.getId()) == false) {
+                throw new BadCredentialsException("Authentication failed");
+            }
+            return new UsernamePasswordAuthenticationToken(username, acc.getId(), grantedAuths);
         } else {
             throw new BadCredentialsException("Authentication failed");
         }

@@ -26,7 +26,7 @@ public class PostController {
     @RequestMapping("/postOfOneGuider/{guider_id}/{page}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Post>> findAllPostOfOneGuider(@PathVariable("guider_id") long guider_id,
-            @PathVariable("page") int page) {
+                                                             @PathVariable("page") int page) {
         try {
             return new ResponseEntity<>(postService.findAllPostOfOneGuider(guider_id, page), HttpStatus.OK);
         } catch (Exception e) {
@@ -35,6 +35,16 @@ public class PostController {
         }
     }
 
+    @RequestMapping("/postOfOneGuiderPageCount/{guider_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Integer> postOfOneGuiderPageCount(@PathVariable("guider_id") long guider_id) {
+        try {
+            return new ResponseEntity<>(postService.findAllPostOfOneGuiderPageCount(guider_id), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 
     @RequestMapping("/postOfOneGuiderAdmin")
     @ResponseStatus(HttpStatus.OK)
@@ -50,9 +60,20 @@ public class PostController {
     @RequestMapping("/allPostOfOneCategory/{category_id}/{page}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Post>> findAllPostOfOneCategory(@PathVariable("category_id") long category_id,
-            @PathVariable("page") int page) {
+                                                               @PathVariable("page") int page) {
         try {
             return new ResponseEntity<>(postService.findAllPostByCategoryId(category_id, page), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/allPostOfOneCategoryPageCount/{category_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Integer> allPostOfOneCategoryPageCount(@PathVariable("category_id") long category_id) {
+        try {
+            return new ResponseEntity<>(postService.findAllPostByCategoryIdPageCount(category_id), HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -108,9 +129,20 @@ public class PostController {
     @RequestMapping("/findAllPostWithGuiderName/{name}/{page}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Post>> findAllPostWithGuiderName(@PathVariable("name") String name,
-            @PathVariable("page") int page) {
+                                                                @PathVariable("page") int page) {
         try {
             return new ResponseEntity<>(postService.findAllPostWithGuiderName(name, page), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/findAllPostWithGuiderNamePageCount/{name}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Integer> findAllPostWithGuiderNamePageCount(@PathVariable("name") String name) {
+        try {
+            return new ResponseEntity<>(postService.findAllPostWithGuiderNamePageCount(name), HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -132,9 +164,20 @@ public class PostController {
     @RequestMapping("/findAllPostWithLocationName/{name}/{page}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Post>> findAllPostWithLocationName(@PathVariable("name") String name,
-            @PathVariable("page") int page) {
+                                                                  @PathVariable("page") int page) {
         try {
             return new ResponseEntity<>(postService.findAllPostWithLocationName(name, page), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/findAllPostWithLocationNamePageCount/{name}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Integer> findAllPostWithLocationNamePageCount(@PathVariable("name") String name) {
+        try {
+            return new ResponseEntity<>(postService.findAllPostWithLocationNamePageCount(name), HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

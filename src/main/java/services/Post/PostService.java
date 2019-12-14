@@ -5,10 +5,14 @@ import entities.Post;
 import java.util.List;
 
 public interface PostService {
-    List<Post> findAllPostOfOneGuider(long guider_id, int page ) throws Exception;
 
+    List<Post> findAllPostOfOneGuider(long guider_id, int page) throws Exception;
+
+    int findAllPostOfOneGuiderPageCount(long guider_id) throws Exception;
 
     List<Post> findAllPostByCategoryId(long category_id, int page) throws Exception;
+
+    int findAllPostByCategoryIdPageCount(long category_id) throws Exception;
 
     List<Post> findAllPostOfOneGuiderAdmin(long guider_id) throws Exception;
 
@@ -16,7 +20,11 @@ public interface PostService {
 
     List<Post> findAllPostWithGuiderName(String name, int page) throws Exception;
 
+    int findAllPostWithGuiderNamePageCount(String name) throws Exception;
+
     List<Post> findAllPostWithLocationName(String name, int page) throws Exception;
+
+    int findAllPostWithLocationNamePageCount(String name) throws Exception;
 
     void updatePost(long post_id, Post post) throws Exception;
 

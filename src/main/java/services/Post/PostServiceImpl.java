@@ -29,32 +29,39 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> findAllPostOfOneGuider(long guider_id, int page) throws Exception {
         return jdbcTemplate.query("select * from post "
-                +  " where active = true " 
-                + " and guider_id = ? "
-                + " order by post_id limit ? offset ? ;"
+                        + " where active = true "
+                        + " and guider_id = ? "
+                        + " order by post_id limit ? offset ? ;"
                 , new RowMapper<Post>() {
+                    @Override
+                    public Post mapRow(ResultSet resultSet, int i) throws SQLException {
+                        return new Post(
+                                resultSet.getLong("post_id"),
+                                resultSet.getLong("guider_id"),
+                                resultSet.getLong("location_id"),
+                                resultSet.getLong("category_id"),
+                                resultSet.getString("title"),
+                                resultSet.getString("video_link"),
+                                generalService.checkForNull(resultSet.getArray("picture_link")),
+                                resultSet.getInt("total_hour"),
+                                resultSet.getString("description"),
+                                generalService.checkForNull(resultSet.getArray("including_service")),
+                                resultSet.getBoolean("active"),
+                                resultSet.getFloat("price"),
+                                resultSet.getFloat("rated"),
+                                resultSet.getString("reasons"),
+                                resultSet.getBoolean("authorized")
+                        );
+                    }
+                }, guider_id, LIMIT, LIMIT * page);
+    }
 
-            @Override
-            public Post mapRow(ResultSet resultSet, int i) throws SQLException {
-                return new Post(
-                        resultSet.getLong("post_id"),
-                        resultSet.getLong("guider_id"),
-                        resultSet.getLong("location_id"),
-                        resultSet.getLong("category_id"),
-                        resultSet.getString("title"),
-                        resultSet.getString("video_link"),
-                        generalService.checkForNull(resultSet.getArray("picture_link")),
-                        resultSet.getInt("total_hour"),
-                        resultSet.getString("description"),
-                        generalService.checkForNull(resultSet.getArray("including_service")),
-                        resultSet.getBoolean("active"),
-                        resultSet.getFloat("price"),
-                        resultSet.getFloat("rated"),
-                        resultSet.getString("reasons"),
-                        resultSet.getBoolean("authorized")
-                );
-            }
-        }, guider_id, LIMIT, LIMIT*page);
+    @Override
+    public int findAllPostOfOneGuiderPageCount(long guider_id) throws Exception {
+        String query = "select count(post_id) from post where active = true and guider_id = ?";
+        int count = jdbcTemplate.queryForObject(query, new Object[]{guider_id}, int.class);
+        int page = (int) Math.ceil(count / LIMIT);
+        return page;
     }
 
     public List<Post> findAllPostOfOneGuiderAdmin(long guider_id) throws Exception {
@@ -85,61 +92,69 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> findAllPostByCategoryId(long category_id, int page) throws Exception {
         return jdbcTemplate.query("select * from post "
-                +  " where active = true " 
-                + " and category_id = ? "
-                + " order by post_id limit ? offset ? ;"
+                        + " where active = true "
+                        + " and category_id = ? "
+                        + " order by post_id limit ? offset ? ;"
                 , new RowMapper<Post>() {
-            @Override
-            public Post mapRow(ResultSet resultSet, int i) throws SQLException {
-                return new Post(
-                        resultSet.getLong("post_id"),
-                        resultSet.getLong("guider_id"),
-                        resultSet.getLong("location_id"),
-                        resultSet.getLong("category_id"),
-                        resultSet.getString("title"),
-                        resultSet.getString("video_link"),
-                        generalService.checkForNull(resultSet.getArray("picture_link")),
-                        resultSet.getInt("total_hour"),
-                        resultSet.getString("description"),
-                        generalService.checkForNull(resultSet.getArray("including_service")),
-                        resultSet.getBoolean("active"),
-                        resultSet.getLong("price"),
-                        resultSet.getInt("rated"),
-                        resultSet.getString("reasons"),
-                        resultSet.getBoolean("authorized")
-                );
-            }
-        }, category_id, LIMIT, LIMIT*page);
+                    @Override
+                    public Post mapRow(ResultSet resultSet, int i) throws SQLException {
+                        return new Post(
+                                resultSet.getLong("post_id"),
+                                resultSet.getLong("guider_id"),
+                                resultSet.getLong("location_id"),
+                                resultSet.getLong("category_id"),
+                                resultSet.getString("title"),
+                                resultSet.getString("video_link"),
+                                generalService.checkForNull(resultSet.getArray("picture_link")),
+                                resultSet.getInt("total_hour"),
+                                resultSet.getString("description"),
+                                generalService.checkForNull(resultSet.getArray("including_service")),
+                                resultSet.getBoolean("active"),
+                                resultSet.getLong("price"),
+                                resultSet.getInt("rated"),
+                                resultSet.getString("reasons"),
+                                resultSet.getBoolean("authorized")
+                        );
+                    }
+                }, category_id, LIMIT, LIMIT * page);
+    }
+
+    @Override
+    public int findAllPostByCategoryIdPageCount(long category_id) throws Exception {
+        String query = "select count(post_id) from post where active = true and category_id = ?";
+        int count = jdbcTemplate.queryForObject(query, new Object[]{category_id}, int.class);
+        int page = (int) Math.ceil(count / LIMIT);
+        return page;
     }
 
     @Override
     public Post findSpecificPost(long post_id) throws Exception {
         return jdbcTemplate.queryForObject("select * from  post as p, locations as l,category as c "
-                + " where c.category_id = p.category_id and "
-                +  " p.active = true  and " 
-                + " p.location_id = l.location_id and p.post_id = ? "
+                        + " where c.category_id = p.category_id and "
+                        + " p.active = true  and "
+                        + " p.location_id = l.location_id and p.post_id = ? "
                 , new RowMapper<Post>() {
 
-            @Override
-            public Post mapRow(ResultSet resultSet, int i) throws SQLException {
-                return new Post(
-                        resultSet.getLong("post_id"),
-                        resultSet.getString("title"),
-                        resultSet.getString("video_link"),
-                        generalService.checkForNull(resultSet.getArray("picture_link")),
-                        resultSet.getInt("total_hour"),
-                        resultSet.getString("description"),
-                        generalService.checkForNull(resultSet.getArray("including_service")),
-                        resultSet.getBoolean("active"),
-                        resultSet.getString("place"),
-                        resultSet.getLong("price"),
-                        resultSet.getLong("rated"),
-                        resultSet.getString("reasons"),
-                        resultSet.getString("name"),
-                        resultSet.getBoolean("authorized")
-                );
-            }
-        }, post_id);
+                    @Override
+                    public Post mapRow(ResultSet resultSet, int i) throws SQLException {
+                        return new Post(
+                                resultSet.getLong("post_id"),
+                                resultSet.getString("title"),
+                                resultSet.getString("video_link"),
+                                generalService.checkForNull(resultSet.getArray("picture_link")),
+                                resultSet.getInt("total_hour"),
+                                resultSet.getString("description"),
+                                generalService.checkForNull(resultSet.getArray("including_service")),
+                                resultSet.getBoolean("active"),
+                                resultSet.getString("place"),
+                                resultSet.getLong("price"),
+                                resultSet.getLong("rated"),
+                                resultSet.getString("reasons"),
+                                resultSet.getString("name"),
+                                resultSet.getBoolean("authorized")
+                        );
+                    }
+                }, post_id);
     }
 
     @Override
@@ -155,7 +170,7 @@ public class PostServiceImpl implements PostService {
                 " where post.active = true " +
                 "and (upper(first_name) like " + name +
                 " or upper(last_name) like " + name +
-                " or upper(user_name) like " + name + ")" 
+                " or upper(user_name) like " + name + ")"
                 + " order by post.post_id limit ? offset ? ;";
         result = jdbcTemplate.query(query, new RowMapper<Post>() {
             @Override
@@ -174,8 +189,25 @@ public class PostServiceImpl implements PostService {
                         rs.getString("reasons"),
                         rs.getBoolean("authorized"));
             }
-        }, LIMIT, LIMIT*page);
+        }, LIMIT, LIMIT * page);
         return result;
+    }
+
+    @Override
+    public int findAllPostWithGuiderNamePageCount(String name) throws Exception {
+        name = "'%" + name.toUpperCase() + "%'";
+        String query = "select count(post_id) from post " +
+                "inner join guider on post.guider_id = guider.guider_id " +
+                "inner join locations on post.location_id = locations.location_id " +
+                "inner join category on post.category_id = category.category_id " +
+                "inner join account on post.guider_id = account.account_id " +
+                " where post.active = true " +
+                "and (upper(first_name) like " + name +
+                " or upper(last_name) like " + name +
+                " or upper(user_name) like " + name + ")";
+        int count = jdbcTemplate.queryForObject(query, new Object[]{}, int.class);
+        int page = (int) Math.ceil(count / LIMIT);
+        return page;
     }
 
     @Override
@@ -200,8 +232,23 @@ public class PostServiceImpl implements PostService {
                         rs.getLong("price"), rs.getLong("rated"), rs.getString("reasons"),
                         rs.getBoolean("authorized"));
             }
-        }, LIMIT, LIMIT*page);
+        }, LIMIT, LIMIT * page);
         return result;
+    }
+
+    @Override
+    public int findAllPostWithLocationNamePageCount(String name) throws Exception {
+        name = "'%" + name.toUpperCase() + "%'";
+        String query = "select count(post_id) from post " +
+                "inner join category on post.category_id = category.category_id " +
+                "inner join locations on post.location_id = locations.location_id " +
+                "where post.active = true " +
+                "and (upper(country) like " + name +
+                " or upper(city) like " + name +
+                " or upper(place) like " + name + ")";
+        int count = jdbcTemplate.queryForObject(query, new Object[]{}, int.class);
+        int page = (int) Math.ceil(count / LIMIT);
+        return page;
     }
 
     @Override
