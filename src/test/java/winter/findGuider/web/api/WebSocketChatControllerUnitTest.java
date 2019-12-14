@@ -37,27 +37,31 @@ public class WebSocketChatControllerUnitTest {
 
     @Test
     public void testSendMessage(){
-        Principal principal= Mockito.mock(Principal.class);
         ChatMessage chatMessage = Mockito.mock(ChatMessage.class);
-        SimpMessageHeaderAccessor headerAccessor = Mockito.mock(SimpMessageHeaderAccessor.class);
 
         webSocketChatController.sendMessage(chatMessage);
     }
     @Test
     public void testSendMessageWithException(){
-        Principal principal= Mockito.mock(Principal.class);
         ChatMessage chatMessage = Mockito.mock(ChatMessage.class);
-        SimpMessageHeaderAccessor headerAccessor = Mockito.mock(SimpMessageHeaderAccessor.class);
         ReflectionTestUtils.setField(webSocketChatController, "chatMessageRepository", null);
 
         webSocketChatController.sendMessage(chatMessage);
     }
     @Test
     public void testGetMessage(){
-        /*Principal principal= Mockito.mock(Principal.class);
-        ChatMessage chatMessage = Mockito.mock(ChatMessage.class);
-        SimpMessageHeaderAccessor headerAccessor = Mockito.mock(SimpMessageHeaderAccessor.class);
-*/
+
         webSocketChatController.getMessage("dung","ha",1,10);
+    }
+
+    @Test
+    public void testSendSeenMessage(){
+        ChatMessage chatMessage = Mockito.mock(ChatMessage.class);
+        webSocketChatController.sendSeenMessage(chatMessage);
+    }
+
+    @Test
+    public void testGetMessageWithoutReceiver(){
+        webSocketChatController.getReceiver("ha",1,10);
     }
 }

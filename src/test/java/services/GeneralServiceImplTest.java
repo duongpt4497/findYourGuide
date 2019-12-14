@@ -63,7 +63,18 @@ public class GeneralServiceImplTest {
     }
 
     @Test
+    public void convertBase64toImageAndChangeNameWithException() {
+
+        String[] base64Array = new String[]{"testdatabase"};
+
+        generalService.convertBase64toImageAndChangeName(base64Array);
+    }
+
+    @Test
     public void convertBase64toImageAndChangeName() {
 
+        String[] base64Array = new String[]{"jpg:dataimage,testdatabase"};
+
+        generalService.convertBase64toImageAndChangeName(base64Array);
     }
 }

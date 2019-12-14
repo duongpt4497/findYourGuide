@@ -153,4 +153,69 @@ public class PostControllerUnitTest {
         ResponseEntity<Boolean> result = postController.authorizePost(1);
         Assert.assertEquals(404,result.getStatusCodeValue());
     }
+
+    @Test
+    public void testPostOfOneGuiderPageCount(){
+        ResponseEntity<Integer> result = postController.postOfOneGuiderPageCount(1);
+        Assert.assertEquals(200,result.getStatusCodeValue());
+    }
+    @Test
+    public void testPostOfOneGuiderPageCountWithException() throws Exception {
+        ReflectionTestUtils.setField(postController, "postService", null);
+
+        ResponseEntity<Integer> result = postController.postOfOneGuiderPageCount(1);
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testFindAllPostGuiderAdmin(){
+        ResponseEntity<List<Post>> result = postController.findAllPostOfOneGuiderAdmin(1);
+        Assert.assertEquals(200,result.getStatusCodeValue());
+    }
+    @Test
+    public void testFindAllPostGuiderAdminWithException() throws Exception {
+        ReflectionTestUtils.setField(postController, "postService", null);
+
+        ResponseEntity<List<Post>> result = postController.findAllPostOfOneGuiderAdmin(1);
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testAllPostOfOnecategoryPageCountn(){
+        ResponseEntity<Integer> result = postController.allPostOfOneCategoryPageCount(1);
+        Assert.assertEquals(200,result.getStatusCodeValue());
+    }
+    @Test
+    public void testAllPostOfOnecategoryPageCountnWithException() throws Exception {
+        ReflectionTestUtils.setField(postController, "postService", null);
+
+        ResponseEntity<Integer> result = postController.allPostOfOneCategoryPageCount(1);
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testFindAllPostWithGuiderNamePageCount(){
+        ResponseEntity<Integer> result = postController.findAllPostWithGuiderNamePageCount("as");
+        Assert.assertEquals(200,result.getStatusCodeValue());
+    }
+    @Test
+    public void testFindAllPostWithGuiderNamePageCountWithException() throws Exception {
+        ReflectionTestUtils.setField(postController, "postService", null);
+
+        ResponseEntity<Integer> result = postController.findAllPostWithGuiderNamePageCount("as");
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
+
+    @Test
+    public void testFindAllPostWitLocationNamePageCount(){
+        ResponseEntity<Integer> result = postController.findAllPostWithLocationNamePageCount("as");
+        Assert.assertEquals(200,result.getStatusCodeValue());
+    }
+    @Test
+    public void testFindAllPostWithLocationNamePageCountWithException() throws Exception {
+        ReflectionTestUtils.setField(postController, "postService", null);
+
+        ResponseEntity<Integer> result = postController.findAllPostWithLocationNamePageCount("as");
+        Assert.assertEquals(404,result.getStatusCodeValue());
+    }
 }
