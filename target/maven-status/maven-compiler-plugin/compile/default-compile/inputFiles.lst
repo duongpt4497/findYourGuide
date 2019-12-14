@@ -73,6 +73,7 @@ E:\counter\master\src\main\java\entities\InDayTrip.java
 E:\counter\master\src\main\java\services\Statistic\StatisticServiceImpl.java
 E:\counter\master\src\main\java\entities\TransactionRecord.java
 E:\counter\master\src\main\java\services\Category\CategoryService.java
+E:\counter\master\src\main\java\configuration\CloudinaryConfig.java
 E:\counter\master\src\main\java\winter\findGuider\web\api\LocationController.java
 E:\counter\master\src\main\java\configuration\WebSecurityConfig.java
 E:\counter\master\src\main\java\security\TokenAuthenFilter.java

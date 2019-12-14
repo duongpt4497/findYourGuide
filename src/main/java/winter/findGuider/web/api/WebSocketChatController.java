@@ -1,4 +1,4 @@
-package winter.findGuider.web.api;
+    package winter.findGuider.web.api;
 
 import entities.ChatMessage;
 import org.slf4j.Logger;
@@ -22,7 +22,6 @@ import services.chatMessage.ChatMessageRepositoryImpl;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-
 @Controller
 public class WebSocketChatController {
 

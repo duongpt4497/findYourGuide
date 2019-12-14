@@ -2,6 +2,7 @@ package winter.findGuider.web.api;
 
 import com.paypal.api.payments.Refund;
 import com.paypal.base.rest.PayPalRESTException;
+import entities.InDayTrip;
 import entities.Order;
 import org.junit.Assert;
 import org.junit.Before;
@@ -239,7 +240,7 @@ public class OrderTripControllerUnitTest {
     public void testGetOrderByWeek() throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH");
         Date date = formatter.parse("12/12/2019 12");
-        ResponseEntity<List<Order>> result = orderTripController.getOrderByWeek(1, date);
+        ResponseEntity<List<List<InDayTrip>>> result = orderTripController.getOrderByWeek(1, date);
     }
 
     @Test
@@ -254,7 +255,7 @@ public class OrderTripControllerUnitTest {
         cal.add(Calendar.WEEK_OF_YEAR, 1);
         Date end = cal.getTime();
         when(orderTripService.getTripByWeek(1, start, end)).thenThrow(Exception.class);
-        ResponseEntity<List<Order>> result = orderTripController.getOrderByWeek(1, date);
+        ResponseEntity<List<List<InDayTrip>>> result = orderTripController.getOrderByWeek(1, date);
         Assert.assertEquals(404, result.getStatusCodeValue());
     }
 

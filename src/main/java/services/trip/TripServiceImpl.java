@@ -175,8 +175,6 @@ public class TripServiceImpl implements TripService {
     @Override
     public int checkTripExist(long id) throws Exception {
         int count = 0;
-        //?
-
         String query = "SELECT t1.begin_date , t1.finish_date, p2.guider_id FROM trip as t1"
                 + " inner join post as p2 on t1.post_id = p2.post_id "
                 + " where t1.trip_id = ? ";
@@ -188,15 +186,15 @@ public class TripServiceImpl implements TripService {
                 + "and ((t1.begin_date between ? and ?) "
                 + "or (t1.finish_date between ? and ?))";
         count = jdbcTemplate.queryForObject(query, new Object[]{times.get("guider_id"), ONGOING,
-            times.get("begin_date"), times.get("finish_date"),
-            times.get("begin_date"), times.get("finish_date")}, int.class);
+                times.get("begin_date"), times.get("finish_date"),
+                times.get("begin_date"), times.get("finish_date")}, int.class);
         return count;
     }
 
     @Override
     public int checkAvailabilityOfTrip(Order newOrder) throws Exception {
         int count = 0;
-    String query = "SELECT count (trip_id) FROM trip "
+        String query = "SELECT count (trip_id) FROM trip "
                 + "inner join post on post.post_id = trip.post_id "
                 + "where (post.guider_id = ?) and (status = ?) "
                 + "and ((begin_date between ? and ?) "
@@ -205,7 +203,7 @@ public class TripServiceImpl implements TripService {
         Timestamp acceptableBeginDate = Timestamp.valueOf(newOrder.getBegin_date());
         Timestamp acceptableFinishDate = Timestamp.valueOf(newOrder.getFinish_date());
         count = jdbcTemplate.queryForObject(query, new Object[]{guider_id, ONGOING, acceptableBeginDate,
-            acceptableFinishDate, acceptableBeginDate, acceptableFinishDate}, int.class);
+                acceptableFinishDate, acceptableBeginDate, acceptableFinishDate}, int.class);
         return count;
     }
 
@@ -266,31 +264,25 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public boolean checkTripReach48Hours(Order cancelOrder, LocalDateTime rightNow) throws Exception {
-        int dayCheck = rightNow.toLocalDate().compareTo(cancelOrder.getBegin_date().toLocalDate().minusDays(2));
+    public boolean checkTripReach24Hours(Order cancelOrder, LocalDateTime rightNow) throws Exception {
+        LocalDateTime boundaryDay = cancelOrder.getBegin_date().minusDays(1);
         // check day
-        if (dayCheck == 0) {
-            // check hour
-            int beginHour = cancelOrder.getBegin_date().getHour();
-            int hourCheck = Integer.compare(beginHour, rightNow.getHour());
-            if (hourCheck < 0) {
-                return true;
-            } else if (hourCheck > 0) {
+        if (rightNow.getDayOfMonth() < boundaryDay.getDayOfMonth()) {
+            return false;
+        } else if (rightNow.getDayOfMonth() > boundaryDay.getDayOfMonth()) {
+            return true;
+        } else {
+            if (rightNow.getHour() < boundaryDay.getHour()) {
                 return false;
+            } else if (rightNow.getHour() > boundaryDay.getHour()) {
+                return true;
             } else {
-                // check minute
-                int beginMinute = cancelOrder.getBegin_date().getMinute();
-                int minuteCheck = Integer.compare(beginMinute, rightNow.getMinute());
-                if (minuteCheck <= 0) {
-                    return true;
-                } else {
+                if (rightNow.getMinute() < boundaryDay.getMinute()) {
                     return false;
+                } else {
+                    return true;
                 }
             }
-        } else if (dayCheck < 0) {
-            return false;
-        } else {
-            return true;
         }
     }
 
@@ -402,7 +394,7 @@ public class TripServiceImpl implements TripService {
     }
 
     private ArrayList<String> getUnacceptableHours(int post_id, ArrayList<String> availableHours,
-            LocalDate chosenDate) throws Exception {
+                                                   LocalDate chosenDate) throws Exception {
 
         ArrayList<String> unacceptableHours = new ArrayList<>();
         double totalHour = this.getTourTotalHour(post_id);

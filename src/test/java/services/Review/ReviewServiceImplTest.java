@@ -58,7 +58,7 @@ public class ReviewServiceImplTest {
 
     @Test
     public void findReviewsByPostId() throws Exception {
-        Assert.assertEquals(1, reviewService.findReviewsByPostId(1).size());
+        Assert.assertEquals(1, reviewService.findReviewsByPostId(1, 0).size());
     }
 
     @Test
@@ -109,6 +109,6 @@ public class ReviewServiceImplTest {
     public void findReviewOfATraveler() throws Exception {
         jdbcTemplate.update("insert into travelerreviews values (1,2,1,now(),'abc',true)");
         jdbcTemplate.update("insert into travelerreviews values (2,2,1,now(),'abc',true)");
-        Assert.assertEquals(2, reviewService.findReviewOfATraveler(2).size());
+        Assert.assertEquals(2, reviewService.findReviewOfATraveler(2, 0).size());
     }
 }

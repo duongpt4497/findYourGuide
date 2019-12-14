@@ -142,7 +142,7 @@ public class GuiderServiceImpl implements GuiderService {
         List<String> avatarList = generalService.convertBase64toImageAndChangeName(images);
         String avatar;
         if (avatarList.isEmpty()) {
-            avatar = URL_ROOT_SERVER + "/images/account.jpg";
+            avatar = "https://res.cloudinary.com/findguider/image/upload/account.jpg";
         } else {
             avatar = avatarList.get(0);
         }
@@ -318,22 +318,5 @@ public class GuiderServiceImpl implements GuiderService {
         String filePath = DOCUMENT_FOLDER + fileName;
         File pdfFile = Paths.get(filePath).toFile();
         return pdfFile;
-    }
-    @Override
-    public Guider getGuider(long id) {
-        Guider result = new Guider();
-        String query = "select * from guider where guider_id = ? ";
-        result = jdbcTemplate.queryForObject(query, new RowMapper<Guider>() {
-            public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return new Guider(rs.getLong("guider_id"), rs.getString("first_name"),
-                        rs.getString("last_name"), rs.getTimestamp("date_of_birth").toLocalDateTime(), rs.getString("phone"),
-                        rs.getString("about_me"),
-                        rs.getLong("contribution"), rs.getString("city"),
-                        generalService.checkForNull(rs.getArray("languages")),
-                        rs.getBoolean("active"), rs.getLong("rated"), rs.getString("avatar"),
-                        rs.getString("passion"), rs.getString("user_name"));
-            }
-        }, id);
-        return result;
     }
 }

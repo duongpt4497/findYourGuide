@@ -43,9 +43,10 @@ public class ReviewController {
 
     @RequestMapping("/reviewByPostId")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<Review>> findReviewByPostId(@RequestParam("post_id") long post_id) {
+    public ResponseEntity<List<Review>> findReviewByPostId(@RequestParam("post_id") long post_id,
+                                                           @RequestParam("page") long page) {
         try {
-            return new ResponseEntity<>(reviewService.findReviewsByPostId(post_id), HttpStatus.OK);
+            return new ResponseEntity<>(reviewService.findReviewsByPostId(post_id, page), HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -103,27 +104,28 @@ public class ReviewController {
             return new ResponseEntity<>(true, HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
-            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
     @RequestMapping("/createTravelerReview")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Boolean> createTravelerReview(@RequestBody TravelerReview review) {
+    public ResponseEntity<TravelerReview> createTravelerReview(@RequestBody TravelerReview review) {
         try {
-            reviewService.createTravelerReview(review);
-            return new ResponseEntity<>(true, HttpStatus.OK);
+            long id = reviewService.createTravelerReview(review);
+            return new ResponseEntity<>(reviewService.findTravelerReviewById(id), HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
-            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
     @RequestMapping("/showTravelerReview")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<TravelerReview>> showTravelerReview(@RequestParam("traveler_id") long traveler_id) {
+    public ResponseEntity<List<TravelerReview>> showTravelerReview(@RequestParam("traveler_id") long traveler_id,
+                                                                   @RequestParam("page") long page) {
         try {
-            return new ResponseEntity<>(reviewService.findReviewOfATraveler(traveler_id), HttpStatus.OK);
+            return new ResponseEntity<>(reviewService.findReviewOfATraveler(traveler_id, page), HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

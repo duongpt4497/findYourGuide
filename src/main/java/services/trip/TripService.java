@@ -33,7 +33,7 @@ public interface TripService {
 
     List<Order> getTripByWeek(int id, Date start, Date end) throws Exception;
 
-    boolean checkTripReach48Hours(Order cancelOrder, LocalDateTime rightNow) throws Exception;
+    boolean checkTripReach24Hours(Order cancelOrder, LocalDateTime rightNow) throws Exception;
 
     String getExpectedEndTripTime(int post_id, LocalDateTime begin_date) throws Exception;
 }
