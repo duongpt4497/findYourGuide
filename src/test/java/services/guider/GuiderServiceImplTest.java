@@ -312,4 +312,13 @@ public class GuiderServiceImplTest {
                 "values (1,1,'John Doe','Vietnamese','1993-06-05',1,'Hanoi','a','123456','2000-04-05','Hanoi','abc.pdf')");
         Assert.assertEquals("abc.pdf", guiderService.getDocumentToDownload(1).getName());
     }
+
+    @Test
+    public void searchGuiderByNamePageCount() throws Exception {
+        jdbcTemplate.update("insert into account (account_id,user_name, password, email ,role) " +
+                "values (1,'Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER')");
+        jdbcTemplate.update("insert into guider (guider_id,first_name,last_name,date_of_birth,phone,about_me,contribution,city,languages,active,rated,avatar,passion)" +
+                "values (1,'John','Doe',now(),'123456','abc',150,'hanoi','{en,vi}',true,5,'a','a')");
+        Assert.assertEquals(1, guiderService.searchGuiderByNamePageCount("Jo"));
+    }
 }

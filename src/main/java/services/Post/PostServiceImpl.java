@@ -59,7 +59,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public int findAllPostOfOneGuiderPageCount(long guider_id) throws Exception {
         String query = "select count(post_id) from post where active = true and guider_id = ?";
-        int count = jdbcTemplate.queryForObject(query, new Object[]{guider_id}, int.class);
+        double count = jdbcTemplate.queryForObject(query, new Object[]{guider_id}, double.class);
         int page = (int) Math.ceil(count / LIMIT);
         return page;
     }
@@ -122,7 +122,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public int findAllPostByCategoryIdPageCount(long category_id) throws Exception {
         String query = "select count(post_id) from post where active = true and category_id = ?";
-        int count = jdbcTemplate.queryForObject(query, new Object[]{category_id}, int.class);
+        double count = jdbcTemplate.queryForObject(query, new Object[]{category_id}, double.class);
         int page = (int) Math.ceil(count / LIMIT);
         return page;
     }
@@ -205,7 +205,7 @@ public class PostServiceImpl implements PostService {
                 "and (upper(first_name) like " + name +
                 " or upper(last_name) like " + name +
                 " or upper(user_name) like " + name + ")";
-        int count = jdbcTemplate.queryForObject(query, new Object[]{}, int.class);
+        double count = jdbcTemplate.queryForObject(query, new Object[]{}, double.class);
         int page = (int) Math.ceil(count / LIMIT);
         return page;
     }
@@ -246,7 +246,7 @@ public class PostServiceImpl implements PostService {
                 "and (upper(country) like " + name +
                 " or upper(city) like " + name +
                 " or upper(place) like " + name + ")";
-        int count = jdbcTemplate.queryForObject(query, new Object[]{}, int.class);
+        double count = jdbcTemplate.queryForObject(query, new Object[]{}, double.class);
         int page = (int) Math.ceil(count / LIMIT);
         return page;
     }

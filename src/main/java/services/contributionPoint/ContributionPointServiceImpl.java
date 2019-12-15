@@ -114,14 +114,15 @@ public class ContributionPointServiceImpl implements ContributionPointService {
                 + " <= extract(epoch from TIMESTAMP '1970-1-31 00:00:00')::integer and  "
                 + " o1.status = 'FINISHED' group by p3.guider_id ; ";
         List<Map<String, Object>> positiveGuider = jdbcTemplate.queryForList(queryPositive);
-        String queryNegative = " select guider_id from guider where contribution > ? except "
-                + " select p3.guider_id from trip as o1 " 
-                 + " inner join post as p3 on o1.post_id = p3.post_id where "
-                + "  extract(epoch from (now() - o1.finish_date))::integer "
+        String queryNegative = " select guider_id, contribution from guider except "
+                + " select p3.guider_id, g4.contribution from trip as o1 "
+                 + " inner join post as p3 on o1.post_id = p3.post_id "
+                + " inner join guider as g4 on p3.guider_id = g4.guider_id  "
+                + " where extract(epoch from (now() - o1.finish_date))::integer "
 
                 + " <= extract(epoch from TIMESTAMP '1970-1-31 00:00:00')::integer and  "
                 + " o1.status = 'FINISHED'  ; ";
-        List<Map<String, Object>> negativeGuider = jdbcTemplate.queryForList(queryNegative, Long.parseLong(minus));
+        List<Map<String, Object>> negativeGuider = jdbcTemplate.queryForList(queryNegative);
 
         List<String> update = new ArrayList<>();
         for (Map m : positiveGuider) {
