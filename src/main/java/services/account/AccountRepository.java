@@ -49,6 +49,19 @@ public class AccountRepository {
         }, name);
     }
 
+    public List<Account> findAccountByNameAdmin(String name) throws Exception {
+        name = name.toUpperCase();
+        return jdbc.query("SELECT account_id, user_name, email, role, active FROM account \n" +
+                "left join guider on account_id = guider_id \n" +
+                "where upper(user_name) like '%" + name + "%' and role = 'GUIDER'", new RowMapper<Account>() {
+            @Override
+            public Account mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new Account(rs.getInt("account_id"), rs.getString("user_name"),
+                        rs.getString("email"), rs.getString("role"), rs.getBoolean("active"));
+            }
+        });
+    }
+
     public String findAccountNameByAccountId(int account_id) throws Exception {
         Account account = jdbc.queryForObject("select * from account where account_id=?", new RowMapper<Account>() {
             @Override

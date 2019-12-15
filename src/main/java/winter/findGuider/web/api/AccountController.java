@@ -130,6 +130,19 @@ public class AccountController {
         }
     }
 
+    @RequestMapping("/findAccountByNameAdmin")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Account>> findAccountByNameAdmin(@RequestParam("name") String name, HttpServletResponse response) {
+        try {
+            response.setHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+            return new ResponseEntity(repo.findAccountByNameAdmin(name), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
     @RequestMapping("/emailConfirm")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Object> confirmEmail(@RequestParam("token") String token) {
