@@ -19,7 +19,7 @@ import java.util.List;
 public class PostServiceImpl implements PostService {
     private JdbcTemplate jdbcTemplate;
     private GeneralService generalService;
-    private int LIMIT = 10;
+    private int LIMIT = 9;
 
     public PostServiceImpl(JdbcTemplate jdbcTemplate, GeneralService generalService) {
         this.jdbcTemplate = jdbcTemplate;
