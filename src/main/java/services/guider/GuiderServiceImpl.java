@@ -202,7 +202,7 @@ public class GuiderServiceImpl implements GuiderService {
                 + " inner join account as a on g.guider_id = a.account_id "
                 + " where g.first_name like '%" + key + "%' "
                 + " or g.last_name like '%" + key + "%'  or a.user_name like '%" + key + "%'";
-        int count = jdbcTemplate.queryForObject(query, new Object[]{}, int.class);
+        double count = jdbcTemplate.queryForObject(query, new Object[]{}, double.class);
         int page = (int) Math.ceil(count / LIMIT);
         return page;
     }
