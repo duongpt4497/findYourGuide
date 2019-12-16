@@ -61,7 +61,6 @@ public class AccountController {
         try {
             model = repo.findAccountByName(
                     SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
-
             if (auth.getEncoder().matches(model.getPassword(), acc.getPassword())) {
                 repo.changePassword(model.getUserName(), acc.getRePassword());
             } else {
@@ -169,6 +168,33 @@ public class AccountController {
             content = content.concat(URL_ROOT_SERVER + "/account/emailConfirm?token=" + token);
             mailService.sendMail(email, "TravelWLocal Email Confirmation", content);
             return new ResponseEntity(true, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/forgotPasswordConfirm")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> forgotPasswordConfirm(@RequestParam("username") String username) {
+        try {
+            String message = repo.sendEmailForgotPassword(username);
+            return new ResponseEntity(message, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/forgotPassword")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Object> forgotPassword(@RequestParam("token") String token) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        try {
+            repo.resetForgotPassword(token);
+            URI home = new URI(URL_ROOT_CLIENT);
+            httpHeaders.setLocation(home);
+            return new ResponseEntity(httpHeaders, HttpStatus.SEE_OTHER);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity(null, HttpStatus.NOT_FOUND);
