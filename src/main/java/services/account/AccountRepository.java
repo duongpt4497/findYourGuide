@@ -7,10 +7,12 @@ package services.account;
 
 import entities.Account;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import services.Mail.MailService;
 
@@ -28,11 +30,16 @@ import java.util.Random;
 public class AccountRepository {
     private JdbcTemplate jdbc;
     private MailService mailService;
+    private PasswordEncoder passwordEncoder;
+
+    @Value("${order.server.root.url}")
+    private String URL_ROOT_SERVER;
 
     @Autowired
-    public AccountRepository(JdbcTemplate jdbc, MailService ms) {
+    public AccountRepository(JdbcTemplate jdbc, MailService ms, PasswordEncoder pe) {
         this.jdbc = jdbc;
         this.mailService = ms;
+        this.passwordEncoder = pe;
     }
 
     public Account findAccountByName(String name) throws Exception {
@@ -47,6 +54,19 @@ public class AccountRepository {
                         rs.getString("role"));
             }
         }, name);
+    }
+
+    public List<Account> findAccountByNameAdmin(String name) throws Exception {
+        name = name.toUpperCase();
+        return jdbc.query("SELECT account_id, user_name, email, role, active FROM account \n" +
+                "left join guider on account_id = guider_id \n" +
+                "where upper(user_name) like '%" + name + "%' and role = 'GUIDER'", new RowMapper<Account>() {
+            @Override
+            public Account mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new Account(rs.getInt("account_id"), rs.getString("user_name"),
+                        rs.getString("email"), rs.getString("role"), rs.getBoolean("active"));
+            }
+        });
     }
 
     public String findAccountNameByAccountId(int account_id) throws Exception {
@@ -114,14 +134,7 @@ public class AccountRepository {
     }
 
     public String insertEmailConfirmToken(long account_id) throws Exception {
-        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        StringBuilder salt = new StringBuilder();
-        Random rnd = new Random();
-        while (salt.length() < 50) { // length of the random string.
-            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
-            salt.append(SALTCHARS.charAt(index));
-        }
-        String token = salt.toString();
+        String token = this.generateRandomSalt(50);
         jdbc.update("update account set email_token = ? where account_id = ?", token, account_id);
         return account_id + "E" + token;
     }
@@ -148,5 +161,59 @@ public class AccountRepository {
         // Send result email
         String email = this.getEmail(account_id);
         mailService.sendMail(email, "TravelWLocal Email Confirmation", content);
+    }
+
+    public String sendEmailForgotPassword(String username) throws Exception {
+        Account acc = this.findAccountByName(username);
+        if (acc == null) {
+            return "Account does not exist";
+        }
+
+        if (!this.isMailVerified(acc.getId())) {
+            return "Your email was not verified";
+        }
+
+        // Send confirmation email
+        String token = acc.getId() + "E" + this.generateRandomSalt(20);
+        String content = "Hello " + acc.getUserName() + "\n\n";
+        content = content.concat("It seem like you have sent us a request to reset forgotten password.\n");
+        content = content.concat("If you want to reset your password, please click the link:\n");
+        content = content.concat(URL_ROOT_SERVER + "/account/forgotPassword?token=" + token + "\n\n");
+        content = content.concat("We will send your new password shortly after you click the link.\n\n");
+        content = content.concat("Sincerely,\nTravelWLocal");
+        mailService.sendMail(acc.getEmail(), "TravelWLocal Forgot Password", content);
+        return "An email has been sent to you";
+    }
+
+    public void resetForgotPassword(String token) throws Exception {
+        String[] data = token.split("E", 2);
+        int account_id = Integer.parseInt(data[0]);
+        String checkToken = data[1];
+        String username = this.findAccountNameByAccountId(account_id);
+        String email = this.getEmail(account_id);
+        if (checkToken.length() == 20) {
+            // Set new password
+            String newPassword = this.generateRandomSalt(10);
+            String query = "update account set password = ? where account_id = ?";
+            jdbc.update(query, passwordEncoder.encode(newPassword), account_id);
+
+            // Sent new password to user
+            String content = "Hello " + username + "\n\n";
+            content = content.concat("Here is your new password: " + newPassword + "\n");
+            content = content.concat("We highly recommend you to change it to your own.\n\n");
+            content = content.concat("Sincerely,\nTravelWLocal");
+            mailService.sendMail(email, "TravelWLocal Forgot Password", content);
+        }
+    }
+
+    private String generateRandomSalt(int length) {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < length) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        return salt.toString();
     }
 }

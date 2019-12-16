@@ -234,6 +234,15 @@ public class TripServiceImplTest {
     }
 
     @Test
+    public void getGuiderAvailableHours2() throws Exception {
+        jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
+                "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
+        jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
+                "values (1,2,1,'2019-11-22T05:30','2019-11-25T07:00',1,1,150,'abc','ONGOING')");
+        Assert.assertEquals(0, tripService.getGuiderAvailableHours(LocalDate.parse("2019-11-23"), 1, 1).size());
+    }
+
+    @Test
     public void getClosestTourFinishDate() throws Exception {
         jdbcTemplate.update("insert into transaction (transaction_id,payment_id,payer_id,description,date_of_transaction,success) " +
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
