@@ -176,11 +176,12 @@ public class GuiderServiceImpl implements GuiderService {
 
     @Override
     public List<Guider> searchGuiderByName(String key, int page) throws Exception {
+        key = key.toUpperCase();
         List<Guider> result = new ArrayList<>();
         String query = "select g.* from guider as g "
                 + " inner join account as a on g.guider_id = a.account_id "
-                + " where g.first_name like '%" + key + "%' "
-                + " or g.last_name like '%" + key + "%'  or a.user_name like '%" + key + "%'"
+                + " where upper(g.first_name) like '%" + key + "%' "
+                + " or upper(g.last_name) like '%" + key + "%'  or upper(a.user_name) like '%" + key + "%'"
                 + " order by g.guider_id limit ? offset ? ; ";
         result = jdbcTemplate.query(query, new RowMapper<Guider>() {
             public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -198,10 +199,11 @@ public class GuiderServiceImpl implements GuiderService {
 
     @Override
     public int searchGuiderByNamePageCount(String key) throws Exception {
+        key = key.toUpperCase();
         String query = "select count(guider_id) from guider as g "
                 + " inner join account as a on g.guider_id = a.account_id "
-                + " where g.first_name like '%" + key + "%' "
-                + " or g.last_name like '%" + key + "%'  or a.user_name like '%" + key + "%'";
+                + " where upper(g.first_name) like '%" + key + "%' "
+                + " or upper(g.last_name) like '%" + key + "%'  or upper(a.user_name) like '%" + key + "%'";
         double count = jdbcTemplate.queryForObject(query, new Object[]{}, double.class);
         int page = (int) Math.ceil(count / LIMIT);
         return page;
