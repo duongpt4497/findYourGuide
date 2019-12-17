@@ -43,7 +43,7 @@ public class AccountRepository {
     }
 
     public Account findAccountByName(String name) throws Exception {
-        return jdbc.queryForObject("select * from account where user_name=?", new RowMapper<Account>() {
+        List<Account> accounts = jdbc.query("select * from account where user_name=?", new RowMapper<Account>() {
             @Override
             public Account mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Account(
@@ -54,6 +54,11 @@ public class AccountRepository {
                         rs.getString("role"));
             }
         }, name);
+        if (accounts.isEmpty()) {
+            return null;
+        } else {
+            return accounts.get(0);
+        }
     }
 
     public List<Account> findAccountByNameAdmin(String name) throws Exception {
