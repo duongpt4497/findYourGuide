@@ -109,7 +109,7 @@ public class AccountController {
     public ResponseEntity logout(HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
         response.setHeader("Access-Control-Allow-Credentials", "true");
-        Cookie sidCookie = new Cookie("token", "");
+        Cookie sidCookie = new Cookie("token", ""); 
         sidCookie.setPath("/");
         sidCookie.setHttpOnly(true);
         sidCookie.setDomain(URL_ROOT_CLIENT_DOMAIN);
