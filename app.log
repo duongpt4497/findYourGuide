@@ -4270,3 +4270,5 @@ org.springframework.security.web.firewall.RequestRejectedException: The request 
 2019-Dec-17 11:27:56 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
 2019-Dec-17 11:30:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
 2019-Dec-17 11:30:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-17 11:35:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-17 11:35:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
