@@ -181,8 +181,11 @@ public class AccountController {
 
     @RequestMapping("/forgotPasswordConfirm")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> forgotPasswordConfirm(@RequestParam("username") String username) {
+    public ResponseEntity<String> forgotPasswordConfirm(@RequestParam("username") String username,
+                                                        HttpServletResponse response) {
         try {
+            response.setHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
+            response.setHeader("Access-Control-Allow-Credentials", "true");
             String message = repo.sendEmailForgotPassword(username);
             return new ResponseEntity(message, HttpStatus.OK);
         } catch (Exception e) {
