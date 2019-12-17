@@ -54,16 +54,18 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public List<Review> findReviewsByPostId(long post_id, long page) throws Exception {
-        String query = "select review.*, avatar_link from review " +
+        String query = "select review.*, user_name, avatar_link from review " +
                 "inner join trip on trip.trip_id = review.trip_id " +
                 "inner join traveler on trip.traveler_id = traveler.traveler_id " +
+                "inner join account on trip.traveler_id = account.account_id " +
                 "where trip.post_id = ? and visible = true " +
                 "limit ? offset ?";
         return jdbcTemplate.query(query, new RowMapper<Review>() {
             public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Review(rs.getLong("trip_id"), rs.getLong("rated"),
                         rs.getDate("post_date"), rs.getString("review"),
-                        rs.getBoolean("visible"), rs.getString("avatar_link"));
+                        rs.getBoolean("visible"), rs.getString("user_name"),
+                        rs.getString("avatar_link"));
             }
         }, post_id, LIMIT, page * LIMIT);
     }

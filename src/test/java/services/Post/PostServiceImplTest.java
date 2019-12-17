@@ -169,4 +169,24 @@ public class PostServiceImplTest {
     public void findAllPostOfOneGuiderAdmin() throws Exception {
         Assert.assertEquals(3, postService.findAllPostOfOneGuiderAdmin(5).size());
     }
+
+    @Test
+    public void findAllPostOfOneGuiderPageCount() throws Exception {
+        Assert.assertEquals(1, postService.findAllPostOfOneGuiderPageCount(1));
+    }
+
+    @Test
+    public void findAllPostByCategoryIdPageCount() throws Exception {
+        Assert.assertEquals(1, postService.findAllPostByCategoryIdPageCount(1));
+    }
+
+    @Test
+    public void findAllPostWithGuiderNamePageCount() throws Exception {
+        Assert.assertEquals(1, postService.findAllPostWithGuiderNamePageCount("Jo"));
+    }
+
+    @Test
+    public void findAllPostWithLocationNamePageCount() throws Exception {
+        Assert.assertEquals(1, postService.findAllPostWithLocationNamePageCount("h"));
+    }
 }

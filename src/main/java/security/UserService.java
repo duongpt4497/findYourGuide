@@ -67,11 +67,11 @@ public class UserService {
         acc.setPassword(passwordEncoder.encode(acc.getPassword()));
         long id = repo.addAccount(acc);
         if (acc.getRole().equalsIgnoreCase("GUIDER")) {
-            gs.createGuider(new Guider(id, "", "", LocalDateTime.now(), "", "", 0,
+            gs.createGuider(new Guider(id, acc.getUserName(), "", LocalDateTime.now(), "", "", 0,
                     "", new String[]{}, false, 0, "https://res.cloudinary.com/findguider/image/upload/account.jpg",
                     "", ""));
         } else if (acc.getRole().equalsIgnoreCase("TRAVELER")) {
-            ts.createTraveler(new Traveler(id, "", "", "", 0, new java.sql.Timestamp(
+            ts.createTraveler(new Traveler(id, acc.getUserName(), "", "", 0, new java.sql.Timestamp(
                     new Date().getTime()).toLocalDateTime(), "", "", "", "", "",
                     new String[]{}, "", "", "https://res.cloudinary.com/findguider/image/upload/account.jpg"));
         }

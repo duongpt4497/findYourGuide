@@ -16,6 +16,7 @@ import services.Mail.MailService;
 import services.Paypal.PaypalService;
 import services.Post.PostService;
 import services.account.AccountRepository;
+import services.guider.GuiderService;
 import services.trip.TripService;
 
 import java.net.URI;
@@ -39,19 +40,23 @@ public class PaypalController {
     private TripService tripService;
     private MailService mailService;
     private AccountRepository accountRepository;
+    private GuiderService guiderService;
 
     private PostService postService;
     private WebSocketNotificationController webSocketNotificationController;
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    public PaypalController(PaypalService ps, TripService ots, MailService ms, AccountRepository ar, PostService postService, WebSocketNotificationController wsc) {
+    public PaypalController(PaypalService ps, TripService ots, MailService ms, AccountRepository ar,
+                            PostService postService, WebSocketNotificationController wsc,
+                            GuiderService gs) {
         this.paypalService = ps;
         this.tripService = ots;
         this.mailService = ms;
         this.accountRepository = ar;
         this.postService = postService;
         this.webSocketNotificationController = wsc;
+        this.guiderService = gs;
     }
 
     @RequestMapping("/Pay")
@@ -60,8 +65,11 @@ public class PaypalController {
         String cancelUrl = URL_ROOT_SERVER + "/Payment" + URL_PAYPAL_CANCEL + "?post_id=" + order.getPost_id();
         String successUrl = URL_ROOT_SERVER + "/Payment" + URL_PAYPAL_SUCCESS + "?traveler_id=" + order.getTraveler_id()
                 + "&post_id=" + order.getPost_id() + "&adult=" + order.getAdult_quantity()
-                + "&children=" + order.getChildren_quantity() + "&begin_date=" + order.getBegin_date() + "&guider_id=" + order.getGuider_id();
+
+                + "&children=" + order.getChildren_quantity() + "&begin_date=" + order.getBegin_date();
+        long guider_id = 0;
         try {
+            guider_id = guiderService.findGuiderWithPostId(order.getPost_id()).getGuider_id();
             tripService.getTripGuiderId_FinishDate(order);
             order.setFee_paid(paypalService.getTransactionFee(order));
             successUrl += "&fee=" + order.getFee_paid();
@@ -77,7 +85,7 @@ public class PaypalController {
         } catch (Exception ex) {
             logger.error(ex.getMessage());
         }
-        return URL_ROOT_CLIENT + CHATBOX_PATH + order.getPost_id() + "/paypal_server_error";
+        return URL_ROOT_CLIENT + CHATBOX_PATH + guider_id + "/" + order.getPost_id() + "/paypal_server_error";
     }
 
     @RequestMapping(URL_PAYPAL_CANCEL)
@@ -85,7 +93,8 @@ public class PaypalController {
     public ResponseEntity<Object> cancelPay(@RequestParam("post_id") int post_id) {
         HttpHeaders httpHeaders = new HttpHeaders();
         try {
-            URI result = new URI(URL_ROOT_CLIENT + CHATBOX_PATH + post_id);
+            long guider_id = guiderService.findGuiderWithPostId(post_id).getGuider_id();
+            URI result = new URI(URL_ROOT_CLIENT + CHATBOX_PATH + guider_id + "/" + post_id);
             httpHeaders.setLocation(result);
         } catch (Exception e) {
             logger.error(e.getMessage());
@@ -103,6 +112,8 @@ public class PaypalController {
         Order order = new Order();
         HttpHeaders httpHeaders = new HttpHeaders();
         try {
+            long guider_id = guiderService.findGuiderWithPostId(post_id).getGuider_id();
+
             order.setTraveler_id(traveler_id);
             order.setPost_id(post_id);
             order.setAdult_quantity(adult_quantity);
@@ -139,11 +150,11 @@ public class PaypalController {
                     String content = mailService.getMailContent(order, "WAITING");
                     mailService.sendMail(email, "TravelWLocal Tour Information", content);
                 }
-                URI result = new URI(URL_ROOT_CLIENT + CHATBOX_PATH + order.getGuider_id() + "/" + order.getPost_id() + "/booking_success");
+                URI result = new URI(URL_ROOT_CLIENT + CHATBOX_PATH + guider_id + "/" + order.getPost_id() + "/booking_success");
                 httpHeaders.setLocation(result);
             } else {
                 paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, false);
-                URI result = new URI(URL_ROOT_CLIENT + CHATBOX_PATH + order.getGuider_id() + "/" +order.getPost_id() + "/booking_fail");
+                URI result = new URI(URL_ROOT_CLIENT + CHATBOX_PATH + guider_id + "/" + order.getPost_id() + "/booking_fail");
                 httpHeaders.setLocation(result);
             }
         } catch (PayPalRESTException | URISyntaxException e) {

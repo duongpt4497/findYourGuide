@@ -3926,3 +3926,347 @@ Caused by: java.io.IOException: Server returned HTTP response code: 400 for URL:
 	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:347)
 	at com.paypal.base.HttpConnection.executeWithStream(HttpConnection.java:133)
 	... 35 common frames omitted
+2019-Dec-17 10:36:43 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-17 10:36:43 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-17 10:36:43 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.LocalDateTime to class java.time.Instant as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-17 10:36:43 WARN  [main] o.s.d.c.CustomConversions - Registering converter from class java.time.Instant to class java.time.LocalDateTime as reading converter although it doesn't convert from a store-supported type! You might wanna check you annotation setup at the converter implementation.
+2019-Dec-17 10:37:58 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:37:58 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:37:58 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:37:58 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:37:58 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:37:58 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:37:58 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:37:59 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:37:59 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:38:00 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:38:00 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:38:00 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:38:00 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-17 10:40:06 WARN  [MessageBroker-1] s.t.TripServiceImpl - [update trip set status = 'CANCELLED' where trip_id = 6]
+2019-Dec-17 10:40:32 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:32 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:32 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:32 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:32 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:32 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:32 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:32 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:32 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:32 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:32 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:32 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:32 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:32 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:32 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:32 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:32 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:37 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:40 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:58 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:58 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:58 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:58 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:40:58 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:01 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:01 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:01 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:01 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:01 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:01 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:01 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:04 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:04 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:04 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:04 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:04 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:04 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:04 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:04 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:04 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:04 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:04 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:04 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:04 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:04 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:04 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:04 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:06 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:06 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:06 ERROR [http-nio-8080-exec-8] w.f.w.a.TravelerController - PreparedStatementCallback; SQL [insert into favoritepost (traveler_id, post_id) values (?,?)]; ERROR: duplicate key value violates unique constraint "uq_fav"
+  Detail: Key (traveler_id, post_id)=(9, 18) already exists.; nested exception is org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "uq_fav"
+  Detail: Key (traveler_id, post_id)=(9, 18) already exists.
+2019-Dec-17 10:41:10 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:10 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:10 ERROR [http-nio-8080-exec-6] w.f.w.a.TravelerController - PreparedStatementCallback; SQL [insert into favoritepost (traveler_id, post_id) values (?,?)]; ERROR: duplicate key value violates unique constraint "uq_fav"
+  Detail: Key (traveler_id, post_id)=(9, 18) already exists.; nested exception is org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "uq_fav"
+  Detail: Key (traveler_id, post_id)=(9, 18) already exists.
+2019-Dec-17 10:41:10 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:10 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:10 ERROR [http-nio-8080-exec-5] w.f.w.a.TravelerController - PreparedStatementCallback; SQL [insert into favoritepost (traveler_id, post_id) values (?,?)]; ERROR: duplicate key value violates unique constraint "uq_fav"
+  Detail: Key (traveler_id, post_id)=(9, 18) already exists.; nested exception is org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "uq_fav"
+  Detail: Key (traveler_id, post_id)=(9, 18) already exists.
+2019-Dec-17 10:41:10 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:10 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:10 ERROR [http-nio-8080-exec-2] w.f.w.a.TravelerController - PreparedStatementCallback; SQL [insert into favoritepost (traveler_id, post_id) values (?,?)]; ERROR: duplicate key value violates unique constraint "uq_fav"
+  Detail: Key (traveler_id, post_id)=(9, 18) already exists.; nested exception is org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "uq_fav"
+  Detail: Key (traveler_id, post_id)=(9, 18) already exists.
+2019-Dec-17 10:41:10 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:10 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:10 ERROR [http-nio-8080-exec-3] w.f.w.a.TravelerController - PreparedStatementCallback; SQL [insert into favoritepost (traveler_id, post_id) values (?,?)]; ERROR: duplicate key value violates unique constraint "uq_fav"
+  Detail: Key (traveler_id, post_id)=(9, 18) already exists.; nested exception is org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "uq_fav"
+  Detail: Key (traveler_id, post_id)=(9, 18) already exists.
+2019-Dec-17 10:41:11 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:11 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:11 ERROR [http-nio-8080-exec-10] w.f.w.a.TravelerController - PreparedStatementCallback; SQL [insert into favoritepost (traveler_id, post_id) values (?,?)]; ERROR: duplicate key value violates unique constraint "uq_fav"
+  Detail: Key (traveler_id, post_id)=(9, 18) already exists.; nested exception is org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "uq_fav"
+  Detail: Key (traveler_id, post_id)=(9, 18) already exists.
+2019-Dec-17 10:41:28 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:28 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:28 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:28 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:28 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:28 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:37 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:37 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:37 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:37 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:37 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:37 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:37 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:37 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:37 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:37 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:40 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:40 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:40 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:40 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:40 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:40 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:40 ERROR [http-nio-8080-exec-8] w.f.w.a.PlanController - Incorrect result size: expected 1, actual 0
+2019-Dec-17 10:41:40 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:40 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:40 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:40 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:40 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:40 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:40 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:40 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:40 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:40 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:49 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:49 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:49 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:49 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:49 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:49 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:49 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:49 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:49 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:49 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:57 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:57 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:57 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:57 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:57 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:41:57 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:02 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:02 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:02 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:02 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:02 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:02 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:02 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:02 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:02 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:02 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:11 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:11 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:11 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:11 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:13 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:13 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:13 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:13 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:13 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:13 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:19 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:19 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:19 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:19 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:19 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:19 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:20 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:20 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:20 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:20 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:20 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:20 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:20 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:20 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:20 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:20 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:22 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:22 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:22 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:22 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:22 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:22 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:22 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:22 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:22 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:22 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:22 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:22 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:22 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:22 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:22 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:31 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:31 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:31 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:31 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:31 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:31 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:31 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:31 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:31 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:31 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:31 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:31 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:31 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:31 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:47 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:47 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:47 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:47 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:47 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:47 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:47 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:47 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:47 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:47 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:42:47 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:43:02 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:43:16 WARN  [http-nio-8080-exec-10] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-17 10:43:41 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:43:41 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:43:41 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:43:41 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:43:41 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:43:41 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:43:41 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:43:41 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:43:41 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:43:41 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:43:50 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:06 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:06 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:06 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:06 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:06 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:06 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:06 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:06 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:06 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:06 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:10 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:10 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:10 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:10 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:10 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:10 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:11 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:11 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:11 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:11 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:23 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:30 WARN  [http-nio-8080-exec-1] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-17 10:44:30 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:44:30 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:45:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-17 10:45:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-17 10:45:56 WARN  [http-nio-8080-exec-7] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-17 10:45:57 WARN  [http-nio-8080-exec-1] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-17 10:49:36 WARN  [http-nio-8080-exec-3] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-17 10:49:36 ERROR [http-nio-8080-exec-1] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
+	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:94)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1589)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+2019-Dec-17 10:50:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-17 10:50:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-17 10:51:08 WARN  [http-nio-8080-exec-10] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-17 10:51:13 WARN  [http-nio-8080-exec-9] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-17 10:51:15 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:51:15 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:51:20 ERROR [http-nio-8080-exec-7] w.f.w.a.PlanController - Incorrect result size: expected 1, actual 0
+2019-Dec-17 10:55:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-17 10:55:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-17 10:56:28 WARN  [http-nio-8080-exec-4] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-17 10:56:28 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 10:56:28 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 11:00:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-17 11:00:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-17 11:00:00 WARN  [MessageBroker-3] s.c.ContributionPointServiceImpl - []
+2019-Dec-17 11:01:16 WARN  [http-nio-8080-exec-6] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-17 11:01:16 ERROR [http-nio-8080-exec-1] w.f.w.a.PlanController - Incorrect result size: expected 1, actual 0
+2019-Dec-17 11:01:16 WARN  [http-nio-8080-exec-9] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-17 11:05:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-17 11:05:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-17 11:08:37 WARN  [http-nio-8080-exec-9] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-17 11:10:00 WARN  [MessageBroker-3] s.t.TripServiceImpl - []
+2019-Dec-17 11:10:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-17 11:10:08 WARN  [http-nio-8080-exec-1] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-17 11:10:08 WARN  [http-nio-8080-exec-6] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-17 11:11:00 WARN  [http-nio-8080-exec-10] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-17 11:11:00 WARN  [http-nio-8080-exec-5] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-17 11:15:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-17 11:15:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-17 11:20:00 WARN  [MessageBroker-2] s.t.TripServiceImpl - []
+2019-Dec-17 11:20:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-17 11:25:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-17 11:25:00 WARN  [MessageBroker-1] s.t.TripServiceImpl - []
+2019-Dec-17 11:25:33 ERROR [http-nio-8080-exec-7] w.f.w.a.PlanController - Incorrect result size: expected 1, actual 0
+2019-Dec-17 11:25:36 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 11:25:36 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 11:27:56 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 11:27:56 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-17 11:30:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []
+2019-Dec-17 11:30:00 WARN  [MessageBroker-4] s.t.TripServiceImpl - []

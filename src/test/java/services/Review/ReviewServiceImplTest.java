@@ -111,4 +111,11 @@ public class ReviewServiceImplTest {
         jdbcTemplate.update("insert into travelerreviews values (2,2,1,now(),'abc',true)");
         Assert.assertEquals(2, reviewService.findReviewOfATraveler(2, 0).size());
     }
+
+    @Test
+    public void findTravelerReviewById() throws Exception {
+        jdbcTemplate.update("insert into travelerreviews values (1,2,1,now(),'abc',true)");
+        jdbcTemplate.update("insert into travelerreviews values (2,2,1,now(),'abc',true)");
+        Assert.assertEquals("abc", reviewService.findTravelerReviewById(1).getReview());
+    }
 }
