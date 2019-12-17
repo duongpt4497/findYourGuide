@@ -174,7 +174,7 @@ public class PaypalControllerUnitTest {
         when(orderTripService.findTripById(0)).thenReturn(order);
         when(paypalService.executePayment("1", "1")).thenReturn(payment);
         when(accountRepository.isMailVerified(order.getTraveler_id())).thenReturn(true);
-        ResponseEntity<Object> result = paypalController.successPay("1", "1", 1, 1, 1, 1, "2019-01-01T01:01:01", 1.2);
+        ResponseEntity<Object> result = paypalController.successPay("1", "1", 1, 1, 1, 1, "2019-01-01T01:01:01", 1.2, 1);
         Assert.assertEquals(303,result.getStatusCodeValue());
     }
 
@@ -190,7 +190,7 @@ public class PaypalControllerUnitTest {
         payment.setTransactions(Collections.singletonList(transaction));
         payment.setState("denied");
         when(paypalService.executePayment("1", "1")).thenReturn(payment);
-        ResponseEntity<Object> result = paypalController.successPay("1", "1", 1, 1, 1, 1, "2019-01-01T01:01:01", 1.2);
+        ResponseEntity<Object> result = paypalController.successPay("1", "1", 1, 1, 1, 1, "2019-01-01T01:01:01", 1.2, 1);
         Assert.assertEquals(303,result.getStatusCodeValue());
     }
 
@@ -207,7 +207,7 @@ public class PaypalControllerUnitTest {
         payment.setTransactions(Collections.singletonList(transaction));
         payment.setState("denied");
         when(paypalService.executePayment("1", "1")).thenThrow(PayPalRESTException.class);
-        ResponseEntity<Object> result = paypalController.successPay("1", "1", 1, 1, 1, 1, "2019-01-01T01:01:01", 1.2);
+        ResponseEntity<Object> result = paypalController.successPay("1", "1", 1, 1, 1, 1, "2019-01-01T01:01:01", 1.2, 1);
         Assert.assertEquals(303, result.getStatusCodeValue());
     }
 
@@ -229,7 +229,7 @@ public class PaypalControllerUnitTest {
         when(orderTripService.findTripById(0)).thenReturn(order);
         when(paypalService.executePayment("1", "1")).thenReturn(payment);
         ReflectionTestUtils.setField(paypalController, "tripService", null);
-        ResponseEntity<Object> result = paypalController.successPay("1", "1", 1, 1, 1, 1, "2019-01-01T01:01:01", 1.2);
+        ResponseEntity<Object> result = paypalController.successPay("1", "1", 1, 1, 1, 1, "2019-01-01T01:01:01", 1.2, 1);
         Assert.assertEquals(303,result.getStatusCodeValue());
     }
 }

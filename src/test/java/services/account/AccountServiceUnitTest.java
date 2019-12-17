@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import services.Mail.MailService;
 import winter.findGuider.TestDataSourceConfig;
 
@@ -21,11 +22,14 @@ public class AccountServiceUnitTest {
     MailService mailService;
     private JdbcTemplate jdbcTemplate = new JdbcTemplate();
 
+    @Mock
+    PasswordEncoder passwordEncoder;
+
     @Before
     public void init() {
         TestDataSourceConfig config = new TestDataSourceConfig();
         jdbcTemplate.setDataSource(config.setupDatasource());
-        accountService = new AccountRepository(jdbcTemplate, mailService);
+        accountService = new AccountRepository(jdbcTemplate, mailService, passwordEncoder);
         config.cleanTestDb(jdbcTemplate);
         jdbcTemplate.update("insert into account (user_name, password, email ,role, email_verified) " +
                 "values ('Jacky','$2a$10$Tb3mK1p2pCuPvDJUgSOJr.Rupo9isjom9vmmzAppMjtvWfLn/vQcK','Jacky@gmail.com','GUIDER',false)");
