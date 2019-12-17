@@ -69,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         System.out.println("to Simpson");
         auth
                 .inMemoryAuthentication()
-                .withUser("Simpson").password("123@123").roles("ADMIN");
+                .withUser("Simpson").password("0123456789").roles("GUIDER");
         auth.authenticationProvider(authProvide);
         auth.userDetailsService(principalService);
     }

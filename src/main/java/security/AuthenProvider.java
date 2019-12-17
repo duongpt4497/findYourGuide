@@ -60,9 +60,9 @@ public class AuthenProvider implements AuthenticationProvider {
         }
         grantedAuths.add(new SimpleGrantedAuthority(acc.getRole()));
         if (acc != null && acc.getUserName().equals(username) && encoder.matches(password, acc.getPassword())) {
-            if (acc.getRole().equalsIgnoreCase("guider") && userService.canGuiderLogin(acc.getId()) == false) {
-                throw new BadCredentialsException("Authentication failed");
-            }
+//            if (acc.getRole().equalsIgnoreCase("guider") && userService.canGuiderLogin(acc.getId()) == false) {
+//                throw new BadCredentialsException("Authentication failed");
+//            }
             return new UsernamePasswordAuthenticationToken(username, acc.getId(), grantedAuths);
         } else {
             throw new BadCredentialsException("Authentication failed");

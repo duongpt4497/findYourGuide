@@ -119,4 +119,10 @@ public class TravelerServiceImpl implements TravelerService {
         String query = "update traveler set first_name = ?, last_name = ?, phone = ? where traveler_id = ?";
         jdbcTemplate.update(query, traveler.getFirst_name(), traveler.getLast_name(), traveler.getPhone(), traveler.getTraveler_id());
     }
+    
+    @Override
+    public void unlikePost(int traveler_id, int post_id) throws Exception {
+        String query = "DELETE FROM favoritepost WHERE  traveler_id = ? and post_id = ?";
+        jdbcTemplate.update(query, traveler_id, post_id);
+    }
 }

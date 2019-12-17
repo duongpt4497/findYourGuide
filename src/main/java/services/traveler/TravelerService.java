@@ -14,4 +14,6 @@ public interface TravelerService {
     boolean isLackingProfile(long traveler_id) throws Exception;
 
     void updateLackingProfile(Traveler traveler) throws Exception;
+    
+    void unlikePost(int traveler_id, int post_id) throws Exception;
 }

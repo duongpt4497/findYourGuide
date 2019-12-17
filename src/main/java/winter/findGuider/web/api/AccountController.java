@@ -106,8 +106,8 @@ public class AccountController {
 
     @RequestMapping("/logout")
     public ResponseEntity logout(HttpServletResponse response) {
-        response.addHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
-        response.addHeader("Access-Control-Allow-Credentials", "true");
+        response.setHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
+        response.setHeader("Access-Control-Allow-Credentials", "true");
         Cookie sidCookie = new Cookie("token", "");
         sidCookie.setPath("/");
         sidCookie.setHttpOnly(true);
