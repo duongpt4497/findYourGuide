@@ -105,6 +105,16 @@ public class AccountRepository {
         return jdbc.queryForObject(query, new Object[]{guider_id}, boolean.class);
     }
 
+    public boolean isContractExist(long guider_id) {
+        String query = "select count(contract_id) from contract where guider_id = ?";
+        int count = jdbc.queryForObject(query, new Object[]{guider_id}, int.class);
+        if (count == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public int changePassword(String name, String pass) throws Exception {
         String query = "update account set password = ? where user_name = ? ; ";
         return jdbc.update(query, pass, name);

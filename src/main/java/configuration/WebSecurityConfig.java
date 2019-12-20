@@ -20,7 +20,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -46,6 +45,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private PrincipalService principalService;
     @Autowired
     private Principal principal;
+    @Autowired
+    private UserService userService;
 
     @Value("${order.client.root.url}")
     private String URL_ROOT_CLIENT;
@@ -85,9 +86,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         System.out.println(source.toString());
         return source;
     }
-    
-    
-        
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         System.out.println("to http configure");
@@ -100,7 +100,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/location/**").hasAuthority("TRAVELER")
                 .antMatchers("/location/**").permitAll()
                 .antMatchers("/**/*.jpg").permitAll()
-                .antMatchers("/images/**").permitAll()  
+                .antMatchers("/images/**").permitAll()
                 .antMatchers("/account/**").permitAll()
                 .antMatchers("/category/**").permitAll()
                 .antMatchers("/guiderpost/**").permitAll()
@@ -143,7 +143,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthenticationFilter getAuthenticationFilter() {
-        final AuthenticationFilter filter = new AuthenticationFilter(authProvide, tokenHelper);
+        final AuthenticationFilter filter = new AuthenticationFilter(authProvide, tokenHelper, userService);
         filter.setFilterProcessesUrl("/account/login");
         return filter;
     }

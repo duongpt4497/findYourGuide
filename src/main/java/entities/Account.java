@@ -34,6 +34,8 @@ public class Account {
     private boolean status;
     private String email_token;
     private boolean email_verified;
+    private boolean isGuiderActive;
+    private boolean isContractExist;
 
     public Account(long id, String userName, String password, String role, String token, Date expired) {
         this.id = id;
@@ -61,6 +63,14 @@ public class Account {
         this.id = id;
         this.userName = userName;
         this.role = role;
+    }
+
+    public Account(long id, String userName, String role, boolean isGuiderActive, boolean isContractExist) {
+        this.id = id;
+        this.userName = userName;
+        this.role = role;
+        this.isGuiderActive = isGuiderActive;
+        this.isContractExist = isContractExist;
     }
 
     public Account() {
@@ -187,5 +197,21 @@ public class Account {
 
     public void setEmail_verified(boolean email_verified) {
         this.email_verified = email_verified;
+    }
+
+    public boolean isGuiderActive() {
+        return isGuiderActive;
+    }
+
+    public void setGuiderActive(boolean guiderActive) {
+        isGuiderActive = guiderActive;
+    }
+
+    public boolean isContractExist() {
+        return isContractExist;
+    }
+
+    public void setContractExist(boolean contractExist) {
+        isContractExist = contractExist;
     }
 }

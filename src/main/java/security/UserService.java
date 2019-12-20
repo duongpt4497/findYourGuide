@@ -50,9 +50,11 @@ public class UserService {
         this.TokenHelper = tokenService;
         this.mailService = ms;
     }
+
     public PasswordEncoder getEncoder() {
         return passwordEncoder;
     }
+
     //add register user here
     @Transactional
     public Account registerNewUserAccount(Account acc)
@@ -100,5 +102,9 @@ public class UserService {
 
     public boolean canGuiderLogin(long guider_id) {
         return repo.canGuiderLogin(guider_id);
+    }
+
+    public boolean isContractExist(long guider_id) {
+        return repo.isContractExist(guider_id);
     }
 }
