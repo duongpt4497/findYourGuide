@@ -212,14 +212,14 @@ public class PostServiceImpl implements PostService {
     public List<Post> findAllPostWithLocationName(String name, int page) throws Exception {
         List<Post> result = new ArrayList<>();
         name = "'%" + name.toUpperCase() + "%'";
-        String query = "select post.*, name, city, place from post " +
+        String query = "select post.*, name, locations.city, place from post " +
                 "inner join guider on post.guider_id = guider.guider_id " +
                 "inner join category on post.category_id = category.category_id " +
                 "inner join locations on post.location_id = locations.location_id " +
                 "where post.active = true and guider.active = true " +
-                "and (upper(country) like " + name +
-                " or upper(city) like " + name +
-                " or upper(place) like " + name + ")"
+                "and (upper(locations.country) like " + name +
+                " or upper(locations.city) like " + name +
+                " or upper(locations.place) like " + name + ")"
                 + " order by post.post_id limit ? offset ? ;";
         result = jdbcTemplate.query(query, new RowMapper<Post>() {
             @Override
@@ -243,9 +243,9 @@ public class PostServiceImpl implements PostService {
                 "inner join category on post.category_id = category.category_id " +
                 "inner join locations on post.location_id = locations.location_id " +
                 "where post.active = true and guider.active = true " +
-                "and (upper(country) like " + name +
-                " or upper(city) like " + name +
-                " or upper(place) like " + name + ")";
+                "and (upper(locations.country) like " + name +
+                " or upper(locations.city) like " + name +
+                " or upper(locations.place) like " + name + ")";
         double count = jdbcTemplate.queryForObject(query, new Object[]{}, double.class);
         int page = (int) Math.ceil(count / LIMIT);
         return page;
