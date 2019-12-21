@@ -296,7 +296,7 @@ public class PostServiceImpl implements PostService {
         return jdbcTemplate.query("SELECT * FROM post " +
                 "inner join guider on post.guider_id = guider.guider_id " +
                 "where post.active = true and guider.active = true " +
-                "order by rated desc limit 6", new RowMapper<Post>() {
+                "order by post.rated desc limit 6", new RowMapper<Post>() {
             @Override
             public Post mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Post(
