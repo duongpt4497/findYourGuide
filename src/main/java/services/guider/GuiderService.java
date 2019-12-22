@@ -14,6 +14,8 @@ public interface GuiderService {
 
     Contract findGuiderContract(long id) throws Exception;
 
+    List<Contract> getActiveContracts() throws Exception;
+
     long createGuider(Guider newGuider) throws Exception;
 
     long createGuiderContract(Contract newGuiderContract) throws Exception;

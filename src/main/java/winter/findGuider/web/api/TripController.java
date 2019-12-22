@@ -3,7 +3,6 @@ package winter.findGuider.web.api;
 import com.paypal.api.payments.Refund;
 import com.paypal.base.rest.PayPalRESTException;
 import entities.InDayTrip;
-import entities.Notification;
 import entities.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,9 +75,21 @@ public class TripController {
     @RequestMapping("/GetOrderByStatus")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Order>> getOrderByStatus(@RequestParam("role") String role, @RequestParam("id") int id,
-            @RequestParam("status") String status) {
+                                                        @RequestParam("status") String status, @RequestParam("page") long page) {
         try {
-            return new ResponseEntity<>(tripService.findTripByStatus(role, id, status), HttpStatus.OK);
+            return new ResponseEntity<>(tripService.findTripByStatus(role, id, status, page), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/GetOrderByStatusPageCount")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Integer> GetOrderByStatusPageCount(@RequestParam("role") String role, @RequestParam("id") int id,
+                                                             @RequestParam("status") String status) {
+        try {
+            return new ResponseEntity<>(tripService.findTripByStatusPageCount(role, id, status), HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

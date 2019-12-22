@@ -5,32 +5,30 @@
  */
 package entities;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 /**
- *
  * @author dgdbp
  */
-public class AuthenticationImp implements Authentication{
+public class AuthenticationImp implements Authentication {
+
     private Account account;
+
     public AuthenticationImp(Account account) {
         this.account = account;
     }
-    
-    
-    
-    
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-       List<GrantedAuthority> grantedAuths = new ArrayList<>();
-       grantedAuths.add(new SimpleGrantedAuthority(account.getRole()));
-       return grantedAuths;
+        List<GrantedAuthority> grantedAuths = new ArrayList<>();
+        grantedAuths.add(new SimpleGrantedAuthority(account.getRole()));
+        return grantedAuths;
     }
 
     @Override
@@ -46,7 +44,7 @@ public class AuthenticationImp implements Authentication{
     @Override
     public Object getPrincipal() {
         return account.getUserName();
-        
+
     }
 
     @Override
@@ -61,7 +59,7 @@ public class AuthenticationImp implements Authentication{
 
     @Override
     public String getName() {
-        return ""+ account.getId();
+        return "" + account.getId();
     }
-    
+
 }

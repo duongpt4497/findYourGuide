@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import services.Statistic.StatisticService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -34,11 +31,12 @@ public class StatisticController {
 
     @RequestMapping("/completedTrip")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<Statistic>> getStatisticCompletedTrip(HttpServletResponse response) {
+    public ResponseEntity<List<Statistic>> getStatisticCompletedTrip(HttpServletResponse response,
+                                                                     @RequestBody Statistic sta) {
         try {
             response.setHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
             response.setHeader("Access-Control-Allow-Credentials", "true");
-            return new ResponseEntity<>(statisticService.getStatisticCompletedTrip(), HttpStatus.OK);
+            return new ResponseEntity<>(statisticService.getStatisticCompletedTrip(sta.getFrom(), sta.getTo()), HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -47,11 +45,26 @@ public class StatisticController {
 
     @RequestMapping("/totalRevenue")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<Statistic>> getStatisticTotalRevenue(HttpServletResponse response) {
+    public ResponseEntity<List<Statistic>> getStatisticTotalRevenue(HttpServletResponse response,
+                                                                    @RequestBody Statistic sta) {
         try {
             response.setHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
             response.setHeader("Access-Control-Allow-Credentials", "true");
-            return new ResponseEntity<>(statisticService.getStatisticTotalRevenue(), HttpStatus.OK);
+            return new ResponseEntity<>(statisticService.getStatisticTotalRevenue(sta.getFrom(), sta.getTo()), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/GuiderRevenue")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Statistic>> GuiderRevenue(HttpServletResponse response,
+                                                         @RequestBody Statistic sta) {
+        try {
+            response.setHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+            return new ResponseEntity<>(statisticService.getStatisticGuiderRevenue(sta.getFrom(), sta.getTo()), HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

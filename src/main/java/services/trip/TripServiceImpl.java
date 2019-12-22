@@ -33,8 +33,8 @@ public class TripServiceImpl implements TripService {
     private static final String HOUR_TAIL_30 = ":30";
     private static final String HOUR_POSITION_BEFORE = "before";
     private static final String HOUR_POSITION_AFTER = "after";
-
     private final Logger logger = LoggerFactory.getLogger(getClass());
+    private int LIMIT = 5;
     private JdbcTemplate jdbcTemplate;
 
     @Value("${order.buffer}")
@@ -80,22 +80,24 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public List<Order> findTripByStatus(String role, int id, String status) throws Exception {
-        List<Order> result = new ArrayList<>();
-        String query = "";
+    public List<Order> findTripByStatus(String role, int id, String status, long page) throws Exception {
+        List<Order> result;
+        String query;
         if (role.equalsIgnoreCase("guider")) {
             query = "SELECT o.*, p.guider_id, p.title, t.first_name, t.last_name FROM trip as o "
                     + " inner join traveler as t on o.traveler_id = t.traveler_id "
                     + " inner join post as p on p.post_id = o.post_id "
                     + " where p.guider_id = ? and status = ? "
-                    + " order by begin_date ; ";
+
+                    + " order by begin_date limit ? offset ?";
         } else if (role.equalsIgnoreCase("traveler")) {
             query = "SELECT o.*, p.guider_id, p.title, g.first_name, g.last_name "
                     + "FROM trip as o "
                     + "inner join post as p on p.post_id = o.post_id "
                     + "inner join guider as g on p.guider_id = g.guider_id "
                     + "where o.traveler_id = ? and status = ? "
-                    + "order by begin_date ;";
+
+                    + "order by begin_date limit ? offset ?";
         } else {
             throw new Exception("wrong role");
         }
@@ -117,9 +119,29 @@ public class TripServiceImpl implements TripService {
                         rs.getString("title"),
                         rs.getString("first_name") + " " + rs.getString("last_name"));
             }
-        }, id, status);
-        //System.out.println(query + id + status + result.size());
+        }, id, status, LIMIT, page * LIMIT);
         return result;
+    }
+
+    @Override
+    public int findTripByStatusPageCount(String role, int id, String status) throws Exception {
+        String query;
+        if (role.equalsIgnoreCase("guider")) {
+            query = "SELECT count(trip_id) FROM trip as o "
+                    + " inner join traveler as t on o.traveler_id = t.traveler_id "
+                    + " inner join post as p on p.post_id = o.post_id "
+                    + " where p.guider_id = ? and status = ?";
+        } else if (role.equalsIgnoreCase("traveler")) {
+            query = "SELECT count(trip_id) FROM trip as o "
+                    + "inner join post as p on p.post_id = o.post_id "
+                    + "inner join guider as g on p.guider_id = g.guider_id "
+                    + "where o.traveler_id = ? and status = ?";
+        } else {
+            throw new Exception("wrong role");
+        }
+        double count = jdbcTemplate.queryForObject(query, new Object[]{id, status}, double.class);
+        int page = (int) Math.ceil(count / LIMIT);
+        return page;
     }
 
     @Override

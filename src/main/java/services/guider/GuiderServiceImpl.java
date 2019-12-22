@@ -100,6 +100,21 @@ public class GuiderServiceImpl implements GuiderService {
     }
 
     @Override
+    public List<Contract> getActiveContracts() throws Exception {
+        String query = "select * from contract_detail as con_de where con_de.contract_id in (select contract_id from contract)";
+        return jdbcTemplate.query(query, new RowMapper<Contract>() {
+            @Override
+            public Contract mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new Contract(rs.getInt("contract_id"), rs.getInt("guider_id"), rs.getString("name"),
+                        rs.getString("nationality"), rs.getTimestamp("date_of_birth").toLocalDateTime(),
+                        rs.getInt("gender"), rs.getString("hometown"), rs.getString("address"),
+                        rs.getString("identity_card_number"), rs.getTimestamp("card_issued_date").toLocalDateTime(),
+                        rs.getString("card_issued_province"), rs.getString("file_link"));
+            }
+        });
+    }
+
+    @Override
     public long createGuider(Guider newGuider) throws Exception {
         String query = "insert into guider (guider_id,first_name,last_name,date_of_birth,phone,about_me,contribution,city,languages,active,rated,avatar,passion,profile_video)" +
                 "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -180,9 +195,10 @@ public class GuiderServiceImpl implements GuiderService {
         List<Guider> result = new ArrayList<>();
         String query = "select g.* from guider as g "
                 + " inner join account as a on g.guider_id = a.account_id "
-                + " where upper(g.first_name) like '%" + key + "%' "
-                + " or upper(g.last_name) like '%" + key + "%'  or upper(a.user_name) like '%" + key + "%'"
-                + " order by g.guider_id limit ? offset ? ; ";
+                + " where (upper(g.first_name) like '%" + key + "%' "
+                + " or upper(g.last_name) like '%" + key + "%'  or upper(a.user_name) like '%" + key + "%')"
+                + " and g.active = true"
+                + " order by g.guider_id limit ? offset ?";
         result = jdbcTemplate.query(query, new RowMapper<Guider>() {
             public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Guider(rs.getLong("guider_id"), rs.getString("first_name"),
@@ -212,7 +228,7 @@ public class GuiderServiceImpl implements GuiderService {
     @Override
     public List<Guider> getTopGuiderByRate() throws Exception {
         List<Guider> result = new ArrayList<>();
-        String query = "SELECT * FROM guider where active = true order by rated desc limit 6";
+        String query = "SELECT * FROM guider where active = true and guider_id in (select guider_id from post) order by rated desc limit 6";
         result = jdbcTemplate.query(query, new RowMapper<Guider>() {
             public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Guider(rs.getLong("guider_id"), rs.getString("first_name"),
@@ -230,7 +246,7 @@ public class GuiderServiceImpl implements GuiderService {
     @Override
     public List<Guider> getTopGuiderByContribute() throws Exception {
         List<Guider> result = new ArrayList<>();
-        String query = "SELECT * FROM guider where active = true order by contribution desc limit 6";
+        String query = "SELECT * FROM guider where active = true and guider_id in (select guider_id from post) order by contribution desc limit 6";
         result = jdbcTemplate.query(query, new RowMapper<Guider>() {
             public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Guider(rs.getLong("guider_id"), rs.getString("first_name"),

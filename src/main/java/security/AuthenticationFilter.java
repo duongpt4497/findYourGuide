@@ -32,6 +32,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenProvider authenticationManager;
     private TokenHelper TokenHelper;
     private AccountRepository repo;
+    private UserService userService;
 
     @Value("${order.client.root.url}")
     private String URL_ROOT_CLIENT;
@@ -39,10 +40,11 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     @Value("${order.client.root.url.domain}")
     private String URL_ROOT_CLIENT_DOMAIN;
 
-    public AuthenticationFilter(AuthenProvider authenticationManager, TokenHelper tokenService, AccountRepository repo) {
+    public AuthenticationFilter(AuthenProvider authenticationManager, TokenHelper tokenService, AccountRepository repo, UserService us) {
         this.authenticationManager = authenticationManager;
         this.TokenHelper = tokenService;
         this.repo = repo;
+        this.userService = us;
 
     }
 
@@ -76,8 +78,15 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         refresh.setDomain(URL_ROOT_CLIENT_DOMAIN);
         response.addCookie(refresh);
         //System.out.println(authResult.getCredentials().toString());
-        Account res = new Account(Integer.parseInt(authResult.getCredentials().toString())
-                , authResult.getPrincipal().toString(), authResult.getAuthorities().toArray()[0].toString());
+        int account_id = Integer.parseInt(authResult.getCredentials().toString());
+        String role = authResult.getAuthorities().toArray()[0].toString();
+        boolean isGuiderActive = false;
+        boolean isContractExist = false;
+        if (role.equalsIgnoreCase("guider")) {
+            isGuiderActive = userService.canGuiderLogin(account_id);
+            isContractExist = userService.isContractExist(account_id);
+        }
+        Account res = new Account(account_id, authResult.getPrincipal().toString(), role, isGuiderActive, isContractExist);
         response.getWriter().write(new Gson().toJson(res));
         //response.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
     }
@@ -88,34 +97,3 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         super.setAuthenticationManager(authenticationManager);
     }
 }
-
-// String body = null;
-//            StringBuilder stringBuilder = new StringBuilder();
-//            BufferedReader bufferedReader = null;
-//
-//            try {
-//                InputStream inputStream = request.getInputStream();
-//                if (inputStream != null) {
-//                    bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-//                    char[] charBuffer = new char[128];
-//                    int bytesRead = -1;
-//                    while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
-//                         System.out.println(stringBuilder.toString());
-//                        stringBuilder.append(charBuffer, 0, bytesRead);
-//                    }
-//                } else {
-//                    stringBuilder.append("how?");
-//                }
-//            } catch (IOException ex) {
-//                throw ex;
-//            } finally {
-//                if (bufferedReader != null) {
-//                    try {
-//                        bufferedReader.close();
-//                    } catch (IOException ex) {
-//                        throw ex;
-//                    }
-//                }
-//            }
-//
-//            body = stringBuilder.toString();

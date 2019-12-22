@@ -162,6 +162,17 @@ public class GuiderController {
         }
     }
 
+    @RequestMapping("/getActiveContract")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Contract>> getActiveContract() {
+        try {
+            return new ResponseEntity<>(guiderService.getActiveContracts(), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
     @RequestMapping("/AcceptContract")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Boolean> acceptContract(@RequestParam("guider_id") long guider_id, @RequestParam("contract_id") long contract_id) {
@@ -250,5 +261,5 @@ public class GuiderController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
-  
+
 }

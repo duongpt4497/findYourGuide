@@ -1,6 +1,9 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+
+import java.time.LocalDate;
 
 @Data
 public class Statistic {
@@ -8,8 +11,21 @@ public class Statistic {
     private long month;
     private int trips;
     private double revenue;
+    @JsonFormat(pattern = "MM/dd/yyyy")
+    private LocalDate from;
+    @JsonFormat(pattern = "MM/dd/yyyy")
+    private LocalDate to;
 
     public Statistic() {
+    }
+
+    public Statistic(long year, long month, int trips, double revenue, LocalDate from, LocalDate to) {
+        this.year = year;
+        this.month = month;
+        this.trips = trips;
+        this.revenue = revenue;
+        this.from = from;
+        this.to = to;
     }
 
     public Statistic(long year, long month, int trips) {
@@ -54,5 +70,21 @@ public class Statistic {
 
     public void setRevenue(double revenue) {
         this.revenue = revenue;
+    }
+
+    public LocalDate getFrom() {
+        return from;
+    }
+
+    public void setFrom(LocalDate from) {
+        this.from = from;
+    }
+
+    public LocalDate getTo() {
+        return to;
+    }
+
+    public void setTo(LocalDate to) {
+        this.to = to;
     }
 }

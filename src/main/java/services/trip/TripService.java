@@ -15,7 +15,9 @@ public interface TripService {
 
     Order findTripById(long trip_id) throws Exception;
 
-    List<Order> findTripByStatus(String role, int id, String status) throws Exception;
+    List<Order> findTripByStatus(String role, int id, String status, long page) throws Exception;
+
+    int findTripByStatusPageCount(String role, int id, String status) throws Exception;
 
     boolean acceptTrip(long trip_id) throws Exception;
 

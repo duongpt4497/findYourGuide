@@ -44,8 +44,8 @@ public class GeneralServiceImpl implements GeneralService {
         java.sql.Array intArray = null;
         try {
             Connection conn = jdbcTemplate.getDataSource().getConnection();
-            System.out.println("Schema:  " + conn.getSchema());
             intArray = conn.createArrayOf("text", list.toArray());
+            conn.close();
         } catch (Exception e) {
             logger.error("createSqlArray" + e.getMessage());
         }
