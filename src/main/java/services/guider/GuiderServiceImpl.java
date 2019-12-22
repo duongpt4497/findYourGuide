@@ -100,6 +100,21 @@ public class GuiderServiceImpl implements GuiderService {
     }
 
     @Override
+    public List<Contract> getActiveContracts() throws Exception {
+        String query = "select * from contract_detail as con_de where con_de.contract_id in (select contract_id from contract)";
+        return jdbcTemplate.query(query, new RowMapper<Contract>() {
+            @Override
+            public Contract mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new Contract(rs.getInt("contract_id"), rs.getInt("guider_id"), rs.getString("name"),
+                        rs.getString("nationality"), rs.getTimestamp("date_of_birth").toLocalDateTime(),
+                        rs.getInt("gender"), rs.getString("hometown"), rs.getString("address"),
+                        rs.getString("identity_card_number"), rs.getTimestamp("card_issued_date").toLocalDateTime(),
+                        rs.getString("card_issued_province"), rs.getString("file_link"));
+            }
+        });
+    }
+
+    @Override
     public long createGuider(Guider newGuider) throws Exception {
         String query = "insert into guider (guider_id,first_name,last_name,date_of_birth,phone,about_me,contribution,city,languages,active,rated,avatar,passion,profile_video)" +
                 "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
