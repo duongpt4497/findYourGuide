@@ -88,14 +88,14 @@ public class TripServiceImpl implements TripService {
                     + " inner join traveler as t on o.traveler_id = t.traveler_id "
                     + " inner join post as p on p.post_id = o.post_id "
                     + " where p.guider_id = ? and status = ? "
-                    + " order by begin_date desc ";
+                    + " order by begin_date ; ";
         } else if (role.equalsIgnoreCase("traveler")) {
             query = "SELECT o.*, p.guider_id, p.title, g.first_name, g.last_name "
                     + "FROM trip as o "
                     + "inner join post as p on p.post_id = o.post_id "
                     + "inner join guider as g on p.guider_id = g.guider_id "
                     + "where o.traveler_id = ? and status = ? "
-                    + "order by begin_date desc";
+                    + "order by begin_date ;";
         } else {
             throw new Exception("wrong role");
         }
@@ -468,8 +468,8 @@ public class TripServiceImpl implements TripService {
         return result;
     }
 
-    //@Scheduled(cron = "0 0 * * * *")
-    @Scheduled(cron = "0 0/5 * 1/1 * *")
+    @Scheduled(cron = "0 0 0/1 1/1 * *")
+    //@Scheduled(cron = "0 0/5 * 1/1 * *")
     public void cancelTripFilter() throws PayPalRESTException {
         List<Map<String, Object>> lo = new ArrayList<>();
         String query = "select trip_id, transaction_id from trip "
@@ -491,8 +491,8 @@ public class TripServiceImpl implements TripService {
         }
     }
 
-    //@Scheduled(cron = "0 0 * * * *")
-    @Scheduled(cron = "0 0/5 * 1/1 * *")
+    @Scheduled(cron = "0 0 0/1 1/1 * *")
+    //@Scheduled(cron = "0 0/5 * 1/1 * *")
     public void finishTripFilter() {
         List<Map<String, Object>> lo = new ArrayList<>();
         String query = "select trip_id from trip "

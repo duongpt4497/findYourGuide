@@ -22,7 +22,10 @@ import services.trip.TripService;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -45,8 +48,8 @@ public class TripController {
 
     @Autowired
     public TripController(TripService os, PaypalService ps, MailService ms,
-                          ContributionPointService cps, GuiderService gs,
-                          AccountRepository ar, PostService postService, WebSocketNotificationController wsc) {
+            ContributionPointService cps, GuiderService gs,
+            AccountRepository ar, PostService postService, WebSocketNotificationController wsc) {
         this.tripService = os;
         this.paypalService = ps;
         this.mailService = ms;
@@ -73,7 +76,7 @@ public class TripController {
     @RequestMapping("/GetOrderByStatus")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Order>> getOrderByStatus(@RequestParam("role") String role, @RequestParam("id") int id,
-                                                        @RequestParam("status") String status) {
+            @RequestParam("status") String status) {
         try {
             return new ResponseEntity<>(tripService.findTripByStatus(role, id, status), HttpStatus.OK);
         } catch (Exception e) {
@@ -300,7 +303,7 @@ public class TripController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Boolean> checkTime(@RequestBody Order order) {
         try {
-            System.out.println(order.getGuider_id()+""+order.getBegin_date()+order.getFinish_date());
+            System.out.println(order.getGuider_id() + "" + order.getBegin_date() + order.getFinish_date());
             int count = tripService.checkAvailabilityOfTrip(order);
             System.out.println("dup " + count);
             if (count > 0) {
@@ -420,29 +423,48 @@ public class TripController {
 
     @RequestMapping("/GetPossibleDayInMonth/{guider_id}/{duration}")
     public ResponseEntity<List<Long>> GetPossibleDayInMonth(@PathVariable("guider_id") int id,
-                                                            @PathVariable("duration") long duration, @RequestBody Date order) {
+            @PathVariable("duration") long duration, @RequestBody Date order) {
         List<Long> ll = new ArrayList();
         //System.out.println("duration: "+ duration * 60 * 60 * 1000 );
-        duration = (long) Math.ceil(duration * 60 * 60 * 1000 * 1.3);
+        long exact = (long) Math.ceil(duration * 60 * 60 * 1000);
+        long buffer = (long) Math.ceil(duration * 60 * 60 * 1000 * 0.3);
         //System.out.println("estimate: " + duration);
         try {
+            //get begin  day
             Calendar cal = Calendar.getInstance();
             cal.setTime(order);
             cal.set(Calendar.HOUR_OF_DAY, 0); // ! clear would not reset the hour of day !
             cal.clear(Calendar.MINUTE);
             cal.clear(Calendar.SECOND);
             cal.clear(Calendar.MILLISECOND);
+            if ((cal.get(Calendar.MONTH) == 0)) {
+                cal.set(Calendar.MONTH, 11);
+                cal.set(Calendar.YEAR, cal.get(Calendar.YEAR)-1);
+            } else {
+                cal.set(Calendar.MONTH, cal.get(Calendar.MONTH) - 1);
+            }
             cal.set(Calendar.DAY_OF_MONTH, 1);
-            //Date start = cal.getTime();
-            Date start = new Date();
+            Date start = cal.getTime();
+            //get finish
+            cal.setTime(order);
+            cal.set(Calendar.HOUR_OF_DAY, 0); // ! clear would not reset the hour of day !
+            cal.clear(Calendar.MINUTE);
+            cal.clear(Calendar.SECOND);
+            cal.clear(Calendar.MILLISECOND);
+            if ((cal.get(Calendar.MONTH) == 11)) {
+                cal.set(Calendar.MONTH, 0);
+                cal.set(Calendar.YEAR, cal.get(Calendar.YEAR)+1);
+            } else {
+                cal.set(Calendar.MONTH, cal.get(Calendar.MONTH) + 1);
+            }
             cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
             Date end = cal.getTime();
-            
+
             List<Order> lo = tripService.getTripByWeek(id, start, end);
             System.out.println("trips: " + lo.size());
             List<java.util.Map.Entry<Long, Long>> avaiDuration = new ArrayList();
-//            System.out.println("Start of this month:       " + start);
-//            System.out.println("End of this month:       " + end);
+            System.out.println("Start of this month:       " + start);
+            System.out.println("End of this month:       " + end);
             avaiDuration.add(new AbstractMap.SimpleEntry<>(new Long(start.getTime()), new Long(end.getTime())));
             //lo already order by begin_date
             //remove occupied period
@@ -451,8 +473,13 @@ public class TripController {
                 long startPoint = entry.getKey().longValue();
                 long endPoint = entry.getValue().longValue();
                 avaiDuration.remove(entry);
-                long orderStart = Timestamp.valueOf(o.getBegin_date()).getTime();
-                long orderFinish = Timestamp.valueOf(o.getFinish_date()).getTime();
+                long orderStart = Date.from(o.getBegin_date().atZone(ZoneId.of("UTC"))
+                        .toInstant()).getTime() - buffer - exact;
+                long orderFinish = Date.from(o.getFinish_date().atZone(ZoneId.of("UTC"))
+                        .toInstant()).getTime() + buffer;
+                //long orderFinish = Timestamp.valueOf(o.getFinish_date()).getTime() + buffer;
+                //System.out.println("start Order:" + o.getBegin_date());
+                //System.out.println("end Order:" + o.getFinish_date());
                 avaiDuration.add(new AbstractMap.SimpleEntry<>(
                         startPoint,
                         (startPoint < orderStart) ? orderStart : startPoint));
@@ -465,12 +492,12 @@ public class TripController {
             //get date from those perid
             for (java.util.Map.Entry<Long, Long> entry : avaiDuration) {
                 long startPoint = entry.getKey().longValue();
-                System.out.println("start Date:" + new Date(startPoint));
+                System.out.println("start Date:" + Timestamp.valueOf(LocalDateTime.ofInstant(Instant.ofEpochMilli(startPoint), ZoneOffset.UTC)));
                 long endPoint = entry.getValue().longValue();
-                System.out.println("end Date:" + new Date(endPoint));
-                if ((endPoint - startPoint) > duration) {
-                    for (long i = startPoint / 86400000; i <= endPoint / 86400000; i++) {
-                        System.out.println("add Date:" + new Date(i * 86400000));
+                System.out.println("end Date:" + Timestamp.valueOf(LocalDateTime.ofInstant(Instant.ofEpochMilli(endPoint), ZoneOffset.UTC)));
+                if ((endPoint - startPoint) > 30 * 60) {
+                    for (long i = (startPoint / 86400000); i <= endPoint / 86400000; i++) {
+                        //System.out.println("add Date:" + Timestamp.valueOf(LocalDateTime.ofInstant(Instant.ofEpochMilli((i * 86400000)), ZoneOffset.UTC)));
                         ll.add(new Long(i * 86400000));
                     }
                 }

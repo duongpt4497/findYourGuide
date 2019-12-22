@@ -27,6 +27,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import security.*;
 
 import java.util.Arrays;
+import services.account.AccountRepository;
 
 /**
  * @author dgdbp
@@ -35,8 +36,8 @@ import java.util.Arrays;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-
+    @Autowired
+    private AccountRepository repo;
     @Autowired
     TokenHelper tokenHelper;
     private PrincipalService userDetail;
@@ -143,7 +144,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthenticationFilter getAuthenticationFilter() {
-        final AuthenticationFilter filter = new AuthenticationFilter(authProvide, tokenHelper);
+        final AuthenticationFilter filter = new AuthenticationFilter(authProvide, tokenHelper, repo);
         filter.setFilterProcessesUrl("/account/login");
         return filter;
     }

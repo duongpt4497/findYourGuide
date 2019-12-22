@@ -49,7 +49,7 @@ public class AuthenProvider implements AuthenticationProvider {
         System.out.println("to AuthProvider");
         String username = authentication.getPrincipal().toString();
         String password = authentication.getCredentials().toString();
-
+        System.out.println("role " + authentication.getAuthorities().toString());
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
         Account acc = null;
         try {

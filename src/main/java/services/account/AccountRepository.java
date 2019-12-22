@@ -216,4 +216,13 @@ public class AccountRepository {
         }
         return salt.toString();
     }
+    
+    
+    public String getEmailToken(String userName) {
+        return jdbc.queryForObject("select email_token from account where user_name = ? ; ", new RowMapper<String>() {
+            @Override
+            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return rs.getString("email_token");}
+        },userName);
+    }
 }

@@ -125,4 +125,10 @@ public class TravelerServiceImpl implements TravelerService {
         String query = "DELETE FROM favoritepost WHERE  traveler_id = ? and post_id = ?";
         jdbcTemplate.update(query, traveler_id, post_id);
     }
+    
+    @Override
+    public Object isSaved(int traveler_id, int post_id) throws Exception {
+        String query = "SELECT * FROM favoritepost WHERE  traveler_id = ? and post_id = ?";
+        return jdbcTemplate.queryForMap(query, traveler_id, post_id);
+    }
 }

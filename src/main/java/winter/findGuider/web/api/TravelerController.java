@@ -106,4 +106,16 @@ public class TravelerController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+    
+    @RequestMapping("/saved")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Boolean> isSaved(@RequestParam("traveler_id") int traveler_id, @RequestParam("post_id") int post_id) {
+        try {
+            travelerService.isSaved(traveler_id, post_id);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 }

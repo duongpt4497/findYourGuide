@@ -16,4 +16,6 @@ public interface TravelerService {
     void updateLackingProfile(Traveler traveler) throws Exception;
     
     void unlikePost(int traveler_id, int post_id) throws Exception;
+    
+    public Object isSaved(int traveler_id, int post_id) throws Exception;
 }

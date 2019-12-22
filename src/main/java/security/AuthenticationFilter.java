@@ -22,6 +22,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import services.account.AccountRepository;
 
 /**
  * @author dgdbp
@@ -30,6 +31,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
     private AuthenProvider authenticationManager;
     private TokenHelper TokenHelper;
+    private AccountRepository repo;
 
     @Value("${order.client.root.url}")
     private String URL_ROOT_CLIENT;
@@ -37,9 +39,10 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     @Value("${order.client.root.url.domain}")
     private String URL_ROOT_CLIENT_DOMAIN;
 
-    public AuthenticationFilter(AuthenProvider authenticationManager, TokenHelper tokenService) {
+    public AuthenticationFilter(AuthenProvider authenticationManager, TokenHelper tokenService, AccountRepository repo) {
         this.authenticationManager = authenticationManager;
         this.TokenHelper = tokenService;
+        this.repo = repo;
 
     }
 
@@ -61,10 +64,17 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         response.setStatus(HttpServletResponse.SC_OK);
         Cookie sidCookie = new Cookie("token", token);
         sidCookie.setPath("/");
-//            sidCookie.setSecure(true);
+        //sidCookie.setSecure(true);
         sidCookie.setHttpOnly(true);
         sidCookie.setDomain(URL_ROOT_CLIENT_DOMAIN);
         response.addCookie(sidCookie);
+        String refreshToken = repo.getEmailToken(authResult.getPrincipal().toString());
+        Cookie refresh = new Cookie("refresh", refreshToken);
+        refresh.setPath("/");
+        //sidCookie.setSecure(true);
+        refresh.setHttpOnly(true);
+        refresh.setDomain(URL_ROOT_CLIENT_DOMAIN);
+        response.addCookie(refresh);
         //System.out.println(authResult.getCredentials().toString());
         Account res = new Account(Integer.parseInt(authResult.getCredentials().toString())
                 , authResult.getPrincipal().toString(), authResult.getAuthorities().toArray()[0].toString());

@@ -25,6 +25,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 import java.util.Date;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import security.TokenHelper;
 
 /**
  * @author dgdbp
@@ -39,7 +41,7 @@ public class AccountController {
     private AccountRepository repo;
     private AuthenProvider auth;
     private MailService mailService;
-
+    private TokenHelper tokenService;
     @Value("${order.server.root.url}")
     private String URL_ROOT_SERVER;
     @Value("${order.client.root.url}")
@@ -48,18 +50,19 @@ public class AccountController {
     private String URL_ROOT_CLIENT_DOMAIN;
 
     @Autowired
-    public AccountController(AccountRepository repo, UserService userService, AuthenProvider auth, MailService ms) {
+    public AccountController(AccountRepository repo, UserService userService, AuthenProvider auth, MailService ms, TokenHelper tokenService) {
         this.userService = userService;
         this.repo = repo;
         this.auth = auth;
         this.mailService = ms;
+        this.tokenService = tokenService;
     }
 
     @PostMapping(path = "change", consumes = "application/json")
     public ResponseEntity<String> changePassword(@RequestBody Account acc) {
         Account model = null;
         try {
-            
+
             model = repo.findAccountByName(
                     SecurityContextHolder.getContext().getAuthentication().getName());
 
@@ -87,11 +90,6 @@ public class AccountController {
         try {
             //System.out.println(acc.getPassword() + "/" + acc.getUserName() + "/" + acc.getRole());
             registered = userService.registerNewUserAccount(acc);
-//            Cookie sidCookie = new Cookie("token", registered.getToken());
-//            sidCookie.setPath("/");
-//            sidCookie.setHttpOnly(true);
-//            sidCookie.setDomain(URL_ROOT_CLIENT_DOMAIN);
-//            response.addCookie(sidCookie);
             registered.setPassword("");
             registered.setToken("");
         } catch (Exception e) {
@@ -109,12 +107,19 @@ public class AccountController {
     public ResponseEntity logout(HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
         response.setHeader("Access-Control-Allow-Credentials", "true");
-        Cookie sidCookie = new Cookie("token", ""); 
+        Cookie sidCookie = new Cookie("token", "");
         sidCookie.setPath("/");
         sidCookie.setHttpOnly(true);
         sidCookie.setDomain(URL_ROOT_CLIENT_DOMAIN);
         sidCookie.setMaxAge(0);
         response.addCookie(sidCookie);
+        Cookie refresh = new Cookie("refresh", "");
+        refresh.setPath("/");
+        //sidCookie.setSecure(true);
+        refresh.setHttpOnly(true);
+        refresh.setDomain(URL_ROOT_CLIENT_DOMAIN);
+        refresh.setMaxAge(0);
+        response.addCookie(refresh);
         return new ResponseEntity("bye", HttpStatus.OK);
     }
 
@@ -162,7 +167,7 @@ public class AccountController {
     @RequestMapping("/resendEmailConfirmation")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Boolean> resendEmailConfirmation(@RequestParam("account_id") long account_id,
-                                                           HttpServletResponse response) {
+            HttpServletResponse response) {
         try {
             response.setHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
             response.setHeader("Access-Control-Allow-Credentials", "true");
@@ -182,7 +187,7 @@ public class AccountController {
     @RequestMapping("/forgotPasswordConfirm")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> forgotPasswordConfirm(@RequestParam("username") String username,
-                                                        HttpServletResponse response) {
+            HttpServletResponse response) {
         try {
             response.setHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
             response.setHeader("Access-Control-Allow-Credentials", "true");
@@ -207,5 +212,31 @@ public class AccountController {
             logger.error(e.getMessage());
             return new ResponseEntity(null, HttpStatus.NOT_FOUND);
         }
+    }
+
+    @RequestMapping("/refresh")
+    public ResponseEntity refresh(HttpServletRequest request, HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        String authToken = tokenService.resolveToken(request);
+
+        //logger.warn("AuthToken: " +authToken);
+        if (authToken != null) {
+            // get username from token
+            String username = tokenService.getUsername(authToken);
+            String token = tokenService.createToken(username);
+            //logger.warn("UserName: "+username);
+            if (username != null) {
+                Cookie sidCookie = new Cookie("token", token);
+                sidCookie.setPath("/");
+                sidCookie.setHttpOnly(true);
+                sidCookie.setDomain(URL_ROOT_CLIENT_DOMAIN);    
+                response.addCookie(sidCookie);
+            } else {
+                logger.error("Something is wrong with Token.");
+            }
+        }
+
+        return new ResponseEntity("goon", HttpStatus.OK);
     }
 }
