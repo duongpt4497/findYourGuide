@@ -195,9 +195,11 @@ public class GuiderServiceImpl implements GuiderService {
         List<Guider> result = new ArrayList<>();
         String query = "select g.* from guider as g "
                 + " inner join account as a on g.guider_id = a.account_id "
-                + " where upper(g.first_name) like '%" + key + "%' "
-                + " or upper(g.last_name) like '%" + key + "%'  or upper(a.user_name) like '%" + key + "%'"
-                + " order by g.guider_id limit ? offset ? ; ";
+                + " where (upper(g.first_name) like '%" + key + "%' "
+                + " or upper(g.last_name) like '%" + key + "%'  or upper(a.user_name) like '%" + key + "%')"
+                + " and g.guider_id in (select distinct guider_id from post)"
+                + " and g.active = true"
+                + " order by g.guider_id limit ? offset ?";
         result = jdbcTemplate.query(query, new RowMapper<Guider>() {
             public Guider mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Guider(rs.getLong("guider_id"), rs.getString("first_name"),
