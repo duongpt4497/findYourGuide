@@ -33,7 +33,7 @@ public class GuiderServiceImpl implements GuiderService {
     private String URL_ROOT_SERVER;
     private JdbcTemplate jdbcTemplate;
     private GeneralService generalService;
-    private int LIMIT = 10;
+    private int LIMIT = 9;
 
     @Autowired
     public GuiderServiceImpl(JdbcTemplate jdbcTemplate, GeneralService generalService) {
