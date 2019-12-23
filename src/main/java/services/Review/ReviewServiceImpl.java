@@ -59,7 +59,7 @@ public class ReviewServiceImpl implements ReviewService {
                 "inner join traveler on trip.traveler_id = traveler.traveler_id " +
                 "inner join account on trip.traveler_id = account.account_id " +
                 "where trip.post_id = ? and visible = true " +
-                "limit ? offset ?";
+                "order by review.post_date limit ? offset ?";
         return jdbcTemplate.query(query, new RowMapper<Review>() {
             public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Review(rs.getLong("trip_id"), rs.getLong("rated"),
