@@ -514,7 +514,7 @@ public class TripServiceImpl implements TripService {
         }
     }
 
-    @Scheduled(cron = "0 0 0 1/1 * *")
+    @Scheduled(cron = "0 0 0 * * *")
     //@Scheduled(cron = "0 0/5 * 1/1 * *")
     public void finishTripFilter() {
         List<Map<String, Object>> lo = new ArrayList<>();
