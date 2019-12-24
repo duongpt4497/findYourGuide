@@ -3,6 +3,7 @@ package winter.findGuider.web.api;
 import com.paypal.api.payments.Refund;
 import com.paypal.base.rest.PayPalRESTException;
 import entities.InDayTrip;
+import entities.Notification;
 import entities.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,8 +48,8 @@ public class TripController {
 
     @Autowired
     public TripController(TripService os, PaypalService ps, MailService ms,
-            ContributionPointService cps, GuiderService gs,
-            AccountRepository ar, PostService postService, WebSocketNotificationController wsc) {
+                          ContributionPointService cps, GuiderService gs,
+                          AccountRepository ar, PostService postService, WebSocketNotificationController wsc) {
         this.tripService = os;
         this.paypalService = ps;
         this.mailService = ms;
@@ -151,19 +152,19 @@ public class TripController {
                 return new ResponseEntity<>("Refund fail", HttpStatus.OK);
             }
 
-            // TODO notification
-//            SimpleDateFormat formatter2nd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//            Date current = formatter2nd.parse(formatter2nd.format(new Date()));
-//            String traveler_username = accountRepository.findAccountNameByAccountId(cancelOrder.getTraveler_id());
-//            String guider_username = accountRepository.findAccountNameByAccountId(cancelOrder.getGuider_id());
-//            Notification notification = new Notification();
-//            notification.setUser(traveler_username);
-//            notification.setReceiver(guider_username);
-//            notification.setType("Notification");
-//            notification.setSeen(false);
-//            notification.setDateReceived(current);
-//            notification.setContent("The order on tour " + postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() + " was canceled by traveler " + traveler_username);
-//            webSocketNotificationController.sendMessage(notification);
+            // send notification
+            SimpleDateFormat formatter2nd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date current = formatter2nd.parse(formatter2nd.format(new Date()));
+            String traveler_username = accountRepository.findAccountNameByAccountId(cancelOrder.getTraveler_id());
+            String guider_username = accountRepository.findAccountNameByAccountId(cancelOrder.getGuider_id());
+            Notification notification = new Notification();
+            notification.setUser(traveler_username);
+            notification.setReceiver(guider_username);
+            notification.setType("Notification");
+            notification.setSeen(false);
+            notification.setDateReceived(current);
+            notification.setContent("The order on tour " + postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() + " was canceled by traveler " + traveler_username);
+            webSocketNotificationController.sendMessage(notification);
             return new ResponseEntity<>("Cancel Success", HttpStatus.OK);
         } catch (PayPalRESTException e) {
             try {
@@ -210,19 +211,19 @@ public class TripController {
                     return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
                 }
             }
-            // TODO notification
-//            SimpleDateFormat formatter2nd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//            Date current = formatter2nd.parse(formatter2nd.format(new Date()));
-//            String traveler_username = accountRepository.findAccountNameByAccountId(cancelOrder.getTraveler_id());
-//            String guider_username = accountRepository.findAccountNameByAccountId(cancelOrder.getGuider_id());
-//            Notification notification = new Notification();
-//            notification.setUser(traveler_username);
-//            notification.setReceiver(guider_username);
-//            notification.setType("Notification");
-//            notification.setSeen(false);
-//            notification.setDateReceived(current);
-//            notification.setContent("The order on tour " + postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() + " was canceled by traveler " + traveler_username);
-//            webSocketNotificationController.sendMessage(notification);
+            // send notification
+            SimpleDateFormat formatter2nd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date current = formatter2nd.parse(formatter2nd.format(new Date()));
+            String traveler_username = accountRepository.findAccountNameByAccountId(cancelOrder.getTraveler_id());
+            String guider_username = accountRepository.findAccountNameByAccountId(cancelOrder.getGuider_id());
+            Notification notification = new Notification();
+            notification.setUser(traveler_username);
+            notification.setReceiver(guider_username);
+            notification.setType("Notification");
+            notification.setSeen(false);
+            notification.setDateReceived(current);
+            notification.setContent("The order on tour " + postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() + " was canceled by traveler " + traveler_username);
+            webSocketNotificationController.sendMessage(notification);
             return new ResponseEntity<>("Cancel Success", HttpStatus.OK);
         } catch (PayPalRESTException e) {
             try {
@@ -273,19 +274,19 @@ public class TripController {
                     return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
                 }
             }
-            // TODO notification
-//            SimpleDateFormat formatter2nd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//            Date current = formatter2nd.parse(formatter2nd.format(new Date()));
-//            String traveler_username= accountRepository.findAccountNameByAccountId(cancelOrder.getTraveler_id());
-//            String guider_username = accountRepository.findAccountNameByAccountId(cancelOrder.getGuider_id());
-//            Notification notification = new Notification();
-//            notification.setUser(guider_username);
-//            notification.setReceiver(traveler_username);
-//            notification.setType("Notification");
-//            notification.setSeen(false);
-//            notification.setDateReceived(current);
-//            notification.setContent("Your order on tour "+ postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() +" of guider "+guider_username+ " was canceled");
-//            webSocketNotificationController.sendMessage(notification);
+            // send notification
+            SimpleDateFormat formatter2nd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date current = formatter2nd.parse(formatter2nd.format(new Date()));
+            String traveler_username = accountRepository.findAccountNameByAccountId(cancelOrder.getTraveler_id());
+            String guider_username = accountRepository.findAccountNameByAccountId(cancelOrder.getGuider_id());
+            Notification notification = new Notification();
+            notification.setUser(guider_username);
+            notification.setReceiver(traveler_username);
+            notification.setType("Notification");
+            notification.setSeen(false);
+            notification.setDateReceived(current);
+            notification.setContent("Your order on tour " + postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() + " of guider " + guider_username + " was canceled");
+            webSocketNotificationController.sendMessage(notification);
 
             Order order = tripService.findTripById(trip_id);
             boolean isMailVerified = accountRepository.isMailVerified(order.getTraveler_id());
@@ -340,8 +341,9 @@ public class TripController {
             }
             boolean result = tripService.acceptTrip(orderId);
             if (result) {
-                // TODO notification
                 Order order = tripService.findTripById(orderId);
+
+                // send mail
                 boolean isMailVerified = accountRepository.isMailVerified(order.getTraveler_id());
                 if (isMailVerified) {
                     String email = accountRepository.getEmail(order.getTraveler_id());
@@ -349,18 +351,19 @@ public class TripController {
                     mailService.sendMail(email, "TravelWLocal Tour Accepted", content);
                 }
 
-//                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//                Date current = formatter.parse(formatter.format(new Date()));
-//                String traveler_username= accountRepository.findAccountNameByAccountId(order.getTraveler_id());
-//                String guider_username = accountRepository.findAccountNameByAccountId(order.getGuider_id());
-//                Notification notification = new Notification();
-//                notification.setUser(guider_username);
-//                notification.setReceiver(traveler_username);
-//                notification.setType("Notification");
-//                notification.setSeen(false);
-//                notification.setDateReceived(current);
-//                notification.setContent("Your order on tour "+ postService.findSpecificPost(order.getPost_id()).getTitle() + " was accepted by guider " +guider_username);
-//                webSocketNotificationController.sendMessage(notification);
+                // send notification
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                Date current = formatter.parse(formatter.format(new Date()));
+                String traveler_username = accountRepository.findAccountNameByAccountId(order.getTraveler_id());
+                String guider_username = accountRepository.findAccountNameByAccountId(order.getGuider_id());
+                Notification notification = new Notification();
+                notification.setUser(guider_username);
+                notification.setReceiver(traveler_username);
+                notification.setType("Notification");
+                notification.setSeen(false);
+                notification.setDateReceived(current);
+                notification.setContent("Your order on tour " + postService.findSpecificPost(order.getPost_id()).getTitle() + " was accepted by guider " + guider_username);
+                webSocketNotificationController.sendMessage(notification);
             }
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
@@ -434,7 +437,7 @@ public class TripController {
 
     @RequestMapping("/GetPossibleDayInMonth/{guider_id}/{duration}")
     public ResponseEntity<List<Long>> GetPossibleDayInMonth(@PathVariable("guider_id") int id,
-            @PathVariable("duration") long duration, @RequestBody Date order) {
+                                                            @PathVariable("duration") long duration, @RequestBody Date order) {
         List<Long> ll = new ArrayList();
         //System.out.println("duration: "+ duration * 60 * 60 * 1000 );
         long exact = (long) Math.ceil(duration * 60 * 60 * 1000);
@@ -450,7 +453,7 @@ public class TripController {
             cal.clear(Calendar.MILLISECOND);
             if ((cal.get(Calendar.MONTH) == 0)) {
                 cal.set(Calendar.MONTH, 11);
-                cal.set(Calendar.YEAR, cal.get(Calendar.YEAR)-1);
+                cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 1);
             } else {
                 cal.set(Calendar.MONTH, cal.get(Calendar.MONTH) - 1);
             }
@@ -464,7 +467,7 @@ public class TripController {
             cal.clear(Calendar.MILLISECOND);
             if ((cal.get(Calendar.MONTH) == 11)) {
                 cal.set(Calendar.MONTH, 0);
-                cal.set(Calendar.YEAR, cal.get(Calendar.YEAR)+1);
+                cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) + 1);
             } else {
                 cal.set(Calendar.MONTH, cal.get(Calendar.MONTH) + 1);
             }
