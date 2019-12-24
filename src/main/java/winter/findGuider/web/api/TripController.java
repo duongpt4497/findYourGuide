@@ -153,8 +153,9 @@ public class TripController {
             }
 
             // send notification
-            SimpleDateFormat formatter2nd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            Date current = formatter2nd.parse(formatter2nd.format(new Date()));
+            DateTimeFormatter formatterForNoti = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+            LocalDateTime current = LocalDateTime.now();
+            current = LocalDateTime.parse(current.format(formatterForNoti));
             String traveler_username = accountRepository.findAccountNameByAccountId(cancelOrder.getTraveler_id());
             String guider_username = accountRepository.findAccountNameByAccountId(cancelOrder.getGuider_id());
             Notification notification = new Notification();
@@ -163,7 +164,7 @@ public class TripController {
             notification.setType("Notification");
             notification.setSeen(false);
             notification.setDateReceived(current);
-            notification.setContent("The order on tour " + postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() + " was canceled by traveler " + traveler_username);
+            notification.setContent("<span style={{fontWeigh:'600'}}>Cancellation</span> The order on tour " + postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() + " was canceled by traveler " + traveler_username);
             webSocketNotificationController.sendMessage(notification);
             return new ResponseEntity<>("Cancel Success", HttpStatus.OK);
         } catch (PayPalRESTException e) {
@@ -212,8 +213,9 @@ public class TripController {
                 }
             }
             // send notification
-            SimpleDateFormat formatter2nd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            Date current = formatter2nd.parse(formatter2nd.format(new Date()));
+            DateTimeFormatter formatterForNoti = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+            LocalDateTime current = LocalDateTime.now();
+            current = LocalDateTime.parse(current.format(formatterForNoti));
             String traveler_username = accountRepository.findAccountNameByAccountId(cancelOrder.getTraveler_id());
             String guider_username = accountRepository.findAccountNameByAccountId(cancelOrder.getGuider_id());
             Notification notification = new Notification();
@@ -222,7 +224,7 @@ public class TripController {
             notification.setType("Notification");
             notification.setSeen(false);
             notification.setDateReceived(current);
-            notification.setContent("The order on tour " + postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() + " was canceled by traveler " + traveler_username);
+            notification.setContent("<span style={{fontWeigh:'600'}}>Cancellation</span> The order on tour " + postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() + " was canceled by traveler " + traveler_username);
             webSocketNotificationController.sendMessage(notification);
             return new ResponseEntity<>("Cancel Success", HttpStatus.OK);
         } catch (PayPalRESTException e) {
@@ -275,8 +277,9 @@ public class TripController {
                 }
             }
             // send notification
-            SimpleDateFormat formatter2nd = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            Date current = formatter2nd.parse(formatter2nd.format(new Date()));
+            DateTimeFormatter formatterForNoti = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+            LocalDateTime current = LocalDateTime.now();
+            current = LocalDateTime.parse(current.format(formatterForNoti));
             String traveler_username = accountRepository.findAccountNameByAccountId(cancelOrder.getTraveler_id());
             String guider_username = accountRepository.findAccountNameByAccountId(cancelOrder.getGuider_id());
             Notification notification = new Notification();
@@ -285,7 +288,7 @@ public class TripController {
             notification.setType("Notification");
             notification.setSeen(false);
             notification.setDateReceived(current);
-            notification.setContent("Your order on tour " + postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() + " of guider " + guider_username + " was canceled");
+            notification.setContent("<span style={{fontWeigh:'600'}}>Cancellation</span> Your order on tour " + postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() + " of guider " + guider_username + " was canceled");
             webSocketNotificationController.sendMessage(notification);
 
             Order order = tripService.findTripById(trip_id);
@@ -352,8 +355,9 @@ public class TripController {
                 }
 
                 // send notification
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                Date current = formatter.parse(formatter.format(new Date()));
+                DateTimeFormatter formatterForNoti = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+                LocalDateTime current = LocalDateTime.now();
+                current = LocalDateTime.parse(current.format(formatterForNoti));
                 String traveler_username = accountRepository.findAccountNameByAccountId(order.getTraveler_id());
                 String guider_username = accountRepository.findAccountNameByAccountId(order.getGuider_id());
                 Notification notification = new Notification();
@@ -362,7 +366,7 @@ public class TripController {
                 notification.setType("Notification");
                 notification.setSeen(false);
                 notification.setDateReceived(current);
-                notification.setContent("Your order on tour " + postService.findSpecificPost(order.getPost_id()).getTitle() + " was accepted by guider " + guider_username);
+                notification.setContent("<span style={{fontWeigh:'600'}}>Accepted</span> Your order on tour " + postService.findSpecificPost(order.getPost_id()).getTitle() + " was accepted by guider " + guider_username);
                 webSocketNotificationController.sendMessage(notification);
 
                 return new ResponseEntity<>(result, HttpStatus.OK);

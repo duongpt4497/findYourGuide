@@ -3,6 +3,7 @@ package entities;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Document(collection = "notiCollection")
@@ -12,7 +13,7 @@ public class Notification {
     private String content;
     private String user;
     private String receiver;
-    private Date dateReceived;
+    private LocalDateTime dateReceived;
     private boolean isSeen;
     private String type;
 
@@ -25,11 +26,11 @@ public class Notification {
         isSeen = seen;
     }
 
-    public Date getDateReceived() {
+    public LocalDateTime getDateReceived() {
         return dateReceived;
     }
 
-    public void setDateReceived(Date dateReceived) {
+    public void setDateReceived(LocalDateTime dateReceived) {
         this.dateReceived = dateReceived;
     }
 
