@@ -170,7 +170,7 @@ public class TripController {
             try {
                 String message = e.getDetails().getMessage();
                 paypalService.createRefundRecord(cancelOrder.getTransaction_id(), message);
-                return new ResponseEntity<>(message, HttpStatus.OK);
+                return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
             } catch (Exception exc) {
                 logger.error(exc.getMessage());
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -229,7 +229,7 @@ public class TripController {
             try {
                 String message = e.getDetails().getMessage();
                 paypalService.createRefundRecord(cancelOrder.getTransaction_id(), message);
-                return new ResponseEntity<>(message, HttpStatus.OK);
+                return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
             } catch (Exception exc) {
                 logger.error(exc.getMessage());
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -300,7 +300,7 @@ public class TripController {
             try {
                 String message = e.getDetails().getMessage();
                 paypalService.createRefundRecord(cancelOrder.getTransaction_id(), message);
-                return new ResponseEntity<>(message, HttpStatus.OK);
+                return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
             } catch (Exception exc) {
                 logger.error(exc.getMessage());
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -364,8 +364,11 @@ public class TripController {
                 notification.setDateReceived(current);
                 notification.setContent("Your order on tour " + postService.findSpecificPost(order.getPost_id()).getTitle() + " was accepted by guider " + guider_username);
                 webSocketNotificationController.sendMessage(notification);
+
+                return new ResponseEntity<>(result, HttpStatus.OK);
+            } else {
+                throw new Exception("Accept False");
             }
-            return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
