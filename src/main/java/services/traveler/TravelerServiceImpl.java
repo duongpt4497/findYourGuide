@@ -1,5 +1,6 @@
 package services.traveler;
 
+import entities.Post;
 import entities.Traveler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +20,7 @@ import java.util.List;
 public class TravelerServiceImpl implements TravelerService {
     private JdbcTemplate jdbcTemplate;
     private GeneralService generalService;
+    private int LIMIT = 9;
 
     @Value("${order.server.root.url}")
     private String URL_ROOT_SERVER;
@@ -119,16 +121,49 @@ public class TravelerServiceImpl implements TravelerService {
         String query = "update traveler set first_name = ?, last_name = ?, phone = ? where traveler_id = ?";
         jdbcTemplate.update(query, traveler.getFirst_name(), traveler.getLast_name(), traveler.getPhone(), traveler.getTraveler_id());
     }
-    
+
     @Override
     public void unlikePost(int traveler_id, int post_id) throws Exception {
         String query = "DELETE FROM favoritepost WHERE  traveler_id = ? and post_id = ?";
         jdbcTemplate.update(query, traveler_id, post_id);
     }
-    
+
     @Override
     public Object isSaved(int traveler_id, int post_id) throws Exception {
         String query = "SELECT * FROM favoritepost WHERE  traveler_id = ? and post_id = ?";
         return jdbcTemplate.queryForMap(query, traveler_id, post_id);
+    }
+
+    @Override
+    public List<Post> getTravelerFavList(int traveler_id, int page) {
+        String query = "select post.*, name, locations.city, place from post " +
+                "inner join guider on post.guider_id = guider.guider_id " +
+                "inner join category on post.category_id = category.category_id " +
+                "inner join locations on post.location_id = locations.location_id " +
+                "inner join favoritepost on post.post_id = favoritepost.post_id " +
+                "where post.active = true and guider.active = true and favoritepost.traveler_id = ? " +
+                "order by post.post_id limit ? offset ?";
+        return jdbcTemplate.query(query, new RowMapper<Post>() {
+            @Override
+            public Post mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new Post(rs.getLong("post_id"), rs.getString("title"), rs.getString("video_link"),
+                        generalService.checkForNull(rs.getArray("picture_link")), rs.getInt("total_hour"),
+                        rs.getString("description"), generalService.checkForNull(rs.getArray("including_service")),
+                        rs.getString("city") + " " + rs.getString("place"), rs.getString("name"),
+                        rs.getLong("price"), rs.getLong("rated"), rs.getString("reasons"),
+                        rs.getBoolean("authorized"));
+            }
+        }, traveler_id, LIMIT, LIMIT * page);
+    }
+
+    @Override
+    public int getTravelerFavListPageCount(int traveler_id) {
+        String query = "select count(post_id) from post " +
+                "inner join guider on post.guider_id = guider.guider_id " +
+                "inner join favoritepost on post.post_id = favoritepost.post_id " +
+                "where post.active = true and guider.active = true and favoritepost.traveler_id = ?";
+        double count = jdbcTemplate.queryForObject(query, new Object[]{traveler_id}, double.class);
+        int page = (int) Math.ceil(count / LIMIT);
+        return page;
     }
 }

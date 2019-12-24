@@ -219,8 +219,8 @@ public class PostServiceImpl implements PostService {
                 "where post.active = true and guider.active = true " +
                 "and (upper(locations.country) like " + name +
                 " or upper(locations.city) like " + name +
-                " or upper(locations.place) like " + name + ")"
-                + " order by post.post_id limit ? offset ? ;";
+                " or upper(locations.place) like " + name + ")" +
+                " order by post.post_id limit ? offset ?";
         result = jdbcTemplate.query(query, new RowMapper<Post>() {
             @Override
             public Post mapRow(ResultSet rs, int rowNum) throws SQLException {
