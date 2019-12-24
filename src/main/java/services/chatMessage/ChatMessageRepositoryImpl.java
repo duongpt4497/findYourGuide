@@ -51,11 +51,11 @@ public class ChatMessageRepositoryImpl implements ChatMessageRepositoryCus {
             if ( account.getRole().equals("GUIDER")){
                 allChatMessages =mongoTemplate.find(new Query(Criteria.where("guider").is(firstUser)
                         .andOperator(Criteria.where("traveler").is(secondUser))).
-                        with(new Sort(Sort.Direction.DESC, "dateReceived")), ChatMessage.class,"messageCollection");
+                        with(new Sort(Sort.Direction.ASC, "dateReceived")), ChatMessage.class,"messageCollection");
             }else {
                 allChatMessages=mongoTemplate.find(new Query(Criteria.where("guider").is(secondUser)
                         .andOperator(Criteria.where("traveler").is(firstUser))).
-                        with(new Sort(Sort.Direction.DESC, "dateReceived")), ChatMessage.class,"messageCollection");
+                        with(new Sort(Sort.Direction.ASC, "dateReceived")), ChatMessage.class,"messageCollection");
             }
 
             int count = allChatMessages.size();

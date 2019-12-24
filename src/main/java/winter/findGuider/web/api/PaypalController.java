@@ -3,6 +3,7 @@ package winter.findGuider.web.api;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
+import entities.Notification;
 import entities.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +22,9 @@ import services.trip.TripService;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @RestController
 @RequestMapping(path = "/Payment", produces = "application/json")
@@ -127,18 +130,18 @@ public class PaypalController {
                 paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, true);
                 tripService.createTrip(order);
                 // TODO notification
-//                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//                Date current = formatter.parse(formatter.format(new Date()));
-//                String traveler_username= accountRepository.findAccountNameByAccountId(order.getTraveler_id());
-//                String guider_username = accountRepository.findAccountNameByAccountId(order.getGuider_id());
-//                Notification notification = new Notification();
-//                notification.setUser(traveler_username);
-//                notification.setReceiver(guider_username);
-//                notification.setType("Notification");
-//                notification.setSeen(false);
-//                notification.setDateReceived(current);
-//                notification.setContent("You have a booking reservation on tour "+ postService.findSpecificPost(order.getPost_id()).getTitle() +" from "+ traveler_username );
-//                webSocketNotificationController.sendMessage(notification);
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                Date current = formatter.parse(formatter.format(new Date()));
+                String traveler_username= accountRepository.findAccountNameByAccountId(order.getTraveler_id());
+                String guider_username = accountRepository.findAccountNameByAccountId(order.getGuider_id());
+                Notification notification = new Notification();
+                notification.setUser(traveler_username);
+                notification.setReceiver(guider_username);
+                notification.setType("Notification");
+                notification.setSeen(false);
+                notification.setDateReceived(current);
+                notification.setContent("You have a booking reservation on tour "+ postService.findSpecificPost(order.getPost_id()).getTitle() +" from "+ traveler_username );
+                webSocketNotificationController.sendMessage(notification);
                 boolean isMailVerified = accountRepository.isMailVerified(order.getTraveler_id());
                 if (isMailVerified) {
                     String email = accountRepository.getEmail(order.getTraveler_id());
