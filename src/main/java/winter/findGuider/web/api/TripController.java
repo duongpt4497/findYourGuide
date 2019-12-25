@@ -21,11 +21,8 @@ import services.guider.GuiderService;
 import services.trip.TripService;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -132,26 +129,21 @@ public class TripController {
     @RequestMapping("/refuseTrip/{trip_id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> refuseTrip(@PathVariable("trip_id") long trip_id) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-        LocalDateTime rightNow = LocalDateTime.now();
-        rightNow = LocalDateTime.parse(rightNow.format(formatter));
         Order cancelOrder = new Order();
         try {
             cancelOrder = tripService.findTripById(trip_id);
             // start cancel order
             boolean cancelSuccess;
-
             Refund refund = paypalService.refundPayment(cancelOrder.getTransaction_id());
             if (refund.getState().equals("completed")) {
                 paypalService.createRefundRecord(cancelOrder.getTransaction_id(), "success");
                 cancelSuccess = tripService.cancelTrip(cancelOrder.gettrip_id());
                 if (!cancelSuccess) {
-                    return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
+                    return new ResponseEntity<>("Cancel Fail", HttpStatus.NOT_FOUND);
                 }
             } else {
-                return new ResponseEntity<>("Refund fail", HttpStatus.OK);
+                return new ResponseEntity<>("Refund fail", HttpStatus.NOT_FOUND);
             }
-
 
             // send notification
             DateTimeFormatter formatterForNoti = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
@@ -165,9 +157,7 @@ public class TripController {
             notification.setType("Notification");
             notification.setSeen(false);
             notification.setDateReceived(current);
-
             notification.setContent("<span style={{fontWeigh:'600'}}>Cancellation</span> The order on tour " + postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() + " was canceled by traveler " + traveler_username);
-
             webSocketNotificationController.sendMessage(notification);
             return new ResponseEntity<>("Cancel Success", HttpStatus.OK);
         } catch (PayPalRESTException e) {
@@ -195,7 +185,7 @@ public class TripController {
         try {
             cancelOrder = tripService.findTripById(trip_id);
             // check if refund is needed
-            boolean isRefund = tripService.checkTripReach24Hours(cancelOrder, rightNow);
+            boolean isRefund = !tripService.checkTripReach24Hours(cancelOrder, rightNow);
             // start cancel order
             boolean cancelSuccess;
             if (isRefund) {
@@ -204,15 +194,15 @@ public class TripController {
                     paypalService.createRefundRecord(cancelOrder.getTransaction_id(), "success");
                     cancelSuccess = tripService.cancelTrip(cancelOrder.gettrip_id());
                     if (!cancelSuccess) {
-                        return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
+                        return new ResponseEntity<>("Cancel Fail", HttpStatus.NOT_FOUND);
                     }
                 } else {
-                    return new ResponseEntity<>("Refund fail", HttpStatus.OK);
+                    return new ResponseEntity<>("Refund fail", HttpStatus.NOT_FOUND);
                 }
             } else {
                 cancelSuccess = tripService.cancelTrip(cancelOrder.gettrip_id());
                 if (!cancelSuccess) {
-                    return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
+                    return new ResponseEntity<>("Cancel Fail", HttpStatus.NOT_FOUND);
                 }
             }
 
@@ -265,7 +255,7 @@ public class TripController {
             if (refund.getState().equals("completed")) {
                 paypalService.createRefundRecord(cancelOrder.getTransaction_id(), "success");
             } else {
-                return new ResponseEntity<>("Refund fail", HttpStatus.OK);
+                return new ResponseEntity<>("Refund fail", HttpStatus.NOT_FOUND);
             }
             // penalty guider contribution point
             if (isPenalty) {
@@ -273,12 +263,12 @@ public class TripController {
                 contributionPointService.penaltyGuiderForCancel(guiderId);
                 cancelSuccess = tripService.cancelTrip(cancelOrder.gettrip_id());
                 if (!cancelSuccess) {
-                    return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
+                    return new ResponseEntity<>("Cancel Fail", HttpStatus.NOT_FOUND);
                 }
             } else {
                 cancelSuccess = tripService.cancelTrip(cancelOrder.gettrip_id());
                 if (!cancelSuccess) {
-                    return new ResponseEntity<>("Cancel Fail", HttpStatus.OK);
+                    return new ResponseEntity<>("Cancel Fail", HttpStatus.NOT_FOUND);
                 }
             }
 
@@ -294,9 +284,7 @@ public class TripController {
             notification.setType("Notification");
             notification.setSeen(false);
             notification.setDateReceived(current);
-
             notification.setContent("<span style={{fontWeigh:'600'}}>Cancellation</span> Your order on tour " + postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() + " of guider " + guider_username + " was canceled");
-
             webSocketNotificationController.sendMessage(notification);
 
             Order order = tripService.findTripById(trip_id);
