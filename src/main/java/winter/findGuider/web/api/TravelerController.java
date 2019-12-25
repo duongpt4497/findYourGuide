@@ -1,5 +1,6 @@
 package winter.findGuider.web.api;
 
+import entities.Post;
 import entities.Traveler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import services.traveler.TravelerService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/Traveler", produces = "application/json")
@@ -60,6 +63,28 @@ public class TravelerController {
         }
     }
 
+    @RequestMapping("/getFavList")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Post>> getFavList(@RequestParam("traveler_id") int traveler_id, @RequestParam("page") int page) {
+        try {
+            return new ResponseEntity<>(travelerService.getTravelerFavList(traveler_id, page), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/getFavListPageCount")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Integer> getFavListPageCount(@RequestParam("traveler_id") int traveler_id) {
+        try {
+            return new ResponseEntity<>(travelerService.getTravelerFavListPageCount(traveler_id), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
     @RequestMapping("/favorite")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Boolean> favoritePost(@RequestParam("traveler_id") int traveler_id, @RequestParam("post_id") int post_id) {
@@ -94,7 +119,7 @@ public class TravelerController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
-    
+
     @RequestMapping("/unlike")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Boolean> unlikePost(@RequestParam("traveler_id") int traveler_id, @RequestParam("post_id") int post_id) {
@@ -106,7 +131,7 @@ public class TravelerController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
-    
+
     @RequestMapping("/saved")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Boolean> isSaved(@RequestParam("traveler_id") int traveler_id, @RequestParam("post_id") int post_id) {

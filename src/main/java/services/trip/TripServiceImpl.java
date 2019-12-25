@@ -252,7 +252,7 @@ public class TripServiceImpl implements TripService {
         }
 
         // Get unacceptable hours
-        ArrayList<String> unacceptableHours = this.getUnacceptableHours(post_id, availableHours, chosenDate);
+        ArrayList<String> unacceptableHours = this.getUnacceptableHours(post_id, guider_id, availableHours, chosenDate);
         if (!unacceptableHours.isEmpty()) {
             availableHours.removeAll(unacceptableHours);
         }
@@ -314,7 +314,7 @@ public class TripServiceImpl implements TripService {
         double totalHour = this.getTourTotalHour(post_id);
         long bufferHour = (long) java.lang.Math.ceil(totalHour / 100 * Integer.parseInt(bufferPercent));
         long duration = (long) totalHour + bufferHour;
-        LocalDateTime end_date = begin_date.plusHours(duration).minusMinutes(30);
+        LocalDateTime end_date = begin_date.plusHours(duration);
         return end_date.format(formatter);
     }
 
@@ -415,7 +415,7 @@ public class TripServiceImpl implements TripService {
         return occupyHour;
     }
 
-    private ArrayList<String> getUnacceptableHours(int post_id, ArrayList<String> availableHours,
+    private ArrayList<String> getUnacceptableHours(int post_id, int guider_id, ArrayList<String> availableHours,
                                                    LocalDate chosenDate) throws Exception {
 
         ArrayList<String> unacceptableHours = new ArrayList<>();
@@ -425,11 +425,12 @@ public class TripServiceImpl implements TripService {
         for (String hour : availableHours) {
             LocalDateTime checkDate = LocalDateTime.parse(chosenDate + "T" + hour);
             checkDate = checkDate.plusHours(duration);
-            String query = "SELECT count(trip_id) FROM trip "
-                    + "where post_id = ? and status = ? "
-                    + "and (begin_date <= ? "
-                    + "and finish_date >= ?)";
-            int count = jdbcTemplate.queryForObject(query, new Object[]{post_id, ONGOING, checkDate, checkDate}, int.class);
+            String query = "SELECT count(trip_id) FROM trip " +
+                    "inner join post on trip.post_id = post.post_id " +
+                    "where post.guider_id = ? and status = ? " +
+                    "and (begin_date <= ? " +
+                    "and finish_date >= ?)";
+            int count = jdbcTemplate.queryForObject(query, new Object[]{guider_id, ONGOING, checkDate, checkDate}, int.class);
             if (count != 0) {
                 unacceptableHours.add(hour);
             }
@@ -490,7 +491,7 @@ public class TripServiceImpl implements TripService {
         return result;
     }
 
-    @Scheduled(cron = "0 0 0/1 1/1 * *")
+    @Scheduled(cron = "0 0 * * * *")
     //@Scheduled(cron = "0 0/5 * 1/1 * *")
     public void cancelTripFilter() throws PayPalRESTException {
         List<Map<String, Object>> lo = new ArrayList<>();

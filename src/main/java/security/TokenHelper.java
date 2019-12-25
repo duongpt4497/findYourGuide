@@ -73,7 +73,7 @@ public class TokenHelper {
         try {
             return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
         } catch (JwtException | IllegalArgumentException e) {
-            logger.error(e.toString());
+            logger.error("Identified token "+e.toString()); 
         }
         return null;
     }

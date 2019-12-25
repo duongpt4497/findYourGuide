@@ -116,7 +116,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/statistic/**").permitAll()
                 .anyRequest().authenticated().and()
                 .addFilter(getAuthenticationFilter())
-                .addFilterBefore(new TokenAuthenFilter(tokenHelper, principalService), BasicAuthenticationFilter.class)
+                .addFilterBefore(new TokenAuthenFilter(tokenHelper, principalService,repo), BasicAuthenticationFilter.class)
         ;
 
         http.csrf().disable();

@@ -235,4 +235,12 @@ public class AccountRepository {
                 return rs.getString("email_token");}
         },userName);
     }
+    
+    public String getUserByRefresh(String refresh) {
+        return jdbc.queryForObject("select user_name from account where email_token = ? ; ", new RowMapper<String>() {
+            @Override
+            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return rs.getString("user_name");}
+        },refresh);
+    }
 }

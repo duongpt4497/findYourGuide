@@ -216,7 +216,7 @@ public class GuiderController {
             if (file.isEmpty()) {
                 return new ResponseEntity<>("Please select a file to upload", HttpStatus.OK);
             }
-            if (!file.getOriginalFilename().contains(".pdf")) {
+            if (!file.getOriginalFilename().toLowerCase().contains(".pdf")) {
                 return new ResponseEntity<>("We only accept pdf file", HttpStatus.OK);
             }
             guiderService.uploadContractDocument(file, contract_id);
