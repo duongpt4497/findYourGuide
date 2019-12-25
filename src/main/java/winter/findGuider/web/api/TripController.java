@@ -152,12 +152,12 @@ public class TripController {
             String traveler_username = accountRepository.findAccountNameByAccountId(cancelOrder.getTraveler_id());
             String guider_username = accountRepository.findAccountNameByAccountId(cancelOrder.getGuider_id());
             Notification notification = new Notification();
-            notification.setUser(traveler_username);
-            notification.setReceiver(guider_username);
+            notification.setUser(guider_username);
+            notification.setReceiver(traveler_username);
             notification.setType("Notification");
             notification.setSeen(false);
             notification.setDateReceived(current);
-            notification.setContent("<span style={{fontWeigh:'600'}}>Cancellation</span> The order on tour " + postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() + " was canceled by traveler " + traveler_username);
+            notification.setContent("<span style={{fontWeigh:'600'}}>Cancellation</span> The order on tour " + postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() + " was canceled by guider " + guider_username);
             webSocketNotificationController.sendMessage(notification);
             return new ResponseEntity<>("Cancel Success", HttpStatus.OK);
         } catch (PayPalRESTException e) {
