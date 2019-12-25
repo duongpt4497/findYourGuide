@@ -28,7 +28,7 @@ import java.util.List;
 @Repository
 public class GuiderServiceImpl implements GuiderService {
 
-    private final String DOCUMENT_FOLDER = "./src/main/resources/static/document/";
+    private final String DOCUMENT_FOLDER = "C://ProjectDocument/";
     @Value("${order.server.root.url}")
     private String URL_ROOT_SERVER;
     private JdbcTemplate jdbcTemplate;
