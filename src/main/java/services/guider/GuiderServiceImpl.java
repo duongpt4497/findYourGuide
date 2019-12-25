@@ -1,5 +1,8 @@
 package services.guider;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+import configuration.CloudinaryConfig;
 import entities.Contract;
 import entities.Guider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import services.GeneralService;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,11 +25,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class GuiderServiceImpl implements GuiderService {
 
-    private final String DOCUMENT_FOLDER = "C://ProjectDocument/";
     @Value("${order.server.root.url}")
     private String URL_ROOT_SERVER;
     private JdbcTemplate jdbcTemplate;
@@ -337,21 +338,22 @@ public class GuiderServiceImpl implements GuiderService {
 
     @Override
     public void uploadContractDocument(MultipartFile file, long contract_id) throws Exception {
+        CloudinaryConfig cloudinaryConfig = new CloudinaryConfig();
+        Cloudinary cloudinary = cloudinaryConfig.getCloudinary();
         byte[] bytes = file.getBytes();
         Long originalId = generalService.generateLongId();
-        String fileName = originalId.toString() + ".pdf";
-        Path path = Paths.get(DOCUMENT_FOLDER + fileName);
-        Files.write(path, bytes);
+        String fileName = originalId.toString();
+        Map uploadResult = cloudinary.uploader().upload(bytes, ObjectUtils.asMap("public_id", fileName));
+        String docUrl = (String) uploadResult.get("url");
         String query = "update contract_detail set file_link = ? where contract_id = ?";
-        jdbcTemplate.update(query, fileName, contract_id);
+        jdbcTemplate.update(query, docUrl, contract_id);
     }
 
     @Override
     public File getDocumentToDownload(long contract_id) throws Exception {
         String query = "select file_link from contract_detail where contract_id = ?";
-        String fileName = jdbcTemplate.queryForObject(query, new Object[]{contract_id}, String.class);
-        String filePath = DOCUMENT_FOLDER + fileName;
-        File pdfFile = Paths.get(filePath).toFile();
+        String fileUrl = jdbcTemplate.queryForObject(query, new Object[]{contract_id}, String.class);
+        File pdfFile = Paths.get(fileUrl).toFile();
         return pdfFile;
     }
 }
