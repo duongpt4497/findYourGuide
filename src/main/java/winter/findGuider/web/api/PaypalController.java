@@ -24,6 +24,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @RestController
@@ -126,12 +128,15 @@ public class PaypalController {
             String transaction_id = payment.getTransactions().get(0).getRelatedResources().get(0).getSale().getId();
             order.setTransaction_id(transaction_id);
             if (payment.getState().equals("approved")) {
-
+                // create trip
                 paypalService.createTransactionRecord(transaction_id, paymentId, payerId, description, true);
                 tripService.createTrip(order);
-                // TODO notification
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                Date current = formatter.parse(formatter.format(new Date()));
+
+
+                // send notification
+                DateTimeFormatter formatterForNoti = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+                LocalDateTime current = LocalDateTime.now();
+                current = LocalDateTime.parse(current.format(formatterForNoti));
                 String traveler_username= accountRepository.findAccountNameByAccountId(order.getTraveler_id());
                 String guider_username = accountRepository.findAccountNameByAccountId(order.getGuider_id());
                 Notification notification = new Notification();
@@ -140,8 +145,11 @@ public class PaypalController {
                 notification.setType("Notification");
                 notification.setSeen(false);
                 notification.setDateReceived(current);
-                notification.setContent("You have a booking reservation on tour "+ postService.findSpecificPost(order.getPost_id()).getTitle() +" from "+ traveler_username );
+
+                notification.setContent("<span style={{fontWeigh:'600'}}>Waiting</span>  You have a booking reservation on tour "+ postService.findSpecificPost(order.getPost_id()).getTitle() +" from "+ traveler_username );
                 webSocketNotificationController.sendMessage(notification);
+
+                // Send mail
                 boolean isMailVerified = accountRepository.isMailVerified(order.getTraveler_id());
                 if (isMailVerified) {
                     String email = accountRepository.getEmail(order.getTraveler_id());
