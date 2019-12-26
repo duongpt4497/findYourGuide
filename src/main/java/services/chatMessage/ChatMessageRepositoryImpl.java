@@ -118,54 +118,71 @@ public class ChatMessageRepositoryImpl implements ChatMessageRepositoryCus {
         try {
             List<ChatMessage> allChatMessages = new ArrayList<>();
             List<ChatMessage> allChatMessages2 = new ArrayList<>();
-            List<String> allUser = new ArrayList<>();
-            String user3 ="";
+            List<String> allUsers = new ArrayList<>();
+            //System.out.println("hoho");
             mongoTemplate.getCollection("messageCollection").distinct("traveler",ChatMessage.class);
             Account account = accountRepository.findAccountByName(user);
+            LinkedHashMap<String, String> uniqueUsers = new LinkedHashMap<>();
             if ( account.getRole().equals("GUIDER") ){
                 /*allUser =mongoTemplate.findDistinct(new Query(Criteria.where("guider").is(user)).
                         with(new Sort(Sort.Direction.ASC, "dateReceived")),"traveler","messageCollection",String.class);*/
                 Aggregation agg = Aggregation.newAggregation(
-                        Aggregation.match(Criteria.where("guider").is(user)),
-                        Aggregation.group("traveler"),
-                        Aggregation.sort(Sort.Direction.DESC, "_id")
+                        Aggregation.sort(Sort.Direction.DESC, "dateReceived"),
+                        Aggregation.match(Criteria.where("guider").is(user))
+                        //Aggregation.group("traveler")
+
                 );
                 AggregationResults<ChatMessage> result= mongoTemplate.aggregate(agg, "messageCollection", ChatMessage.class);
                 allChatMessages2 = result.getMappedResults();
+
+                for ( ChatMessage chatMessage : allChatMessages2){
+                    if ( uniqueUsers.get(chatMessage.getTraveler())== null){
+                        uniqueUsers.put(chatMessage.getTraveler(),chatMessage.getTraveler());
+                    }
+
+                }
             }else{
                /* allUser =mongoTemplate.findDistinct(new Query(Criteria.where("traveler").is(user)).
                         with(new Sort(Sort.Direction.ASC, "dateReceived")),"guider","messageCollection",String.class);*/
                 Aggregation agg = Aggregation.newAggregation(
-                        Aggregation.match(Criteria.where("traveler").is(user)),
-                        Aggregation.group("guider"),
-                        Aggregation.sort(Sort.Direction.DESC, "_id")
+                        Aggregation.sort(Sort.Direction.DESC, "dateReceived"),
+                        Aggregation.match(Criteria.where("traveler").is(user))
+                        //Aggregation.group("guider")
                 );
                 AggregationResults<ChatMessage> result= mongoTemplate.aggregate(agg, "messageCollection", ChatMessage.class);
                 allChatMessages2 = result.getMappedResults();
+
+                for ( ChatMessage chatMessage : allChatMessages2){
+                    if (uniqueUsers.get(chatMessage.getGuider()) == null ){
+                        uniqueUsers.put(chatMessage.getGuider(),chatMessage.getGuider());
+                    }
+
+                }
             }
 
             //System.out.println(allChatMessages2.size());
 
             //Collections.reverse(allUser);
-
-            int count = allChatMessages2.size();
-
+            for (Map.Entry recentUser : uniqueUsers.entrySet()){
+                allUsers.add(recentUser.getValue().toString());
+            }
+            int count = allUsers.size();
             if ( count >= lastElement){
 
-                allChatMessages2=allChatMessages2.subList(firstElement,lastElement);
+                allUsers=allUsers.subList(firstElement,lastElement);
             }
             if ( count <lastElement){
                 if ( count<firstElement){
                     return new ArrayList<>();
                 }else{
 
-                    allChatMessages2=allChatMessages2.subList(firstElement,count);
+                    allUsers=allUsers.subList(firstElement,count);
                 }
             }
 
-            for(ChatMessage allChatMessage2 :allChatMessages2){
+            for(String recentUser :allUsers){
                 Query query = new Query();
-                String recentUser =allChatMessage2.getId();
+
                 if (account.getRole().equals("GUIDER")){
                     //recentUser= allChatMessage2.getTraveler();
                     //System.out.println("@"+recentUser);
@@ -181,8 +198,8 @@ public class ChatMessageRepositoryImpl implements ChatMessageRepositoryCus {
                 if (chatMessage.size() >= 1) {
                     allChatMessages.add(chatMessage.get(0));
                 }
-
             }
+            Collections.reverse(allChatMessages);
             return allChatMessages;
         } catch (Exception e) {
             logger.debug(e.getMessage());
