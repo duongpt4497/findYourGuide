@@ -46,6 +46,29 @@ public class PostController {
         }
     }
 
+    @RequestMapping("/postOfOneGuiderManage/{guider_id}/{page}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Post>> postOfOneGuiderManage(@PathVariable("guider_id") long guider_id,
+                                                            @PathVariable("page") int page) {
+        try {
+            return new ResponseEntity<>(postService.findAllPostOfOneGuiderManage(guider_id, page), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping("/postOfOneGuiderManagePageCount/{guider_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Integer> postOfOneGuiderManagePageCount(@PathVariable("guider_id") long guider_id) {
+        try {
+            return new ResponseEntity<>(postService.findAllPostOfOneGuiderManagePageCount(guider_id), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
     @RequestMapping("/postOfOneGuiderAdmin")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Post>> findAllPostOfOneGuiderAdmin(@RequestParam("guider_id") long guider_id) {

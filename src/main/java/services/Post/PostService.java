@@ -16,6 +16,10 @@ public interface PostService {
 
     List<Post> findAllPostOfOneGuiderAdmin(long guider_id) throws Exception;
 
+    List<Post> findAllPostOfOneGuiderManage(long guider_id, int page) throws Exception;
+
+    int findAllPostOfOneGuiderManagePageCount(long guider_id) throws Exception;
+
     Post findSpecificPost(long post_id) throws Exception;
 
     List<Post> findAllPostWithGuiderName(String name, int page) throws Exception;
