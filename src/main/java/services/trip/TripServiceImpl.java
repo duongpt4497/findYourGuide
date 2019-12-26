@@ -90,7 +90,6 @@ public class TripServiceImpl implements TripService {
                     + " inner join traveler as t on o.traveler_id = t.traveler_id "
                     + " inner join post as p on p.post_id = o.post_id "
                     + " where p.guider_id = ? and status = ? "
-
                     + " order by begin_date limit ? offset ?";
         } else if (role.equalsIgnoreCase("traveler")) {
             query = "SELECT o.*, p.guider_id, p.title, g.first_name, g.last_name "
@@ -98,7 +97,6 @@ public class TripServiceImpl implements TripService {
                     + "inner join post as p on p.post_id = o.post_id "
                     + "inner join guider as g on p.guider_id = g.guider_id "
                     + "where o.traveler_id = ? and status = ? "
-
                     + "order by begin_date limit ? offset ?";
         } else {
             throw new Exception("wrong role");
@@ -119,7 +117,8 @@ public class TripServiceImpl implements TripService {
                         rs.getString("transaction_id"),
                         rs.getString("status"),
                         rs.getString("title"),
-                        rs.getString("first_name") + " " + rs.getString("last_name"));
+                        rs.getString("first_name") + " " + rs.getString("last_name"),
+                        rs.getTimestamp("book_time").toLocalDateTime());
             }
         }, id, status, LIMIT, page * LIMIT);
         return result;

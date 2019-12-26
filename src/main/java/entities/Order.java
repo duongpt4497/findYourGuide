@@ -26,6 +26,7 @@ public class Order {
     private float rated;
     private String postTitle;
     private String object;
+    private LocalDateTime book_time;
 
     public Order() {
     }
@@ -83,7 +84,6 @@ public class Order {
         this.traveler_id = traveler_id;
         this.guider_id = guider_id;
         this.post_id = post_id;
-
         this.begin_date = begin_date;
         this.finish_date = finish_date;
         this.adult_quantity = adult_quantity;
@@ -93,6 +93,23 @@ public class Order {
         this.status = status;
         this.postTitle = postTitle;
         this.object = object;
+    }
+
+    public Order(int trip_id, int traveler_id, int guider_id, int post_id, LocalDateTime begin_date, LocalDateTime finish_date, int adult_quantity, int children_quantity, double fee_paid, String transaction_id, String status, String postTitle, String object, LocalDateTime book_time) {
+        this.trip_id = trip_id;
+        this.traveler_id = traveler_id;
+        this.guider_id = guider_id;
+        this.post_id = post_id;
+        this.begin_date = begin_date;
+        this.finish_date = finish_date;
+        this.adult_quantity = adult_quantity;
+        this.children_quantity = children_quantity;
+        this.fee_paid = fee_paid;
+        this.transaction_id = transaction_id;
+        this.status = status;
+        this.postTitle = postTitle;
+        this.object = object;
+        this.book_time = book_time;
     }
 
 
