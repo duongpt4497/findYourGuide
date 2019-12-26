@@ -63,12 +63,14 @@ public class TripServiceImpl implements TripService {
     @Override
     public Order findTripById(long trip_id) throws Exception {
         Order searchOrder = new Order();
-        String query = "select * from trip where trip_id = ?";
+        String query = "select *, post.guider_id from trip " +
+                "inner join post on post.post_id = trip.post_id " +
+                "where trip_id = ?";
         searchOrder = jdbcTemplate.queryForObject(query, new RowMapper<Order>() {
             @Override
             public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new Order(rs.getInt("trip_id"), rs.getInt("traveler_id"),
-                        rs.getInt("post_id"),
+                        rs.getInt("guider_id"), rs.getInt("post_id"),
                         rs.getTimestamp("begin_date").toLocalDateTime(),
                         rs.getTimestamp("finish_date").toLocalDateTime(),
                         rs.getInt("adult_quantity"), rs.getInt("children_quantity"),
