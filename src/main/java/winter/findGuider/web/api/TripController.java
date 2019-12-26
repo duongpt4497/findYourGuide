@@ -348,7 +348,7 @@ public class TripController {
             // Check for availability of order
             int count = tripService.checkTripExist(orderId);
             if (count != 0) {
-                return new ResponseEntity<>(false, HttpStatus.OK);
+                return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
             }
             boolean result = tripService.acceptTrip(orderId);
             if (result) {
