@@ -211,7 +211,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> findAllPostWithLocationName(String name, int page) throws Exception {
         List<Post> result = new ArrayList<>();
-        name = "'%" + name.toUpperCase() + "%'";
+        name = "'%" + name.toUpperCase().trim().replaceAll(" +", " ") + "%'";
         String query = "select post.*, name, locations.city, place from post " +
                 "inner join guider on post.guider_id = guider.guider_id " +
                 "inner join category on post.category_id = category.category_id " +

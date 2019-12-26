@@ -192,7 +192,7 @@ public class GuiderServiceImpl implements GuiderService {
 
     @Override
     public List<Guider> searchGuiderByName(String key, int page) throws Exception {
-        key = key.toUpperCase();
+        key = key.toUpperCase().trim().replaceAll(" +", " ");
         List<Guider> result = new ArrayList<>();
         String query = "select g.* from guider as g "
                 + " inner join account as a on g.guider_id = a.account_id "
