@@ -159,11 +159,28 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public boolean cancelTrip(long trip_id) throws Exception {
+        // check trip exist
         String check = "select count(trip_id) from trip where trip_id = ? and status = ? or status = ?";
         int count = jdbcTemplate.queryForObject(check, new Object[]{trip_id, UNCONFIRMED, ONGOING}, int.class);
         if (count == 0) {
             return false;
         }
+        // check finish time
+        LocalDateTime rightNow = LocalDateTime.now();
+        String getFinishDateQuery = "select finish_date from trip where trip_id = ?";
+        LocalDateTime finishDate = jdbcTemplate.queryForObject(getFinishDateQuery, new Object[]{trip_id}, LocalDateTime.class);
+        if (finishDate.getDayOfMonth() > rightNow.getDayOfMonth()) {
+            return false;
+        } else if (finishDate.getDayOfMonth() == rightNow.getDayOfMonth()) {
+            if (finishDate.getHour() > rightNow.getHour()) {
+                return false;
+            } else if (finishDate.getHour() == rightNow.getHour()) {
+                if (finishDate.getMinute() > rightNow.getMinute()) {
+                    return false;
+                }
+            }
+        }
+        // Cancel trip
         String query = "update trip set status = ? where trip_id = ?";
         jdbcTemplate.update(query, CANCELLED, trip_id);
         return true;
