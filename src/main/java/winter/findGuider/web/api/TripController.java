@@ -157,7 +157,7 @@ public class TripController {
             notification.setType("Notification");
             notification.setSeen(false);
             notification.setDateReceived(current);
-            notification.setContent("<span style={{fontWeigh:'600'}}>Cancellation</span> The order on tour " + postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() + " was canceled by guider " + guider_username);
+            notification.setContent("CANCELLATION: The order on tour " + postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() + " was canceled by guider " + guider_username);
             webSocketNotificationController.sendMessage(notification);
             return new ResponseEntity<>("Cancel Success", HttpStatus.OK);
         } catch (PayPalRESTException e) {
@@ -219,7 +219,7 @@ public class TripController {
             notification.setSeen(false);
             notification.setDateReceived(current);
 
-            notification.setContent("<span style={{fontWeigh:'600'}}>Cancellation</span> The order on tour " + postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() + " was canceled by traveler " + traveler_username);
+            notification.setContent("CANCELLATION: The order on tour " + postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() + " was canceled by traveler " + traveler_username);
             webSocketNotificationController.sendMessage(notification);
             return new ResponseEntity<>("Cancel Success", HttpStatus.OK);
         } catch (PayPalRESTException e) {
@@ -284,7 +284,7 @@ public class TripController {
             notification.setType("Notification");
             notification.setSeen(false);
             notification.setDateReceived(current);
-            notification.setContent("<span style={{fontWeigh:'600'}}>Cancellation</span> Your order on tour " + postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() + " of guider " + guider_username + " was canceled");
+            notification.setContent("CANCELLATION: Your order on tour " + postService.findSpecificPost(cancelOrder.getPost_id()).getTitle() + " of guider " + guider_username + " was canceled");
             webSocketNotificationController.sendMessage(notification);
 
             Order order = tripService.findTripById(trip_id);
@@ -364,7 +364,7 @@ public class TripController {
                 notification.setSeen(false);
                 notification.setDateReceived(current);
 
-                notification.setContent("<span style={{fontWeigh:'600'}}>Accepted</span> Your order on tour " + postService.findSpecificPost(order.getPost_id()).getTitle() + " was accepted by guider " + guider_username);
+                notification.setContent("<ACCEPTED: Your order on tour " + postService.findSpecificPost(order.getPost_id()).getTitle() + " was accepted by guider " + guider_username);
                 webSocketNotificationController.sendMessage(notification);
 
                 return new ResponseEntity<>(result, HttpStatus.OK);

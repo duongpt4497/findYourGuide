@@ -146,7 +146,7 @@ public class PaypalController {
                 notification.setSeen(false);
                 notification.setDateReceived(current);
 
-                notification.setContent("<span style={{fontWeigh:'600'}}>Waiting</span>  You have a booking reservation on tour "+ postService.findSpecificPost(order.getPost_id()).getTitle() +" from "+ traveler_username );
+                notification.setContent("WAITING:  You have a booking reservation on tour "+ postService.findSpecificPost(order.getPost_id()).getTitle() +" from "+ traveler_username );
                 webSocketNotificationController.sendMessage(notification);
 
                 // Send mail
