@@ -158,7 +158,7 @@ public class TravelerServiceImpl implements TravelerService {
 
     @Override
     public int getTravelerFavListPageCount(int traveler_id) {
-        String query = "select count(post_id) from post " +
+        String query = "select count(favoritepost.post_id) from post " +
                 "inner join guider on post.guider_id = guider.guider_id " +
                 "inner join favoritepost on post.post_id = favoritepost.post_id " +
                 "where post.active = true and guider.active = true and favoritepost.traveler_id = ?";

@@ -1,100 +1,18 @@
-2019-Dec-25 15:04:49 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:04:49 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:04:50 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:04:53 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:04:55 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:04:58 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:05:00 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:05:02 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:05:03 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:05:05 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:05:08 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:05:10 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:05:13 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:05:15 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:05:47 WARN  [http-nio-8080-exec-9] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 15:17:08 WARN  [http-nio-8080-exec-7] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 15:17:09 WARN  [http-nio-8080-exec-2] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 15:17:09 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:17:09 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:17:49 ERROR [http-nio-8080-exec-6] w.f.w.a.TravelerController - Incorrect result size: expected 1, actual 0
-2019-Dec-25 15:17:50 WARN  [http-nio-8080-exec-3] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 15:19:44 WARN  [http-nio-8080-exec-6] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 15:19:44 WARN  [http-nio-8080-exec-7] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 15:22:15 WARN  [http-nio-8080-exec-7] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 15:27:25 WARN  [http-nio-8080-exec-4] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 15:27:25 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:27:25 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:29:20 WARN  [http-nio-8080-exec-6] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 15:29:20 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:29:20 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:29:21 WARN  [http-nio-8080-exec-3] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 15:31:36 ERROR [http-nio-8080-exec-10] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
-org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL was not normalized.
-	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:296)
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:194)
-	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
-	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:357)
-	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:270)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1587)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.lang.Thread.run(Thread.java:748)
-2019-Dec-25 15:34:35 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:34:35 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:34:35 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:34:35 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:34:35 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:34:35 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:34:35 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:34:35 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:34:35 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:34:35 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:34:35 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:34:40 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:34:44 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 15:41:17 WARN  [http-nio-8080-exec-4] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 15:41:19 WARN  [http-nio-8080-exec-1] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 15:41:35 WARN  [http-nio-8080-exec-1] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 15:41:50 WARN  [http-nio-8080-exec-2] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 15:51:24 ERROR [http-nio-8080-exec-4] c.p.b.HttpConnection - Error code : 400 with response : {"name":"TRANSACTION_ALREADY_REFUNDED","message":"Refund refused. Refund was already issued for transaction.","information_link":"https://developer.paypal.com/docs/api/payments/#errors","debug_id":"269d1d3d9731a"}
-2019-Dec-25 15:55:32 WARN  [http-nio-8080-exec-4] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 15:55:32 WARN  [http-nio-8080-exec-3] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 15:57:14 WARN  [http-nio-8080-exec-5] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 15:57:15 WARN  [http-nio-8080-exec-1] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 16:00:05 ERROR [MessageBroker-3] c.p.b.HttpConnection - Error code : 400 with response : {"name":"TRANSACTION_ALREADY_REFUNDED","message":"Refund refused. Refund was already issued for transaction.","information_link":"https://developer.paypal.com/docs/api/payments/#errors","debug_id":"ebfeb8d4325bd"}
-2019-Dec-25 16:00:05 ERROR [MessageBroker-3] o.s.s.s.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task.
-com.paypal.base.rest.PayPalRESTException: Error code : 400 with response : {"name":"TRANSACTION_ALREADY_REFUNDED","message":"Refund refused. Refund was already issued for transaction.","information_link":"https://developer.paypal.com/docs/api/payments/#errors","debug_id":"ebfeb8d4325bd"}
+2019-Dec-26 09:30:34 ERROR [http-nio-8080-exec-6] s.TokenHelper - Identified token io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-25T19:26:13Z. Current time: 2019-12-26T09:30:34Z, a difference of 50661216 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-26 09:30:34 ERROR [http-nio-8080-exec-3] s.TokenHelper - Identified token io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-25T19:26:12Z. Current time: 2019-12-26T09:30:34Z, a difference of 50662216 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-26 09:30:34 ERROR [http-nio-8080-exec-1] s.TokenHelper - Identified token io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-25T19:26:12Z. Current time: 2019-12-26T09:30:34Z, a difference of 50662216 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-26 09:30:34 ERROR [http-nio-8080-exec-4] s.TokenHelper - Identified token io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-25T19:26:12Z. Current time: 2019-12-26T09:30:34Z, a difference of 50662217 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-26 09:30:34 ERROR [http-nio-8080-exec-2] s.TokenHelper - Identified token io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-25T19:26:12Z. Current time: 2019-12-26T09:30:34Z, a difference of 50662216 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-26 09:30:34 ERROR [http-nio-8080-exec-5] s.TokenHelper - Identified token io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-25T19:26:12Z. Current time: 2019-12-26T09:30:34Z, a difference of 50662216 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-26 09:30:36 ERROR [http-nio-8080-exec-7] s.TokenHelper - Identified token io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-25T19:26:13Z. Current time: 2019-12-26T09:30:36Z, a difference of 50663229 milliseconds.  Allowed clock skew: 0 milliseconds.
+2019-Dec-26 09:30:36 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-26 09:30:36 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-26 09:31:17 WARN  [http-nio-8080-exec-8] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-26 09:31:17 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-26 09:31:17 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-26 10:00:06 ERROR [MessageBroker-2] c.p.b.HttpConnection - Error code : 400 with response : {"name":"TRANSACTION_ALREADY_REFUNDED","message":"Refund refused. Refund was already issued for transaction.","information_link":"https://developer.paypal.com/docs/api/payments/#errors","debug_id":"a15df3b2376fe"}
+2019-Dec-26 10:00:06 ERROR [MessageBroker-2] o.s.s.s.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task.
+com.paypal.base.rest.PayPalRESTException: Error code : 400 with response : {"name":"TRANSACTION_ALREADY_REFUNDED","message":"Refund refused. Refund was already issued for transaction.","information_link":"https://developer.paypal.com/docs/api/payments/#errors","debug_id":"a15df3b2376fe"}
 	at com.paypal.base.rest.PayPalRESTException.createFromHttpErrorException(PayPalRESTException.java:72)
 	at com.paypal.base.rest.PayPalResource.execute(PayPalResource.java:439)
 	at com.paypal.base.rest.PayPalResource.configureAndExecute(PayPalResource.java:267)
@@ -107,8 +25,8 @@ com.paypal.base.rest.PayPalRESTException: Error code : 400 with response : {"nam
 	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at services.Paypal.PaypalServiceImpl$$EnhancerBySpringCGLIB$$87c927fb.refundPayment(<generated>)
-	at services.trip.TripServiceImpl.cancelTripFilter(TripServiceImpl.java:506)
+	at services.Paypal.PaypalServiceImpl$$EnhancerBySpringCGLIB$$14661f46.refundPayment(<generated>)
+	at services.trip.TripServiceImpl.cancelTripFilter(TripServiceImpl.java:508)
 	at services.trip.TripServiceImpl$$FastClassBySpringCGLIB$$c56988b7.invoke(<generated>)
 	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)
@@ -116,7 +34,7 @@ com.paypal.base.rest.PayPalRESTException: Error code : 400 with response : {"nam
 	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at services.trip.TripServiceImpl$$EnhancerBySpringCGLIB$$9d01c99b.cancelTripFilter(<generated>)
+	at services.trip.TripServiceImpl$$EnhancerBySpringCGLIB$$299ec0e6.cancelTripFilter(<generated>)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -131,7 +49,7 @@ com.paypal.base.rest.PayPalRESTException: Error code : 400 with response : {"nam
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at java.lang.Thread.run(Thread.java:748)
-Caused by: com.paypal.base.exception.HttpErrorException: Error code : 400 with response : {"name":"TRANSACTION_ALREADY_REFUNDED","message":"Refund refused. Refund was already issued for transaction.","information_link":"https://developer.paypal.com/docs/api/payments/#errors","debug_id":"ebfeb8d4325bd"}
+Caused by: com.paypal.base.exception.HttpErrorException: Error code : 400 with response : {"name":"TRANSACTION_ALREADY_REFUNDED","message":"Refund refused. Refund was already issued for transaction.","information_link":"https://developer.paypal.com/docs/api/payments/#errors","debug_id":"a15df3b2376fe"}
 	at com.paypal.base.HttpConnection.executeWithStream(HttpConnection.java:174)
 	at com.paypal.base.HttpConnection.execute(HttpConnection.java:67)
 	at com.paypal.base.rest.PayPalResource.execute(PayPalResource.java:425)
@@ -157,253 +75,14 @@ Caused by: java.io.IOException: Server returned HTTP response code: 400 for URL:
 	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:347)
 	at com.paypal.base.HttpConnection.executeWithStream(HttpConnection.java:133)
 	... 36 common frames omitted
-2019-Dec-25 16:38:38 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:38:38 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:38:38 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:38:38 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:38:38 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:38:39 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:38:39 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:38:39 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:38:39 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:38:39 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:38:39 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:38:39 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:38:39 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:38:39 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:38:39 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:38:39 ERROR [http-nio-8080-exec-2] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:38:39 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:38:39 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:38:44 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:38:49 ERROR [http-nio-8080-exec-4] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:38:54 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:38:59 ERROR [http-nio-8080-exec-7] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:39:04 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:49:09 ERROR [http-nio-8080-exec-6] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:50:14 ERROR [http-nio-8080-exec-10] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:50:14 ERROR [http-nio-8080-exec-3] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:50:14 ERROR [http-nio-8080-exec-2] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
-java.lang.RuntimeException: org.springframework.security.authentication.BadCredentialsException: Authentication failed
-	at security.AuthenticationFilter.attemptAuthentication(AuthenticationFilter.java:57)
-	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:212)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:96)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:74)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
-	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
-	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:357)
-	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:270)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:118)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1587)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.lang.Thread.run(Thread.java:748)
-Caused by: org.springframework.security.authentication.BadCredentialsException: Authentication failed
-	at security.AuthenProvider.authenticate(AuthenProvider.java:64)
-	at security.AuthenticationFilter.attemptAuthentication(AuthenticationFilter.java:55)
-	... 53 common frames omitted
-2019-Dec-25 16:50:19 ERROR [http-nio-8080-exec-9] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 16:50:47 WARN  [http-nio-8080-exec-3] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 16:51:15 ERROR [http-nio-8080-exec-5] c.p.b.HttpConnection - Error code : 400 with response : {"name":"TRANSACTION_ALREADY_REFUNDED","message":"Refund refused. Refund was already issued for transaction.","information_link":"https://developer.paypal.com/docs/api/payments/#errors","debug_id":"2dd8e29d025d4"}
-2019-Dec-25 16:51:27 ERROR [http-nio-8080-exec-10] w.f.w.a.TripController - Incorrect result size: expected 1, actual 0
-2019-Dec-25 16:51:38 WARN  [http-nio-8080-exec-6] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 17:00:05 ERROR [MessageBroker-2] c.p.b.HttpConnection - Error code : 400 with response : {"name":"TRANSACTION_REFUSED","message":"Request was refused.Transaction in flight. Please try again after some time.","information_link":"https://developer.paypal.com/docs/api/payments/#errors","debug_id":"3502cf6ec823b"}
-2019-Dec-25 17:00:05 ERROR [MessageBroker-2] o.s.s.s.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task.
-com.paypal.base.rest.PayPalRESTException: Error code : 400 with response : {"name":"TRANSACTION_REFUSED","message":"Request was refused.Transaction in flight. Please try again after some time.","information_link":"https://developer.paypal.com/docs/api/payments/#errors","debug_id":"3502cf6ec823b"}
-	at com.paypal.base.rest.PayPalRESTException.createFromHttpErrorException(PayPalRESTException.java:72)
-	at com.paypal.base.rest.PayPalResource.execute(PayPalResource.java:439)
-	at com.paypal.base.rest.PayPalResource.configureAndExecute(PayPalResource.java:267)
-	at com.paypal.api.payments.Sale.refund(Sale.java:605)
-	at services.Paypal.PaypalServiceImpl.refundPayment(PaypalServiceImpl.java:135)
-	at services.Paypal.PaypalServiceImpl$$FastClassBySpringCGLIB$$7d0cb6d7.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at services.Paypal.PaypalServiceImpl$$EnhancerBySpringCGLIB$$c83a11d5.refundPayment(<generated>)
-	at services.trip.TripServiceImpl.cancelTripFilter(TripServiceImpl.java:506)
-	at services.trip.TripServiceImpl$$FastClassBySpringCGLIB$$c56988b7.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at services.trip.TripServiceImpl$$EnhancerBySpringCGLIB$$dd72b375.cancelTripFilter(<generated>)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
-	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
-	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at java.lang.Thread.run(Thread.java:748)
-Caused by: com.paypal.base.exception.HttpErrorException: Error code : 400 with response : {"name":"TRANSACTION_REFUSED","message":"Request was refused.Transaction in flight. Please try again after some time.","information_link":"https://developer.paypal.com/docs/api/payments/#errors","debug_id":"3502cf6ec823b"}
-	at com.paypal.base.HttpConnection.executeWithStream(HttpConnection.java:174)
-	at com.paypal.base.HttpConnection.execute(HttpConnection.java:67)
-	at com.paypal.base.rest.PayPalResource.execute(PayPalResource.java:425)
-	... 34 common frames omitted
-Caused by: java.io.IOException: Server returned HTTP response code: 400 for URL: https://api.sandbox.paypal.com/v1/payments/sale/9GE23517DW467112B/refund
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
-	at sun.net.www.protocol.http.HttpURLConnection$10.run(HttpURLConnection.java:1944)
-	at sun.net.www.protocol.http.HttpURLConnection$10.run(HttpURLConnection.java:1939)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at sun.net.www.protocol.http.HttpURLConnection.getChainedException(HttpURLConnection.java:1938)
-	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1508)
-	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1492)
-	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getInputStream(HttpsURLConnectionImpl.java:263)
-	at com.paypal.base.HttpConnection.executeWithStream(HttpConnection.java:144)
-	... 36 common frames omitted
-Caused by: java.io.IOException: Server returned HTTP response code: 400 for URL: https://api.sandbox.paypal.com/v1/payments/sale/9GE23517DW467112B/refund
-	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1894)
-	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1492)
-	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:480)
-	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:347)
-	at com.paypal.base.HttpConnection.executeWithStream(HttpConnection.java:133)
-	... 36 common frames omitted
-2019-Dec-25 17:04:43 WARN  [http-nio-8080-exec-10] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 17:04:47 WARN  [http-nio-8080-exec-6] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 17:06:42 ERROR [http-nio-8080-exec-6] c.p.b.HttpConnection - Error code : 400 with response : {"name":"TRANSACTION_REFUSED","message":"Request was refused.Transaction in flight. Please try again after some time.","information_link":"https://developer.paypal.com/docs/api/payments/#errors","debug_id":"2b2f933730e56"}
-2019-Dec-25 17:06:59 ERROR [http-nio-8080-exec-7] c.p.b.HttpConnection - Error code : 400 with response : {"name":"TRANSACTION_REFUSED","message":"Request was refused.Transaction in flight. Please try again after some time.","information_link":"https://developer.paypal.com/docs/api/payments/#errors","debug_id":"1bb78385d9b92"}
-2019-Dec-25 17:26:07 ERROR [http-nio-8080-exec-6] c.p.b.HttpConnection - Error code : 400 with response : {"name":"TRANSACTION_REFUSED","message":"Request was refused.Transaction in flight. Please try again after some time.","information_link":"https://developer.paypal.com/docs/api/payments/#errors","debug_id":"44024b93a56f"}
-2019-Dec-25 17:26:12 ERROR [http-nio-8080-exec-7] s.TokenHelper - Identified token io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-25T17:05:15Z. Current time: 2019-12-25T17:26:12Z, a difference of 1257871 milliseconds.  Allowed clock skew: 0 milliseconds.
-2019-Dec-25 17:26:12 ERROR [http-nio-8080-exec-5] s.TokenHelper - Identified token io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-25T17:05:15Z. Current time: 2019-12-25T17:26:12Z, a difference of 1257896 milliseconds.  Allowed clock skew: 0 milliseconds.
-2019-Dec-25 17:26:12 ERROR [http-nio-8080-exec-10] s.TokenHelper - Identified token io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-25T17:05:15Z. Current time: 2019-12-25T17:26:12Z, a difference of 1257897 milliseconds.  Allowed clock skew: 0 milliseconds.
-2019-Dec-25 17:26:12 ERROR [http-nio-8080-exec-8] s.TokenHelper - Identified token io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-25T17:05:15Z. Current time: 2019-12-25T17:26:12Z, a difference of 1257908 milliseconds.  Allowed clock skew: 0 milliseconds.
-2019-Dec-25 17:26:13 ERROR [http-nio-8080-exec-3] s.TokenHelper - Identified token io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-25T17:05:15Z. Current time: 2019-12-25T17:26:13Z, a difference of 1258000 milliseconds.  Allowed clock skew: 0 milliseconds.
-2019-Dec-25 17:26:13 ERROR [http-nio-8080-exec-2] s.TokenHelper - Identified token io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-25T17:05:15Z. Current time: 2019-12-25T17:26:13Z, a difference of 1258050 milliseconds.  Allowed clock skew: 0 milliseconds.
-2019-Dec-25 17:26:13 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 17:26:13 ERROR [http-nio-8080-exec-1] s.TokenHelper - java.lang.NullPointerException
-2019-Dec-25 17:29:05 ERROR [http-nio-8080-exec-6] c.p.b.HttpConnection - Error code : 400 with response : {"name":"TRANSACTION_REFUSED","message":"Request was refused.Transaction in flight. Please try again after some time.","information_link":"https://developer.paypal.com/docs/api/payments/#errors","debug_id":"a70b190695ab9"}
-2019-Dec-25 17:29:25 ERROR [http-nio-8080-exec-4] s.TokenHelper - Identified token io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-25T17:05:15Z. Current time: 2019-12-25T17:29:25Z, a difference of 1450251 milliseconds.  Allowed clock skew: 0 milliseconds.
-2019-Dec-25 17:30:02 ERROR [http-nio-8080-exec-10] s.TokenHelper - Identified token io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-25T17:05:15Z. Current time: 2019-12-25T17:30:02Z, a difference of 1487950 milliseconds.  Allowed clock skew: 0 milliseconds.
-2019-Dec-25 17:30:02 ERROR [http-nio-8080-exec-2] s.TokenHelper - Identified token io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-25T17:05:15Z. Current time: 2019-12-25T17:30:02Z, a difference of 1487951 milliseconds.  Allowed clock skew: 0 milliseconds.
-2019-Dec-25 17:30:03 ERROR [http-nio-8080-exec-9] s.TokenHelper - Identified token io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-25T17:05:15Z. Current time: 2019-12-25T17:30:03Z, a difference of 1488379 milliseconds.  Allowed clock skew: 0 milliseconds.
-2019-Dec-25 17:30:03 ERROR [http-nio-8080-exec-7] w.f.w.a.TravelerController - Incorrect result size: expected 1, actual 0
-2019-Dec-25 17:30:06 ERROR [http-nio-8080-exec-4] s.TokenHelper - Identified token io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-25T17:05:15Z. Current time: 2019-12-25T17:30:06Z, a difference of 1491258 milliseconds.  Allowed clock skew: 0 milliseconds.
-2019-Dec-25 17:30:06 WARN  [http-nio-8080-exec-6] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 17:30:06 ERROR [http-nio-8080-exec-1] s.TokenHelper - Identified token io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-25T17:05:15Z. Current time: 2019-12-25T17:30:06Z, a difference of 1491577 milliseconds.  Allowed clock skew: 0 milliseconds.
-2019-Dec-25 17:30:24 WARN  [http-nio-8080-exec-6] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 17:30:26 ERROR [http-nio-8080-exec-2] s.TokenHelper - Identified token io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-25T17:05:15Z. Current time: 2019-12-25T17:30:26Z, a difference of 1511978 milliseconds.  Allowed clock skew: 0 milliseconds.
-2019-Dec-25 17:35:31 WARN  [http-nio-8080-exec-4] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 17:36:02 ERROR [http-nio-8080-exec-10] w.f.w.a.TripController - Incorrect result size: expected 1, actual 0
-2019-Dec-25 17:36:49 ERROR [http-nio-8080-exec-4] s.TokenHelper - Identified token io.jsonwebtoken.ExpiredJwtException: JWT expired at 2019-12-25T17:05:15Z. Current time: 2019-12-25T17:36:49Z, a difference of 1894606 milliseconds.  Allowed clock skew: 0 milliseconds.
-2019-Dec-25 17:39:53 WARN  [http-nio-8080-exec-7] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 17:39:54 WARN  [http-nio-8080-exec-6] c.HttpHandshakeInterceptor - Call beforeHandshake
-2019-Dec-25 18:00:06 ERROR [MessageBroker-4] c.p.b.HttpConnection - Error code : 400 with response : {"name":"TRANSACTION_ALREADY_REFUNDED","message":"Refund refused. Refund was already issued for transaction.","information_link":"https://developer.paypal.com/docs/api/payments/#errors","debug_id":"3c544efb3a45d"}
-2019-Dec-25 18:00:06 ERROR [MessageBroker-4] o.s.s.s.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task.
-com.paypal.base.rest.PayPalRESTException: Error code : 400 with response : {"name":"TRANSACTION_ALREADY_REFUNDED","message":"Refund refused. Refund was already issued for transaction.","information_link":"https://developer.paypal.com/docs/api/payments/#errors","debug_id":"3c544efb3a45d"}
-	at com.paypal.base.rest.PayPalRESTException.createFromHttpErrorException(PayPalRESTException.java:72)
-	at com.paypal.base.rest.PayPalResource.execute(PayPalResource.java:439)
-	at com.paypal.base.rest.PayPalResource.configureAndExecute(PayPalResource.java:267)
-	at com.paypal.api.payments.Sale.refund(Sale.java:605)
-	at services.Paypal.PaypalServiceImpl.refundPayment(PaypalServiceImpl.java:135)
-	at services.Paypal.PaypalServiceImpl$$FastClassBySpringCGLIB$$7d0cb6d7.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at services.Paypal.PaypalServiceImpl$$EnhancerBySpringCGLIB$$c83a11d5.refundPayment(<generated>)
-	at services.trip.TripServiceImpl.cancelTripFilter(TripServiceImpl.java:506)
-	at services.trip.TripServiceImpl$$FastClassBySpringCGLIB$$c56988b7.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
-	at services.trip.TripServiceImpl$$EnhancerBySpringCGLIB$$dd72b375.cancelTripFilter(<generated>)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
-	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
-	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
-	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
-	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at java.lang.Thread.run(Thread.java:748)
-Caused by: com.paypal.base.exception.HttpErrorException: Error code : 400 with response : {"name":"TRANSACTION_ALREADY_REFUNDED","message":"Refund refused. Refund was already issued for transaction.","information_link":"https://developer.paypal.com/docs/api/payments/#errors","debug_id":"3c544efb3a45d"}
-	at com.paypal.base.HttpConnection.executeWithStream(HttpConnection.java:174)
-	at com.paypal.base.HttpConnection.execute(HttpConnection.java:67)
-	at com.paypal.base.rest.PayPalResource.execute(PayPalResource.java:425)
-	... 34 common frames omitted
-Caused by: java.io.IOException: Server returned HTTP response code: 400 for URL: https://api.sandbox.paypal.com/v1/payments/sale/9GE23517DW467112B/refund
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
-	at sun.net.www.protocol.http.HttpURLConnection$10.run(HttpURLConnection.java:1944)
-	at sun.net.www.protocol.http.HttpURLConnection$10.run(HttpURLConnection.java:1939)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at sun.net.www.protocol.http.HttpURLConnection.getChainedException(HttpURLConnection.java:1938)
-	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1508)
-	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1492)
-	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getInputStream(HttpsURLConnectionImpl.java:263)
-	at com.paypal.base.HttpConnection.executeWithStream(HttpConnection.java:144)
-	... 36 common frames omitted
-Caused by: java.io.IOException: Server returned HTTP response code: 400 for URL: https://api.sandbox.paypal.com/v1/payments/sale/9GE23517DW467112B/refund
-	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1894)
-	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1492)
-	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:480)
-	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:347)
-	at com.paypal.base.HttpConnection.executeWithStream(HttpConnection.java:133)
-	... 36 common frames omitted
+2019-Dec-26 10:20:52 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-26 10:20:52 ERROR [http-nio-8080-exec-5] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-26 10:20:53 WARN  [http-nio-8080-exec-2] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-26 10:24:27 WARN  [http-nio-8080-exec-9] c.HttpHandshakeInterceptor - Call beforeHandshake
+2019-Dec-26 10:24:27 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-26 10:24:27 ERROR [http-nio-8080-exec-8] s.TokenHelper - java.lang.NullPointerException
+2019-Dec-26 10:24:31 ERROR [http-nio-8080-exec-3] w.f.w.a.TravelerController - PreparedStatementCallback; bad SQL grammar [select count(post_id) from post inner join guider on post.guider_id = guider.guider_id inner join favoritepost on post.post_id = favoritepost.post_id where post.active = true and guider.active = true and favoritepost.traveler_id = ?]; nested exception is org.postgresql.util.PSQLException: ERROR: column reference "post_id" is ambiguous
+  Position: 14
+2019-Dec-26 10:26:40 ERROR [http-nio-8080-exec-10] w.f.w.a.TravelerController - PreparedStatementCallback; bad SQL grammar [select count(post_id) from post inner join guider on post.guider_id = guider.guider_id inner join favoritepost on post.post_id = favoritepost.post_id where post.active = true and guider.active = true and favoritepost.traveler_id = ?]; nested exception is org.postgresql.util.PSQLException: ERROR: column reference "post_id" is ambiguous
+  Position: 14
+2019-Dec-26 10:26:40 WARN  [http-nio-8080-exec-1] c.HttpHandshakeInterceptor - Call beforeHandshake
