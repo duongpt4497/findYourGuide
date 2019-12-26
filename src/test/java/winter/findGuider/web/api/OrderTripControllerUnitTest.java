@@ -85,7 +85,7 @@ public class OrderTripControllerUnitTest {
     public void testOrderByStatus() {
         Order order = new Order(1, 1, 1, 1, LocalDateTime.parse("2019-01-01T01:01:01"), LocalDateTime.parse("2019-01-01T10:01:01"), 1, 1, 1, "1", "false");
         //when()
-        ResponseEntity<List<Order>> result = orderTripController.getOrderByStatus("GUIDER", 1, "available");
+        ResponseEntity<List<Order>> result = orderTripController.getOrderByStatus("GUIDER", 1, "available", 0);
         Assert.assertEquals(200, result.getStatusCodeValue());
     }
 
@@ -93,8 +93,8 @@ public class OrderTripControllerUnitTest {
     public void testOrderByStatusWithException() throws Exception {
         thrown.expect(AssertionError.class);
         //Order order = new Order(1,1,1,1,LocalDateTime.parse("2019-01-01T01:01:01"),LocalDateTime.parse("2019-01-01T10:01:01"),1,1,1,"1","false");
-        when(orderTripService.findTripByStatus("GUIDER", 1, "available")).thenThrow(Exception.class);
-        ResponseEntity<List<Order>> result = orderTripController.getOrderByStatus("GUIDER", 1, "available");
+        when(orderTripService.findTripByStatus("GUIDER", 1, "available", 0)).thenThrow(Exception.class);
+        ResponseEntity<List<Order>> result = orderTripController.getOrderByStatus("GUIDER", 1, "available", 0);
         Assert.assertEquals(404, result.getStatusCodeValue());
     }
 

@@ -18,14 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class StatisticControllerUnitTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
     @InjectMocks
     StatisticController statisticController;
-
     @Mock
     StatisticService statisticService;
 
-    @Rule
-    public ExpectedException thrown= ExpectedException.none();
     @Before
     public void init() {
 
@@ -33,32 +32,36 @@ public class StatisticControllerUnitTest {
     }
 
     @Test
-    public void testGetStatisticCompletedTrip(){
+    public void testGetStatisticCompletedTrip() {
         HttpServletResponse httpServletResponse = Mockito.mock(HttpServletResponse.class);
-        ResponseEntity<List<Statistic>> result = statisticController.getStatisticCompletedTrip(httpServletResponse);
-        Assert.assertEquals(200,result.getStatusCodeValue());
+        Statistic sta = new Statistic();
+        ResponseEntity<List<Statistic>> result = statisticController.getStatisticCompletedTrip(httpServletResponse, sta);
+        Assert.assertEquals(200, result.getStatusCodeValue());
     }
 
     @Test
     public void testGetStatisticCompletedTripWithException() throws Exception {
         ReflectionTestUtils.setField(statisticController, "statisticService", null);
         HttpServletResponse httpServletResponse = Mockito.mock(HttpServletResponse.class);
-        ResponseEntity<List<Statistic>> result = statisticController.getStatisticCompletedTrip(httpServletResponse);
-        Assert.assertEquals(404,result.getStatusCodeValue());
+        Statistic sta = new Statistic();
+        ResponseEntity<List<Statistic>> result = statisticController.getStatisticCompletedTrip(httpServletResponse, sta);
+        Assert.assertEquals(404, result.getStatusCodeValue());
     }
 
     @Test
-    public void testGetStatisticTotalRevenue(){
+    public void testGetStatisticTotalRevenue() {
         HttpServletResponse httpServletResponse = Mockito.mock(HttpServletResponse.class);
-        ResponseEntity<List<Statistic>> result = statisticController.getStatisticTotalRevenue(httpServletResponse);
-        Assert.assertEquals(200,result.getStatusCodeValue());
+        Statistic sta = new Statistic();
+        ResponseEntity<List<Statistic>> result = statisticController.getStatisticTotalRevenue(httpServletResponse, sta);
+        Assert.assertEquals(200, result.getStatusCodeValue());
     }
 
     @Test
     public void testGetStatisticTotalRevenueWithException() throws Exception {
         ReflectionTestUtils.setField(statisticController, "statisticService", null);
         HttpServletResponse httpServletResponse = Mockito.mock(HttpServletResponse.class);
-        ResponseEntity<List<Statistic>> result = statisticController.getStatisticTotalRevenue(httpServletResponse);
-        Assert.assertEquals(404,result.getStatusCodeValue());
+        Statistic sta = new Statistic();
+        ResponseEntity<List<Statistic>> result = statisticController.getStatisticTotalRevenue(httpServletResponse, sta);
+        Assert.assertEquals(404, result.getStatusCodeValue());
     }
 }

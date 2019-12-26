@@ -81,7 +81,7 @@ public class TripServiceImplTest {
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
                 "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','WAITING')");
-        Assert.assertEquals(1, tripService.findTripByStatus("guider", 1, "WAITING").get(0).gettrip_id());
+        Assert.assertEquals(1, tripService.findTripByStatus("guider", 1, "WAITING", 0).get(0).gettrip_id());
     }
 
     @Test
@@ -90,7 +90,7 @@ public class TripServiceImplTest {
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
                 "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','WAITING')");
-        Assert.assertEquals(1, tripService.findTripByStatus("traveler", 2, "WAITING").get(0).gettrip_id());
+        Assert.assertEquals(1, tripService.findTripByStatus("traveler", 2, "WAITING", 0).get(0).gettrip_id());
     }
 
     @Test(expected = Exception.class)
@@ -99,7 +99,7 @@ public class TripServiceImplTest {
                 "values ('abc','abc','abc','abc','2019-11-22T03:00',true)");
         jdbcTemplate.update("insert into trip (trip_id,traveler_id,post_id,begin_date,finish_date,adult_quantity,children_quantity,fee_paid,transaction_id,status)" +
                 "values (1,2,1,'2019-11-22T03:30','2019-11-23T10:00',1,1,150,'abc','WAITING')");
-        Assert.assertTrue(tripService.findTripByStatus("none", 1, "WAITING").isEmpty());
+        Assert.assertTrue(tripService.findTripByStatus("none", 1, "WAITING", 0).isEmpty());
     }
 
     @Test

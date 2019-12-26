@@ -10,6 +10,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
 import winter.findGuider.TestDataSourceConfig;
 
+import java.time.LocalDate;
+
 @RunWith(MockitoJUnitRunner.class)
 public class StatisticServiceImplTest {
 
@@ -56,11 +58,11 @@ public class StatisticServiceImplTest {
 
     @Test
     public void getStatisticCompletedTrip() throws Exception {
-        Assert.assertEquals(6, statisticService.getStatisticCompletedTrip().size());
+        Assert.assertEquals(6, statisticService.getStatisticCompletedTrip(LocalDate.now(), LocalDate.now()).size());
     }
 
     @Test
     public void getStatisticTotalRevenue() throws Exception {
-        Assert.assertEquals(6, statisticService.getStatisticTotalRevenue().size());
+        Assert.assertEquals(6, statisticService.getStatisticTotalRevenue(LocalDate.now(), LocalDate.now()).size());
     }
 }
