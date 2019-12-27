@@ -54,10 +54,11 @@ public class StatisticServiceImpl implements StatisticService {
     }
 
     @Override
-    public List<Statistic> getStatisticGuiderRevenue(LocalDate from, LocalDate to) throws Exception {
+    public List<Statistic> getStatisticGuiderRevenue(LocalDate from, LocalDate to, long guider_id) throws Exception {
         List<Statistic> result;
         String query = "select date_trunc('month', finish_date) as fin_month, sum(fee_paid::float / 100 * 90) as revenue " +
-                "from trip where status = 'FINISHED' and finish_date between ? and ? " +
+                "from trip inner join post on trip.post_id = post.post_id " +
+                "where status = 'FINISHED' and finish_date between ? and ? and post.guider_id = ?" +
                 "group by fin_month order by fin_month asc";
         result = jdbcTemplate.query(query, new RowMapper<Statistic>() {
             @Override

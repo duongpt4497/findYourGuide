@@ -60,11 +60,12 @@ public class StatisticController {
     @RequestMapping("/GuiderRevenue")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Statistic>> GuiderRevenue(HttpServletResponse response,
-                                                         @RequestBody Statistic sta) {
+                                                         @RequestBody Statistic sta,
+                                                         @RequestParam("guider_id") long guider_id) {
         try {
             response.setHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
             response.setHeader("Access-Control-Allow-Credentials", "true");
-            return new ResponseEntity<>(statisticService.getStatisticGuiderRevenue(sta.getFrom(), sta.getTo()), HttpStatus.OK);
+            return new ResponseEntity<>(statisticService.getStatisticGuiderRevenue(sta.getFrom(), sta.getTo(), guider_id), HttpStatus.OK);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
