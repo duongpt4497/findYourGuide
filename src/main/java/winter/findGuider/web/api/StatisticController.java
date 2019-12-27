@@ -57,11 +57,11 @@ public class StatisticController {
         }
     }
 
-    @RequestMapping("/GuiderRevenue")
+    @RequestMapping("/GuiderRevenue/{guider_id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Statistic>> GuiderRevenue(HttpServletResponse response,
                                                          @RequestBody Statistic sta,
-                                                         @RequestParam("guider_id") long guider_id) {
+                                                         @PathVariable long guider_id) {
         try {
             response.setHeader("Access-Control-Allow-Origin", URL_ROOT_CLIENT);
             response.setHeader("Access-Control-Allow-Credentials", "true");

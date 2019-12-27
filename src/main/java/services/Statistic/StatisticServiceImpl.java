@@ -66,7 +66,7 @@ public class StatisticServiceImpl implements StatisticService {
                 LocalDateTime fin_month = rs.getTimestamp("fin_month").toLocalDateTime();
                 return new Statistic(fin_month.getYear(), fin_month.getMonthValue(), rs.getDouble("revenue"));
             }
-        }, from, to);
+        }, from, to, guider_id);
         return result;
     }
 }
